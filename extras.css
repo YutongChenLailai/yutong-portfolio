@@ -1,0 +1,4 @@
+.statement{padding:clamp(6rem,13vw,13rem) var(--pad);background:#111;color:white;text-align:center}
+.statement p{font-size:clamp(2.7rem,7vw,7.5rem);line-height:.95;letter-spacing:-.065em;max-width:15ch;margin:0 auto}
+.statement p em{color:var(--acid);font-style:normal}
+.statement span{display:block;margin-top:2.5rem;font:.72rem "DM Mono",monospace;letter-spacing:.12em;color:var(--lilac)}
