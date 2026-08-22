@@ -69,13 +69,6 @@ const projects = [
     image: "assets/hero-10.png",
     copy: "A bio-art system anchored in coastal pollution, combining environmental observation, algae-based material research and ecological repair.",
   },
-  {
-    title: "Public Service Animation",
-    role: "Storyboard and moving image.",
-    medium: "animation · illustration · direction",
-    image: "assets/project-11-animation.jpeg",
-    copy: "A public-service animation developed through character design, sequential drawing, storyboard rhythm and art direction.",
-  },
 ];
 const caseCn = [
   "一个把排泄物设为稀缺货币的推想式 VR 系统，让权力、价值与身体控制变得可感。",
@@ -88,7 +81,6 @@ const caseCn = [
   "用增强现实与分层导航连接哈尔滨历史街区、档案故事与当代行走。",
   "研究恐惧如何被环境、制度与社会传播持续喂养的实验影像。",
   "从沿海污染观察出发，以藻类材料与装置系统讨论生态修复。",
-  "从角色、分镜到节奏与美术指导完成的一组公益动画。",
 ];
 const making = [
   "I built the experience around character states, spatial hierarchy and repeated exchanges. Interactions were simplified until the economy could be understood through action rather than instruction.",
@@ -101,7 +93,6 @@ const making = [
   "Archival material was reorganised into spatial layers, routes and concise story moments. Interface tests balanced clear wayfinding with discovery.",
   "Staged footage, symbolic props, sound and compressed edits were assembled around repetition and escalation.",
   "Material experiments, feasibility studies, apparatus sketches, 3D renders and a service model were developed as one ecological system.",
-  "Character forms, sequential drawings and storyboard rhythm were developed before composition and art direction were unified across the final scenes.",
 ];
 const makingCn = [
   "制作围绕角色状态、空间等级与重复交换展开，让玩家通过行动而不是说明理解这套经济。",
@@ -114,7 +105,6 @@ const makingCn = [
   "档案材料被重组为空间图层、路线与短叙事节点，在导航与探索之间取得平衡。",
   "通过场景拍摄、象征性道具、声音与紧凑剪辑建立重复和升级的节奏。",
   "整合材料实验、技术验证、装置草图、三维渲染与服务模型。",
-  "完成角色造型、连续画面与分镜节奏，并统一成片的构图与美术方向。",
 ];
 const projectTags = [
   ["Critical Design", "VR", "Speculative"],
@@ -127,7 +117,6 @@ const projectTags = [
   ["Cultural Heritage", "AR", "Architecture"],
   ["Moving Image", "Social Psychology"],
   ["Ecology", "Bio-art", "Installation"],
-  ["Animation", "Public Communication"],
 ];
 const projectVideos = [
   [
@@ -183,7 +172,6 @@ const projectVideos = [
   [{ id: "7PBkRF7aY6c", title: "Closet X", label: "System film / 系统展示" }],
   [],
   [{ id: "bo7ichlhwmQ", title: "Feeding Fear", label: "Full film / 完整影像" }],
-  [],
   [],
 ];
 const publications = {

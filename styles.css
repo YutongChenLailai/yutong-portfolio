@@ -99,3 +99,40 @@ html,body,.site-shell,.home-screen,.stage,.panel,.project-note{background:#000;c
   .home-copy h1{font-size:clamp(2.35rem,12vw,4rem)}
   .home-copy .intro{font-size:.7rem}
 }
+
+/* RCA type scale: Source Sans 3, 400/600 */
+html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button,.meta span,.panel-head,.project-item span,.project-item em,.about-cn,.cn-note,.case-cn,.case-head,.case-hero #note-type,.case-label span,.process-frame figcaption{
+  font-family:"Source Sans 3",Arial,Helvetica,sans-serif!important;
+}
+.home-header,.stage>header{font-size:18px;line-height:1;font-weight:600}
+.home-copy h1{font-family:"Source Sans 3",Arial,Helvetica,sans-serif;font-size:76px;line-height:.9;font-weight:600;letter-spacing:-.045em}
+.home-copy h1 span{font-size:.5em}
+.home-copy .intro{font-size:18px;line-height:1.4}
+.intro-cn,.about-cn,.cn-note,.case-cn{font-size:16px;line-height:1.5}
+.eyebrow,.home-foot,.home-index,.kicker,.tag-button,.meta span,.panel-head,.case-head,.case-hero #note-type,.case-label span,.process-frame figcaption,.project-item span,.project-item em{font-size:14px;line-height:1.25;letter-spacing:0}
+.identity h1{font-family:"Source Sans 3",Arial,Helvetica,sans-serif;font-size:64px;line-height:.95;font-weight:600;letter-spacing:-.04em}
+.role{font-size:24px;line-height:1.2}
+.project-item strong{font-family:"Source Sans 3",Arial,Helvetica,sans-serif;font-size:24px;line-height:1.05;font-weight:600}
+.about-lead{font-family:"Source Sans 3",Arial,Helvetica,sans-serif;font-size:76px;line-height:.95;font-weight:600;letter-spacing:-.045em}
+.case-hero h2{font-family:"Source Sans 3",Arial,Helvetica,sans-serif;font-size:90px;line-height:.9;font-weight:600;letter-spacing:-.05em}
+.case-label h3{font-family:"Source Sans 3",Arial,Helvetica,sans-serif;font-size:46px;line-height:1;font-weight:600;letter-spacing:-.035em}
+.case-body>p:first-child{font-size:24px;line-height:1.35;letter-spacing:0}
+
+@media(max-width:1022px) and (min-width:599px){
+  .home-copy h1,.about-lead{font-size:68px}
+  .identity h1{font-size:52px}
+  .case-hero h2{font-size:78px}
+  .case-label h3{font-size:38px}
+  .project-item strong{font-size:20px}
+}
+@media(max-width:598px){
+  .home-header,.stage>header{font-size:14px}
+  .home-copy h1,.about-lead{font-size:38px}
+  .identity h1{font-size:32px}
+  .case-hero h2{font-size:44px}
+  .case-label h3{font-size:28px}
+  .project-item strong{font-size:18px}
+  .home-copy .intro{font-size:16px}
+  .intro-cn,.about-cn,.cn-note,.case-cn{font-size:14px}
+  .eyebrow,.home-foot,.kicker,.tag-button,.meta span,.panel-head,.case-head,.case-hero #note-type,.case-label span,.process-frame figcaption,.project-item span,.project-item em{font-size:12px}
+}
