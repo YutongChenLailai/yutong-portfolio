@@ -32,3 +32,70 @@
 .home-foot button:hover,.note-nav button:hover{background:var(--white);color:var(--ink)}
 .tag-button:hover,.stepper>button:hover{color:var(--white)}
 .panel-head button,.case-head button{border-color:#777}
+
+/* Dark RCA edition: black field, white type and rules */
+:root{--paper:#000;--white:#fff;--ink:#101010;--muted:#a7a7a7;--rca:#000;--line:#fff}
+html,body,.site-shell,.home-screen,.stage,.panel,.project-note{background:#000;color:#fff}
+.home-screen:after{background:linear-gradient(90deg,rgba(0,0,0,.18),transparent 44%),linear-gradient(0deg,rgba(0,0,0,.48),transparent 48%)}
+.portrait-mosaic{pointer-events:none;transform:none!important}
+.portrait-base{opacity:1!important}
+.shards{display:none}
+.home-copy{left:var(--pad);bottom:74px;width:min(510px,39vw);padding:1.35rem 1.5rem;background:rgba(0,0,0,.86);color:#fff;border:1px solid #fff}
+.home-person{display:flex;align-items:center;gap:.85rem;margin-bottom:1rem}
+.home-person img{width:54px;height:68px;object-fit:cover;object-position:center 34%;border:1px solid #fff;background:#fff}
+.home-person .eyebrow{margin:0;color:#fff}
+.home-copy h1{font-size:clamp(2.8rem,5.3vw,6.2rem);line-height:.82;color:#fff}
+.home-copy .intro{margin-top:1rem;font-size:clamp(.75rem,.88vw,.92rem)}
+.home-copy .intro-cn{color:#aaa}
+.home-foot{background:#000;color:#fff;border-top-color:#fff}
+.home-foot button{background:#fff;color:#000}
+.home-foot button:hover{background:#000;color:#fff;outline:1px solid #fff}
+.home-index{background:#000;color:#fff;border-color:#fff}
+
+.identity{background:#000;color:#fff}
+.backdrop{border-left-color:#fff}
+.meta{background:#000;color:#fff;border-top-color:#fff}
+.meta p{border-right-color:#fff}
+.meta span{color:#aaa}
+.meta .project-link{background:#fff;color:#000}
+.meta .project-link span{color:#555}
+.stepper{background:#000;border-color:#fff}
+.stepper>button{background:#000;color:#fff;border-color:#fff}
+.stepper>button:hover{background:#fff;color:#000}
+.dots button{border-color:#fff}
+.dots button.active{background:#fff}
+.tag-button{border-color:#fff;color:#fff}
+.tag-button:hover{background:#fff;color:#000}
+
+.panel-head,.case-head{background:#000;color:#fff;border-bottom-color:#fff}
+.project-list{border-left-color:#fff}
+.project-item{color:#fff;border-right-color:#fff;border-bottom-color:#fff}
+.project-item span,.project-item em{color:#aaa}
+.category-intro{border-bottom-color:#fff}
+.about-grid{border-color:#fff}
+.about-grid>div:first-child,.about-copy{background:#000;color:#fff}
+.about-grid>div:first-child,.about-grid>img,.about-copy>*{border-color:#fff}
+.about-cn,.cn-note,.case-cn{color:#aaa}
+.about-copy .about-meta,.about-copy .academic-link{background:#fff;color:#000}
+.about-copy .academic-link span{color:#555}
+
+.case-hero,.case-section{border-bottom-color:#fff}
+.case-label span,.video-card a,.paper-link{background:#fff;color:#000;border-color:#fff}
+.case-label small,.process-frame figcaption,.video-card span{color:#aaa}
+.process-frame img,.outcome-image{background:#111;border-color:#fff}
+.video-gallery{background:#fff;border-color:#fff}
+.video-card{background:#000;color:#fff}
+.note-nav button{background:#fff;color:#000;border-right-color:#000}
+.note-nav button:hover{background:#000;color:#fff}
+
+@media(max-width:900px){
+  .home-copy{width:calc(100% - 2rem);max-width:470px;bottom:58px}
+  .home-copy h1{font-size:clamp(2.6rem,10vw,4.8rem)}
+}
+@media(max-width:600px){
+  .home-copy{width:calc(100% - 1.5rem);left:.75rem;padding:.9rem}
+  .home-person{margin-bottom:.65rem}
+  .home-person img{width:42px;height:54px}
+  .home-copy h1{font-size:clamp(2.35rem,12vw,4rem)}
+  .home-copy .intro{font-size:.7rem}
+}
