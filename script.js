@@ -56,7 +56,7 @@ const projects = [
     copy: "A multi-layered navigation experience reconnecting Harbin’s historic streets with archival stories, spatial memory and contemporary movement.",
   },
   {
-    title: "Feeding Fear",
+    title: "Feeding Fear / PEEEP",
     role: "Experimental moving image.",
     medium: "video art · social psychology",
     image: "assets/hero-09.png",
@@ -489,6 +489,7 @@ function fillNote() {
   const detailOutcomeImages = {
     "Closet X": "assets/closet-x-final-outcome.jpg",
     "Navigating the Past": "assets/navigating-the-past-final-outcome.jpg",
+    "Feeding Fear / PEEEP": "assets/feeding-fear-final-outcome.jpg",
   };
   const outcomeImage = detailOutcomeImages[p.title] || p.image;
   document.querySelector("#case-sections").innerHTML = sections.map((s, i) => `<section class="case-section"><div class="case-label"><span>${s[0]}</span><h3>${s[1]}<small>${s[2]}</small></h3></div><div class="case-body"><p>${s[3]}</p><p class="case-cn">${s[4]}</p>${i === 1 ? `<img class="outcome-image" src="${outcomeImage}" alt="${p.title} final outcome">` : ""}</div></section>`).join("");
