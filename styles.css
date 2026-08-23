@@ -393,3 +393,56 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
   line-height:1.45;
 }
 .about-resume dd{padding-bottom:.25rem}
+
+/* RCA 2026 profile rhythm: bounded hero image, then full-width biography */
+.about-cv{
+  display:block!important;
+  min-height:0!important;
+  margin:0 calc(var(--pad)*-1)!important;
+  background:#000;
+}
+.about-portrait{
+  width:100%;
+  height:clamp(380px,58vh,680px);
+  padding:clamp(1.5rem,3vw,3rem)!important;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  overflow:hidden;
+  background:#fff;
+  border-bottom:1px solid #fff;
+}
+.about-portrait img{
+  width:auto!important;
+  height:100%!important;
+  max-width:100%;
+  object-fit:contain!important;
+  object-position:center bottom;
+}
+.about-resume{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  column-gap:clamp(2rem,6vw,7rem);
+  padding:clamp(2.5rem,6vw,7rem)!important;
+  background:#000;
+}
+.about-resume>header,.about-resume>.about-summary{
+  align-self:start;
+  min-width:0;
+  padding:0 0 clamp(2rem,4vw,4rem)!important;
+  border-bottom:0!important;
+}
+.about-resume>header h1{font-size:clamp(3rem,6.8vw,7.2rem)}
+.about-resume>.about-summary{margin:0!important;font-size:clamp(1rem,1.3vw,1.25rem)}
+.about-resume>section{
+  grid-column:1/-1;
+  padding-block:clamp(1.5rem,2.5vw,2.5rem);
+}
+
+@media(max-width:760px){
+  .about-portrait{height:clamp(320px,52vh,520px);padding:1.25rem!important}
+  .about-resume{display:block;padding:2rem 1rem!important}
+  .about-resume>header,.about-resume>.about-summary{padding-bottom:2rem!important;border-bottom:1px solid #555!important}
+  .about-resume>section{display:block!important}
+  .about-resume>section h2{margin-bottom:1.25rem}
+}
