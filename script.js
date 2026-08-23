@@ -307,6 +307,10 @@ function returnHome() {
   setTimeout(() => mosaic.classList.add("assembled"), 80);
 }
 document.querySelector("#enter-work").onclick = enterWork;
+document.querySelector('[data-home-panel="about"]').onclick = () => {
+  enterWork();
+  setTimeout(() => document.querySelector('[data-open="about"]').click(), 500);
+};
 document.querySelector("#home-work").onclick = () => {
   enterWork();
   setTimeout(() => document.querySelector('[data-open="index"]').click(), 700);
@@ -478,17 +482,19 @@ function fillNote() {
     ],
     ["02", "Final outcome", "最终成果", p.copy, caseCn[current]],
   ];
-  document.querySelector("#case-sections").innerHTML = sections
-    .map(
-      (s, i) =>
-        `<section class="case-section"><div class="case-label"><span>${s[0]}</span><h3>${s[1]}<small>${s[2]}</small></h3></div><div class="case-body"><p>${s[3]}</p><p class="case-cn">${s[4]}</p>${i === 1 ? `<img class="outcome-image" src="${p.image}" alt="${p.title} final outcome">` : ""}</div></section>`,
-    )
-    .join("");
+  const isPoopSlaves = p.title === "PoopSlaves";
+  document.querySelector("#case-sections").innerHTML = isPoopSlaves
+    ? `<section class="poop-visual"><img src="assets/hero-01.png" alt="PoopSlaves installation hero"><p>PoopSlaves stages bodily commodification as an immersive, rule-based economy.</p></section>
+       <section class="project-facts"><div><span>Year</span><strong>2024–2025</strong></div><div><span>Role</span><strong>Project lead · Interaction &amp; 3D design</strong></div><div><span>Media</span><strong>Unreal Engine · TouchDesigner · CAVE display</strong></div><div><span>Collaboration</span><strong>Research with R. Du &amp; G. Li</strong></div></section>
+       <section class="poop-poster"><header><span>01</span><h3>Project poster <small>项目海报</small></h3></header><img src="assets/poop-portfolio-01.jpg" alt="PoopSlaves project poster and opening spread"><p>MA application portfolio opening spread / 硕士申请作品集开篇</p></section>
+       <section class="poop-gallery"><header><span>02</span><h3>Selected scenes <small>精彩截图</small></h3></header><div class="portfolio-rail">${poopPortfolioSeries.slice(3).map((src, i) => `<figure><img src="${src}" alt="PoopSlaves selected scene ${i + 1}" loading="lazy"><figcaption>${["Virtual environment and character system", "Interactive outcome and visual world", "CAVE dome exhibition documentation"][i]}</figcaption></figure>`).join("")}</div></section>
+       <section class="poop-process"><header><span>03</span><h3>Selected making process <small>制作过程精选</small></h3></header><div class="process-grid">${poopPortfolioSeries.slice(1,3).map((src, i) => `<figure><img src="${src}" alt="PoopSlaves process spread ${i + 1}" loading="lazy"><figcaption>${i === 0 ? "Concept, scenario and visual research" : "Character, interaction flow and modelling"}</figcaption></figure>`).join("")}</div></section>`
+    : sections.map((s, i) => `<section class="case-section"><div class="case-label"><span>${s[0]}</span><h3>${s[1]}<small>${s[2]}</small></h3></div><div class="case-body"><p>${s[3]}</p><p class="case-cn">${s[4]}</p>${i === 1 ? `<img class="outcome-image" src="${p.image}" alt="${p.title} final outcome">` : ""}</div></section>`).join("");
   const container = document.querySelector("#case-sections"),
     videos = projectVideos[current],
     publication = publications[current];
-  let sectionNumber = 3;
-  const selectedPortfolioSeries = portfolioSeries[p.title];
+  let sectionNumber = isPoopSlaves ? 4 : 3;
+  const selectedPortfolioSeries = isPoopSlaves ? null : portfolioSeries[p.title];
   if (selectedPortfolioSeries) {
     container.insertAdjacentHTML(
       "beforeend",
@@ -511,10 +517,10 @@ function fillNote() {
   }
 }
 function openNote() {
-  fillNote();
   note.classList.add("open");
   note.setAttribute("aria-hidden", "false");
   note.scrollTo(0, 0);
+  fillNote();
 }
 function closeNote(restore = true) {
   note.classList.remove("open");

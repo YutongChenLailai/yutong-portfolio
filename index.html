@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;1,400;1,600&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=rca11" />
+    <link rel="stylesheet" href="styles.css?v=rca12" />
   </head>
   <body>
     <main class="site-shell">
@@ -34,15 +34,12 @@
           </nav>
         </header>
         <div class="home-copy">
-          <div class="home-person">
-            <img src="assets/yutong-id.jpg" alt="Portrait of Yutong Chen" />
-            <p class="eyebrow">Portfolio · 2026</p>
-          </div>
-          <h1><span>Yutong Chen’s</span><br />Portfolio</h1>
+          <p class="eyebrow">Portfolio · 2026</p>
+          <h1>Yutong Chen<br /><span>陈宇同</span></h1>
+          <p class="home-role">MA Information Experience Design · Royal College of Art</p>
           <p class="intro">
-            Interaction designer and creative technologist exploring how virtual
-            worlds, moving image and embodied systems make culture, value and
-            behaviour tangible.
+            Interaction designer and creative technologist working across
+            embodied interaction, moving image and speculative systems.
           </p>
           <p class="intro-cn">
             以交互、影像与虚拟世界，让不可见的结构被身体感知。
@@ -60,10 +57,10 @@
           />
           <div class="shards" id="shards" aria-hidden="true"></div>
         </div>
-        <div class="home-foot">
-          <span>RCA · Information Experience Design</span
-          ><button id="enter-work">Scroll to explore <b>↓</b></button
-          ><span>London · Shenzhen</span>
+        <div class="home-foot home-portals">
+          <button id="enter-work"><span>01</span><strong>Selected Works</strong><b>View projects →</b></button>
+          <button data-home-panel="about"><span>02</span><strong>About</strong><b>Profile / 简介 →</b></button>
+          <a href="https://scholar.google.com/citations?hl=en&user=yYgrzP8AAAAJ" target="_blank" rel="noreferrer"><span>03</span><strong>Research</strong><b>Google Scholar ↗</b></a>
         </div>
         <div class="home-index" aria-hidden="true">
           01<br /><span>/ 03</span>
@@ -71,7 +68,7 @@
       </section>
       <section class="stage" id="work" aria-live="polite" aria-hidden="true">
         <div class="backdrop" aria-hidden="true">
-          <img id="active-image" src="assets/hero-01.png" alt="" />
+          <img id="active-image" src="assets/hero-04.png" alt="" />
           <div class="veil"></div>
         </div>
         <div class="technical" aria-hidden="true">
@@ -99,9 +96,9 @@
           </nav>
         </header>
         <section class="identity">
-          <p class="kicker" id="active-no">01 / 11</p>
-          <h1 id="active-title">PoopSlaves</h1>
-          <p class="role" id="active-role">Speculative VR system.</p>
+          <p class="kicker" id="active-no">01 / 10</p>
+          <h1 id="active-title">Value Machine</h1>
+          <p class="role" id="active-role">Participatory art-market critique.</p>
           <div
             class="active-tags"
             id="active-tags"
@@ -115,7 +112,7 @@
           </p>
           <p>
             <span>Working across</span
-            ><strong id="active-medium">VR · interaction · research</strong>
+            ><strong id="active-medium">installation · Arduino · participation</strong>
           </p>
           <p class="project-link">
             <span>Selected project</span
@@ -142,67 +139,16 @@
         <div class="panel-head">
           <span>About / 关于</span><button data-close>Close</button>
         </div>
-        <div class="about-grid">
-          <div>
-            <p class="about-lead">
-              I create experiences that sit between critical inquiry and sensory
-              play.
-            </p>
-            <p class="about-cn">
-              我的创作位于批判性研究与感官体验之间，关注技术如何塑造感知、文化记忆与日常行为。
-            </p>
-          </div>
-          <img src="assets/about-background.jpg" alt="Yutong Chen by a mountain lake" />
-          <div class="about-copy">
-            <div>
-              <p>
-                Yutong Chen is an interaction designer and creative technologist
-                working across critical VR, moving image, installation and
-                experimental interfaces.
-              </p>
-              <p class="cn-note">
-                陈宇同是一名交互设计师与创意技术实践者，创作媒介涵盖批判性虚拟现实、动态影像、互动装置与实验界面。
-              </p>
-            </div>
-            <div>
-              <p>
-                Her practice turns abstract systems—value, scarcity, heritage
-                and social behaviour—into situations that can be entered, felt
-                and questioned.
-              </p>
-              <p class="cn-note">
-                她把价值、稀缺性、文化遗产与社会行为等抽象系统，转化为可以进入、感受并提出质疑的体验。
-              </p>
-            </div>
-            <div>
-              <p>
-                She studied Digital Media Art at Harbin Institute of Technology,
-                developing a foundation in moving image, 3D production and
-                interactive media. She is now studying Information Experience
-                Design at the Royal College of Art.
-              </p>
-              <p class="cn-note">
-                她本科就读于哈尔滨工业大学数字媒体艺术专业，建立了影像、三维制作与交互媒体的实践基础；现就读于英国皇家艺术学院
-                Information Experience
-                Design，以批判性研究和具身交互继续拓展创作。
-              </p>
-            </div>
-            <p class="about-meta">
-              Royal College of Art · Information Experience Design<br />Harbin
-              Institute of Technology · Digital Media Art<br />VR · Installation
-              · Moving Image · UX
-            </p>
-            <p class="academic-link">
-              <a
-                href="https://scholar.google.com/citations?hl=en&user=yYgrzP8AAAAJ"
-                target="_blank"
-                rel="noreferrer"
-                >Google Scholar profile / 谷歌学术主页 ↗</a
-              ><br /><span
-                >Human–Computer Interaction · Embodied Interaction · Virtual
-                Reality · Critical &amp; Speculative Design</span
-              >
-            </p>
+        <div class="about-cv">
+          <div class="about-portrait"><img src="assets/yutong-id.jpg" alt="Yutong Chen portrait on white background" /></div>
+          <div class="about-resume">
+            <header><h1>Yutong Chen <span>/ 陈宇同</span></h1><p>MA Information Experience Design, RCA<br />BA Digital Media Art, HIT</p></header>
+            <p class="about-summary">Interaction designer and creative technologist working across embodied interaction, virtual reality, moving image and critical speculative design. Her projects translate cultural, ecological and economic systems into experiences that can be entered, felt and questioned.</p>
+            <section><h2>Education / 教育背景</h2><dl><dt>2026–27</dt><dd><strong>Royal College of Art</strong><span>MA Information Experience Design · London</span></dd><dt>2022–26</dt><dd><strong>Harbin Institute of Technology</strong><span>BA Digital Media Art · Shenzhen</span></dd></dl></section>
+            <section><h2>Selected Experience / 项目经历</h2><dl><dt>2023–26</dt><dd><strong>Independent Designer &amp; Creative Technologist</strong><span>VR, interactive installation, moving image and experimental interfaces.</span></dd></dl></section>
+            <section><h2>Exhibitions &amp; Publications / 展览与发表</h2><dl><dt>2026</dt><dd><strong>ACM Creativity &amp; Cognition</strong><span>Two peer-reviewed project publications.</span></dd><dt>2025</dt><dd><strong>Graduation Exhibition</strong><span>Interactive and moving-image installations.</span></dd></dl></section>
+            <section><h2>Skills / 技能</h2><p>Unreal Engine · TouchDesigner · Blender · Arduino · Figma · Adobe Creative Suite · VR/XR · Interaction Design</p></section>
+            <section><h2>Contact / 联系</h2><p><a href="mailto:chenyutong11126@gmail.com">Email ↗</a> · <a href="https://scholar.google.com/citations?hl=en&amp;user=yYgrzP8AAAAJ" target="_blank" rel="noreferrer">Google Scholar ↗</a></p></section>
           </div>
         </div>
       </aside>
@@ -225,7 +171,7 @@
       </aside>
       <aside class="project-note" id="project-note" aria-hidden="true">
         <header class="case-head">
-          <span id="case-count">01 / 11</span
+          <span id="case-count">01 / 10</span
           ><button id="close-note">Close ×</button>
         </header>
         <div class="case-hero">
@@ -243,6 +189,6 @@
       </aside>
       <div class="cursor" aria-hidden="true"></div>
     </main>
-    <script src="script.js?v=rca11"></script>
+    <script src="script.js?v=rca12"></script>
   </body>
 </html>
