@@ -196,6 +196,16 @@ const poopPortfolioSeries = [
   "assets/poop-portfolio-05.png",
   "assets/poop-portfolio-06.png",
 ];
+const plantieverPortfolioSeries = [
+  "assets/plantiever-portfolio-01.jpg",
+  "assets/plantiever-portfolio-02.jpg",
+  "assets/plantiever-portfolio-03.jpg",
+  "assets/plantiever-portfolio-04.jpg",
+];
+const portfolioSeries = {
+  0: poopPortfolioSeries,
+  1: plantieverPortfolioSeries,
+};
 let current = 0,
   locked = false,
   wheelLock = false,
@@ -438,10 +448,11 @@ function fillNote() {
     videos = projectVideos[current],
     publication = publications[current];
   let sectionNumber = 3;
-  if (current === 0) {
+  const selectedPortfolioSeries = portfolioSeries[current];
+  if (selectedPortfolioSeries) {
     container.insertAdjacentHTML(
       "beforeend",
-      `<section class="portfolio-series"><header><span>03</span><div><h3>MA Application Portfolio Series</h3><p>硕士申请作品集系列套图 · Original full-resolution spreads</p></div><small>Drag or scroll horizontally / 左右滑动</small></header><div class="portfolio-rail">${poopPortfolioSeries.map((src, i) => `<figure><img src="${src}" alt="PoopSlaves MA application portfolio spread ${i + 1}" loading="lazy"><figcaption>${String(i + 1).padStart(2, "0")} / ${String(poopPortfolioSeries.length).padStart(2, "0")}</figcaption></figure>`).join("")}</div></section>`,
+      `<section class="portfolio-series"><header><span>03</span><div><h3>MA Application Portfolio Series</h3><p>硕士申请作品集系列套图 · Original full-resolution spreads</p></div><small>Drag or scroll horizontally / 左右滑动</small></header><div class="portfolio-rail">${selectedPortfolioSeries.map((src, i) => `<figure><img src="${src}" alt="${p.title} MA application portfolio spread ${i + 1}" loading="lazy"><figcaption>${String(i + 1).padStart(2, "0")} / ${String(selectedPortfolioSeries.length).padStart(2, "0")}</figcaption></figure>`).join("")}</div></section>`,
     );
     sectionNumber = 4;
   }
