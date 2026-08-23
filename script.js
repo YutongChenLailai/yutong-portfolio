@@ -431,7 +431,7 @@ function fillNote() {
   document.querySelector("#case-sections").innerHTML = sections
     .map(
       (s, i) =>
-        `<section class="case-section"><div class="case-label"><span>${s[0]}</span><h3>${s[1]}<small>${s[2]}</small></h3></div><div class="case-body"><p>${s[3]}</p><p class="case-cn">${s[4]}</p>${i === 0 ? `<figure class="process-frame"><img src="assets/process-${current + 1}.jpg" onerror="this.src='${p.image}'" alt="${p.title} making process from the original portfolio"><figcaption>Selected research and making frame / 调研与制作过程节选</figcaption></figure>` : ""}${i === 1 ? `<img class="outcome-image" src="${p.image}" alt="${p.title} final outcome">` : ""}</div></section>`,
+        `<section class="case-section"><div class="case-label"><span>${s[0]}</span><h3>${s[1]}<small>${s[2]}</small></h3></div><div class="case-body"><p>${s[3]}</p><p class="case-cn">${s[4]}</p>${i === 1 ? `<img class="outcome-image" src="${p.image}" alt="${p.title} final outcome">` : ""}</div></section>`,
     )
     .join("");
   const container = document.querySelector("#case-sections"),
@@ -448,7 +448,7 @@ function fillNote() {
   if (videos.length) {
     container.insertAdjacentHTML(
       "beforeend",
-      `<section class="case-section media-section"><div class="case-label"><span>${String(sectionNumber).padStart(2, "0")}</span><h3>Watch the work<small>观看作品</small></h3></div><div class="case-body"><p>Films, documentation and alternative presentations connected to this project.</p><p class="case-cn">点击即可在页面内播放；也可以前往 YouTube 查看完整视频信息。</p><div class="video-gallery">${videos.map((v) => `<article class="video-card"><div class="video-frame"><iframe src="https://www.youtube-nocookie.com/embed/${v.id}" title="${v.title}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><div><strong>${v.title}</strong><span>${v.label}</span><a href="https://youtu.be/${v.id}" target="_blank" rel="noreferrer">Watch on YouTube ↗</a></div></article>`).join("")}</div></div></section>`,
+      `<section class="case-section media-section"><div class="case-label"><span>${String(sectionNumber).padStart(2, "0")}</span><h3>Watch the work<small>观看作品</small></h3></div><div class="case-body"><p>Films, documentation and alternative presentations connected to this project.</p><p class="case-cn">点击按钮前往 YouTube 观看完整视频。</p><div class="video-gallery">${videos.map((v) => `<article class="video-card"><div><strong>${v.title}</strong><span>${v.label}</span><a href="https://youtu.be/${v.id}" target="_blank" rel="noreferrer">Watch on YouTube ↗</a></div></article>`).join("")}</div></div></section>`,
     );
     sectionNumber += 1;
   }
