@@ -188,6 +188,14 @@ const publications = {
     url: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=yYgrzP8AAAAJ&citation_for_view=yYgrzP8AAAAJ:u5HHmVD_uO8C",
   },
 };
+const poopPortfolioSeries = [
+  "assets/poop-portfolio-01.jpg",
+  "assets/poop-portfolio-02.jpg",
+  "assets/poop-portfolio-03.png",
+  "assets/poop-portfolio-04.png",
+  "assets/poop-portfolio-05.png",
+  "assets/poop-portfolio-06.png",
+];
 let current = 0,
   locked = false,
   wheelLock = false,
@@ -413,39 +421,41 @@ function fillNote() {
   const sections = [
     [
       "01",
-      "Design direction",
-      "方向确定",
-      `The early material was condensed into one clear decision: ${p.role.toLowerCase()} Research now supports the experience instead of leading it.`,
-      `前期调研被收束为一个清晰的设计决定：以“${p.role.replace(".", "")}”作为核心形式，调研只作为支撑，不再占据主要篇幅。`,
+      "Research, direction & making",
+      "调研、方向与制作",
+      `The research was condensed into one clear design direction: ${p.role.toLowerCase()} ${making[current]}`,
+      `前期调研、方向选择与制作过程被合并为一条连续叙事。以“${p.role.replace(".", "")}”作为核心形式。 ${makingCn[current]}`,
     ],
-    [
-      "02",
-      "Making & iteration",
-      "制作与迭代",
-      making[current],
-      makingCn[current],
-    ],
-    ["03", "Final outcome", "最终成果", p.copy, caseCn[current]],
+    ["02", "Final outcome", "最终成果", p.copy, caseCn[current]],
   ];
   document.querySelector("#case-sections").innerHTML = sections
     .map(
       (s, i) =>
-        `<section class="case-section"><div class="case-label"><span>${s[0]}</span><h3>${s[1]}<small>${s[2]}</small></h3></div><div class="case-body"><p>${s[3]}</p><p class="case-cn">${s[4]}</p>${i === 1 ? `<figure class="process-frame"><img src="assets/process-${current + 1}.jpg" onerror="this.src='${p.image}'" alt="${p.title} making process from the original portfolio"><figcaption>Selected making frame from the original portfolio / 原作品集制作过程节选</figcaption></figure>` : ""}${i === 2 ? `<img class="outcome-image" src="${p.image}" alt="${p.title} final outcome">` : ""}</div></section>`,
+        `<section class="case-section"><div class="case-label"><span>${s[0]}</span><h3>${s[1]}<small>${s[2]}</small></h3></div><div class="case-body"><p>${s[3]}</p><p class="case-cn">${s[4]}</p>${i === 0 ? `<figure class="process-frame"><img src="assets/process-${current + 1}.jpg" onerror="this.src='${p.image}'" alt="${p.title} making process from the original portfolio"><figcaption>Selected research and making frame / 调研与制作过程节选</figcaption></figure>` : ""}${i === 1 ? `<img class="outcome-image" src="${p.image}" alt="${p.title} final outcome">` : ""}</div></section>`,
     )
     .join("");
   const container = document.querySelector("#case-sections"),
     videos = projectVideos[current],
     publication = publications[current];
+  let sectionNumber = 3;
+  if (current === 0) {
+    container.insertAdjacentHTML(
+      "beforeend",
+      `<section class="portfolio-series"><header><span>03</span><div><h3>MA Application Portfolio Series</h3><p>硕士申请作品集系列套图 · Original full-resolution spreads</p></div><small>Drag or scroll horizontally / 左右滑动</small></header><div class="portfolio-rail">${poopPortfolioSeries.map((src, i) => `<figure><img src="${src}" alt="PoopSlaves MA application portfolio spread ${i + 1}" loading="lazy"><figcaption>${String(i + 1).padStart(2, "0")} / ${String(poopPortfolioSeries.length).padStart(2, "0")}</figcaption></figure>`).join("")}</div></section>`,
+    );
+    sectionNumber = 4;
+  }
   if (videos.length) {
     container.insertAdjacentHTML(
       "beforeend",
-      `<section class="case-section media-section"><div class="case-label"><span>04</span><h3>Watch the work<small>观看作品</small></h3></div><div class="case-body"><p>Films, documentation and alternative presentations connected to this project.</p><p class="case-cn">点击即可在页面内播放；也可以前往 YouTube 查看完整视频信息。</p><div class="video-gallery">${videos.map((v) => `<article class="video-card"><div class="video-frame"><iframe src="https://www.youtube-nocookie.com/embed/${v.id}" title="${v.title}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><div><strong>${v.title}</strong><span>${v.label}</span><a href="https://youtu.be/${v.id}" target="_blank" rel="noreferrer">Watch on YouTube ↗</a></div></article>`).join("")}</div></div></section>`,
+      `<section class="case-section media-section"><div class="case-label"><span>${String(sectionNumber).padStart(2, "0")}</span><h3>Watch the work<small>观看作品</small></h3></div><div class="case-body"><p>Films, documentation and alternative presentations connected to this project.</p><p class="case-cn">点击即可在页面内播放；也可以前往 YouTube 查看完整视频信息。</p><div class="video-gallery">${videos.map((v) => `<article class="video-card"><div class="video-frame"><iframe src="https://www.youtube-nocookie.com/embed/${v.id}" title="${v.title}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><div><strong>${v.title}</strong><span>${v.label}</span><a href="https://youtu.be/${v.id}" target="_blank" rel="noreferrer">Watch on YouTube ↗</a></div></article>`).join("")}</div></div></section>`,
     );
+    sectionNumber += 1;
   }
   if (publication) {
     container.insertAdjacentHTML(
       "beforeend",
-      `<section class="case-section publication-section"><div class="case-label"><span>${videos.length ? "05" : "04"}</span><h3>Publication<small>相关论文</small></h3></div><div class="case-body"><p>${publication.title}</p><p class="case-cn">${publication.meta}</p><a class="paper-link" href="${publication.url}" target="_blank" rel="noreferrer">Read the paper on Google Scholar / 查看论文 ↗</a></div></section>`,
+      `<section class="case-section publication-section"><div class="case-label"><span>${String(sectionNumber).padStart(2, "0")}</span><h3>Publication<small>相关论文</small></h3></div><div class="case-body"><p>${publication.title}</p><p class="case-cn">${publication.meta}</p><a class="paper-link" href="${publication.url}" target="_blank" rel="noreferrer">Read the paper on Google Scholar / 查看论文 ↗</a></div></section>`,
     );
   }
 }

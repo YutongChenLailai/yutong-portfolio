@@ -136,3 +136,87 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
   .intro-cn,.about-cn,.cn-note,.case-cn{font-size:14px}
   .eyebrow,.home-foot,.kicker,.tag-button,.meta span,.panel-head,.case-head,.case-hero #note-type,.case-label span,.process-frame figcaption,.project-item span,.project-item em{font-size:12px}
 }
+
+/* Continuous case-study flow: compact labels instead of rigid left columns */
+.case-section{
+  display:block;
+  min-height:0;
+  padding:clamp(5rem,9vw,9rem) max(0px,8vw);
+}
+.case-label{
+  display:flex;
+  align-items:baseline;
+  gap:1rem;
+  margin-bottom:2.2rem;
+  padding-bottom:1rem;
+  border-bottom:1px solid #555;
+}
+.case-label h3{
+  display:flex;
+  align-items:baseline;
+  gap:.8rem;
+  margin:0;
+  font-size:30px;
+  letter-spacing:-.02em;
+}
+.case-label small{display:inline;margin:0;font-size:16px}
+.case-body{max-width:none}
+.case-body>p:first-child{max-width:920px}
+.process-frame,.outcome-image{margin-top:3rem}
+
+.portfolio-series{
+  padding:clamp(5rem,9vw,9rem) 0;
+  border-bottom:2px solid #fff;
+  overflow:hidden;
+}
+.portfolio-series>header{
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  gap:1.2rem;
+  align-items:end;
+  margin:0 max(0px,8vw) 2.5rem;
+  padding-bottom:1rem;
+  border-bottom:1px solid #555;
+}
+.portfolio-series>header>span{
+  padding:.35rem .5rem;
+  background:#fff;
+  color:#000;
+  font-size:14px;
+  font-weight:600;
+}
+.portfolio-series h3{margin:0;font-size:30px;line-height:1;font-weight:600}
+.portfolio-series header p,.portfolio-series header small{margin:.4rem 0 0;color:#aaa;font-size:16px}
+.portfolio-rail{
+  display:flex;
+  gap:clamp(1rem,2vw,2rem);
+  overflow-x:auto;
+  overscroll-behavior-inline:contain;
+  scroll-snap-type:x mandatory;
+  scrollbar-color:#fff #222;
+  padding:0 max(0px,8vw) 2rem;
+}
+.portfolio-rail figure{
+  flex:0 0 min(88vw,1620px);
+  margin:0;
+  scroll-snap-align:start;
+}
+.portfolio-rail img{
+  display:block;
+  width:100%;
+  height:auto;
+  background:#fff;
+}
+.portfolio-rail figcaption{margin-top:.7rem;color:#aaa;font-size:14px}
+@media(max-width:598px){
+  .case-section{padding:4rem 0}
+  .case-label{align-items:flex-start}
+  .case-label h3{display:block;font-size:24px}
+  .case-label small{display:block;margin-top:.35rem;font-size:14px}
+  .portfolio-series>header{grid-template-columns:auto 1fr;margin-inline:0}
+  .portfolio-series>header>small{grid-column:2}
+  .portfolio-series h3{font-size:24px}
+  .portfolio-series header p,.portfolio-series header small{font-size:14px}
+  .portfolio-rail{padding-inline:0}
+  .portfolio-rail figure{flex-basis:94vw}
+}
