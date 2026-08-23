@@ -317,3 +317,70 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
   .portfolio-rail{padding-inline:0}
   .portfolio-rail figure{flex-basis:94vw}
 }
+
+/* Full-cell hover and responsive stabilization */
+.home-portals>*{
+  justify-self:stretch!important;
+  align-self:stretch!important;
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+}
+.home-portals>*:hover,.home-portals>*:focus-visible{
+  background:#fff!important;
+  color:#000!important;
+  outline:0!important;
+}
+.home-portals>*:hover *,.home-portals>*:focus-visible *{color:#000!important}
+.home-portals>*:hover span,.home-portals>*:hover b,
+.home-portals>*:focus-visible span,.home-portals>*:focus-visible b{color:#555!important}
+
+@media(max-width:760px){
+  .home-header,.stage>header{height:60px;padding-inline:12px}
+  .home-header:before,.stage>header:before{width:34px;height:34px;margin-right:.6rem;font-size:.72rem}
+  .home-header nav,.stage nav{margin-left:.5rem}
+  .home-header nav button,.stage nav button,.nav-link{padding-inline:.6rem;font-size:11px}
+  .portrait-mosaic,.home-screen:after{top:60px;bottom:204px}
+  .home-copy{left:16px;bottom:222px;width:calc(100% - 32px);max-width:430px}
+  .home-copy h1{font-size:clamp(2.35rem,11vw,4.4rem)}
+  .home-role{margin-top:.8rem;font-size:13px}
+  .home-copy .intro-cn{font-size:12px}
+  .home-portals{height:204px;grid-template-columns:1fr}
+  .home-portals>*{min-height:68px;padding:.55rem 1rem!important;grid-template-columns:32px 1fr auto;grid-template-rows:1fr;align-items:center}
+  .home-portals strong{font-size:1.05rem}
+  .home-portals b{grid-column:3}
+  .panel,.project-note{padding-inline:16px}
+  .case-head,.panel-head{margin-inline:-16px;padding-inline:16px}
+  .project-list{grid-template-columns:1fr}
+  .about-cv{margin-inline:-16px}
+  .about-resume{padding:2rem 1rem}
+  .case-hero{grid-template-columns:1fr!important;gap:1rem!important}
+  .case-hero h2,.case-video-links,.case-hero #note-copy,.case-hero #note-cn,.case-tags{grid-column:1!important}
+  .case-hero h2{overflow-wrap:anywhere}
+  .case-video-links{display:grid;grid-template-columns:1fr}
+  .case-video-links a{width:100%}
+  .portfolio-series>header{margin-inline:0!important}
+  .portfolio-rail{padding-inline:0!important}
+  .portfolio-rail figure{flex-basis:92vw}
+}
+
+@media(max-width:420px){
+  .home-header>a,.stage .name{font-size:10px}
+  .home-header nav button:first-child,.stage nav button:first-child{display:none}
+  .home-copy .intro,.home-copy .intro-cn{display:none}
+  .home-copy h1{font-size:clamp(2.2rem,12vw,3.4rem)}
+  .home-role{max-width:18rem}
+  .identity h1{font-size:clamp(2rem,10vw,3rem)}
+  .role{font-size:16px}
+  .meta{grid-template-columns:1fr 1fr}
+  .meta p{padding:.7rem}
+  .case-hero h2{font-size:clamp(2.6rem,13vw,4rem)!important}
+  .about-resume dl{grid-template-columns:64px 1fr;gap:.8rem}
+}
+
+@media(max-height:680px) and (max-width:760px){
+  .home-copy .intro,.home-copy .intro-cn{display:none}
+  .home-copy{bottom:218px}
+  .home-copy h1{font-size:clamp(2rem,9vw,3.2rem)}
+  .home-role{margin-top:.55rem}
+}
