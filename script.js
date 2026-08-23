@@ -216,11 +216,18 @@ const fetoriumPortfolioSeries = [
   "assets/fetorium-portfolio-04.jpg",
   "assets/fetorium-portfolio-05.jpg",
 ];
+const platedFantasiesPortfolioSeries = [
+  "assets/plated-fantasies-portfolio-01.jpg",
+  "assets/plated-fantasies-portfolio-02.jpg",
+  "assets/plated-fantasies-portfolio-03.jpg",
+  "assets/plated-fantasies-portfolio-04.jpg",
+];
 const portfolioSeries = {
   PoopSlaves: poopPortfolioSeries,
   "Plantiever’s Illusion": plantieverPortfolioSeries,
   "Value Machine": valueMachinePortfolioSeries,
   Fetorium: fetoriumPortfolioSeries,
+  "Plated Fantasies": platedFantasiesPortfolioSeries,
 };
 
 // Lead with Value Machine while keeping every project's parallel content aligned.
