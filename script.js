@@ -202,10 +202,35 @@ const plantieverPortfolioSeries = [
   "assets/plantiever-portfolio-03.jpg",
   "assets/plantiever-portfolio-04.jpg",
 ];
+const valueMachinePortfolioSeries = [
+  "assets/value-machine-portfolio-01.jpg",
+  "assets/value-machine-portfolio-02.jpg",
+  "assets/value-machine-portfolio-03.jpg",
+  "assets/value-machine-portfolio-04.jpg",
+  "assets/value-machine-portfolio-05.jpg",
+];
 const portfolioSeries = {
-  0: poopPortfolioSeries,
-  1: plantieverPortfolioSeries,
+  PoopSlaves: poopPortfolioSeries,
+  "Plantiever’s Illusion": plantieverPortfolioSeries,
+  "Value Machine": valueMachinePortfolioSeries,
 };
+
+// Lead with Value Machine while keeping every project's parallel content aligned.
+const displayOrder = [3, 0, 1, 2, 4, 5, 6, 7, 8, 9];
+const reorder = (items) => displayOrder.map((index) => items[index]);
+projects.splice(0, projects.length, ...reorder(projects));
+caseCn.splice(0, caseCn.length, ...reorder(caseCn));
+making.splice(0, making.length, ...reorder(making));
+makingCn.splice(0, makingCn.length, ...reorder(makingCn));
+projectTags.splice(0, projectTags.length, ...reorder(projectTags));
+const originalVideos = [...projectVideos];
+projectVideos.splice(0, projectVideos.length, ...reorder(originalVideos));
+const originalPublications = { ...publications };
+Object.keys(publications).forEach((key) => delete publications[key]);
+displayOrder.forEach((originalIndex, newIndex) => {
+  if (originalPublications[originalIndex])
+    publications[newIndex] = originalPublications[originalIndex];
+});
 let current = 0,
   locked = false,
   wheelLock = false,
@@ -448,7 +473,7 @@ function fillNote() {
     videos = projectVideos[current],
     publication = publications[current];
   let sectionNumber = 3;
-  const selectedPortfolioSeries = portfolioSeries[current];
+  const selectedPortfolioSeries = portfolioSeries[p.title];
   if (selectedPortfolioSeries) {
     container.insertAdjacentHTML(
       "beforeend",
