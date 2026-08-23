@@ -484,7 +484,7 @@ function fillNote() {
   if (videos.length) {
     container.insertAdjacentHTML(
       "beforeend",
-      `<section class="case-section media-section"><div class="case-label"><span>${String(sectionNumber).padStart(2, "0")}</span><h3>Watch the work<small>观看作品</small></h3></div><div class="case-body"><p>Films, documentation and alternative presentations connected to this project.</p><p class="case-cn">点击按钮前往 YouTube 观看完整视频。</p><div class="video-gallery">${videos.map((v) => `<article class="video-card"><div><strong>${v.title}</strong><span>${v.label}</span><a href="https://youtu.be/${v.id}" target="_blank" rel="noreferrer">Watch on YouTube ↗</a></div></article>`).join("")}</div></div></section>`,
+      `<section class="case-section media-section"><div class="case-label"><span>${String(sectionNumber).padStart(2, "0")}</span><h3>Watch the work<small>观看作品</small></h3></div><div class="case-body"><p>Films, documentation and alternative presentations connected to this project.</p><p class="case-cn">点击预览图前往 YouTube 播放完整视频。</p><div class="video-gallery">${videos.map((v) => `<article class="video-card"><a class="video-preview" href="https://youtu.be/${v.id}" target="_blank" rel="noreferrer" aria-label="Play ${v.title} on YouTube"><img src="https://i.ytimg.com/vi/${v.id}/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/${v.id}/hqdefault.jpg'" alt="${v.title} video preview" loading="lazy"><span class="play-mark" aria-hidden="true">▶</span></a><div><strong>${v.title}</strong><span>${v.label}</span><a href="https://youtu.be/${v.id}" target="_blank" rel="noreferrer">Watch on YouTube ↗</a></div></article>`).join("")}</div></div></section>`,
     );
     sectionNumber += 1;
   }
