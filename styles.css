@@ -384,3 +384,12 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
   .home-copy h1{font-size:clamp(2rem,9vw,3.2rem)}
   .home-role{margin-top:.55rem}
 }
+
+.about-resume .cv-cn{
+  display:block;
+  margin-top:.45rem;
+  color:#aaa;
+  font-size:.9em;
+  line-height:1.45;
+}
+.about-resume dd{padding-bottom:.25rem}
