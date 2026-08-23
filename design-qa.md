@@ -1,5 +1,13 @@
 **Design QA**
 
+**2026-08-23 compact detail update**
+
+- Restored PoopSlaves to the same continuous detail structure used by every other project.
+- Kept all MA application portfolio spreads in their original-resolution horizontal rails.
+- Moved simple YouTube links directly below each title and removed the lower video-card section.
+- Reduced type and section spacing to shorten vertical browsing.
+- Unified project surfaces to black; homepage entrances and project rows now invert completely to white on hover/focus.
+
 - source visual truth: `/tmp/rca-source-home.png`, RCA homepage and IED programme page captured 2026-08-23
 - implementation screenshots: `/tmp/portfolio-home-rca-layout.png`, `/tmp/portfolio-about-cv.png`, `/tmp/portfolio-poop-case.png`
 - viewport: 1280 × 720 CSS px, device scale 1

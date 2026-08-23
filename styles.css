@@ -137,6 +137,69 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
   .eyebrow,.home-foot,.kicker,.tag-button,.meta span,.panel-head,.case-head,.case-hero #note-type,.case-label span,.process-frame figcaption,.project-item span,.project-item em{font-size:12px}
 }
 
+/* Compact black project details */
+.project-note,.case-hero,.case-section,.portfolio-series,.publication-section{
+  background:#000!important;
+  color:#fff!important;
+}
+.case-hero{
+  min-height:0!important;
+  padding:3rem 0 2.5rem!important;
+}
+.case-hero h2{font-size:clamp(3rem,7vw,6.5rem)!important}
+.case-hero #note-copy{font-size:clamp(.9rem,1.2vw,1.1rem)!important;line-height:1.4}
+.case-video-links{
+  grid-column:1/-1;
+  display:flex;
+  flex-wrap:wrap;
+  gap:.5rem;
+  margin:.25rem 0 1rem;
+}
+.case-video-links:empty{display:none}
+.case-video-links a{
+  padding:.65rem .85rem;
+  border:1px solid #fff;
+  background:#000;
+  color:#fff;
+  font-size:14px;
+  text-decoration:none;
+}
+.case-video-links a:hover,.case-video-links a:focus-visible{background:#fff;color:#000}
+.case-section{padding:clamp(2.5rem,5vw,4.5rem) max(0px,6vw)!important}
+.case-label{margin-bottom:1.2rem!important;padding-bottom:.7rem!important}
+.case-label h3{font-size:24px!important}
+.case-label small{font-size:14px!important}
+.case-body>p:first-child{font-size:18px!important;line-height:1.35}
+.case-cn{font-size:14px!important;line-height:1.45}
+.outcome-image{max-height:62vh;object-fit:contain;margin-top:1.5rem!important}
+.portfolio-series{padding:clamp(2.5rem,5vw,4.5rem) 0!important}
+.portfolio-series>header{margin-bottom:1.25rem!important}
+.portfolio-series h3{font-size:24px!important}
+.portfolio-series header p,.portfolio-series header small{font-size:14px!important}
+
+.stage,.identity,.meta,.panel,.project-list,.category-intro,.project-item{
+  background:#000!important;
+  color:#fff!important;
+}
+.meta p{background:#000!important;color:#fff!important}
+.project-item,.home-portals>*{transition:background-color .18s ease,color .18s ease}
+.project-item:hover,.project-item:focus-visible{
+  background:#fff!important;
+  color:#000!important;
+}
+.project-item:hover *,.project-item:focus-visible *{color:#000!important}
+.project-item:hover span,.project-item:hover em,.project-item:focus-visible span,.project-item:focus-visible em{color:#555!important}
+.home-portals>*:hover,.home-portals>*:focus-visible{background:#fff!important;color:#000!important}
+.home-portals>*:hover *,.home-portals>*:focus-visible *{color:#000!important}
+.home-portals>*:hover span,.home-portals>*:hover b,.home-portals>*:focus-visible span,.home-portals>*:focus-visible b{color:#555!important}
+
+@media(max-width:598px){
+  .case-hero{padding:2rem 0!important}
+  .case-section{padding:2.5rem 0!important}
+  .portfolio-series{padding:2.5rem 0!important}
+  .case-video-links a{width:100%;font-size:13px}
+}
+
 /* RCA-inspired editorial revision */
 .portrait-mosaic{bottom:154px;transform:none!important;background:#000}
 .portrait-base{opacity:1!important;object-position:center 46%}
