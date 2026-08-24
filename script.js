@@ -202,6 +202,17 @@ const plantieverPortfolioSeries = [
   "assets/plantiever-portfolio-03.jpg",
   "assets/plantiever-portfolio-04.jpg",
 ];
+const plantieverOutcomeGallery = [
+  "assets/plantiever-outcome-01.png",
+  "assets/plantiever-outcome-02.png",
+  "assets/plantiever-outcome-03.png",
+  "assets/plantiever-outcome-04.png",
+  "assets/plantiever-outcome-05.png",
+  "assets/plantiever-outcome-06.png",
+  "assets/plantiever-outcome-07.png",
+  "assets/plantiever-outcome-08.png",
+  "assets/plantiever-outcome-09.png",
+];
 const valueMachinePortfolioSeries = [
   "assets/value-machine-portfolio-01.jpg",
   "assets/value-machine-portfolio-02.jpg",
@@ -506,10 +517,70 @@ function fillNote() {
     "The Forbidden Hue": "assets/the-forbidden-hue-final-outcome.jpg",
   };
   const outcomeImage = detailOutcomeImages[p.title] || p.image;
-  document.querySelector("#case-sections").innerHTML = sections.map((s, i) => `<section class="case-section"><div class="case-label"><span>${s[0]}</span><h3>${s[1]}<small>${s[2]}</small></h3></div><div class="case-body"><p>${s[3]}</p><p class="case-cn">${s[4]}</p>${i === 1 ? `<img class="outcome-image" src="${outcomeImage}" alt="${p.title} final outcome">` : ""}</div></section>`).join("");
+  document.querySelector("#case-sections").innerHTML = sections.map((s, i) => `<section class="case-section"><div class="case-label"><span>${s[0]}</span><h3>${s[1]}<small>${s[2]}</small></h3></div><div class="case-body"><p>${s[3]}</p><p class="case-cn">${s[4]}</p>${i === 1 && p.title !== "Plantiever’s Illusion" ? `<img class="outcome-image" src="${outcomeImage}" alt="${p.title} final outcome">` : ""}</div></section>`).join("");
   const container = document.querySelector("#case-sections"),
     publication = publications[current];
   let sectionNumber = 3;
+  if (p.title === "Plantiever’s Illusion") {
+    container.insertAdjacentHTML(
+      "beforeend",
+      `<section class="plantiever-gallery" aria-label="Plantiever’s Illusion final outcome gallery">
+        <header class="plantiever-gallery-header">
+          <span>${String(sectionNumber).padStart(2, "0")}</span>
+          <div><h3>Gallery</h3><p>Final outcomes / 最终成果</p></div>
+        </header>
+        <div class="plantiever-gallery-stage">
+          <figure class="plantiever-gallery-peek plantiever-gallery-peek--prev"><img alt="Previous Plantiever’s Illusion outcome"></figure>
+          <figure class="plantiever-gallery-main"><img alt="Plantiever’s Illusion final outcome 1 of ${plantieverOutcomeGallery.length}" loading="eager"></figure>
+          <figure class="plantiever-gallery-peek plantiever-gallery-peek--next"><img alt="Next Plantiever’s Illusion outcome"></figure>
+        </div>
+        <footer class="plantiever-gallery-footer">
+          <div class="plantiever-gallery-caption"><p>Plantiever’s Illusion — Final outcome</p><span>Image 01 / ${String(plantieverOutcomeGallery.length).padStart(2, "0")}</span></div>
+          <div class="plantiever-gallery-controls">
+            <button type="button" data-plantiever-direction="-1" aria-label="Previous image">‹</button>
+            <button type="button" data-plantiever-direction="1" aria-label="Next image">›</button>
+          </div>
+        </footer>
+      </section>`,
+    );
+    let galleryIndex = 0;
+    const gallery = container.querySelector(".plantiever-gallery");
+    const galleryMain = gallery.querySelector(".plantiever-gallery-main img");
+    const galleryPrevious = gallery.querySelector(".plantiever-gallery-peek--prev img");
+    const galleryNext = gallery.querySelector(".plantiever-gallery-peek--next img");
+    const galleryCounter = gallery.querySelector(".plantiever-gallery-caption span");
+    const renderGallery = () => {
+      const previousIndex = (galleryIndex - 1 + plantieverOutcomeGallery.length) % plantieverOutcomeGallery.length;
+      const nextIndex = (galleryIndex + 1) % plantieverOutcomeGallery.length;
+      galleryMain.src = plantieverOutcomeGallery[galleryIndex];
+      galleryPrevious.src = plantieverOutcomeGallery[previousIndex];
+      galleryNext.src = plantieverOutcomeGallery[nextIndex];
+      galleryMain.alt = `Plantiever’s Illusion final outcome ${galleryIndex + 1} of ${plantieverOutcomeGallery.length}`;
+      galleryPrevious.alt = `Previous outcome ${previousIndex + 1}`;
+      galleryNext.alt = `Next outcome ${nextIndex + 1}`;
+      galleryCounter.textContent = `Image ${String(galleryIndex + 1).padStart(2, "0")} / ${String(plantieverOutcomeGallery.length).padStart(2, "0")}`;
+    };
+    gallery.querySelectorAll("[data-plantiever-direction]").forEach((button) => {
+      button.onclick = () => {
+        galleryIndex = (galleryIndex + Number(button.dataset.plantieverDirection) + plantieverOutcomeGallery.length) % plantieverOutcomeGallery.length;
+        gallery.classList.add("is-changing");
+        renderGallery();
+        window.setTimeout(() => gallery.classList.remove("is-changing"), 220);
+      };
+    });
+    let galleryPointerStart = null;
+    gallery.querySelector(".plantiever-gallery-stage").addEventListener("pointerdown", (event) => {
+      galleryPointerStart = event.clientX;
+    });
+    gallery.querySelector(".plantiever-gallery-stage").addEventListener("pointerup", (event) => {
+      if (galleryPointerStart === null || Math.abs(event.clientX - galleryPointerStart) < 45) return;
+      const direction = event.clientX < galleryPointerStart ? 1 : -1;
+      gallery.querySelector(`[data-plantiever-direction="${direction}"]`).click();
+      galleryPointerStart = null;
+    });
+    renderGallery();
+    sectionNumber += 1;
+  }
   if (p.title === "The Forbidden Hue") {
     container.insertAdjacentHTML(
       "beforeend",
