@@ -242,7 +242,7 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
   justify-content:flex-end;
   margin:0 calc(var(--pad)*-1);
   padding:clamp(3rem,7vw,8rem) var(--pad)!important;
-  background-image:linear-gradient(90deg,rgba(0,0,0,.82),rgba(0,0,0,.12)),url('assets/poop-cover-2.png')!important;
+  background-image:linear-gradient(90deg,rgba(0,0,0,.82),rgba(0,0,0,.12)),url('assets/poop-cover-2.webp')!important;
   background-position:center;
   background-size:cover;
   border-bottom:1px solid #fff;
@@ -256,7 +256,7 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
   padding:clamp(4rem,9vw,10rem) var(--pad);
   display:flex;
   align-items:flex-end;
-  background:linear-gradient(90deg,rgba(0,0,0,.76),rgba(0,0,0,.12)),url('assets/poop-cover-1.png') center/cover no-repeat;
+  background:linear-gradient(90deg,rgba(0,0,0,.76),rgba(0,0,0,.12)),url('assets/poop-cover-1.webp') center/cover no-repeat;
   border-bottom:1px solid #fff;
 }
 .poop-statement-copy{max-width:820px;padding:clamp(1.25rem,3vw,2.5rem);background:rgba(0,0,0,.52);backdrop-filter:blur(8px)}
