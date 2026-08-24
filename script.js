@@ -208,7 +208,6 @@ const plantieverOutcomeGallery = [
   "assets/plantiever-outcome-03.png",
   "assets/plantiever-outcome-04.png",
   "assets/plantiever-outcome-05.png",
-  "assets/plantiever-outcome-06.png",
   "assets/plantiever-outcome-07.png",
   "assets/plantiever-outcome-08.png",
   "assets/plantiever-outcome-09.png",
