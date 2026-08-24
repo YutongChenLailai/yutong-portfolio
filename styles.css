@@ -267,11 +267,32 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
 .poop-results>header,.poop-research>header,.poop-graduation>header{display:grid;grid-template-columns:auto 1fr auto;gap:1.25rem;align-items:start;margin-bottom:2rem}
 .poop-results h3,.poop-research h3,.poop-graduation h3{margin:0;font-size:clamp(1.9rem,4vw,4.4rem);line-height:1}
 .poop-results header p,.poop-research header p,.poop-graduation header p{margin:.5rem 0 0;color:#aaa}
-.poop-rail-controls{display:flex}.poop-rail-controls button{width:56px;height:56px;border:1px solid #fff;background:#000;color:#fff;font-size:22px}.poop-rail-controls button:hover{background:#fff;color:#000}
-.poop-result-rail{display:flex;gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:thin;padding-bottom:1rem}
-.poop-result-rail figure{flex:0 0 min(84vw,1120px);margin:0;scroll-snap-align:start}
-.poop-result-rail img{display:block;width:100%;aspect-ratio:5/3;object-fit:cover}
-.poop-result-rail figcaption,.poop-conference-photo figcaption,.poop-honour-grid figcaption{margin-top:.65rem;color:#aaa;font-size:14px}
+.poop-results{
+  position:relative;
+  margin:0 calc(var(--pad)*-1);
+  padding-top:28px;
+  background-color:#000;
+  background-image:repeating-linear-gradient(90deg,transparent 0,transparent calc(20% - 1px),#242424 calc(20% - 1px),#242424 20%);
+  overflow:hidden;
+}
+.poop-results>header{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.poop-rca-carousel{position:relative;min-height:clamp(690px,74vw,1050px)}
+.poop-rca-slide{width:60%;margin:0 auto;transition:opacity .18s ease,transform .18s ease}
+.poop-rca-slide.is-changing{opacity:0;transform:translateY(8px)}
+.poop-rca-slide>img{display:block;width:100%;aspect-ratio:1.86/1;object-fit:cover;background:#111}
+.poop-rca-slide figcaption{position:relative;width:66.666%;min-height:280px;margin:-1px 0 0;background:#000;padding:clamp(1.1rem,2vw,2rem) clamp(1rem,2vw,2rem) 0 0;color:#fff}
+.poop-rca-kicker{display:flex;justify-content:space-between;gap:1rem;margin:0 0 1rem!important;color:#ff5b2e!important;font-size:clamp(.9rem,1.2vw,1.15rem)!important;font-weight:600;letter-spacing:.01em}
+.poop-rca-kicker span{color:#aaa;font-weight:400}
+.poop-rca-slide h4{margin:0 0 .8rem;font-size:clamp(1.65rem,2.35vw,2.8rem);line-height:1.08;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.12em}
+.poop-rca-copy{margin:0!important;color:#bbb!important;font-size:clamp(1rem,1.4vw,1.35rem)!important;line-height:1.45}
+.poop-rca-cn{margin:.8rem 0 0!important;max-width:46rem;color:#888!important}
+.poop-rca-arrow,.poop-rca-mobile-controls button{display:grid;place-items:center;width:58px;height:58px;padding:0;border:1px solid #aaa;border-radius:50%;background:#000;color:#fff;transition:background .2s,color .2s,border-color .2s}
+.poop-rca-arrow{position:absolute;top:min(16.13vw,290px);transform:translateY(-50%);z-index:2}
+.poop-rca-arrow span,.poop-rca-mobile-controls span{font-size:2.2rem;font-weight:300;line-height:.7;transform:translateY(-2px)}
+.poop-rca-arrow:hover,.poop-rca-mobile-controls button:hover{background:#fff;color:#000;border-color:#fff}
+.poop-rca-arrow--prev{left:8%}.poop-rca-arrow--next{right:8%}
+.poop-rca-mobile-controls{display:none}
+.poop-conference-photo figcaption,.poop-honour-grid figcaption{margin-top:.65rem;color:#aaa;font-size:14px}
 .poop-paper-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#fff;border:1px solid #fff}
 .poop-paper-grid article{display:grid;grid-template-rows:minmax(0,620px) auto;background:#000}
 .poop-paper-grid article>img{width:100%;height:100%;object-fit:contain;background:#111}
@@ -284,8 +305,17 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
 @media(max-width:760px){
   .poop-note .case-hero{min-height:70svh!important;padding-top:6rem!important}
   .poop-statement{min-height:68svh;background-position:58% center}
-  .poop-results>header,.poop-research>header,.poop-graduation>header{grid-template-columns:auto 1fr}.poop-rail-controls{grid-column:2}
-  .poop-result-rail figure{flex-basis:90vw}
+  .poop-results>header,.poop-research>header,.poop-graduation>header{grid-template-columns:auto 1fr}
+  .poop-results{padding-left:20px;padding-right:20px;background-image:repeating-linear-gradient(90deg,transparent 0,transparent calc(50% - 1px),#242424 calc(50% - 1px),#242424 50%)}
+  .poop-rca-carousel{min-height:auto;padding-bottom:5rem}
+  .poop-rca-slide{width:100%}
+  .poop-rca-slide>img{aspect-ratio:1.86/1}
+  .poop-rca-slide figcaption{width:100%;min-height:0;padding:1rem 0 2.2rem}
+  .poop-rca-slide h4{font-size:1.55rem}
+  .poop-rca-copy{font-size:1rem!important}
+  .poop-rca-arrow{display:none}
+  .poop-rca-mobile-controls{display:flex;justify-content:center;gap:1rem;padding-top:1.25rem;border-top:1px solid #555}
+  .poop-rca-mobile-controls button{width:50px;height:50px}
   .poop-paper-grid,.poop-honour-grid{grid-template-columns:1fr}
   .poop-paper-grid article{grid-template-rows:minmax(0,470px) auto}
   .poop-conference-photo{width:62%;margin-left:0}

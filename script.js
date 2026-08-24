@@ -521,11 +521,38 @@ function fillNote() {
 
 function renderPoopSlaves() {
   const container = document.querySelector("#case-sections");
-  const outcomes = [1, 2, 3, 4, 5]
-    .map(
-      (n) => `<figure><img src="assets/poop-result-${n}.png" alt="PoopSlaves final outcome ${n}" loading="lazy"><figcaption>${String(n).padStart(2, "0")} / 05 · Virtual environment still</figcaption></figure>`,
-    )
-    .join("");
+  const outcomes = [
+    {
+      image: "assets/poop-result-1.png",
+      title: "A speculative economy built around bodily extraction",
+      copy: "The virtual environment turns repetitive bodily labour into a visible system of value, scarcity and unequal accumulation.",
+      cn: "虚拟环境将重复的身体劳动转化为可见的价值、稀缺与不平等积累系统。",
+    },
+    {
+      image: "assets/poop-result-2.png",
+      title: "Roles and hierarchies become visible through scale",
+      copy: "PoopSlaves, PoopMasters and PoopDeities occupy the same world while receiving radically different agency and rewards.",
+      cn: "PoopSlaves、PoopMasters 与 PoopDeities 共处同一世界，却拥有截然不同的能动性与回报。",
+    },
+    {
+      image: "assets/poop-result-3.png",
+      title: "Scarcity is staged as a spatial system",
+      copy: "Toilets, pipes and monumental bodies form an arena where extraction is not background logic but the architecture itself.",
+      cn: "马桶、管道与巨型身体共同构成竞技场，使价值提取从后台规则变成空间本身。",
+    },
+    {
+      image: "assets/poop-result-4.png",
+      title: "Sanitation becomes spectacle",
+      copy: "The arena exaggerates consumption and excretion until bodily infrastructure reads as both absurd entertainment and coercive order.",
+      cn: "场景放大消费与排泄，使身体基础设施同时呈现为荒诞娱乐与强制秩序。",
+    },
+    {
+      image: "assets/poop-result-5.png",
+      title: "Cognitive friction interrupts seamless interaction",
+      copy: "Delayed feedback and unstable rewards make the player question who controls the system and where the generated value travels.",
+      cn: "延迟反馈与不稳定回报迫使玩家追问：谁控制系统，产生的价值最终流向何处？",
+    },
+  ];
   container.innerHTML = `
     <section class="poop-statement">
       <div class="poop-statement-copy">
@@ -536,8 +563,24 @@ function renderPoopSlaves() {
       </div>
     </section>
     <section class="poop-results">
-      <header><span>02</span><div><h3>Final Outcomes</h3><p>最终成果 · Use the arrows or swipe horizontally / 点击箭头或左右滑动</p></div><div class="poop-rail-controls"><button data-poop-scroll="-1" aria-label="Previous image">←</button><button data-poop-scroll="1" aria-label="Next image">→</button></div></header>
-      <div class="poop-result-rail">${outcomes}</div>
+      <header><span>02</span><div><h3>Final Outcomes</h3><p>最终成果 · RCA homepage-style feature carousel</p></div></header>
+      <div class="poop-rca-carousel" aria-label="PoopSlaves final outcomes">
+        <button class="poop-rca-arrow poop-rca-arrow--prev" data-poop-direction="-1" aria-label="Previous outcome"><span>‹</span></button>
+        <figure class="poop-rca-slide" aria-live="polite">
+          <img src="${outcomes[0].image}" alt="PoopSlaves final outcome 1 of ${outcomes.length}" loading="eager">
+          <figcaption>
+            <p class="poop-rca-kicker">FINAL OUTCOME <span>01 / ${String(outcomes.length).padStart(2, "0")}</span></p>
+            <h4>${outcomes[0].title}</h4>
+            <p class="poop-rca-copy">${outcomes[0].copy}</p>
+            <p class="case-cn poop-rca-cn">${outcomes[0].cn}</p>
+          </figcaption>
+        </figure>
+        <button class="poop-rca-arrow poop-rca-arrow--next" data-poop-direction="1" aria-label="Next outcome"><span>›</span></button>
+        <div class="poop-rca-mobile-controls" aria-hidden="true">
+          <button data-poop-direction="-1" tabindex="-1"><span>‹</span></button>
+          <button data-poop-direction="1" tabindex="-1"><span>›</span></button>
+        </div>
+      </div>
     </section>
     <section class="poop-research">
       <header><span>03</span><div><h3>Research & Conference Presentations</h3><p>论文与会议展示</p></div></header>
@@ -560,10 +603,26 @@ function renderPoopSlaves() {
     <section class="portfolio-series"><header><span>05</span><div><h3>MA Application Portfolio Series</h3><p>硕士申请作品集系列套图 · Original full-resolution spreads</p></div><small>Drag or scroll horizontally / 左右滑动</small></header><div class="portfolio-rail">${poopPortfolioSeries.map((src, i) => `<figure><img src="${src}" alt="PoopSlaves MA application portfolio spread ${i + 1}" loading="lazy"><figcaption>${String(i + 1).padStart(2, "0")} / ${String(poopPortfolioSeries.length).padStart(2, "0")}</figcaption></figure>`).join("")}</div></section>`;
   const hero = document.querySelector(".case-hero");
   hero.style.backgroundImage = "linear-gradient(90deg,rgba(0,0,0,.82),rgba(0,0,0,.12)),url('assets/poop-cover-2.png')";
-  container.querySelectorAll("[data-poop-scroll]").forEach((button) => {
+  let outcomeIndex = 0;
+  const slide = container.querySelector(".poop-rca-slide");
+  const updateOutcome = (direction) => {
+    outcomeIndex = (outcomeIndex + direction + outcomes.length) % outcomes.length;
+    const outcome = outcomes[outcomeIndex];
+    slide.classList.add("is-changing");
+    setTimeout(() => {
+      const image = slide.querySelector("img");
+      image.src = outcome.image;
+      image.alt = `PoopSlaves final outcome ${outcomeIndex + 1} of ${outcomes.length}`;
+      slide.querySelector(".poop-rca-kicker span").textContent = `${String(outcomeIndex + 1).padStart(2, "0")} / ${String(outcomes.length).padStart(2, "0")}`;
+      slide.querySelector("h4").textContent = outcome.title;
+      slide.querySelector(".poop-rca-copy").textContent = outcome.copy;
+      slide.querySelector(".poop-rca-cn").textContent = outcome.cn;
+      slide.classList.remove("is-changing");
+    }, 180);
+  };
+  container.querySelectorAll("[data-poop-direction]").forEach((button) => {
     button.onclick = () => {
-      const rail = container.querySelector(".poop-result-rail");
-      rail.scrollBy({ left: Number(button.dataset.poopScroll) * rail.clientWidth * 0.86, behavior: "smooth" });
+      updateOutcome(Number(button.dataset.poopDirection));
     };
   });
 }
