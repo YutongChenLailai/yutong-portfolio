@@ -639,16 +639,8 @@ function renderPoopSlaves() {
     },
   ];
   container.innerHTML = `
-    <section class="poop-statement">
-      <div class="poop-statement-copy">
-        <span>01 / Speculative system</span>
-        <h3>Scarcity turns the body into infrastructure.</h3>
-        <p>PoopSlaves constructs a rule-based virtual economy in which excrement becomes scarce, governable value. Repetitive bodily action, delayed feedback and unequal accumulation make extraction tangible rather than merely described.</p>
-        <p class="case-cn">PoopSlaves 构建了一套以排泄物为稀缺资源的规则型虚拟经济。重复的身体劳动、延迟反馈与不平等积累，让价值提取和受限能动性成为可亲身感受的系统。</p>
-      </div>
-    </section>
     <section class="poop-results">
-      <header><span>02</span><div><h3>Final Outcomes</h3><p>最终成果 · RCA homepage-style feature carousel</p></div></header>
+      <header><span>01</span><div><h3>Final Outcomes</h3><p>最终成果 · RCA homepage-style feature carousel</p></div></header>
       <div class="poop-rca-carousel" aria-label="PoopSlaves final outcomes">
         <button class="poop-rca-arrow poop-rca-arrow--prev" data-poop-direction="-1" aria-label="Previous outcome"><span>‹</span></button>
         <figure class="poop-rca-slide" aria-live="polite">
@@ -668,7 +660,7 @@ function renderPoopSlaves() {
       </div>
     </section>
     <section class="poop-research">
-      <header><span>03</span><div><h3>Research & Conference Presentations</h3><p>论文与会议展示</p></div></header>
+      <header><span>02</span><div><h3>Research & Conference Presentations</h3><p>论文与会议展示</p></div></header>
       <div class="poop-paper-grid">
         <article><img src="assets/poop-hcii-poster.webp" alt="HCII poster for Visceral Interaction" loading="lazy"><div><h4>HCII 2026 · Late Breaking Work</h4><p>Visceral Interaction: Operationalizing Cognitive Friction through Rule-Based VR Economic Simulation</p><a href="https://scholar.google.com/scholar?q=Visceral+Interaction+Operationalizing+Cognitive+Friction+through+Rule-Based+VR+Economic+Simulation" target="_blank" rel="noreferrer">Paper record / 论文链接 ↗</a></div></article>
         <article><img src="assets/poop-cc-poster.webp" alt="Creativity and Cognition poster for Excremental Economy" loading="lazy"><div><h4>ACM Creativity & Cognition 2026</h4><p>Excremental Economy: A Rule-Based Speculative System for Staging Bodily Commodification and Unequal Value Extraction</p><a href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=yYgrzP8AAAAJ&citation_for_view=yYgrzP8AAAAJ:u-x6o8ySG0sC" target="_blank" rel="noreferrer">Google Scholar / 查看论文 ↗</a></div></article>
@@ -676,7 +668,7 @@ function renderPoopSlaves() {
       <figure class="poop-conference-photo"><img src="assets/poop-cc-photo.webp" alt="PoopSlaves poster presented at Creativity and Cognition" loading="lazy"><figcaption>Poster presentation documentation / C&amp;C 会议现场记录（小图展示）</figcaption></figure>
     </section>
     <section class="poop-graduation">
-      <header><span>04</span><div><h3>HIT Outstanding Graduation Project</h3><p>哈尔滨工业大学优秀毕业设计</p></div></header>
+      <header><span>03</span><div><h3>HIT Outstanding Graduation Project</h3><p>哈尔滨工业大学优秀毕业设计</p></div></header>
       <p class="poop-graduation-lead">PoopSlaves was presented as Yutong Chen's undergraduate graduation project at Harbin Institute of Technology and received recognition as an Outstanding Graduation Project.</p>
       <p class="case-cn">PoopSlaves 作为陈宇同在哈尔滨工业大学的本科毕业设计进行展出，并获评优秀毕业设计。</p>
       <div class="poop-honour-grid">
@@ -685,7 +677,7 @@ function renderPoopSlaves() {
         <figure><img src="assets/poop-graduation-certificate.webp" alt="Outstanding Graduation Project certificate" loading="lazy"><figcaption>Outstanding Graduation Project certificate / 优秀毕业设计证书</figcaption></figure>
       </div>
     </section>
-    <section class="portfolio-series"><header><span>05</span><div><h3>MA Application Portfolio Series</h3><p>硕士申请作品集系列套图 · Original full-resolution spreads</p></div><small>Drag or scroll horizontally / 左右滑动</small></header><div class="portfolio-rail">${poopPortfolioSeries.map((src, i) => `<figure><img src="${src}" alt="PoopSlaves MA application portfolio spread ${i + 1}" loading="lazy"><figcaption>${String(i + 1).padStart(2, "0")} / ${String(poopPortfolioSeries.length).padStart(2, "0")}</figcaption></figure>`).join("")}</div></section>`;
+    <section class="portfolio-series"><header><span>04</span><div><h3>MA Application Portfolio Series</h3><p>硕士申请作品集系列套图 · Original full-resolution spreads</p></div><small>Drag or scroll horizontally / 左右滑动</small></header><div class="portfolio-rail">${poopPortfolioSeries.map((src, i) => `<figure><img src="${src}" alt="PoopSlaves MA application portfolio spread ${i + 1}" loading="lazy"><figcaption>${String(i + 1).padStart(2, "0")} / ${String(poopPortfolioSeries.length).padStart(2, "0")}</figcaption></figure>`).join("")}</div></section>`;
   const hero = document.querySelector(".case-hero");
   hero.style.backgroundImage = "linear-gradient(90deg,rgba(0,0,0,.82),rgba(0,0,0,.12)),url('assets/poop-cover-2.webp')";
   let outcomeIndex = 0;

@@ -250,19 +250,7 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
 .poop-note .case-hero h2{max-width:12ch;text-shadow:0 2px 24px #000}
 .poop-note .case-hero>p{max-width:760px;text-shadow:0 1px 12px #000}
 .poop-note .case-video-links a{background:#000;border-color:#fff}
-.poop-statement{
-  min-height:78svh;
-  margin:0 calc(var(--pad)*-1);
-  padding:clamp(4rem,9vw,10rem) var(--pad);
-  display:flex;
-  align-items:flex-end;
-  background:linear-gradient(90deg,rgba(0,0,0,.76),rgba(0,0,0,.12)),url('assets/poop-cover-1.webp') center/cover no-repeat;
-  border-bottom:1px solid #fff;
-}
-.poop-statement-copy{max-width:820px;padding:clamp(1.25rem,3vw,2.5rem);background:rgba(0,0,0,.52);backdrop-filter:blur(8px)}
-.poop-statement-copy>span,.poop-results header>span,.poop-research header>span,.poop-graduation header>span{font-size:14px;color:#aaa}
-.poop-statement h3{margin:.8rem 0 1.5rem;font-size:clamp(2.5rem,6vw,6.5rem);line-height:.92;letter-spacing:-.055em}
-.poop-statement p{max-width:680px;font-size:clamp(1rem,1.4vw,1.25rem)}
+.poop-results header>span,.poop-research header>span,.poop-graduation header>span{font-size:14px;color:#aaa}
 .poop-results,.poop-research,.poop-graduation{padding:clamp(3.5rem,7vw,7rem) 0;border-bottom:1px solid #fff}
 .poop-results>header,.poop-research>header,.poop-graduation>header{display:grid;grid-template-columns:auto 1fr auto;gap:1.25rem;align-items:start;margin-bottom:2rem}
 .poop-results h3,.poop-research h3,.poop-graduation h3{margin:0;font-size:clamp(1.9rem,4vw,4.4rem);line-height:1}
@@ -281,7 +269,7 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
 .poop-rca-slide.is-changing{opacity:0;transform:translateY(8px)}
 .poop-rca-slide>img{display:block;width:100%;aspect-ratio:1.86/1;object-fit:cover;background:#111}
 .poop-rca-slide figcaption{position:relative;width:66.666%;min-height:280px;margin:-1px 0 0;background:#000;padding:clamp(1.1rem,2vw,2rem) clamp(1rem,2vw,2rem) 0 0;color:#fff}
-.poop-rca-kicker{display:flex;justify-content:space-between;gap:1rem;margin:0 0 1rem!important;color:#ff5b2e!important;font-size:clamp(.9rem,1.2vw,1.15rem)!important;font-weight:600;letter-spacing:.01em}
+.poop-rca-kicker{display:flex;justify-content:space-between;gap:1rem;margin:0 0 1rem!important;color:#fff!important;font-size:clamp(.9rem,1.2vw,1.15rem)!important;font-weight:600;letter-spacing:.01em}
 .poop-rca-kicker span{color:#aaa;font-weight:400}
 .poop-rca-slide h4{margin:0 0 .8rem;font-size:clamp(1.65rem,2.35vw,2.8rem);line-height:1.08;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.12em}
 .poop-rca-copy{margin:0!important;color:#bbb!important;font-size:clamp(1rem,1.4vw,1.35rem)!important;line-height:1.45}
@@ -304,7 +292,6 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
 
 @media(max-width:760px){
   .poop-note .case-hero{min-height:70svh!important;padding-top:6rem!important}
-  .poop-statement{min-height:68svh;background-position:58% center}
   .poop-results>header,.poop-research>header,.poop-graduation>header{grid-template-columns:auto 1fr}
   .poop-results{padding-left:20px;padding-right:20px;background-image:repeating-linear-gradient(90deg,transparent 0,transparent calc(50% - 1px),#242424 calc(50% - 1px),#242424 50%)}
   .poop-rca-carousel{min-height:auto;padding-bottom:5rem}
