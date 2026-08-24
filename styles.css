@@ -393,6 +393,8 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
   background:#fff;
 }
 .portfolio-rail figcaption{margin-top:.7rem;color:#aaa;font-size:14px}
+.forbidden-sketch-series .portfolio-rail figure{flex-basis:min(70vw,980px)}
+.forbidden-sketch-series .portfolio-rail img{aspect-ratio:4/3;object-fit:contain;background:#000}
 @media(max-width:598px){
   .case-section{padding:4rem 0}
   .case-label{align-items:flex-start}
@@ -404,6 +406,7 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
   .portfolio-series header p,.portfolio-series header small{font-size:14px}
   .portfolio-rail{padding-inline:0}
   .portfolio-rail figure{flex-basis:94vw}
+  .forbidden-sketch-series .portfolio-rail figure{flex-basis:88vw}
 }
 
 /* Full-cell hover and responsive stabilization */

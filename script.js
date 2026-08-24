@@ -229,6 +229,13 @@ const portfolioSeries = {
   Fetorium: fetoriumPortfolioSeries,
   "Plated Fantasies": platedFantasiesPortfolioSeries,
 };
+const forbiddenHueSketches = [
+  "assets/forbidden-sketch-chan.png",
+  "assets/forbidden-sketch-wang.png",
+  "assets/forbidden-sketch-chu.png",
+  "assets/forbidden-sketch-rong.png",
+  "assets/forbidden-sketch-sheng.png",
+];
 
 // Lead with Value Machine while keeping every project's parallel content aligned.
 const displayOrder = [3, 0, 1, 2, 4, 5, 6, 7, 8, 9];
@@ -503,13 +510,20 @@ function fillNote() {
   const container = document.querySelector("#case-sections"),
     publication = publications[current];
   let sectionNumber = 3;
+  if (p.title === "The Forbidden Hue") {
+    container.insertAdjacentHTML(
+      "beforeend",
+      `<section class="portfolio-series forbidden-sketch-series"><header><span>${String(sectionNumber).padStart(2, "0")}</span><div><h3>Award-Winning Psychological Art Sketches</h3><p>First Prize selection · Original drawings</p></div><small>Drag or scroll horizontally / 左右滑动</small></header><div class="portfolio-rail">${forbiddenHueSketches.map((src, i) => `<figure><img src="${src}" alt="The Forbidden Hue award-winning psychological art sketch ${i + 1}" loading="lazy"><figcaption>${String(i + 1).padStart(2, "0")} / ${String(forbiddenHueSketches.length).padStart(2, "0")}</figcaption></figure>`).join("")}</div></section>`,
+    );
+    sectionNumber += 1;
+  }
   const selectedPortfolioSeries = portfolioSeries[p.title];
   if (selectedPortfolioSeries) {
     container.insertAdjacentHTML(
       "beforeend",
-      `<section class="portfolio-series"><header><span>03</span><div><h3>MA Application Portfolio Series</h3><p>硕士申请作品集系列套图 · Original full-resolution spreads</p></div><small>Drag or scroll horizontally / 左右滑动</small></header><div class="portfolio-rail">${selectedPortfolioSeries.map((src, i) => `<figure><img src="${src}" alt="${p.title} MA application portfolio spread ${i + 1}" loading="lazy"><figcaption>${String(i + 1).padStart(2, "0")} / ${String(selectedPortfolioSeries.length).padStart(2, "0")}</figcaption></figure>`).join("")}</div></section>`,
+      `<section class="portfolio-series"><header><span>${String(sectionNumber).padStart(2, "0")}</span><div><h3>MA Application Portfolio Series</h3><p>硕士申请作品集系列套图 · Original full-resolution spreads</p></div><small>Drag or scroll horizontally / 左右滑动</small></header><div class="portfolio-rail">${selectedPortfolioSeries.map((src, i) => `<figure><img src="${src}" alt="${p.title} MA application portfolio spread ${i + 1}" loading="lazy"><figcaption>${String(i + 1).padStart(2, "0")} / ${String(selectedPortfolioSeries.length).padStart(2, "0")}</figcaption></figure>`).join("")}</div></section>`,
     );
-    sectionNumber = 4;
+    sectionNumber += 1;
   }
   if (publication) {
     container.insertAdjacentHTML(
