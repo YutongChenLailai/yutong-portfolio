@@ -3,7 +3,7 @@ const projects = [
     title: "PoopSlaves",
     role: "Speculative VR system.",
     medium: "VR · interaction · research",
-    image: "assets/hero-01.png",
+    image: "assets/poop-cover-2.png",
     copy: "A rule-based virtual economy where bodily waste becomes scarce, governable value. The work makes unequal extraction tangible through constrained agency.",
   },
   {
@@ -465,6 +465,8 @@ document
 const note = document.querySelector("#project-note");
 function fillNote() {
   const p = projects[current];
+  note.classList.toggle("poop-note", p.title === "PoopSlaves");
+  document.querySelector(".case-hero").style.backgroundImage = "";
   document.querySelector("#note-type").textContent = p.medium;
   document.querySelector("#note-title").textContent = p.title;
   const videos = projectVideos[current];
@@ -476,6 +478,10 @@ function fillNote() {
   tagButtons(current, document.querySelector("#case-tags"));
   document.querySelector("#case-count").textContent =
     `${String(current + 1).padStart(2, "0")} / ${String(projects.length).padStart(2, "0")}`;
+  if (p.title === "PoopSlaves") {
+    renderPoopSlaves();
+    return;
+  }
   const sections = [
     [
       "01",
@@ -511,6 +517,55 @@ function fillNote() {
       `<section class="case-section publication-section"><div class="case-label"><span>${String(sectionNumber).padStart(2, "0")}</span><h3>Publication<small>相关论文</small></h3></div><div class="case-body"><p>${publication.title}</p><p class="case-cn">${publication.meta}</p><a class="paper-link" href="${publication.url}" target="_blank" rel="noreferrer">Read the paper on Google Scholar / 查看论文 ↗</a></div></section>`,
     );
   }
+}
+
+function renderPoopSlaves() {
+  const container = document.querySelector("#case-sections");
+  const outcomes = [1, 2, 3, 4, 5]
+    .map(
+      (n) => `<figure><img src="assets/poop-result-${n}.png" alt="PoopSlaves final outcome ${n}" loading="lazy"><figcaption>${String(n).padStart(2, "0")} / 05 · Virtual environment still</figcaption></figure>`,
+    )
+    .join("");
+  container.innerHTML = `
+    <section class="poop-statement">
+      <div class="poop-statement-copy">
+        <span>01 / Speculative system</span>
+        <h3>Scarcity turns the body into infrastructure.</h3>
+        <p>PoopSlaves constructs a rule-based virtual economy in which excrement becomes scarce, governable value. Repetitive bodily action, delayed feedback and unequal accumulation make extraction tangible rather than merely described.</p>
+        <p class="case-cn">PoopSlaves 构建了一套以排泄物为稀缺资源的规则型虚拟经济。重复的身体劳动、延迟反馈与不平等积累，让价值提取和受限能动性成为可亲身感受的系统。</p>
+      </div>
+    </section>
+    <section class="poop-results">
+      <header><span>02</span><div><h3>Final Outcomes</h3><p>最终成果 · Use the arrows or swipe horizontally / 点击箭头或左右滑动</p></div><div class="poop-rail-controls"><button data-poop-scroll="-1" aria-label="Previous image">←</button><button data-poop-scroll="1" aria-label="Next image">→</button></div></header>
+      <div class="poop-result-rail">${outcomes}</div>
+    </section>
+    <section class="poop-research">
+      <header><span>03</span><div><h3>Research & Conference Presentations</h3><p>论文与会议展示</p></div></header>
+      <div class="poop-paper-grid">
+        <article><img src="assets/poop-hcii-poster.png" alt="HCII poster for Visceral Interaction" loading="lazy"><div><h4>HCII 2026 · Late Breaking Work</h4><p>Visceral Interaction: Operationalizing Cognitive Friction through Rule-Based VR Economic Simulation</p><a href="https://scholar.google.com/scholar?q=Visceral+Interaction+Operationalizing+Cognitive+Friction+through+Rule-Based+VR+Economic+Simulation" target="_blank" rel="noreferrer">Paper record / 论文链接 ↗</a></div></article>
+        <article><img src="assets/poop-cc-poster.png" alt="Creativity and Cognition poster for Excremental Economy" loading="lazy"><div><h4>ACM Creativity & Cognition 2026</h4><p>Excremental Economy: A Rule-Based Speculative System for Staging Bodily Commodification and Unequal Value Extraction</p><a href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=yYgrzP8AAAAJ&citation_for_view=yYgrzP8AAAAJ:u-x6o8ySG0sC" target="_blank" rel="noreferrer">Google Scholar / 查看论文 ↗</a></div></article>
+      </div>
+      <figure class="poop-conference-photo"><img src="assets/poop-cc-photo.jpg" alt="PoopSlaves poster presented at Creativity and Cognition" loading="lazy"><figcaption>Poster presentation documentation / C&amp;C 会议现场记录（小图展示）</figcaption></figure>
+    </section>
+    <section class="poop-graduation">
+      <header><span>04</span><div><h3>HIT Outstanding Graduation Project</h3><p>哈尔滨工业大学优秀毕业设计</p></div></header>
+      <p class="poop-graduation-lead">PoopSlaves was presented as Yutong Chen's undergraduate graduation project at Harbin Institute of Technology and received recognition as an Outstanding Graduation Project.</p>
+      <p class="case-cn">PoopSlaves 作为陈宇同在哈尔滨工业大学的本科毕业设计进行展出，并获评优秀毕业设计。</p>
+      <div class="poop-honour-grid">
+        <figure><img src="assets/poop-graduation-display.jpg" alt="PoopSlaves undergraduate graduation exhibition display" loading="lazy"><figcaption>Graduation exhibition / 本科毕业设计陈列</figcaption></figure>
+        <figure><img src="assets/poop-graduation-signature.jpg" alt="Graduation exhibition documentation" loading="lazy"><figcaption>Exhibition documentation / 毕设展现场记录</figcaption></figure>
+        <figure><img src="assets/poop-graduation-certificate.jpg" alt="Outstanding Graduation Project certificate" loading="lazy"><figcaption>Outstanding Graduation Project certificate / 优秀毕业设计证书</figcaption></figure>
+      </div>
+    </section>
+    <section class="portfolio-series"><header><span>05</span><div><h3>MA Application Portfolio Series</h3><p>硕士申请作品集系列套图 · Original full-resolution spreads</p></div><small>Drag or scroll horizontally / 左右滑动</small></header><div class="portfolio-rail">${poopPortfolioSeries.map((src, i) => `<figure><img src="${src}" alt="PoopSlaves MA application portfolio spread ${i + 1}" loading="lazy"><figcaption>${String(i + 1).padStart(2, "0")} / ${String(poopPortfolioSeries.length).padStart(2, "0")}</figcaption></figure>`).join("")}</div></section>`;
+  const hero = document.querySelector(".case-hero");
+  hero.style.backgroundImage = "linear-gradient(90deg,rgba(0,0,0,.82),rgba(0,0,0,.12)),url('assets/poop-cover-2.png')";
+  container.querySelectorAll("[data-poop-scroll]").forEach((button) => {
+    button.onclick = () => {
+      const rail = container.querySelector(".poop-result-rail");
+      rail.scrollBy({ left: Number(button.dataset.poopScroll) * rail.clientWidth * 0.86, behavior: "smooth" });
+    };
+  });
 }
 function openNote() {
   note.classList.add("open");
