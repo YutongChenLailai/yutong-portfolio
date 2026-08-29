@@ -17,7 +17,7 @@ const projects = [
     title: "The Forbidden Hue",
     role: "Heritage through virtual play.",
     medium: "VR game · heritage · narrative",
-    image: "assets/hero-03.webp",
+    image: "assets/forbidden-hue-outcome-04.webp",
     copy: "A cross-media VR experience that reconstructs Yao history through exploratory play, ritual space and multiple narrative paths.",
   },
   {
@@ -248,8 +248,8 @@ const forbiddenHueSketches = [
   "assets/forbidden-sketch-sheng.webp",
 ];
 
-// Lead with Value Machine while keeping every project's parallel content aligned.
-const displayOrder = [3, 0, 1, 2, 4, 5, 6, 7, 8, 9];
+// Keep every project's parallel content aligned with the curated portfolio order.
+const displayOrder = [0, 3, 1, 4, 5, 6, 7, 8, 9, 2];
 const reorder = (items) => displayOrder.map((index) => items[index]);
 projects.splice(0, projects.length, ...reorder(projects));
 caseCn.splice(0, caseCn.length, ...reorder(caseCn));
