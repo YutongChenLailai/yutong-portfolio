@@ -446,6 +446,20 @@ const next = () => show(current + 1),
 document.querySelector("#next-project")?.addEventListener("click", next);
 document.querySelector("#next-project-small").onclick = next;
 document.querySelector("#prev-project").onclick = prev;
+let workSwipeStart = null;
+work.addEventListener("pointerdown", (event) => {
+  if (event.target.closest("button,a")) return;
+  workSwipeStart = { x: event.clientX, y: event.clientY };
+});
+work.addEventListener("pointerup", (event) => {
+  if (!workSwipeStart || innerWidth > 760) return;
+  const dx = event.clientX - workSwipeStart.x;
+  const dy = event.clientY - workSwipeStart.y;
+  workSwipeStart = null;
+  if (Math.abs(dx) < 54 || Math.abs(dx) <= Math.abs(dy)) return;
+  dx < 0 ? next() : prev();
+});
+work.addEventListener("pointercancel", () => (workSwipeStart = null));
 document.querySelector("#note-next").onclick = () => {
   next();
   fillNote();
@@ -774,9 +788,9 @@ function renderPoopSlaves() {
           </figcaption>
         </figure>
         <button class="poop-rca-arrow poop-rca-arrow--next" data-poop-direction="1" aria-label="Next outcome"><span>›</span></button>
-        <div class="poop-rca-mobile-controls" aria-hidden="true">
-          <button data-poop-direction="-1" tabindex="-1"><span>‹</span></button>
-          <button data-poop-direction="1" tabindex="-1"><span>›</span></button>
+        <div class="poop-rca-mobile-controls" aria-label="Outcome gallery controls">
+          <button data-poop-direction="-1" aria-label="Previous outcome"><span>‹</span></button>
+          <button data-poop-direction="1" aria-label="Next outcome"><span>›</span></button>
         </div>
       </div>
     </section>
@@ -830,6 +844,19 @@ function renderPoopSlaves() {
       updateOutcome(Number(button.dataset.poopDirection));
     };
   });
+  let poopSwipeStart = null;
+  slide.addEventListener("pointerdown", (event) => {
+    poopSwipeStart = { x: event.clientX, y: event.clientY };
+  });
+  slide.addEventListener("pointerup", (event) => {
+    if (!poopSwipeStart) return;
+    const dx = event.clientX - poopSwipeStart.x;
+    const dy = event.clientY - poopSwipeStart.y;
+    poopSwipeStart = null;
+    if (Math.abs(dx) < 45 || Math.abs(dx) <= Math.abs(dy)) return;
+    updateOutcome(dx < 0 ? 1 : -1);
+  });
+  slide.addEventListener("pointercancel", () => (poopSwipeStart = null));
   let ccSlideIndex = 0;
   const ccCard = container.querySelector(".poop-paper-card--cc");
   const ccImages = [...ccCard.querySelectorAll(".poop-paper-media-image")];
@@ -865,6 +892,7 @@ document.querySelector("#read-project").onclick = openNote;
 document.querySelector("#close-note").onclick = closeNote;
 const cursor = document.querySelector(".cursor");
 addEventListener("pointermove", (e) => {
+  if (!matchMedia("(hover:hover) and (pointer:fine)").matches) return;
   cursor.style.left = `${e.clientX}px`;
   cursor.style.top = `${e.clientY}px`;
   const px = e.clientX / innerWidth - 0.5,
