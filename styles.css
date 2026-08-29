@@ -603,19 +603,20 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
 }
 .poop-note .case-video-links a{
   display:flex;align-items:flex-start;padding:48px 22px!important;border:0!important;border-left:1px solid #c7c7c7!important;
-  background:#fff!important;color:#000!important;font-size:16px!important;line-height:1.25;text-decoration:none;
+  background:#000!important;color:#fff!important;font-size:16px!important;line-height:1.25;text-decoration:none;
 }
-.poop-note .case-video-links a:hover,.poop-note .case-video-links a:focus-visible{background:#111!important;color:#fff!important}
+.poop-note .case-video-links a:hover,.poop-note .case-video-links a:focus-visible{background:#fff!important;color:#000!important}
 
 @media(max-width:900px){
   .poop-note .case-head{height:64px;padding:0 1rem}
-  .poop-note .case-hero{height:auto;min-height:100svh!important;display:flex;flex-direction:column;justify-content:flex-end;padding:45svh 1rem 0!important;margin:0 -1rem}
+  .poop-note .case-hero{height:auto;min-height:100svh!important;display:flex;flex-direction:column;justify-content:flex-end;padding:45svh 1rem 0!important;margin:0 -1rem;background-position:62% 46%!important}
+  .poop-note .case-hero:after{background:rgba(0,0,0,.44)}
   .poop-note .poop-rca-grid{inset:0;grid-template-columns:repeat(2,1fr)}
   .poop-note .poop-rca-grid span:nth-child(n+3){display:none}
   .poop-note .case-hero #note-type,.poop-note .case-hero h2,.poop-note .case-hero #note-copy,.poop-note .case-video-links{position:relative;left:auto;right:auto;bottom:auto;width:100%}
   .poop-note .case-hero #note-type{margin:0 0 .8rem;padding-top:.8rem}
-  .poop-note .case-hero h2{margin:0 0 1rem!important;font-size:28px!important}
+  .poop-note .case-hero #note-type{order:1}.poop-note .case-hero h2{order:2;margin:0 0 1rem!important;font-size:28px!important;text-align:left}.poop-note .case-hero #note-copy{order:3}
   .poop-note .case-hero #note-copy{margin:0 0 1.5rem!important;max-width:34rem}
-  .poop-note .case-video-links{height:auto;grid-template-columns:1fr;margin:0 -1rem;width:calc(100% + 2rem)}
+  .poop-note .case-video-links{order:4;height:auto;grid-template-columns:1fr;margin:0 -1rem;width:calc(100% + 2rem)}
   .poop-note .case-video-links a{min-height:68px;padding:22px 1rem!important;border-left:0!important;border-top:1px solid #aaa!important}
 }

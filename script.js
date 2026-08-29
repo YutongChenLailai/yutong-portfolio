@@ -311,6 +311,7 @@ function enterWork() {
   if (currentView === "work") return;
   currentView = "work";
   closePanels();
+  show(0);
   home.classList.add("exit");
   work.classList.add("active");
   work.setAttribute("aria-hidden", "false");
