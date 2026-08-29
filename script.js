@@ -510,6 +510,7 @@ function fillNote() {
     ],
     ["02", "Final outcome", "最终成果", p.copy, caseCn[current]],
   ];
+  if (p.title === "Fetorium") sections.pop();
   const detailOutcomeImages = {
     "Closet X": "assets/closet-x-final-outcome.webp",
     "Navigating the Past": "assets/navigating-the-past-final-outcome.webp",
@@ -520,7 +521,7 @@ function fillNote() {
   document.querySelector("#case-sections").innerHTML = sections.map((s, i) => `<section class="case-section"><div class="case-label"><span>${s[0]}</span><h3>${s[1]}<small>${s[2]}</small></h3></div><div class="case-body"><p>${s[3]}</p><p class="case-cn">${s[4]}</p>${i === 1 && p.title !== "Plantiever’s Illusion" ? `<img class="outcome-image" src="${outcomeImage}" alt="${p.title} final outcome" loading="lazy" decoding="async">` : ""}</div></section>`).join("");
   const container = document.querySelector("#case-sections"),
     publication = publications[current];
-  let sectionNumber = 3;
+  let sectionNumber = sections.length + 1;
   if (p.title === "Plantiever’s Illusion") {
     container.insertAdjacentHTML(
       "beforeend",
