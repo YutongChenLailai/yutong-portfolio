@@ -506,9 +506,10 @@ function fillNote() {
   const p = projects[current];
   note.classList.toggle(
     "poop-note",
-    p.title === "PoopSlaves" || p.title === "Plantiever’s Illusion",
+    ["PoopSlaves", "Plantiever’s Illusion", "Value Machine"].includes(p.title),
   );
   note.classList.toggle("plantiever-note", p.title === "Plantiever’s Illusion");
+  note.classList.toggle("value-note", p.title === "Value Machine");
   document.querySelector(".case-hero").style.backgroundImage = "";
   document.querySelector("#note-type").textContent = p.medium;
   document.querySelector("#note-title").textContent = p.title;

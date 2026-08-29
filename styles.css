@@ -583,8 +583,10 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
   border-bottom:0;isolation:isolate;
 }
 .poop-note.plantiever-note .case-hero{background-image:url('assets/plantiever-detail-hero.webp')!important;background-position:center 48%}
+.poop-note.value-note .case-hero{background-image:url('assets/value-machine-detail-hero.webp')!important;background-position:center 18%!important}
 .poop-note .case-hero:after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.6);z-index:-1;pointer-events:none}
 .poop-note.plantiever-note .case-hero:after{background:rgba(0,0,0,.34)}
+.poop-note.value-note .case-hero:after{background:rgba(0,0,0,.38)}
 .poop-note .poop-rca-grid{position:absolute;inset:0 7% 0 24.3%;display:grid;grid-template-columns:repeat(4,1fr);z-index:0;pointer-events:none}
 .poop-note .poop-rca-grid span{border-left:1px solid rgba(255,255,255,.18)}
 .poop-note .poop-rca-grid span:last-child{border-right:1px solid rgba(255,255,255,.18)}
@@ -606,6 +608,7 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
   position:absolute;left:37.5%;right:6.25%;bottom:0;height:154px;z-index:3;
   display:grid!important;grid-template-columns:repeat(3,1fr);gap:0;margin:0;background:#fff;border-top:1px solid #000;
 }
+.poop-note.value-note .case-video-links{grid-template-columns:1fr}
 .poop-note .case-video-links a{
   display:flex;align-items:flex-start;padding:48px 22px!important;border:0!important;border-left:1px solid #c7c7c7!important;
   background:#000!important;color:#fff!important;font-size:16px!important;line-height:1.25;text-decoration:none;
@@ -633,6 +636,7 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
   .poop-note .case-head{height:64px;padding:0 1rem}
   .poop-note .case-hero{height:auto;min-height:100svh!important;display:flex;flex-direction:column;justify-content:flex-end;padding:45svh 1rem 0!important;margin:0 -1rem;background-position:68% 46%!important}
   .poop-note.plantiever-note .case-hero{background-position:54% 48%!important}
+  .poop-note.value-note .case-hero{background-position:50% 22%!important}
   .poop-note .case-hero:after{background:rgba(0,0,0,.44)}
   .poop-note .poop-rca-grid{inset:0;grid-template-columns:repeat(2,1fr)}
   .poop-note .poop-rca-grid span:nth-child(n+3){display:none}
