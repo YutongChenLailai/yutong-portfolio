@@ -552,10 +552,6 @@ function fillNote() {
     container.insertAdjacentHTML(
       "beforeend",
       `<section class="plantiever-gallery" aria-label="Plantiever’s Illusion final outcome gallery">
-        <header class="plantiever-gallery-header">
-          <span>${String(sectionNumber).padStart(2, "0")}</span>
-          <div><h3>Gallery</h3><p>Final outcomes / 最终成果</p></div>
-        </header>
         <div class="plantiever-gallery-stage">
           <figure class="plantiever-gallery-peek plantiever-gallery-peek--prev"><img alt="Previous Plantiever’s Illusion outcome"></figure>
           <figure class="plantiever-gallery-main"><img alt="Plantiever’s Illusion final outcome 1 of ${plantieverOutcomeGallery.length}" loading="eager"></figure>
@@ -656,10 +652,6 @@ function fillNote() {
     container.insertAdjacentHTML(
       "beforeend",
       `<section class="plantiever-gallery value-machine-gallery" aria-label="Value Machine final outcome gallery">
-        <header class="plantiever-gallery-header">
-          <span>${String(sectionNumber).padStart(2, "0")}</span>
-          <div><h3>Gallery</h3><p>Final outcomes / 最终成果</p></div>
-        </header>
         <div class="plantiever-gallery-stage">
           <figure class="plantiever-gallery-peek plantiever-gallery-peek--prev"><img alt="Previous Value Machine outcome"></figure>
           <figure class="plantiever-gallery-main"><img alt="Value Machine final outcome 1 of ${valueMachineOutcomeGallery.length}" loading="eager"></figure>
