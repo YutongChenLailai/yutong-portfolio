@@ -647,3 +647,9 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
   .poop-note .case-video-links{order:4;height:auto;grid-template-columns:1fr;margin:0 -1rem;width:calc(100% + 2rem)}
   .poop-note .case-video-links a{min-height:68px;padding:22px 1rem!important;border-left:0!important;border-top:1px solid #aaa!important}
 }
+
+/* One responsive left edge for every standard project-detail section. */
+#case-sections > .case-section{
+  padding-left:0!important;
+  padding-right:0!important;
+}
