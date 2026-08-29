@@ -213,6 +213,15 @@ const plantieverOutcomeGallery = [
   "assets/plantiever-outcome-08.webp",
   "assets/plantiever-outcome-09.webp",
 ];
+const valueMachineOutcomeGallery = [
+  "assets/value-machine-outcome-01.webp",
+  "assets/value-machine-outcome-02.webp",
+  "assets/value-machine-outcome-03.webp",
+  "assets/value-machine-outcome-04.webp",
+  "assets/value-machine-outcome-05.webp",
+  "assets/value-machine-outcome-06.webp",
+  "assets/value-machine-outcome-07.webp",
+];
 const valueMachinePortfolioSeries = [
   "assets/value-machine-portfolio-01.webp",
   "assets/value-machine-portfolio-02.webp",
@@ -534,7 +543,7 @@ function fillNote() {
     "The Forbidden Hue": "assets/the-forbidden-hue-final-outcome.webp",
   };
   const outcomeImage = detailOutcomeImages[p.title] || p.image;
-  document.querySelector("#case-sections").innerHTML = sections.map((s, i) => `<section class="case-section"><div class="case-label"><span>${s[0]}</span><h3>${s[1]}<small>${s[2]}</small></h3></div><div class="case-body"><p>${s[3]}</p><p class="case-cn">${s[4]}</p>${i === 1 && p.title !== "Plantiever’s Illusion" ? `<img class="outcome-image" src="${outcomeImage}" alt="${p.title} final outcome" loading="lazy" decoding="async">` : ""}</div></section>`).join("");
+  document.querySelector("#case-sections").innerHTML = sections.map((s, i) => `<section class="case-section"><div class="case-label"><span>${s[0]}</span><h3>${s[1]}<small>${s[2]}</small></h3></div><div class="case-body"><p>${s[3]}</p><p class="case-cn">${s[4]}</p>${i === 1 && !["Plantiever’s Illusion", "Value Machine"].includes(p.title) ? `<img class="outcome-image" src="${outcomeImage}" alt="${p.title} final outcome" loading="lazy" decoding="async">` : ""}</div></section>`).join("");
   const container = document.querySelector("#case-sections"),
     publication = publications[current];
   let sectionNumber = sections.length + 1;
@@ -640,6 +649,64 @@ function fillNote() {
       );
       plantieverCcCount.textContent = `${String(plantieverCcIndex + 1).padStart(2, "0")} / 02`;
     };
+    sectionNumber += 1;
+  }
+  if (p.title === "Value Machine") {
+    container.insertAdjacentHTML(
+      "beforeend",
+      `<section class="plantiever-gallery value-machine-gallery" aria-label="Value Machine final outcome gallery">
+        <header class="plantiever-gallery-header">
+          <span>${String(sectionNumber).padStart(2, "0")}</span>
+          <div><h3>Gallery</h3><p>Final outcomes / 最终成果</p></div>
+        </header>
+        <div class="plantiever-gallery-stage">
+          <figure class="plantiever-gallery-peek plantiever-gallery-peek--prev"><img alt="Previous Value Machine outcome"></figure>
+          <figure class="plantiever-gallery-main"><img alt="Value Machine final outcome 1 of ${valueMachineOutcomeGallery.length}" loading="eager"></figure>
+          <figure class="plantiever-gallery-peek plantiever-gallery-peek--next"><img alt="Next Value Machine outcome"></figure>
+        </div>
+        <footer class="plantiever-gallery-footer">
+          <div class="plantiever-gallery-caption"><p>Value Machine — Final outcome</p><span>Image 01 / ${String(valueMachineOutcomeGallery.length).padStart(2, "0")}</span></div>
+          <div class="plantiever-gallery-controls">
+            <button type="button" data-value-direction="-1" aria-label="Previous image">‹</button>
+            <button type="button" data-value-direction="1" aria-label="Next image">›</button>
+          </div>
+        </footer>
+      </section>`,
+    );
+    let valueGalleryIndex = 0;
+    const valueGallery = container.querySelector(".value-machine-gallery");
+    const valueMain = valueGallery.querySelector(".plantiever-gallery-main img");
+    const valuePrevious = valueGallery.querySelector(".plantiever-gallery-peek--prev img");
+    const valueNext = valueGallery.querySelector(".plantiever-gallery-peek--next img");
+    const valueCounter = valueGallery.querySelector(".plantiever-gallery-caption span");
+    const renderValueGallery = () => {
+      const previousIndex = (valueGalleryIndex - 1 + valueMachineOutcomeGallery.length) % valueMachineOutcomeGallery.length;
+      const nextIndex = (valueGalleryIndex + 1) % valueMachineOutcomeGallery.length;
+      valueMain.src = valueMachineOutcomeGallery[valueGalleryIndex];
+      valuePrevious.src = valueMachineOutcomeGallery[previousIndex];
+      valueNext.src = valueMachineOutcomeGallery[nextIndex];
+      valueMain.alt = `Value Machine final outcome ${valueGalleryIndex + 1} of ${valueMachineOutcomeGallery.length}`;
+      valueCounter.textContent = `Image ${String(valueGalleryIndex + 1).padStart(2, "0")} / ${String(valueMachineOutcomeGallery.length).padStart(2, "0")}`;
+    };
+    valueGallery.querySelectorAll("[data-value-direction]").forEach((button) => {
+      button.onclick = () => {
+        valueGalleryIndex = (valueGalleryIndex + Number(button.dataset.valueDirection) + valueMachineOutcomeGallery.length) % valueMachineOutcomeGallery.length;
+        valueGallery.classList.add("is-changing");
+        renderValueGallery();
+        window.setTimeout(() => valueGallery.classList.remove("is-changing"), 220);
+      };
+    });
+    let valuePointerStart = null;
+    valueGallery.querySelector(".plantiever-gallery-stage").addEventListener("pointerdown", (event) => {
+      valuePointerStart = event.clientX;
+    });
+    valueGallery.querySelector(".plantiever-gallery-stage").addEventListener("pointerup", (event) => {
+      if (valuePointerStart === null || Math.abs(event.clientX - valuePointerStart) < 45) return;
+      const direction = event.clientX < valuePointerStart ? 1 : -1;
+      valueGallery.querySelector(`[data-value-direction="${direction}"]`).click();
+      valuePointerStart = null;
+    });
+    renderValueGallery();
     sectionNumber += 1;
   }
   if (p.title === "The Forbidden Hue") {

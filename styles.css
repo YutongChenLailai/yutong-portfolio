@@ -353,10 +353,10 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
 .plantiever-gallery-header>div{grid-column:2;padding:0 0 1.15rem}
 .plantiever-gallery-header h3{margin:0;font-size:clamp(2rem,3vw,3.4rem);font-weight:400;letter-spacing:-.045em}
 .plantiever-gallery-header p{margin:.35rem 0 0;font-size:.86rem;color:#555}
-.plantiever-gallery-stage{display:grid;grid-template-columns:25% 50% 25%;height:clamp(28rem,42vw,52rem);cursor:grab;touch-action:pan-y;user-select:none;transition:opacity .22s ease,transform .22s ease}
+.plantiever-gallery-stage{display:grid;grid-template-columns:25% 50% 25%;height:auto;aspect-ratio:3/1;cursor:grab;touch-action:pan-y;user-select:none;transition:opacity .22s ease,transform .22s ease}
 .plantiever-gallery.is-changing .plantiever-gallery-stage{opacity:.7;transform:translateX(-.25rem)}
 .plantiever-gallery-stage figure{margin:0;min-width:0;overflow:hidden}
-.plantiever-gallery-stage img{display:block;width:100%;height:100%;object-fit:cover}
+.plantiever-gallery-stage img{display:block;width:100%;height:100%;object-fit:contain;background:#000}
 .plantiever-gallery-peek{opacity:.56;filter:saturate(.72)}
 .plantiever-gallery-peek--prev img{object-position:right center}
 .plantiever-gallery-peek--next img{object-position:left center}
@@ -375,7 +375,7 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
   .plantiever-gallery-header>span{display:none}
   .plantiever-gallery-header>div{grid-column:2;padding-bottom:1rem}
   .plantiever-gallery-header h3{font-size:2.15rem}
-  .plantiever-gallery-stage{grid-template-columns:8% 84% 8%;height:auto;aspect-ratio:1.5/1}
+  .plantiever-gallery-stage{grid-template-columns:8% 84% 8%;height:auto;aspect-ratio:1.78/1}
   .plantiever-gallery-footer{grid-template-columns:8% 1fr auto 8%;min-height:7rem}
   .plantiever-gallery-caption{grid-column:2;padding:.9rem 0;display:block}
   .plantiever-gallery-caption p{font-size:.78rem}
