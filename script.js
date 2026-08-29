@@ -311,6 +311,10 @@ function enterWork() {
   if (currentView === "work") return;
   currentView = "work";
   closePanels();
+  // Returning from the landing page must always start from the first curated work.
+  // Resetting the transition guard also prevents a cached/missed image load from
+  // leaving the previous project (for example Value Machine) on screen.
+  locked = false;
   show(0);
   home.classList.add("exit");
   work.classList.add("active");
@@ -404,6 +408,17 @@ function show(index) {
   role.classList.add("changing");
   setTimeout(() => {
     const p = projects[current];
+    let finished = false;
+    const finish = () => {
+      if (finished) return;
+      finished = true;
+      image.classList.remove("changing");
+      title.classList.remove("changing");
+      role.classList.remove("changing");
+      locked = false;
+    };
+    image.onload = finish;
+    image.onerror = finish;
     image.src = p.image;
     title.textContent = p.title;
     role.textContent = p.role;
@@ -413,12 +428,8 @@ function show(index) {
     document
       .querySelectorAll(".dots button")
       .forEach((d, i) => d.classList.toggle("active", i === current));
-    image.onload = () => {
-      image.classList.remove("changing");
-      title.classList.remove("changing");
-      role.classList.remove("changing");
-      locked = false;
-    };
+    if (image.complete) finish();
+    setTimeout(finish, 1200);
   }, 260);
 }
 const next = () => show(current + 1),
@@ -484,7 +495,11 @@ document
 const note = document.querySelector("#project-note");
 function fillNote() {
   const p = projects[current];
-  note.classList.toggle("poop-note", p.title === "PoopSlaves");
+  note.classList.toggle(
+    "poop-note",
+    p.title === "PoopSlaves" || p.title === "Plantiever’s Illusion",
+  );
+  note.classList.toggle("plantiever-note", p.title === "Plantiever’s Illusion");
   document.querySelector(".case-hero").style.backgroundImage = "";
   document.querySelector("#note-type").textContent = p.medium;
   document.querySelector("#note-title").textContent = p.title;
@@ -582,6 +597,50 @@ function fillNote() {
     });
     renderGallery();
     sectionNumber += 1;
+    container.insertAdjacentHTML(
+      "beforeend",
+      `<section class="plantiever-storyboard">
+        <header><span>${String(sectionNumber).padStart(2, "0")}</span><div><h3>Video Storyboard</h3><p>视频分镜图 · Narrative development</p></div></header>
+        <figure><img src="assets/plantiever-video-storyboard.webp" alt="Plantiever’s Illusion video storyboard showing two storylines and their combination" loading="lazy" decoding="async"></figure>
+      </section>`,
+    );
+    sectionNumber += 1;
+    container.insertAdjacentHTML(
+      "beforeend",
+      `<section class="poop-research plantiever-research">
+        <header><span>${String(sectionNumber).padStart(2, "0")}</span><div><h3>Research & Conference Presentation</h3><p>论文与会议展示</p></div></header>
+        <div class="poop-paper-grid plantiever-paper-grid">
+          <article class="poop-paper-card--cc plantiever-paper-card--cc">
+            <div class="poop-paper-media">
+              <img class="poop-paper-media-image is-active" src="assets/plantiever-cc-poster.webp" alt="ACM Creativity and Cognition 2026 poster for Unsettling the Auspicious Pine" loading="lazy" decoding="async">
+              <img class="poop-paper-media-image" src="assets/plantiever-cc-photo.webp" alt="Unsettling the Auspicious Pine presented at ACM Creativity and Cognition 2026" loading="lazy" decoding="async">
+              <span class="poop-paper-count">01 / 02</span>
+              <button class="poop-paper-arrow" type="button" aria-label="Show C&amp;C presentation documentation"><span>›</span></button>
+            </div>
+            <div class="poop-paper-copy"><h4>ACM Creativity &amp; Cognition 2026</h4><p>Unsettling the Auspicious Pine: A Digitally Mediated Moving-Image Installation for Reflective Reinterpretation</p><a href="https://scholar.google.com/citations?view_op=view_citation&amp;hl=en&amp;user=yYgrzP8AAAAJ&amp;citation_for_view=yYgrzP8AAAAJ:u5HHmVD_uO8C" target="_blank" rel="noreferrer">Google Scholar / 查看论文 ↗</a></div>
+          </article>
+        </div>
+      </section>`,
+    );
+    const plantieverCcCard = container.querySelector(".plantiever-paper-card--cc");
+    const plantieverCcImages = [...plantieverCcCard.querySelectorAll(".poop-paper-media-image")];
+    const plantieverCcArrow = plantieverCcCard.querySelector(".poop-paper-arrow");
+    const plantieverCcCount = plantieverCcCard.querySelector(".poop-paper-count");
+    let plantieverCcIndex = 0;
+    plantieverCcArrow.onclick = () => {
+      plantieverCcIndex = (plantieverCcIndex + 1) % plantieverCcImages.length;
+      plantieverCcImages.forEach((image, index) =>
+        image.classList.toggle("is-active", index === plantieverCcIndex),
+      );
+      plantieverCcArrow.setAttribute(
+        "aria-label",
+        plantieverCcIndex === 0
+          ? "Show C&C presentation documentation"
+          : "Show the Unsettling the Auspicious Pine poster",
+      );
+      plantieverCcCount.textContent = `${String(plantieverCcIndex + 1).padStart(2, "0")} / 02`;
+    };
+    sectionNumber += 1;
   }
   if (p.title === "The Forbidden Hue") {
     container.insertAdjacentHTML(
@@ -598,7 +657,7 @@ function fillNote() {
     );
     sectionNumber += 1;
   }
-  if (publication) {
+  if (publication && p.title !== "Plantiever’s Illusion") {
     container.insertAdjacentHTML(
       "beforeend",
       `<section class="case-section publication-section"><div class="case-label"><span>${String(sectionNumber).padStart(2, "0")}</span><h3>Publication<small>相关论文</small></h3></div><div class="case-body"><p>${publication.title}</p><p class="case-cn">${publication.meta}</p><a class="paper-link" href="${publication.url}" target="_blank" rel="noreferrer">Read the paper on Google Scholar / 查看论文 ↗</a></div></section>`,
@@ -667,7 +726,8 @@ function renderPoopSlaves() {
         <article><img src="assets/poop-hcii-poster.webp" alt="HCII poster for Visceral Interaction" loading="lazy"><div class="poop-paper-copy"><h4>HCII 2026 · Late Breaking Work</h4><p>Visceral Interaction: Operationalizing Cognitive Friction through Rule-Based VR Economic Simulation</p><a href="https://scholar.google.com/scholar?q=Visceral+Interaction+Operationalizing+Cognitive+Friction+through+Rule-Based+VR+Economic+Simulation" target="_blank" rel="noreferrer">Paper record / 论文链接 ↗</a></div></article>
         <article class="poop-paper-card--cc">
           <div class="poop-paper-media">
-            <img src="assets/poop-cc-poster.webp" alt="Creativity and Cognition poster for Excremental Economy" loading="lazy">
+            <img class="poop-paper-media-image is-active" src="assets/poop-cc-poster.webp" alt="Creativity and Cognition poster for Excremental Economy" loading="lazy" decoding="async">
+            <img class="poop-paper-media-image" src="assets/poop-cc-photo.webp" alt="PoopSlaves poster presented at Creativity and Cognition" loading="lazy" decoding="async">
             <span class="poop-paper-count">01 / 02</span>
             <button class="poop-paper-arrow" type="button" aria-label="Show C&amp;C presentation documentation"><span>›</span></button>
           </div>
@@ -710,34 +770,23 @@ function renderPoopSlaves() {
       updateOutcome(Number(button.dataset.poopDirection));
     };
   });
-  const ccSlides = [
-    {
-      src: "assets/poop-cc-poster.webp",
-      alt: "Creativity and Cognition poster for Excremental Economy",
-      label: "Show C&C presentation documentation",
-    },
-    {
-      src: "assets/poop-cc-photo.webp",
-      alt: "PoopSlaves poster presented at Creativity and Cognition",
-      label: "Show the Excremental Economy poster",
-    },
-  ];
   let ccSlideIndex = 0;
   const ccCard = container.querySelector(".poop-paper-card--cc");
-  const ccImage = ccCard.querySelector(".poop-paper-media img");
+  const ccImages = [...ccCard.querySelectorAll(".poop-paper-media-image")];
   const ccArrow = ccCard.querySelector(".poop-paper-arrow");
   const ccCount = ccCard.querySelector(".poop-paper-count");
   ccArrow.onclick = () => {
-    ccSlideIndex = (ccSlideIndex + 1) % ccSlides.length;
-    const nextSlide = ccSlides[ccSlideIndex];
-    ccImage.classList.add("is-changing");
-    setTimeout(() => {
-      ccImage.src = nextSlide.src;
-      ccImage.alt = nextSlide.alt;
-      ccArrow.setAttribute("aria-label", nextSlide.label);
-      ccCount.textContent = `${String(ccSlideIndex + 1).padStart(2, "0")} / 02`;
-      ccImage.classList.remove("is-changing");
-    }, 160);
+    ccSlideIndex = (ccSlideIndex + 1) % ccImages.length;
+    ccImages.forEach((image, index) =>
+      image.classList.toggle("is-active", index === ccSlideIndex),
+    );
+    ccArrow.setAttribute(
+      "aria-label",
+      ccSlideIndex === 0
+        ? "Show C&C presentation documentation"
+        : "Show the Excremental Economy poster",
+    );
+    ccCount.textContent = `${String(ccSlideIndex + 1).padStart(2, "0")} / 02`;
   };
 }
 function openNote() {
