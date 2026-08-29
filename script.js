@@ -536,7 +536,7 @@ function fillNote() {
     ],
     ["02", "Final outcome", "最终成果", p.copy, caseCn[current]],
   ];
-  if (p.title === "Fetorium") sections.pop();
+  if (["Fetorium", "Plated Fantasies"].includes(p.title)) sections.pop();
   const detailOutcomeImages = {
     "Closet X": "assets/closet-x-final-outcome.webp",
     "Navigating the Past": "assets/navigating-the-past-final-outcome.webp",
