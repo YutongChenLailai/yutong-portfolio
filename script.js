@@ -662,10 +662,16 @@ function renderPoopSlaves() {
     <section class="poop-research">
       <header><span>02</span><div><h3>Research & Conference Presentations</h3><p>论文与会议展示</p></div></header>
       <div class="poop-paper-grid">
-        <article><img src="assets/poop-hcii-poster.webp" alt="HCII poster for Visceral Interaction" loading="lazy"><div><h4>HCII 2026 · Late Breaking Work</h4><p>Visceral Interaction: Operationalizing Cognitive Friction through Rule-Based VR Economic Simulation</p><a href="https://scholar.google.com/scholar?q=Visceral+Interaction+Operationalizing+Cognitive+Friction+through+Rule-Based+VR+Economic+Simulation" target="_blank" rel="noreferrer">Paper record / 论文链接 ↗</a></div></article>
-        <article><img src="assets/poop-cc-poster.webp" alt="Creativity and Cognition poster for Excremental Economy" loading="lazy"><div><h4>ACM Creativity & Cognition 2026</h4><p>Excremental Economy: A Rule-Based Speculative System for Staging Bodily Commodification and Unequal Value Extraction</p><a href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=yYgrzP8AAAAJ&citation_for_view=yYgrzP8AAAAJ:u-x6o8ySG0sC" target="_blank" rel="noreferrer">Google Scholar / 查看论文 ↗</a></div></article>
+        <article><img src="assets/poop-hcii-poster.webp" alt="HCII poster for Visceral Interaction" loading="lazy"><div class="poop-paper-copy"><h4>HCII 2026 · Late Breaking Work</h4><p>Visceral Interaction: Operationalizing Cognitive Friction through Rule-Based VR Economic Simulation</p><a href="https://scholar.google.com/scholar?q=Visceral+Interaction+Operationalizing+Cognitive+Friction+through+Rule-Based+VR+Economic+Simulation" target="_blank" rel="noreferrer">Paper record / 论文链接 ↗</a></div></article>
+        <article class="poop-paper-card--cc">
+          <div class="poop-paper-media">
+            <img src="assets/poop-cc-poster.webp" alt="Creativity and Cognition poster for Excremental Economy" loading="lazy">
+            <span class="poop-paper-count">01 / 02</span>
+            <button class="poop-paper-arrow" type="button" aria-label="Show C&amp;C presentation documentation"><span>›</span></button>
+          </div>
+          <div class="poop-paper-copy"><h4>ACM Creativity & Cognition 2026</h4><p>Excremental Economy: A Rule-Based Speculative System for Staging Bodily Commodification and Unequal Value Extraction</p><a href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=yYgrzP8AAAAJ&citation_for_view=yYgrzP8AAAAJ:u-x6o8ySG0sC" target="_blank" rel="noreferrer">Google Scholar / 查看论文 ↗</a></div>
+        </article>
       </div>
-      <figure class="poop-conference-photo"><img src="assets/poop-cc-photo.webp" alt="PoopSlaves poster presented at Creativity and Cognition" loading="lazy"><figcaption>Poster presentation documentation / C&amp;C 会议现场记录（小图展示）</figcaption></figure>
     </section>
     <section class="poop-graduation">
       <header><span>03</span><div><h3>HIT Outstanding Graduation Project</h3><p>哈尔滨工业大学优秀毕业设计</p></div></header>
@@ -702,6 +708,35 @@ function renderPoopSlaves() {
       updateOutcome(Number(button.dataset.poopDirection));
     };
   });
+  const ccSlides = [
+    {
+      src: "assets/poop-cc-poster.webp",
+      alt: "Creativity and Cognition poster for Excremental Economy",
+      label: "Show C&C presentation documentation",
+    },
+    {
+      src: "assets/poop-cc-photo.webp",
+      alt: "PoopSlaves poster presented at Creativity and Cognition",
+      label: "Show the Excremental Economy poster",
+    },
+  ];
+  let ccSlideIndex = 0;
+  const ccCard = container.querySelector(".poop-paper-card--cc");
+  const ccImage = ccCard.querySelector(".poop-paper-media img");
+  const ccArrow = ccCard.querySelector(".poop-paper-arrow");
+  const ccCount = ccCard.querySelector(".poop-paper-count");
+  ccArrow.onclick = () => {
+    ccSlideIndex = (ccSlideIndex + 1) % ccSlides.length;
+    const nextSlide = ccSlides[ccSlideIndex];
+    ccImage.classList.add("is-changing");
+    setTimeout(() => {
+      ccImage.src = nextSlide.src;
+      ccImage.alt = nextSlide.alt;
+      ccArrow.setAttribute("aria-label", nextSlide.label);
+      ccCount.textContent = `${String(ccSlideIndex + 1).padStart(2, "0")} / 02`;
+      ccImage.classList.remove("is-changing");
+    }, 160);
+  };
 }
 function openNote() {
   note.classList.add("open");
