@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="Yutong Chen — interaction designer and creative technologist."
+    />
+    <title>Yutong Chen — Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;1,400;1,600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css?v=rca26" />
+  </head>
+  <body>
+    <main class="site-shell">
+      <section class="home-screen" id="home" aria-label="Portfolio home">
+        <header class="home-header">
+          <a href="#home">YUTONG CHEN</a>
+          <nav>
+            <button id="home-work">Selected works</button
+            ><button data-open="about">About</button
+            ><a
+              class="nav-link"
+              href="https://scholar.google.com/citations?hl=en&user=yYgrzP8AAAAJ"
+              target="_blank"
+              rel="noreferrer"
+              >Scholar ↗</a
+            >
+          </nav>
+        </header>
+        <div class="home-copy">
+          <p class="eyebrow">Portfolio · 2026</p>
+          <h1>Yutong Chen<br /><span>陈宇同</span></h1>
+          <p class="home-role">MA Information Experience Design · Royal College of Art</p>
+          <p class="intro">
+            Interaction designer and creative technologist working across
+            embodied interaction, moving image and speculative systems.
+          </p>
+          <p class="intro-cn">
+            以交互、影像与虚拟世界，让不可见的结构被身体感知。
+          </p>
+        </div>
+        <div
+          class="portrait-mosaic"
+          id="portrait-mosaic"
+          aria-label="Portrait of Yutong Chen on a bus"
+        >
+          <img
+            class="portrait-base"
+            src="assets/yutong-bus.webp"
+            alt="Yutong Chen sitting by the window on a bus"
+          />
+          <div class="shards" id="shards" aria-hidden="true"></div>
+        </div>
+        <div class="home-foot home-portals">
+          <button id="enter-work"><span>01</span><strong>Selected Works</strong><b>View projects →</b></button>
+          <button data-home-panel="about"><span>02</span><strong>About</strong><b>Profile / 简介 →</b></button>
+          <a href="https://scholar.google.com/citations?hl=en&user=yYgrzP8AAAAJ" target="_blank" rel="noreferrer"><span>03</span><strong>Research</strong><b>Google Scholar ↗</b></a>
+        </div>
+        <div class="home-index" aria-hidden="true">
+          01<br /><span>/ 03</span>
+        </div>
+      </section>
+      <section class="stage" id="work" aria-live="polite" aria-hidden="true">
+        <div class="backdrop" aria-hidden="true">
+          <img id="active-image" src="assets/hero-04.webp" alt="" />
+          <div class="veil"></div>
+        </div>
+        <div class="technical" aria-hidden="true">
+          <div class="vline l1"></div>
+          <div class="vline l2"></div>
+          <div class="vline l3"></div>
+          <div class="hline"></div>
+          <span class="mark m1">○ 120.804</span
+          ><span class="mark m2">□ 720.119</span
+          ><span class="mark m3">○ 061.442</span
+          ><span class="mark m4">┌ 24.608</span>
+        </div>
+        <header>
+          <button class="name" id="back-home">YUTONG CHEN</button>
+          <nav>
+            <button data-open="index">Exploration</button
+            ><button data-open="about">About</button
+            ><a
+              class="nav-link"
+              href="https://scholar.google.com/citations?hl=en&user=yYgrzP8AAAAJ"
+              target="_blank"
+              rel="noreferrer"
+              >Scholar ↗</a
+            >
+          </nav>
+        </header>
+        <section class="identity">
+          <p class="kicker" id="active-no">01 / 10</p>
+          <h1 id="active-title">Value Machine</h1>
+          <p class="role" id="active-role">Participatory art-market critique.</p>
+          <div
+            class="active-tags"
+            id="active-tags"
+            aria-label="Project categories"
+          ></div>
+        </section>
+        <footer class="meta">
+          <p>
+            <span>Currently based in</span
+            ><strong>Shenzhen, CN &amp; London, UK</strong>
+          </p>
+          <p>
+            <span>Working across</span
+            ><strong id="active-medium">installation · Arduino · participation</strong>
+          </p>
+          <p class="project-link">
+            <span>Selected project</span
+            ><button id="read-project">View full project ↗</button>
+          </p>
+          <p class="contact">
+            <span>Contact me at</span
+            ><a href="mailto:chenyutong11126@gmail.com">Email ↗</a>
+          </p>
+        </footer>
+        <div class="stepper">
+          <button id="prev-project" aria-label="Previous project">←</button>
+          <div class="dots" id="dots"></div>
+          <button id="next-project-small" aria-label="Next project">→</button>
+        </div>
+      </section>
+      <aside class="panel index-panel" data-panel="index" aria-hidden="true">
+        <div class="panel-head">
+          <span>Exploration / 作品</span><button data-close>Close</button>
+        </div>
+        <div class="project-list" id="project-list"></div>
+      </aside>
+      <aside class="panel about-panel" data-panel="about" aria-hidden="true">
+        <div class="panel-head">
+          <span>About / 关于</span><button data-close>Close</button>
+        </div>
+        <div class="about-cv">
+          <div class="about-portrait"><img src="assets/yutong-id.webp" alt="Yutong Chen portrait on white background" /></div>
+          <div class="about-resume">
+            <header><h1>Yutong Chen <span>/ 陈宇同</span></h1><p>MA Information Experience Design, RCA<br />BA Digital Media Art, HIT</p></header>
+            <p class="about-summary">Interaction designer and creative technologist working across embodied interaction, virtual reality, moving image and critical speculative design. Her practice turns cultural, ecological and economic systems into experiences that can be entered, felt and questioned.<span class="cv-cn">交互设计师与创意技术实践者，关注具身交互、虚拟现实、移动影像和批判性推想设计，通过可进入、可感知的体验重新审视文化、生态与经济系统。</span></p>
+            <section><h2>Education / 教育背景</h2><dl>
+              <dt>2026–27</dt><dd><strong>Royal College of Art</strong><span>MA Information Experience Design · London</span><span class="cv-cn">皇家艺术学院 · 信息体验设计硕士</span></dd>
+              <dt>2022–26</dt><dd><strong>Harbin Institute of Technology, Shenzhen</strong><span>BA Digital Media Art · GPA 3.415/4.0</span><span class="cv-cn">哈尔滨工业大学（深圳）· 数字媒体艺术学士</span></dd>
+              <dt>2025</dt><dd><strong>HKUST InnoBay Summer Camp</strong><span>Interdisciplinary Innovation Programme · Hong Kong</span><span class="cv-cn">香港科技大学 InnoBay 科创营 · 跨学科创新项目</span></dd>
+              <dt>2024</dt><dd><strong>Repin Academy Preparatory Studio</strong><span>Advanced Sketch Training · Ivan Logvinov Studio</span><span class="cv-cn">列宾美术学院南京预科班 · 素描高级研修</span></dd>
+            </dl></section>
+            <section><h2>Research &amp; Professional Experience / 研究与实践</h2><dl>
+              <dt>2026–</dt><dd><strong>Studio for Narrative Spaces, City University of Hong Kong</strong><span>Online research project member</span><span class="cv-cn">香港城市大学叙事空间工作室 · 线上研究项目成员</span></dd>
+              <dt>2025</dt><dd><strong>Drown in Algae · HKUST InnoBay</strong><span>Researcher and designer; field research, biomaterials and immersive communication.</span><span class="cv-cn">研究与设计：海洋污染、生物材料与沉浸式传播</span></dd>
+              <dt>2024</dt><dd><strong>ZTE Corporation</strong><span>UX Design Intern · System Product Research Center</span><span class="cv-cn">中兴通讯系统产品研究中心 · 用户体验设计实习</span></dd>
+              <dt>2023–25</dt><dd><strong>Maker Faire Shenzhen</strong><span>Game and interactive installation designer; Best Booth Award in 2023.</span><span class="cv-cn">游戏与交互装置设计；2023 年获最佳展位</span></dd>
+              <dt>2024–25</dt><dd><strong>Institute of Future Health, SCUT</strong><span>Logo and visual identity designer</span><span class="cv-cn">华南理工大学未来健康研究院 · 标志与视觉识别设计</span></dd>
+              <dt>2024–25</dt><dd><strong>Yuanling Barrier-Free Demonstration Street</strong><span>Accessibility research and inclusive public-space design.</span><span class="cv-cn">园岭街道全域无障碍示范街区 · 无障碍调研与设计</span></dd>
+            </dl></section>
+            <section><h2>Publications / 论文与学术成果</h2><dl>
+              <dt>2026</dt><dd><strong>Experiencing Cognitive Friction through Embodied Interaction in Virtual Reality</strong><span>AIVRID 2026 · First author · Accepted</span><span class="cv-cn">第一作者 · 已录用</span></dd>
+              <dt>2026</dt><dd><strong>Visceral Interaction: Operationalizing Cognitive Friction through Rule-Based VR Economic Simulation</strong><span>HCI International 2026, Late Breaking Work · First author · Accepted</span><span class="cv-cn">HCII 2026 Late Breaking Work · 第一作者 · 已录用</span></dd>
+              <dt>2026</dt><dd><strong>Unsettling the Auspicious Pine</strong><span>ACM Creativity &amp; Cognition · Conference poster</span><span class="cv-cn">ACM C&amp;C 2026 会议海报</span></dd>
+              <dt>2026</dt><dd><strong>Excremental Economy</strong><span>ACM Creativity &amp; Cognition · Conference poster</span><span class="cv-cn">ACM C&amp;C 2026 会议海报</span></dd>
+            </dl></section>
+            <section><h2>Selected Awards / 主要奖项</h2><dl>
+              <dt>2026</dt><dd><strong>New Quality Design Awards · Student Award</strong><span>Plated Fantasies</span><span class="cv-cn">新质点设计奖学生组 · 新质点奖</span></dd>
+              <dt>2026</dt><dd><strong>China Good Creativity Competition · Third Prize</strong><span>Navigating the Past · Cultural Heritage</span><span class="cv-cn">中国好创意暨数字艺术设计大赛文化遗产类本科组三等奖</span></dd>
+              <dt>2025</dt><dd><strong>NCDA · National Second Prize</strong><span>Beyond the 18th Ring</span><span class="cv-cn">未来设计师 NCDA 国赛二等奖、省赛一等奖</span></dd>
+              <dt>2025</dt><dd><strong>NCDA · Provincial First Prize</strong><span>Closet X and The Forbidden Hue</span><span class="cv-cn">两项作品获省级一等奖</span></dd>
+              <dt>2025</dt><dd><strong>National Digital Media Competition · National Third Prize</strong><span>PoopSlaves</span><span class="cv-cn">全国大学生数字媒体科技作品及创意竞赛国赛三等奖</span></dd>
+              <dt>2024</dt><dd><strong>National Industrial Design Competition · Regional Second Prize</strong><span>Senior Sight</span><span class="cv-cn">全国大学生工业设计大赛黑龙江赛区二等奖</span></dd>
+            </dl></section>
+            <section><h2>Skills / 技能</h2><p>Unreal Engine · TouchDesigner · Blender · Rhino 3D · Arduino · Figma · Adobe Creative Suite · Procreate · UX Research · Interactive Prototyping · VR Experience Design · Exhibition Design<span class="cv-cn">普通话（母语）· English (IELTS 6.0) · 素描十级 · 钢琴十级</span></p></section>
+            <section><h2>Contact / 联系</h2><p><a href="mailto:chenyutong11126@gmail.com">Email ↗</a> · <a href="https://scholar.google.com/citations?hl=en&amp;user=yYgrzP8AAAAJ" target="_blank" rel="noreferrer">Google Scholar ↗</a></p></section>
+          </div>
+        </div>
+      </aside>
+      <aside
+        class="panel category-panel"
+        id="category-panel"
+        aria-hidden="true"
+      >
+        <div class="panel-head">
+          <span id="category-title">Category Gallery / 分类项目</span
+          ><button id="close-category">Close</button>
+        </div>
+        <div class="category-intro">
+          <p id="category-lead"></p>
+          <p class="case-cn">
+            点击项目可查看完整作品，关闭后返回之前的浏览位置。
+          </p>
+        </div>
+        <div class="project-list" id="category-list"></div>
+      </aside>
+      <aside class="project-note" id="project-note" aria-hidden="true">
+        <header class="case-head">
+          <span id="case-count">01 / 10</span
+          ><button id="close-note">Close ×</button>
+        </header>
+        <div class="case-hero">
+          <p id="note-type"></p>
+          <h2 id="note-title"></h2>
+          <div class="case-video-links" id="case-video-links"></div>
+          <p id="note-copy"></p>
+          <p class="case-cn" id="note-cn"></p>
+          <div class="case-tags" id="case-tags"></div>
+        </div>
+        <div id="case-sections"></div>
+        <div class="note-nav">
+          <button id="note-prev">← Previous</button
+          ><button id="note-next">Next project →</button>
+        </div>
+      </aside>
+      <div class="cursor" aria-hidden="true"></div>
+    </main>
+    <script src="script.js?v=rca27"></script>
+  </body>
+</html>
