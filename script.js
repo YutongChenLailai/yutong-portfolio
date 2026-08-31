@@ -22,6 +22,15 @@ const imagePath = (src) => {
 const configureImage = (img) => {
   const path = imagePath(img.getAttribute("src") || img.dataset.src);
   if (!path) return;
+  if (!img.dataset.mediaFallback) {
+    img.dataset.mediaFallback = "ready";
+    img.addEventListener("error", () => {
+      if (img.dataset.mediaFallback === "used") return;
+      img.dataset.mediaFallback = "used";
+      img.removeAttribute("srcset");
+      img.src = path;
+    });
+  }
   if (img.dataset.src) {
     img.decoding = "async";
     img.loading = "lazy";
