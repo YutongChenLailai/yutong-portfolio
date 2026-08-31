@@ -1016,6 +1016,7 @@ function renderPoopSlaves() {
   };
 }
 function openNote() {
+  document.body.classList.add("detail-open");
   note.classList.add("open");
   note.setAttribute("aria-hidden", "false");
   note.scrollTo(0, 0);
@@ -1023,6 +1024,7 @@ function openNote() {
 }
 function closeNote(restore = true) {
   note.classList.remove("open");
+  document.body.classList.remove("detail-open");
   note.setAttribute("aria-hidden", "true");
   if (restore && returnCategory)
     setTimeout(() => openCategory(returnCategory), 250);
