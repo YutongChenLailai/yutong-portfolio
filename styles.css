@@ -242,7 +242,7 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
   justify-content:flex-end;
   margin:0 calc(var(--pad)*-1);
   padding:clamp(3rem,7vw,8rem) var(--pad)!important;
-  background-image:linear-gradient(90deg,rgba(0,0,0,.82),rgba(0,0,0,.12)),url('assets/poop-cover-2.webp')!important;
+  background-image:linear-gradient(90deg,rgba(0,0,0,.82),rgba(0,0,0,.12)),url('https://cdn.jsdelivr.net/gh/YutongChenLailai/yutong-portfolio@bf63d0cd4d6907c4d6299e4a0ea4998e9e0e8907/assets/projects/poopslaves/cover/cover.webp')!important;
   background-position:center;
   background-size:cover;
   border-bottom:1px solid #fff;
@@ -579,11 +579,11 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
 .poop-note .case-hero{
   position:relative;min-height:100svh!important;height:100svh;
   display:block;margin:0 calc(var(--pad)*-1);padding:0!important;overflow:hidden;
-  background-image:url('assets/poop-cover-2.webp')!important;background-position:center 46%;background-size:cover;
+  background-image:url('https://cdn.jsdelivr.net/gh/YutongChenLailai/yutong-portfolio@bf63d0cd4d6907c4d6299e4a0ea4998e9e0e8907/assets/projects/poopslaves/cover/cover.webp')!important;background-position:center 46%;background-size:cover;
   border-bottom:0;isolation:isolate;
 }
-.poop-note.plantiever-note .case-hero{background-image:url('assets/plantiever-detail-hero.webp')!important;background-position:center 48%}
-.poop-note.value-note .case-hero{background-image:url('assets/value-machine-detail-hero.webp')!important;background-position:center 18%!important}
+.poop-note.plantiever-note .case-hero{background-image:url('https://cdn.jsdelivr.net/gh/YutongChenLailai/yutong-portfolio@bf63d0cd4d6907c4d6299e4a0ea4998e9e0e8907/assets/projects/plantievers-illusion/cover/detail-hero.webp')!important;background-position:center 48%}
+.poop-note.value-note .case-hero{background-image:url('https://cdn.jsdelivr.net/gh/YutongChenLailai/yutong-portfolio@bf63d0cd4d6907c4d6299e4a0ea4998e9e0e8907/assets/projects/value-machine/cover/detail-hero.webp')!important;background-position:center 18%!important}
 .poop-note .case-hero:after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.6);z-index:-1;pointer-events:none}
 .poop-note.plantiever-note .case-hero:after{background:rgba(0,0,0,.34)}
 .poop-note.value-note .case-hero:after{background:rgba(0,0,0,.38)}
@@ -690,7 +690,7 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
   .tag-button{flex:0 0 auto;min-height:36px;padding:.45rem .7rem;font-size:11px}
   .meta{display:block;min-height:80px;height:80px}
   .meta p{display:none!important}
-  .meta .project-link{display:flex!important;min-height:80px;padding:0 var(--mobile-edge);align-items:center;justify-content:space-between;border-right:0;background:#fff!important;color:#000!important}
+  .meta .project-link{display:flex!important;min-height:80px;padding:0 var(--mobile-edge);flex-direction:row;align-items:center;justify-content:space-between;border-right:0;background:#000!important;color:#fff!important}
   .meta .project-link span{font-size:11px}
   .meta .project-link button{min-height:48px;margin:0;padding:0 0 0 1rem;font-size:16px;text-decoration:none}
   .stepper{left:var(--mobile-edge);right:var(--mobile-edge);top:auto;bottom:calc(43% + 12px);display:flex;justify-content:space-between;gap:0;padding:0;transform:none;border:0;background:transparent}
@@ -773,6 +773,18 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
   .about-resume>header h1{font-size:38px}
   .about-resume section{padding-block:1.5rem}
   .about-resume dl{grid-template-columns:66px 1fr;gap:1rem}
+}
+
+/* Interactive surfaces stay black until the visitor points, focuses or presses. */
+.meta .project-link{background:#000!important;color:#fff!important;transition:background-color .18s ease,color .18s ease}
+.meta .project-link span{color:#aaa!important}
+.meta .project-link:hover,.meta .project-link:focus-within,.meta .project-link:active{background:#fff!important;color:#000!important}
+.meta .project-link:hover span,.meta .project-link:focus-within span,.meta .project-link:active span{color:#555!important}
+
+@media(max-width:760px){
+  .poop-note .case-hero{background-image:url('https://cdn.jsdelivr.net/gh/YutongChenLailai/yutong-portfolio@bf63d0cd4d6907c4d6299e4a0ea4998e9e0e8907/assets/projects/poopslaves/cover/cover-960.webp')!important}
+  .poop-note.plantiever-note .case-hero{background-image:url('https://cdn.jsdelivr.net/gh/YutongChenLailai/yutong-portfolio@bf63d0cd4d6907c4d6299e4a0ea4998e9e0e8907/assets/projects/plantievers-illusion/cover/detail-hero-960.webp')!important}
+  .poop-note.value-note .case-hero{background-image:url('https://cdn.jsdelivr.net/gh/YutongChenLailai/yutong-portfolio@bf63d0cd4d6907c4d6299e4a0ea4998e9e0e8907/assets/projects/value-machine/cover/detail-hero-960.webp')!important}
 }
 
 @media(max-width:380px){

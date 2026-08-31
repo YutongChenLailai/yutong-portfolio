@@ -1,76 +1,147 @@
+const MEDIA_REVISION = "bf63d0cd4d6907c4d6299e4a0ea4998e9e0e8907";
+const MEDIA_ORIGIN = `https://cdn.jsdelivr.net/gh/YutongChenLailai/yutong-portfolio@${MEDIA_REVISION}/`;
+const media = (src) =>
+  src && src.startsWith("assets/") ? `${MEDIA_ORIGIN}${src}` : src;
+const mediaVariant = (src, width) =>
+  media(src.replace(/\.webp$/i, `-${width}.webp`));
+const responsiveSet = (src) =>
+  `${mediaVariant(src, 480)} 480w, ${mediaVariant(src, 960)} 960w, ${media(src)} 2000w`;
+const setResponsiveImage = (img, src, sizes = "(max-width: 760px) 100vw, 80vw") => {
+  img.removeAttribute("data-src");
+  img.src = media(src);
+  img.srcset = responsiveSet(src);
+  img.sizes = sizes;
+  img.decoding = "async";
+};
+const imagePath = (src) => {
+  if (!src) return "";
+  if (src.startsWith("assets/")) return src;
+  if (src.startsWith(MEDIA_ORIGIN)) return src.slice(MEDIA_ORIGIN.length);
+  return "";
+};
+const configureImage = (img) => {
+  const path = imagePath(img.getAttribute("src") || img.dataset.src);
+  if (!path) return;
+  if (img.dataset.src) {
+    img.decoding = "async";
+    img.loading = "lazy";
+    return;
+  }
+  const isThumbnail = /-thumb\.webp$/i.test(path);
+  if (!isThumbnail) {
+    img.srcset = responsiveSet(path);
+    if (!img.sizes)
+      img.sizes = img.dataset.sizes || "(max-width: 760px) 100vw, 80vw";
+  }
+  if (img.getAttribute("src") !== media(path)) img.src = media(path);
+  img.decoding = "async";
+  if (!img.loading && img.fetchPriority !== "high") img.loading = "lazy";
+};
+const deferredMediaObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const img = entry.target;
+      const path = imagePath(img.dataset.src);
+      img.src = media(path);
+      img.removeAttribute("data-src");
+      configureImage(img);
+      deferredMediaObserver.unobserve(img);
+    });
+  },
+  { rootMargin: "600px 0px" },
+);
+const registerMedia = (root = document) => {
+  root.querySelectorAll("img[data-src]").forEach((img) => {
+    configureImage(img);
+    deferredMediaObserver.observe(img);
+  });
+  root.querySelectorAll("img[src]").forEach(configureImage);
+};
+new MutationObserver((mutations) => {
+  mutations.forEach((mutation) =>
+    mutation.addedNodes.forEach((node) => {
+      if (node.nodeType !== 1) return;
+      if (node.matches?.("img")) configureImage(node);
+      registerMedia(node);
+    }),
+  );
+}).observe(document.documentElement, { childList: true, subtree: true });
+registerMedia();
+
 const projects = [
   {
     title: "PoopSlaves",
     role: "Speculative VR system.",
     medium: "VR · interaction · research",
-    image: "assets/poop-cover-2.webp",
+    image: "assets/projects/poopslaves/cover/cover.webp",
     copy: "A rule-based virtual economy where bodily waste becomes scarce, governable value. The work makes unequal extraction tangible through constrained agency.",
   },
   {
     title: "Plantiever’s Illusion",
     role: "Moving-image installation.",
     medium: "film · installation · cultural symbols",
-    image: "assets/hero-02.webp",
+    image: "assets/projects/plantievers-illusion/cover/cover.webp",
     copy: "A moving-image installation that keeps auspicious symbols recognisable while changing the conditions under which they are seen, felt and interpreted.",
   },
   {
     title: "The Forbidden Hue",
     role: "Heritage through virtual play.",
     medium: "VR game · heritage · narrative",
-    image: "assets/forbidden-hue-outcome-04.webp",
+    image: "assets/projects/forbidden-hue/cover/cover.webp",
     copy: "A cross-media VR experience that reconstructs Yao history through exploratory play, ritual space and multiple narrative paths.",
   },
   {
     title: "Value Machine",
     role: "Participatory art-market critique.",
     medium: "installation · Arduino · participation",
-    image: "assets/hero-04.webp",
+    image: "assets/projects/value-machine/cover/cover.webp",
     copy: "Visitors feed a fictional artist-machine, generate images and participate in their valuation, exposing how reputation manufactures artistic worth.",
   },
   {
     title: "Fetorium",
     role: "A social anatomy of stench.",
     medium: "installation · facial detection · media art",
-    image: "assets/hero-05.webp",
+    image: "assets/projects/fetorium/cover/cover.webp",
     copy: "Responsive puppets and facial recognition turn imagined odour into visible feedback, revealing how disgust and social boundaries are produced.",
   },
   {
     title: "Plated Fantasies",
     role: "A sensory dining fiction.",
     medium: "installation · TouchDesigner · perception",
-    image: "assets/hero-06.webp",
+    image: "assets/projects/plated-fantasies/cover/cover.webp",
     copy: "An interactive table stages food as a culturally conditioned image, asking when appetite belongs to the body and when it is learned.",
   },
   {
     title: "Closet X",
     role: "AI wardrobe interface.",
     medium: "UX · AI recognition · virtual try-on",
-    image: "assets/hero-07.webp",
+    image: "assets/projects/closet-x/cover/cover.webp",
     copy: "A wardrobe-management system connecting garment recognition, personal styling, sustainable use and virtual dressing.",
   },
   {
     title: "Navigating the Past",
     role: "Urban memory in augmented reality.",
     medium: "AR · heritage · urban experience",
-    image: "assets/hero-08.webp",
+    image: "assets/projects/navigating-the-past/cover/cover.webp",
     copy: "A multi-layered navigation experience reconnecting Harbin’s historic streets with archival stories, spatial memory and contemporary movement.",
   },
   {
     title: "Feeding Fear / PEEEP",
     role: "Experimental moving image.",
     medium: "video art · social psychology",
-    image: "assets/hero-09.webp",
+    image: "assets/projects/feeding-fear/cover/cover.webp",
     copy: "A visual investigation of how fear is repeatedly fed by institutions, environments and the social circulation of suspicion.",
   },
   {
     title: "Drown in Algae",
     role: "Ecological witnessing.",
     medium: "bio-art · coastal ecology · installation",
-    image: "assets/hero-10.webp",
+    image: "assets/projects/drown-in-algae/cover/cover.webp",
     copy: "A bio-art system anchored in coastal pollution, combining environmental observation, algae-based material research and ecological repair.",
   },
 ];
-const projectThumbnail = (src) => src.replace(/\.webp$/i, "-thumb.webp");
+const projectThumbnail = (src) => media(src.replace(/\.webp$/i, "-thumb.webp"));
 const caseCn = [
   "一个把排泄物设为稀缺货币的推想式 VR 系统，让权力、价值与身体控制变得可感。",
   "以动态影像和空间装置重组传统吉祥符号，在熟悉与陌生之间激活文化记忆。",
@@ -190,57 +261,57 @@ const publications = {
   },
 };
 const poopPortfolioSeries = [
-  "assets/poop-portfolio-01.webp",
-  "assets/poop-portfolio-02.webp",
-  "assets/poop-portfolio-03.webp",
-  "assets/poop-portfolio-04.webp",
-  "assets/poop-portfolio-05.webp",
-  "assets/poop-portfolio-06.webp",
+  "assets/projects/poopslaves/portfolio/spread-01.webp",
+  "assets/projects/poopslaves/portfolio/spread-02.webp",
+  "assets/projects/poopslaves/portfolio/spread-03.webp",
+  "assets/projects/poopslaves/portfolio/spread-04.webp",
+  "assets/projects/poopslaves/portfolio/spread-05.webp",
+  "assets/projects/poopslaves/portfolio/spread-06.webp",
 ];
 const plantieverPortfolioSeries = [
-  "assets/plantiever-portfolio-01.webp",
-  "assets/plantiever-portfolio-02.webp",
-  "assets/plantiever-portfolio-03.webp",
-  "assets/plantiever-portfolio-04.webp",
+  "assets/projects/plantievers-illusion/portfolio/spread-01.webp",
+  "assets/projects/plantievers-illusion/portfolio/spread-02.webp",
+  "assets/projects/plantievers-illusion/portfolio/spread-03.webp",
+  "assets/projects/plantievers-illusion/portfolio/spread-04.webp",
 ];
 const plantieverOutcomeGallery = [
-  "assets/plantiever-outcome-01.webp",
-  "assets/plantiever-outcome-02.webp",
-  "assets/plantiever-outcome-03.webp",
-  "assets/plantiever-outcome-04.webp",
-  "assets/plantiever-outcome-05.webp",
-  "assets/plantiever-outcome-07.webp",
-  "assets/plantiever-outcome-08.webp",
-  "assets/plantiever-outcome-09.webp",
+  "assets/projects/plantievers-illusion/gallery/outcome-01.webp",
+  "assets/projects/plantievers-illusion/gallery/outcome-02.webp",
+  "assets/projects/plantievers-illusion/gallery/outcome-03.webp",
+  "assets/projects/plantievers-illusion/gallery/outcome-04.webp",
+  "assets/projects/plantievers-illusion/gallery/outcome-05.webp",
+  "assets/projects/plantievers-illusion/gallery/outcome-07.webp",
+  "assets/projects/plantievers-illusion/gallery/outcome-08.webp",
+  "assets/projects/plantievers-illusion/gallery/outcome-09.webp",
 ];
 const valueMachineOutcomeGallery = [
-  "assets/value-machine-outcome-01.webp",
-  "assets/value-machine-outcome-02.webp",
-  "assets/value-machine-outcome-03.webp",
-  "assets/value-machine-outcome-04.webp",
-  "assets/value-machine-outcome-05.webp",
-  "assets/value-machine-outcome-06.webp",
-  "assets/value-machine-outcome-07.webp",
+  "assets/projects/value-machine/gallery/outcome-01.webp",
+  "assets/projects/value-machine/gallery/outcome-02.webp",
+  "assets/projects/value-machine/gallery/outcome-03.webp",
+  "assets/projects/value-machine/gallery/outcome-04.webp",
+  "assets/projects/value-machine/gallery/outcome-05.webp",
+  "assets/projects/value-machine/gallery/outcome-06.webp",
+  "assets/projects/value-machine/gallery/outcome-07.webp",
 ];
 const valueMachinePortfolioSeries = [
-  "assets/value-machine-portfolio-01.webp",
-  "assets/value-machine-portfolio-02.webp",
-  "assets/value-machine-portfolio-03.webp",
-  "assets/value-machine-portfolio-04.webp",
-  "assets/value-machine-portfolio-05.webp",
+  "assets/projects/value-machine/portfolio/spread-01.webp",
+  "assets/projects/value-machine/portfolio/spread-02.webp",
+  "assets/projects/value-machine/portfolio/spread-03.webp",
+  "assets/projects/value-machine/portfolio/spread-04.webp",
+  "assets/projects/value-machine/portfolio/spread-05.webp",
 ];
 const fetoriumPortfolioSeries = [
-  "assets/fetorium-portfolio-01.webp",
-  "assets/fetorium-portfolio-02.webp",
-  "assets/fetorium-portfolio-03.webp",
-  "assets/fetorium-portfolio-04.webp",
-  "assets/fetorium-portfolio-05.webp",
+  "assets/projects/fetorium/portfolio/spread-01.webp",
+  "assets/projects/fetorium/portfolio/spread-02.webp",
+  "assets/projects/fetorium/portfolio/spread-03.webp",
+  "assets/projects/fetorium/portfolio/spread-04.webp",
+  "assets/projects/fetorium/portfolio/spread-05.webp",
 ];
 const platedFantasiesPortfolioSeries = [
-  "assets/plated-fantasies-portfolio-01.webp",
-  "assets/plated-fantasies-portfolio-02.webp",
-  "assets/plated-fantasies-portfolio-03.webp",
-  "assets/plated-fantasies-portfolio-04.webp",
+  "assets/projects/plated-fantasies/portfolio/spread-01.webp",
+  "assets/projects/plated-fantasies/portfolio/spread-02.webp",
+  "assets/projects/plated-fantasies/portfolio/spread-03.webp",
+  "assets/projects/plated-fantasies/portfolio/spread-04.webp",
 ];
 const portfolioSeries = {
   PoopSlaves: poopPortfolioSeries,
@@ -250,11 +321,11 @@ const portfolioSeries = {
   "Plated Fantasies": platedFantasiesPortfolioSeries,
 };
 const forbiddenHueSketches = [
-  "assets/forbidden-sketch-chan.webp",
-  "assets/forbidden-sketch-wang.webp",
-  "assets/forbidden-sketch-chu.webp",
-  "assets/forbidden-sketch-rong.webp",
-  "assets/forbidden-sketch-sheng.webp",
+  "assets/projects/forbidden-hue/gallery/sketch-chan.webp",
+  "assets/projects/forbidden-hue/gallery/sketch-wang.webp",
+  "assets/projects/forbidden-hue/gallery/sketch-chu.webp",
+  "assets/projects/forbidden-hue/gallery/sketch-rong.webp",
+  "assets/projects/forbidden-hue/gallery/sketch-sheng.webp",
 ];
 
 // Keep every project's parallel content aligned with the curated portfolio order.
@@ -306,7 +377,7 @@ for (let r = 0; r < rows; r++) {
       "polygon(7% 0,100% 6%,94% 100%,0 91%)",
     ];
     shard.style.cssText = `left:${c * (100 / cols)}%;top:${r * (100 / rows)}%;width:${100 / cols + 0.35}%;height:${100 / rows + 0.35}%;clip-path:${clips[seed % clips.length]};transform:translate(${x}px,${y}px) rotate(${((seed * 7) % 17) - 8}deg) scale(.86);transition-delay:${seed * 18}ms`;
-    img.src = "assets/yutong-bus.webp";
+    img.src = media("assets/site/home/portrait-bus.webp");
     img.style.width = `${cols * 100}%`;
     img.style.height = `${rows * 100}%`;
     img.style.left = `-${c * 100}%`;
@@ -428,7 +499,7 @@ function show(index) {
     };
     image.onload = finish;
     image.onerror = finish;
-    image.src = p.image;
+    setResponsiveImage(image, p.image, "100vw");
     title.textContent = p.title;
     role.textContent = p.role;
     num.textContent = `${String(current + 1).padStart(2, "0")} / ${String(projects.length).padStart(2, "0")}`;
@@ -552,13 +623,13 @@ function fillNote() {
   ];
   if (["Fetorium", "Plated Fantasies"].includes(p.title)) sections.pop();
   const detailOutcomeImages = {
-    "Closet X": "assets/closet-x-final-outcome.webp",
-    "Navigating the Past": "assets/navigating-the-past-final-outcome.webp",
-    "Feeding Fear / PEEEP": "assets/feeding-fear-final-outcome.webp",
-    "The Forbidden Hue": "assets/the-forbidden-hue-final-outcome.webp",
+    "Closet X": "assets/projects/closet-x/gallery/outcome-01.webp",
+    "Navigating the Past": "assets/projects/navigating-the-past/gallery/outcome-01.webp",
+    "Feeding Fear / PEEEP": "assets/projects/feeding-fear/gallery/outcome-01.webp",
+    "The Forbidden Hue": "assets/projects/forbidden-hue/gallery/outcome-01.webp",
   };
   const outcomeImage = detailOutcomeImages[p.title] || p.image;
-  document.querySelector("#case-sections").innerHTML = sections.map((s, i) => `<section class="case-section"><div class="case-label"><span>${s[0]}</span><h3>${s[1]}<small>${s[2]}</small></h3></div><div class="case-body"><p>${s[3]}</p><p class="case-cn">${s[4]}</p>${i === 1 && !["Plantiever’s Illusion", "Value Machine"].includes(p.title) ? `<img class="outcome-image" src="${outcomeImage}" alt="${p.title} final outcome" loading="lazy" decoding="async">` : ""}</div></section>`).join("");
+  document.querySelector("#case-sections").innerHTML = sections.map((s, i) => `<section class="case-section"><div class="case-label"><span>${s[0]}</span><h3>${s[1]}<small>${s[2]}</small></h3></div><div class="case-body"><p>${s[3]}</p><p class="case-cn">${s[4]}</p>${i === 1 && !["Plantiever’s Illusion", "Value Machine"].includes(p.title) ? `<img class="outcome-image" data-src="${outcomeImage}" alt="${p.title} final outcome" loading="lazy" decoding="async">` : ""}</div></section>`).join("");
   const container = document.querySelector("#case-sections"),
     publication = publications[current];
   let sectionNumber = sections.length + 1;
@@ -589,9 +660,9 @@ function fillNote() {
     const renderGallery = () => {
       const previousIndex = (galleryIndex - 1 + plantieverOutcomeGallery.length) % plantieverOutcomeGallery.length;
       const nextIndex = (galleryIndex + 1) % plantieverOutcomeGallery.length;
-      galleryMain.src = plantieverOutcomeGallery[galleryIndex];
-      galleryPrevious.src = plantieverOutcomeGallery[previousIndex];
-      galleryNext.src = plantieverOutcomeGallery[nextIndex];
+      setResponsiveImage(galleryMain, plantieverOutcomeGallery[galleryIndex], "70vw");
+      setResponsiveImage(galleryPrevious, plantieverOutcomeGallery[previousIndex], "25vw");
+      setResponsiveImage(galleryNext, plantieverOutcomeGallery[nextIndex], "25vw");
       galleryMain.alt = `Plantiever’s Illusion final outcome ${galleryIndex + 1} of ${plantieverOutcomeGallery.length}`;
       galleryPrevious.alt = `Previous outcome ${previousIndex + 1}`;
       galleryNext.alt = `Next outcome ${nextIndex + 1}`;
@@ -621,7 +692,7 @@ function fillNote() {
       "beforeend",
       `<section class="plantiever-storyboard">
         <header><span>${String(sectionNumber).padStart(2, "0")}</span><div><h3>Video Storyboard</h3><p>视频分镜图 · Narrative development</p></div></header>
-        <figure><img src="assets/plantiever-video-storyboard.webp" alt="Plantiever’s Illusion video storyboard showing two storylines and their combination" loading="lazy" decoding="async"></figure>
+        <figure><img data-src="assets/projects/plantievers-illusion/process/video-storyboard.webp" alt="Plantiever’s Illusion video storyboard showing two storylines and their combination" loading="lazy" decoding="async"></figure>
       </section>`,
     );
     sectionNumber += 1;
@@ -632,8 +703,8 @@ function fillNote() {
         <div class="poop-paper-grid plantiever-paper-grid">
           <article class="poop-paper-card--cc plantiever-paper-card--cc">
             <div class="poop-paper-media">
-              <img class="poop-paper-media-image is-active" src="assets/plantiever-cc-poster.webp" alt="ACM Creativity and Cognition 2026 poster for Unsettling the Auspicious Pine" loading="lazy" decoding="async">
-              <img class="poop-paper-media-image" src="assets/plantiever-cc-photo.webp" alt="Unsettling the Auspicious Pine presented at ACM Creativity and Cognition 2026" loading="lazy" decoding="async">
+              <img class="poop-paper-media-image is-active" data-src="assets/projects/plantievers-illusion/research/creativity-cognition-poster.webp" alt="ACM Creativity and Cognition 2026 poster for Unsettling the Auspicious Pine" loading="lazy" decoding="async">
+              <img class="poop-paper-media-image" data-src="assets/projects/plantievers-illusion/research/creativity-cognition-photo.webp" alt="Unsettling the Auspicious Pine presented at ACM Creativity and Cognition 2026" loading="lazy" decoding="async">
               <span class="poop-paper-count">01 / 02</span>
               <button class="poop-paper-arrow" type="button" aria-label="Show C&amp;C presentation documentation"><span>›</span></button>
             </div>
@@ -689,9 +760,9 @@ function fillNote() {
     const renderValueGallery = () => {
       const previousIndex = (valueGalleryIndex - 1 + valueMachineOutcomeGallery.length) % valueMachineOutcomeGallery.length;
       const nextIndex = (valueGalleryIndex + 1) % valueMachineOutcomeGallery.length;
-      valueMain.src = valueMachineOutcomeGallery[valueGalleryIndex];
-      valuePrevious.src = valueMachineOutcomeGallery[previousIndex];
-      valueNext.src = valueMachineOutcomeGallery[nextIndex];
+      setResponsiveImage(valueMain, valueMachineOutcomeGallery[valueGalleryIndex], "70vw");
+      setResponsiveImage(valuePrevious, valueMachineOutcomeGallery[previousIndex], "25vw");
+      setResponsiveImage(valueNext, valueMachineOutcomeGallery[nextIndex], "25vw");
       valueMain.alt = `Value Machine final outcome ${valueGalleryIndex + 1} of ${valueMachineOutcomeGallery.length}`;
       valueCounter.textContent = `Image ${String(valueGalleryIndex + 1).padStart(2, "0")} / ${String(valueMachineOutcomeGallery.length).padStart(2, "0")}`;
     };
@@ -719,7 +790,7 @@ function fillNote() {
   if (p.title === "The Forbidden Hue") {
     container.insertAdjacentHTML(
       "beforeend",
-      `<section class="portfolio-series forbidden-sketch-series"><header><span>${String(sectionNumber).padStart(2, "0")}</span><div><h3>Award-Winning Psychological Art Sketches</h3><p>First Prize selection · Original drawings</p></div><small>Drag or scroll horizontally / 左右滑动</small></header><div class="portfolio-rail">${forbiddenHueSketches.map((src, i) => `<figure><img src="${src}" alt="The Forbidden Hue award-winning psychological art sketch ${i + 1}" loading="lazy"><figcaption>${String(i + 1).padStart(2, "0")} / ${String(forbiddenHueSketches.length).padStart(2, "0")}</figcaption></figure>`).join("")}</div></section>`,
+      `<section class="portfolio-series forbidden-sketch-series"><header><span>${String(sectionNumber).padStart(2, "0")}</span><div><h3>Award-Winning Psychological Art Sketches</h3><p>First Prize selection · Original drawings</p></div><small>Drag or scroll horizontally / 左右滑动</small></header><div class="portfolio-rail">${forbiddenHueSketches.map((src, i) => `<figure><img data-src="${src}" alt="The Forbidden Hue award-winning psychological art sketch ${i + 1}" loading="lazy"><figcaption>${String(i + 1).padStart(2, "0")} / ${String(forbiddenHueSketches.length).padStart(2, "0")}</figcaption></figure>`).join("")}</div></section>`,
     );
     sectionNumber += 1;
   }
@@ -727,7 +798,7 @@ function fillNote() {
   if (selectedPortfolioSeries) {
     container.insertAdjacentHTML(
       "beforeend",
-      `<section class="portfolio-series"><header><span>${String(sectionNumber).padStart(2, "0")}</span><div><h3>MA Application Portfolio Series</h3><p>硕士申请作品集系列套图 · Original full-resolution spreads</p></div><small>Drag or scroll horizontally / 左右滑动</small></header><div class="portfolio-rail">${selectedPortfolioSeries.map((src, i) => `<figure><img src="${src}" alt="${p.title} MA application portfolio spread ${i + 1}" loading="lazy"><figcaption>${String(i + 1).padStart(2, "0")} / ${String(selectedPortfolioSeries.length).padStart(2, "0")}</figcaption></figure>`).join("")}</div></section>`,
+      `<section class="portfolio-series"><header><span>${String(sectionNumber).padStart(2, "0")}</span><div><h3>MA Application Portfolio Series</h3><p>硕士申请作品集系列套图 · Original full-resolution spreads</p></div><small>Drag or scroll horizontally / 左右滑动</small></header><div class="portfolio-rail">${selectedPortfolioSeries.map((src, i) => `<figure><img data-src="${src}" alt="${p.title} MA application portfolio spread ${i + 1}" loading="lazy"><figcaption>${String(i + 1).padStart(2, "0")} / ${String(selectedPortfolioSeries.length).padStart(2, "0")}</figcaption></figure>`).join("")}</div></section>`,
     );
     sectionNumber += 1;
   }
@@ -743,31 +814,31 @@ function renderPoopSlaves() {
   const container = document.querySelector("#case-sections");
   const outcomes = [
     {
-      image: "assets/poop-result-1.webp",
+      image: "assets/projects/poopslaves/gallery/outcome-01.webp",
       title: "A speculative economy built around bodily extraction",
       copy: "The virtual environment turns repetitive bodily labour into a visible system of value, scarcity and unequal accumulation.",
       cn: "虚拟环境将重复的身体劳动转化为可见的价值、稀缺与不平等积累系统。",
     },
     {
-      image: "assets/poop-result-2.webp",
+      image: "assets/projects/poopslaves/gallery/outcome-02.webp",
       title: "Roles and hierarchies become visible through scale",
       copy: "PoopSlaves, PoopMasters and PoopDeities occupy the same world while receiving radically different agency and rewards.",
       cn: "PoopSlaves、PoopMasters 与 PoopDeities 共处同一世界，却拥有截然不同的能动性与回报。",
     },
     {
-      image: "assets/poop-result-3.webp",
+      image: "assets/projects/poopslaves/gallery/outcome-03.webp",
       title: "Scarcity is staged as a spatial system",
       copy: "Toilets, pipes and monumental bodies form an arena where extraction is not background logic but the architecture itself.",
       cn: "马桶、管道与巨型身体共同构成竞技场，使价值提取从后台规则变成空间本身。",
     },
     {
-      image: "assets/poop-result-4.webp",
+      image: "assets/projects/poopslaves/gallery/outcome-04.webp",
       title: "Sanitation becomes spectacle",
       copy: "The arena exaggerates consumption and excretion until bodily infrastructure reads as both absurd entertainment and coercive order.",
       cn: "场景放大消费与排泄，使身体基础设施同时呈现为荒诞娱乐与强制秩序。",
     },
     {
-      image: "assets/poop-result-5.webp",
+      image: "assets/projects/poopslaves/gallery/outcome-05.webp",
       title: "Cognitive friction interrupts seamless interaction",
       copy: "Delayed feedback and unstable rewards make the player question who controls the system and where the generated value travels.",
       cn: "延迟反馈与不稳定回报迫使玩家追问：谁控制系统，产生的价值最终流向何处？",
@@ -797,11 +868,11 @@ function renderPoopSlaves() {
     <section class="poop-research">
       <header><span>02</span><div><h3>Research & Conference Presentations</h3><p>论文与会议展示</p></div></header>
       <div class="poop-paper-grid">
-        <article><img src="assets/poop-hcii-poster.webp" alt="HCII poster for Visceral Interaction" loading="lazy"><div class="poop-paper-copy"><h4>HCII 2026 · Late Breaking Work</h4><p>Visceral Interaction: Operationalizing Cognitive Friction through Rule-Based VR Economic Simulation</p><a href="https://scholar.google.com/scholar?q=Visceral+Interaction+Operationalizing+Cognitive+Friction+through+Rule-Based+VR+Economic+Simulation" target="_blank" rel="noreferrer">Paper record / 论文链接 ↗</a></div></article>
+        <article><img data-src="assets/projects/poopslaves/research/hcii-poster.webp" alt="HCII poster for Visceral Interaction" loading="lazy"><div class="poop-paper-copy"><h4>HCII 2026 · Late Breaking Work</h4><p>Visceral Interaction: Operationalizing Cognitive Friction through Rule-Based VR Economic Simulation</p><a href="https://scholar.google.com/scholar?q=Visceral+Interaction+Operationalizing+Cognitive+Friction+through+Rule-Based+VR+Economic+Simulation" target="_blank" rel="noreferrer">Paper record / 论文链接 ↗</a></div></article>
         <article class="poop-paper-card--cc">
           <div class="poop-paper-media">
-            <img class="poop-paper-media-image is-active" src="assets/poop-cc-poster.webp" alt="Creativity and Cognition poster for Excremental Economy" loading="lazy" decoding="async">
-            <img class="poop-paper-media-image" src="assets/poop-cc-photo.webp" alt="PoopSlaves poster presented at Creativity and Cognition" loading="lazy" decoding="async">
+            <img class="poop-paper-media-image is-active" data-src="assets/projects/poopslaves/research/creativity-cognition-poster.webp" alt="Creativity and Cognition poster for Excremental Economy" loading="lazy" decoding="async">
+            <img class="poop-paper-media-image" data-src="assets/projects/poopslaves/research/creativity-cognition-photo.webp" alt="PoopSlaves poster presented at Creativity and Cognition" loading="lazy" decoding="async">
             <span class="poop-paper-count">01 / 02</span>
             <button class="poop-paper-arrow" type="button" aria-label="Show C&amp;C presentation documentation"><span>›</span></button>
           </div>
@@ -814,14 +885,14 @@ function renderPoopSlaves() {
       <p class="poop-graduation-lead">PoopSlaves was presented as Yutong Chen's undergraduate graduation project at Harbin Institute of Technology and received recognition as an Outstanding Graduation Project.</p>
       <p class="case-cn">PoopSlaves 作为陈宇同在哈尔滨工业大学的本科毕业设计进行展出，并获评优秀毕业设计。</p>
       <div class="poop-honour-grid">
-        <figure><img src="assets/poop-graduation-display.webp" alt="PoopSlaves undergraduate graduation exhibition display" loading="lazy"><figcaption>Graduation exhibition / 本科毕业设计陈列</figcaption></figure>
-        <figure><img src="assets/poop-graduation-signature.webp" alt="Graduation exhibition documentation" loading="lazy"><figcaption>Exhibition documentation / 毕设展现场记录</figcaption></figure>
-        <figure><img src="assets/poop-graduation-certificate.webp" alt="Outstanding Graduation Project certificate" loading="lazy"><figcaption>Outstanding Graduation Project certificate / 优秀毕业设计证书</figcaption></figure>
+        <figure><img data-src="assets/projects/poopslaves/research/graduation-display.webp" alt="PoopSlaves undergraduate graduation exhibition display" loading="lazy"><figcaption>Graduation exhibition / 本科毕业设计陈列</figcaption></figure>
+        <figure><img data-src="assets/projects/poopslaves/research/graduation-documentation.webp" alt="Graduation exhibition documentation" loading="lazy"><figcaption>Exhibition documentation / 毕设展现场记录</figcaption></figure>
+        <figure><img data-src="assets/projects/poopslaves/research/graduation-certificate.webp" alt="Outstanding Graduation Project certificate" loading="lazy"><figcaption>Outstanding Graduation Project certificate / 优秀毕业设计证书</figcaption></figure>
       </div>
     </section>
-    <section class="portfolio-series"><header><span>04</span><div><h3>MA Application Portfolio Series</h3><p>硕士申请作品集系列套图 · Original full-resolution spreads</p></div><small>Drag or scroll horizontally / 左右滑动</small></header><div class="portfolio-rail">${poopPortfolioSeries.map((src, i) => `<figure><img src="${src}" alt="PoopSlaves MA application portfolio spread ${i + 1}" loading="lazy"><figcaption>${String(i + 1).padStart(2, "0")} / ${String(poopPortfolioSeries.length).padStart(2, "0")}</figcaption></figure>`).join("")}</div></section>`;
+    <section class="portfolio-series"><header><span>04</span><div><h3>MA Application Portfolio Series</h3><p>硕士申请作品集系列套图 · Original full-resolution spreads</p></div><small>Drag or scroll horizontally / 左右滑动</small></header><div class="portfolio-rail">${poopPortfolioSeries.map((src, i) => `<figure><img data-src="${src}" alt="PoopSlaves MA application portfolio spread ${i + 1}" loading="lazy"><figcaption>${String(i + 1).padStart(2, "0")} / ${String(poopPortfolioSeries.length).padStart(2, "0")}</figcaption></figure>`).join("")}</div></section>`;
   const hero = document.querySelector(".case-hero");
-  hero.style.backgroundImage = "linear-gradient(90deg,rgba(0,0,0,.82),rgba(0,0,0,.12)),url('assets/poop-cover-2.webp')";
+  hero.style.backgroundImage = `linear-gradient(90deg,rgba(0,0,0,.82),rgba(0,0,0,.12)),url('${media("assets/projects/poopslaves/cover/cover.webp")}')`;
   let outcomeIndex = 0;
   const slide = container.querySelector(".poop-rca-slide");
   const updateOutcome = (direction) => {
@@ -830,7 +901,7 @@ function renderPoopSlaves() {
     slide.classList.add("is-changing");
     setTimeout(() => {
       const image = slide.querySelector("img");
-      image.src = outcome.image;
+      setResponsiveImage(image, outcome.image, "100vw");
       image.alt = `PoopSlaves final outcome ${outcomeIndex + 1} of ${outcomes.length}`;
       slide.querySelector(".poop-rca-kicker span").textContent = `${String(outcomeIndex + 1).padStart(2, "0")} / ${String(outcomes.length).padStart(2, "0")}`;
       slide.querySelector("h4").textContent = outcome.title;
