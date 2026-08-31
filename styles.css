@@ -793,3 +793,15 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
   .home-portals b{display:none!important}
   .identity h1{font-size:2.15rem}
 }
+
+/* Never leave the previous project visible while a new responsive source decodes. */
+img.media-switching{opacity:0!important}
+.plantiever-gallery.is-changing .plantiever-gallery-stage img{opacity:0!important}
+
+/* Mobile detail heroes use one enlarged source, never a repeated/tiled background. */
+.poop-note .case-hero{background-repeat:no-repeat!important;background-size:cover!important}
+@media(max-width:760px){
+  .portrait-mosaic .shards{display:none!important}
+  .portrait-mosaic .portrait-base{display:block;width:100%;height:100%;object-fit:cover;object-position:58% center}
+  .poop-note .case-hero{background-repeat:no-repeat!important;background-size:cover!important;background-attachment:scroll!important}
+}

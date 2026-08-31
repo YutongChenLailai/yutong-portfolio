@@ -13,6 +13,54 @@ const setResponsiveImage = (img, src, sizes = "(max-width: 760px) 100vw, 80vw") 
   img.sizes = sizes;
   img.decoding = "async";
 };
+const responsivePreloads = new Map();
+const preloadResponsiveImage = (src, sizes = "(max-width: 760px) 100vw, 80vw") => {
+  const key = `${src}|${sizes}`;
+  if (responsivePreloads.has(key)) return responsivePreloads.get(key);
+  const request = new Promise((resolve) => {
+    const probe = new Image();
+    let settled = false;
+    let usingLocal = false;
+    const finish = async () => {
+      if (settled) return;
+      settled = true;
+      try { await probe.decode(); } catch (_) {}
+      resolve({ usingLocal });
+    };
+    const useLocal = () => {
+      if (settled || usingLocal) return;
+      usingLocal = true;
+      probe.removeAttribute("srcset");
+      probe.src = src;
+    };
+    probe.onload = finish;
+    probe.onerror = useLocal;
+    probe.sizes = sizes;
+    probe.srcset = responsiveSet(src);
+    probe.src = media(src);
+    window.setTimeout(useLocal, 4500);
+    window.setTimeout(finish, 10000);
+  });
+  responsivePreloads.set(key, request);
+  return request;
+};
+const swapResponsiveImage = async (img, src, sizes) => {
+  const token = String((Number(img.dataset.swapToken) || 0) + 1);
+  img.dataset.swapToken = token;
+  img.classList.add("media-switching");
+  const { usingLocal } = await preloadResponsiveImage(src, sizes);
+  if (img.dataset.swapToken !== token) return false;
+  if (usingLocal) {
+    img.removeAttribute("srcset");
+    img.sizes = sizes;
+    img.src = src;
+  } else {
+    setResponsiveImage(img, src, sizes);
+  }
+  try { await img.decode(); } catch (_) {}
+  img.classList.remove("media-switching");
+  return true;
+};
 const imagePath = (src) => {
   if (!src) return "";
   if (src.startsWith("assets/")) return src;
@@ -371,8 +419,9 @@ const image = document.querySelector("#active-image"),
   shards = document.querySelector("#shards");
 const cols = 8,
   rows = 6;
-for (let r = 0; r < rows; r++) {
-  for (let c = 0; c < cols; c++) {
+if (window.matchMedia("(min-width: 761px)").matches) {
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
     const shard = document.createElement("span"),
       img = document.createElement("img");
     shard.className = "shard";
@@ -392,7 +441,8 @@ for (let r = 0; r < rows; r++) {
     img.style.left = `-${c * 100}%`;
     img.style.top = `-${r * 100}%`;
     shard.append(img);
-    shards.append(shard);
+      shards.append(shard);
+    }
   }
 }
 setTimeout(() => mosaic.classList.add("assembled"), 120);
@@ -495,7 +545,7 @@ function show(index) {
   image.classList.add("changing");
   title.classList.add("changing");
   role.classList.add("changing");
-  setTimeout(() => {
+  setTimeout(async () => {
     const p = projects[current];
     let finished = false;
     const finish = () => {
@@ -506,9 +556,6 @@ function show(index) {
       role.classList.remove("changing");
       locked = false;
     };
-    image.onload = finish;
-    image.onerror = finish;
-    setResponsiveImage(image, p.image, "100vw");
     title.textContent = p.title;
     role.textContent = p.role;
     num.textContent = `${String(current + 1).padStart(2, "0")} / ${String(projects.length).padStart(2, "0")}`;
@@ -517,8 +564,10 @@ function show(index) {
     document
       .querySelectorAll(".dots button")
       .forEach((d, i) => d.classList.toggle("active", i === current));
-    if (image.complete) finish();
-    setTimeout(finish, 1200);
+    await swapResponsiveImage(image, p.image, "100vw");
+    finish();
+    preloadResponsiveImage(projects[(current + 1) % projects.length].image, "100vw");
+    preloadResponsiveImage(projects[(current - 1 + projects.length) % projects.length].image, "100vw");
   }, 260);
 }
 const next = () => show(current + 1),
@@ -666,23 +715,27 @@ function fillNote() {
     const galleryPrevious = gallery.querySelector(".plantiever-gallery-peek--prev img");
     const galleryNext = gallery.querySelector(".plantiever-gallery-peek--next img");
     const galleryCounter = gallery.querySelector(".plantiever-gallery-caption span");
-    const renderGallery = () => {
+    const renderGallery = async () => {
       const previousIndex = (galleryIndex - 1 + plantieverOutcomeGallery.length) % plantieverOutcomeGallery.length;
       const nextIndex = (galleryIndex + 1) % plantieverOutcomeGallery.length;
-      setResponsiveImage(galleryMain, plantieverOutcomeGallery[galleryIndex], "70vw");
-      setResponsiveImage(galleryPrevious, plantieverOutcomeGallery[previousIndex], "25vw");
-      setResponsiveImage(galleryNext, plantieverOutcomeGallery[nextIndex], "25vw");
+      await Promise.all([
+        swapResponsiveImage(galleryMain, plantieverOutcomeGallery[galleryIndex], "70vw"),
+        swapResponsiveImage(galleryPrevious, plantieverOutcomeGallery[previousIndex], "25vw"),
+        swapResponsiveImage(galleryNext, plantieverOutcomeGallery[nextIndex], "25vw"),
+      ]);
       galleryMain.alt = `Plantiever’s Illusion final outcome ${galleryIndex + 1} of ${plantieverOutcomeGallery.length}`;
       galleryPrevious.alt = `Previous outcome ${previousIndex + 1}`;
       galleryNext.alt = `Next outcome ${nextIndex + 1}`;
       galleryCounter.textContent = `Image ${String(galleryIndex + 1).padStart(2, "0")} / ${String(plantieverOutcomeGallery.length).padStart(2, "0")}`;
+      preloadResponsiveImage(plantieverOutcomeGallery[nextIndex], "70vw");
+      preloadResponsiveImage(plantieverOutcomeGallery[previousIndex], "70vw");
     };
     gallery.querySelectorAll("[data-plantiever-direction]").forEach((button) => {
-      button.onclick = () => {
+      button.onclick = async () => {
         galleryIndex = (galleryIndex + Number(button.dataset.plantieverDirection) + plantieverOutcomeGallery.length) % plantieverOutcomeGallery.length;
         gallery.classList.add("is-changing");
-        renderGallery();
-        window.setTimeout(() => gallery.classList.remove("is-changing"), 220);
+        await renderGallery();
+        gallery.classList.remove("is-changing");
       };
     });
     let galleryPointerStart = null;
@@ -766,21 +819,25 @@ function fillNote() {
     const valuePrevious = valueGallery.querySelector(".plantiever-gallery-peek--prev img");
     const valueNext = valueGallery.querySelector(".plantiever-gallery-peek--next img");
     const valueCounter = valueGallery.querySelector(".plantiever-gallery-caption span");
-    const renderValueGallery = () => {
+    const renderValueGallery = async () => {
       const previousIndex = (valueGalleryIndex - 1 + valueMachineOutcomeGallery.length) % valueMachineOutcomeGallery.length;
       const nextIndex = (valueGalleryIndex + 1) % valueMachineOutcomeGallery.length;
-      setResponsiveImage(valueMain, valueMachineOutcomeGallery[valueGalleryIndex], "70vw");
-      setResponsiveImage(valuePrevious, valueMachineOutcomeGallery[previousIndex], "25vw");
-      setResponsiveImage(valueNext, valueMachineOutcomeGallery[nextIndex], "25vw");
+      await Promise.all([
+        swapResponsiveImage(valueMain, valueMachineOutcomeGallery[valueGalleryIndex], "70vw"),
+        swapResponsiveImage(valuePrevious, valueMachineOutcomeGallery[previousIndex], "25vw"),
+        swapResponsiveImage(valueNext, valueMachineOutcomeGallery[nextIndex], "25vw"),
+      ]);
       valueMain.alt = `Value Machine final outcome ${valueGalleryIndex + 1} of ${valueMachineOutcomeGallery.length}`;
       valueCounter.textContent = `Image ${String(valueGalleryIndex + 1).padStart(2, "0")} / ${String(valueMachineOutcomeGallery.length).padStart(2, "0")}`;
+      preloadResponsiveImage(valueMachineOutcomeGallery[nextIndex], "70vw");
+      preloadResponsiveImage(valueMachineOutcomeGallery[previousIndex], "70vw");
     };
     valueGallery.querySelectorAll("[data-value-direction]").forEach((button) => {
-      button.onclick = () => {
+      button.onclick = async () => {
         valueGalleryIndex = (valueGalleryIndex + Number(button.dataset.valueDirection) + valueMachineOutcomeGallery.length) % valueMachineOutcomeGallery.length;
         valueGallery.classList.add("is-changing");
-        renderValueGallery();
-        window.setTimeout(() => valueGallery.classList.remove("is-changing"), 220);
+        await renderValueGallery();
+        valueGallery.classList.remove("is-changing");
       };
     });
     let valuePointerStart = null;
@@ -904,18 +961,20 @@ function renderPoopSlaves() {
   hero.style.backgroundImage = `linear-gradient(90deg,rgba(0,0,0,.82),rgba(0,0,0,.12)),url('${media("assets/projects/poopslaves/cover/cover.webp")}')`;
   let outcomeIndex = 0;
   const slide = container.querySelector(".poop-rca-slide");
+  preloadResponsiveImage(outcomes[1].image, "100vw");
   const updateOutcome = (direction) => {
     outcomeIndex = (outcomeIndex + direction + outcomes.length) % outcomes.length;
     const outcome = outcomes[outcomeIndex];
     slide.classList.add("is-changing");
-    setTimeout(() => {
+    setTimeout(async () => {
       const image = slide.querySelector("img");
-      setResponsiveImage(image, outcome.image, "100vw");
+      await swapResponsiveImage(image, outcome.image, "100vw");
       image.alt = `PoopSlaves final outcome ${outcomeIndex + 1} of ${outcomes.length}`;
       slide.querySelector(".poop-rca-kicker span").textContent = `${String(outcomeIndex + 1).padStart(2, "0")} / ${String(outcomes.length).padStart(2, "0")}`;
       slide.querySelector("h4").textContent = outcome.title;
       slide.querySelector(".poop-rca-copy").textContent = outcome.copy;
       slide.querySelector(".poop-rca-cn").textContent = outcome.cn;
+      preloadResponsiveImage(outcomes[(outcomeIndex + 1) % outcomes.length].image, "100vw");
       slide.classList.remove("is-changing");
     }, 180);
   };
