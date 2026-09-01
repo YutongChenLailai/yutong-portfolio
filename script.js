@@ -1,7 +1,7 @@
 const MEDIA_REVISION = "9d71b30971d3864280cef28025f41ccd0d555d56";
 const MEDIA_ORIGIN = `https://cdn.jsdelivr.net/gh/YutongChenLailai/yutong-portfolio@${MEDIA_REVISION}/`;
 const media = (src) =>
-  src && src.startsWith("assets/") ? `${MEDIA_ORIGIN}${src}` : src;
+  src && src.startsWith("assets/") ? `${src}?v=${MEDIA_REVISION.slice(0, 8)}` : src;
 const mediaVariant = (src, width) =>
   media(src.replace(/\.webp$/i, `-${width}.webp`));
 const responsiveSet = (src) =>
@@ -63,7 +63,7 @@ const swapResponsiveImage = async (img, src, sizes) => {
 };
 const imagePath = (src) => {
   if (!src) return "";
-  if (src.startsWith("assets/")) return src;
+  if (src.startsWith("assets/")) return src.split("?")[0];
   if (src.startsWith(MEDIA_ORIGIN)) return src.slice(MEDIA_ORIGIN.length);
   return "";
 };
@@ -94,24 +94,29 @@ const configureImage = (img) => {
   img.decoding = "async";
   if (!img.loading && img.fetchPriority !== "high") img.loading = "lazy";
 };
+const revealDeferredImage = (entry, observer) => {
+  if (!entry.isIntersecting) return;
+  const img = entry.target;
+  const path = imagePath(img.dataset.src);
+  img.src = media(path);
+  img.removeAttribute("data-src");
+  configureImage(img);
+  observer.unobserve(img);
+};
 const deferredMediaObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      const img = entry.target;
-      const path = imagePath(img.dataset.src);
-      img.src = media(path);
-      img.removeAttribute("data-src");
-      configureImage(img);
-      deferredMediaObserver.unobserve(img);
-    });
-  },
+  (entries, observer) =>
+    entries.forEach((entry) => revealDeferredImage(entry, observer)),
   { rootMargin: "600px 0px" },
+);
+const detailMediaObserver = new IntersectionObserver(
+  (entries, observer) =>
+    entries.forEach((entry) => revealDeferredImage(entry, observer)),
+  { root: document.querySelector("#project-note"), rootMargin: "600px 0px" },
 );
 const registerMedia = (root = document) => {
   root.querySelectorAll("img[data-src]").forEach((img) => {
     configureImage(img);
-    deferredMediaObserver.observe(img);
+    (img.closest("#project-note") ? detailMediaObserver : deferredMediaObserver).observe(img);
   });
   root.querySelectorAll("img[src]").forEach(configureImage);
 };
@@ -590,12 +595,20 @@ work.addEventListener("pointerup", (event) => {
 });
 work.addEventListener("pointercancel", () => (workSwipeStart = null));
 document.querySelector("#note-next").onclick = () => {
+  locked = false;
   next();
-  fillNote();
+  setTimeout(() => {
+    fillNote();
+    setProjectRoute();
+  }, 620);
 };
 document.querySelector("#note-prev").onclick = () => {
+  locked = false;
   prev();
-  fillNote();
+  setTimeout(() => {
+    fillNote();
+    setProjectRoute();
+  }, 620);
 };
 addEventListener("keydown", (e) => {
   if (currentView === "home" && (e.key === "ArrowDown" || e.key === "Enter")) {
@@ -1028,17 +1041,35 @@ function renderPoopSlaves() {
     ccCount.textContent = `${String(ccSlideIndex + 1).padStart(2, "0")} / 02`;
   };
 }
-function openNote() {
+const projectSlug = (title) =>
+  title
+    .normalize("NFKD")
+    .replace(/[\u2018\u2019']/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+const setProjectRoute = (index = current) => {
+  const url = new URL(location.href);
+  url.hash = `project/${projectSlug(projects[index].title)}`;
+  history.replaceState({ project: index }, "", url);
+};
+const clearProjectRoute = () => {
+  if (!location.hash.startsWith("#project/")) return;
+  history.replaceState({}, "", `${location.pathname}${location.search}`);
+};
+function openNote(updateRoute = true) {
   document.body.classList.add("detail-open");
   note.classList.add("open");
   note.setAttribute("aria-hidden", "false");
   note.scrollTo(0, 0);
   fillNote();
+  if (updateRoute) setProjectRoute();
 }
-function closeNote(restore = true) {
+function closeNote(restore = true, updateRoute = true) {
   note.classList.remove("open");
   document.body.classList.remove("detail-open");
   note.setAttribute("aria-hidden", "true");
+  if (updateRoute) clearProjectRoute();
   if (restore && returnCategory)
     setTimeout(() => openCategory(returnCategory), 250);
 }
@@ -1073,3 +1104,21 @@ document.querySelectorAll("button,a").forEach((el) => {
   });
 });
 document.querySelector(".dots button")?.classList.add("active");
+const restoreProjectRoute = () => {
+  const routeMatch = location.hash.match(/^#project\/([^/]+)$/);
+  if (!routeMatch) {
+    if (note.classList.contains("open")) closeNote(false, false);
+    return;
+  }
+  const routedIndex = projects.findIndex(
+    (project) => projectSlug(project.title) === routeMatch[1],
+  );
+  if (routedIndex >= 0) {
+    enterWork();
+    locked = false;
+    show(routedIndex);
+    setTimeout(() => openNote(false), 700);
+  }
+};
+addEventListener("hashchange", restoreProjectRoute);
+restoreProjectRoute();

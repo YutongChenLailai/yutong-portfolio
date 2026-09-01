@@ -242,7 +242,7 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
   justify-content:flex-end;
   margin:0 calc(var(--pad)*-1);
   padding:clamp(3rem,7vw,8rem) var(--pad)!important;
-  background-image:linear-gradient(90deg,rgba(0,0,0,.82),rgba(0,0,0,.12)),url('https://cdn.jsdelivr.net/gh/YutongChenLailai/yutong-portfolio@bf63d0cd4d6907c4d6299e4a0ea4998e9e0e8907/assets/projects/poopslaves/cover/cover.webp')!important;
+  background-image:linear-gradient(90deg,rgba(0,0,0,.82),rgba(0,0,0,.12)),url('assets/projects/poopslaves/cover/cover.webp?v=9d71b309')!important;
   background-position:center;
   background-size:cover;
   border-bottom:1px solid #fff;
@@ -579,11 +579,11 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
 .poop-note .case-hero{
   position:relative;min-height:100svh!important;height:100svh;
   display:block;margin:0 calc(var(--pad)*-1);padding:0!important;overflow:hidden;
-  background-image:url('https://cdn.jsdelivr.net/gh/YutongChenLailai/yutong-portfolio@bf63d0cd4d6907c4d6299e4a0ea4998e9e0e8907/assets/projects/poopslaves/cover/cover.webp')!important;background-position:center 46%;background-size:cover;
+  background-image:url('assets/projects/poopslaves/cover/cover.webp?v=9d71b309')!important;background-position:center 46%;background-size:cover;
   border-bottom:0;isolation:isolate;
 }
-.poop-note.plantiever-note .case-hero{background-image:url('https://cdn.jsdelivr.net/gh/YutongChenLailai/yutong-portfolio@bf63d0cd4d6907c4d6299e4a0ea4998e9e0e8907/assets/projects/plantievers-illusion/cover/detail-hero.webp')!important;background-position:center 48%}
-.poop-note.value-note .case-hero{background-image:url('https://cdn.jsdelivr.net/gh/YutongChenLailai/yutong-portfolio@bf63d0cd4d6907c4d6299e4a0ea4998e9e0e8907/assets/projects/value-machine/cover/detail-hero.webp')!important;background-position:center 18%!important}
+.poop-note.plantiever-note .case-hero{background-image:url('assets/projects/plantievers-illusion/cover/detail-hero.webp?v=9d71b309')!important;background-position:center 48%}
+.poop-note.value-note .case-hero{background-image:url('assets/projects/value-machine/cover/detail-hero.webp?v=9d71b309')!important;background-position:center 18%!important}
 .poop-note .case-hero:after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.6);z-index:-1;pointer-events:none}
 .poop-note.plantiever-note .case-hero:after{background:rgba(0,0,0,.34)}
 .poop-note.value-note .case-hero:after{background:rgba(0,0,0,.38)}
@@ -785,6 +785,18 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
   .portfolio-series>header,.poop-results>header,.poop-research>header,.poop-graduation>header,.plantiever-storyboard>header{margin-inline:0}
 }
 
+/* A single editorial edge and intrinsic image frames across desktop widths. */
+@media(min-width:761px){
+  #case-sections{--detail-edge:clamp(24px,3vw,56px)}
+  #case-sections>.case-section,
+  #case-sections>.poop-research,
+  #case-sections>.poop-graduation,
+  #case-sections>.plantiever-storyboard{padding-left:var(--detail-edge)!important;padding-right:var(--detail-edge)!important}
+  #case-sections>.portfolio-series>header{margin-left:var(--detail-edge)!important;margin-right:var(--detail-edge)!important}
+  #case-sections>.portfolio-series>.portfolio-rail{padding-left:var(--detail-edge)!important;padding-right:var(--detail-edge)!important}
+  .outcome-image{display:block;width:auto!important;max-width:100%!important;height:auto!important;max-height:none!important;margin:1.5rem 0 0!important;border:0!important;background:transparent!important;object-fit:contain}
+}
+
 /* Interactive surfaces stay black until the visitor points, focuses or presses. */
 .meta .project-link{background:#000!important;color:#fff!important;transition:background-color .18s ease,color .18s ease}
 .meta .project-link span{color:#aaa!important}
@@ -792,9 +804,9 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
 .meta .project-link:hover span,.meta .project-link:focus-within span,.meta .project-link:active span{color:#555!important}
 
 @media(max-width:760px){
-  .poop-note .case-hero{background-image:url('https://cdn.jsdelivr.net/gh/YutongChenLailai/yutong-portfolio@bf63d0cd4d6907c4d6299e4a0ea4998e9e0e8907/assets/projects/poopslaves/cover/cover-960.webp')!important}
-  .poop-note.plantiever-note .case-hero{background-image:url('https://cdn.jsdelivr.net/gh/YutongChenLailai/yutong-portfolio@bf63d0cd4d6907c4d6299e4a0ea4998e9e0e8907/assets/projects/plantievers-illusion/cover/detail-hero-960.webp')!important}
-  .poop-note.value-note .case-hero{background-image:url('https://cdn.jsdelivr.net/gh/YutongChenLailai/yutong-portfolio@bf63d0cd4d6907c4d6299e4a0ea4998e9e0e8907/assets/projects/value-machine/cover/detail-hero-960.webp')!important}
+  .poop-note .case-hero{background-image:url('assets/projects/poopslaves/cover/cover-960.webp?v=9d71b309')!important}
+  .poop-note.plantiever-note .case-hero{background-image:url('assets/projects/plantievers-illusion/cover/detail-hero-960.webp?v=9d71b309')!important}
+  .poop-note.value-note .case-hero{background-image:url('assets/projects/value-machine/cover/detail-hero-960.webp?v=9d71b309')!important}
 }
 
 @media(max-width:380px){
