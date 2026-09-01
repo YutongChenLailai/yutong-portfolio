@@ -224,7 +224,7 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
 .about-resume header{padding-bottom:2.5rem;border-bottom:1px solid #777}
 .about-resume h1{margin:0;font-size:clamp(2.8rem,6vw,6rem);line-height:.88;letter-spacing:-.06em}.about-resume h1 span{display:block;margin-top:.7rem;font-size:.3em;letter-spacing:0}.about-resume header p{font-size:clamp(1rem,1.7vw,1.45rem);line-height:1.35}
 .about-summary{max-width:780px;padding:2rem 0;margin:0;border-bottom:1px solid #777;font-size:clamp(1rem,1.35vw,1.25rem);line-height:1.5}
-.about-resume section{display:grid;grid-template-columns:minmax(190px,30%) 1fr;gap:2rem;padding:1.5rem 0;border-bottom:1px solid #555}.about-resume h2{margin:0;font-size:1rem}.about-resume section>p{margin:0}.about-resume dl{margin:0;display:grid;grid-template-columns:90px 1fr;gap:1rem 1.4rem}.about-resume dt{color:#aaa}.about-resume dd{margin:0}.about-resume dd strong,.about-resume dd span{display:block}.about-resume dd span{margin-top:.25rem;color:#aaa}.about-resume a{color:#fff;text-underline-offset:.2rem}
+.about-resume section{display:grid;grid-template-columns:minmax(190px,30%) 1fr;gap:2rem;padding:1.5rem 0;border-bottom:1px solid #555}.about-resume h2{margin:0;font-size:1rem}.about-resume section>p{margin:0}.about-resume dl{margin:0;display:grid;grid-template-columns:90px 1fr;gap:1rem 1.4rem}.about-resume dt{color:#aaa}.about-resume dd{margin:0}.about-resume dd strong,.about-resume dd span{display:block}.about-resume dd span{margin-top:.25rem;color:#aaa}.about-resume a{color:#fff;text-underline-offset:.2rem}.about-resume .award-project-link{display:inline-flex;align-items:center;gap:.4rem;text-decoration-thickness:1px}.about-resume .award-project-link::after{content:"↗";font-size:.8em;font-weight:400}.about-resume .award-project-link:hover,.about-resume .award-project-link:focus-visible{color:#000;background:#fff;outline:4px solid #fff}
 
 .poop-visual,.poop-poster,.poop-gallery,.poop-process{padding:clamp(4rem,8vw,8rem) 0;border-bottom:2px solid #fff}.poop-visual img,.poop-poster>img{display:block;width:100%;height:auto}.poop-visual p,.poop-poster>p{max-width:760px;margin:1rem 0 0;color:#aaa}.project-facts{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:2px solid #fff}.project-facts div{min-height:150px;padding:1.5rem;border-right:1px solid #777}.project-facts span,.project-facts strong{display:block}.project-facts span{font-size:14px;color:#aaa}.project-facts strong{margin-top:1rem;font-size:18px;line-height:1.3}.poop-poster header,.poop-gallery header,.poop-process header{display:flex;align-items:baseline;gap:1rem;margin-bottom:2rem;padding-bottom:1rem;border-bottom:1px solid #777}.poop-poster header>span,.poop-gallery header>span,.poop-process header>span{padding:.35rem .5rem;background:#fff;color:#000}.poop-poster h3,.poop-gallery h3,.poop-process h3{margin:0;font-size:30px}.poop-poster h3 small,.poop-gallery h3 small,.poop-process h3 small{margin-left:.7rem;color:#aaa;font-size:16px}.process-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem}.process-grid figure{margin:0}.process-grid img{display:block;width:100%;height:auto}.process-grid figcaption{margin-top:.7rem;color:#aaa}
 
@@ -720,8 +720,8 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
   .case-hero #note-cn{margin:0;font-size:14px!important}
   .case-tags{gap:6px;margin-top:1.2rem}
   #case-sections>.case-section{padding:42px 0!important;border-bottom:1px solid #fff}
-  .case-label{display:grid;grid-template-columns:auto 1fr;gap:12px;margin-bottom:1.4rem!important;padding-bottom:.8rem!important}
-  .case-label span{min-width:38px;text-align:center}
+  .case-label{display:block;margin-bottom:1.4rem!important;padding-bottom:.8rem!important}
+  .case-label span{display:block;width:max-content;min-width:0;margin:0 0 12px;text-align:left}
   .case-label h3{font-size:24px!important;line-height:1.05}
   .case-body>p:first-child{font-size:18px!important;line-height:1.38}
   .outcome-image{width:calc(100% + 32px);max-width:none;max-height:none;margin:1.5rem -16px 0!important;border-inline:0}
@@ -741,7 +741,8 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
   .poop-note #case-sections{position:relative;z-index:2;background:#000}
   .poop-results,.poop-research,.poop-graduation,.plantiever-storyboard{padding:48px 0;border-bottom:1px solid #fff}
   .poop-results{padding-inline:0;background-image:none}
-  .poop-results>header,.poop-research>header,.poop-graduation>header,.plantiever-storyboard>header{grid-template-columns:auto 1fr;gap:12px;margin-bottom:1.5rem}
+  .poop-results>header,.poop-research>header,.poop-graduation>header,.plantiever-storyboard>header{display:block;margin-bottom:1.5rem}
+  .poop-results>header>span,.poop-research>header>span,.poop-graduation>header>span,.plantiever-storyboard>header>span{display:block;width:max-content;margin:0 0 12px;text-align:left}
   .poop-results h3,.poop-research h3,.poop-graduation h3,.plantiever-storyboard h3{font-size:28px;line-height:1.02}
   .poop-rca-slide{touch-action:pan-y}
   .poop-rca-slide>img{width:calc(100% + 32px);margin-inline:-16px;aspect-ratio:16/10;object-fit:cover}
@@ -762,7 +763,8 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
   .plantiever-gallery-controls{grid-column:2;padding:10px 12px}
   .plantiever-gallery-controls button{width:48px;height:48px}
   .portfolio-series{padding:48px 0!important}
-  .portfolio-series>header{display:grid;grid-template-columns:auto 1fr;gap:12px;margin-bottom:1.4rem!important}
+  .portfolio-series>header{display:block;margin-bottom:1.4rem!important}
+  .portfolio-series>header>span{display:block;width:max-content;min-width:0;margin:0 0 12px;text-align:left}
   .portfolio-series>header>small{display:none}
   .portfolio-rail{gap:12px;scroll-padding-left:16px;margin-inline:-16px;padding:0 16px 14px!important;scrollbar-width:none}
   .portfolio-rail::-webkit-scrollbar{display:none}
@@ -772,7 +774,15 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
   .about-resume{padding:28px 16px!important}
   .about-resume>header h1{font-size:38px}
   .about-resume section{padding-block:1.5rem}
-  .about-resume dl{grid-template-columns:66px 1fr;gap:1rem}
+  .about-resume dl{grid-template-columns:54px minmax(0,1fr);gap:1rem 12px}
+  .about-resume dd,.about-resume dd strong,.about-resume dd span{overflow-wrap:anywhere}
+}
+
+@media(min-width:761px) and (max-width:1100px){
+  .project-note{padding-inline:clamp(24px,5vw,56px)}
+  .case-section{grid-template-columns:minmax(180px,28%) minmax(0,1fr);gap:clamp(28px,5vw,64px)}
+  .case-label h3{font-size:clamp(30px,4vw,42px)}
+  .portfolio-series>header,.poop-results>header,.poop-research>header,.poop-graduation>header,.plantiever-storyboard>header{margin-inline:0}
 }
 
 /* Interactive surfaces stay black until the visitor points, focuses or presses. */

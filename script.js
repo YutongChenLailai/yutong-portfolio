@@ -1,4 +1,4 @@
-const MEDIA_REVISION = "bf63d0cd4d6907c4d6299e4a0ea4998e9e0e8907";
+const MEDIA_REVISION = "9d71b30971d3864280cef28025f41ccd0d555d56";
 const MEDIA_ORIGIN = `https://cdn.jsdelivr.net/gh/YutongChenLailai/yutong-portfolio@${MEDIA_REVISION}/`;
 const media = (src) =>
   src && src.startsWith("assets/") ? `${MEDIA_ORIGIN}${src}` : src;
@@ -644,6 +644,19 @@ document.querySelectorAll("[data-open]").forEach(
 document
   .querySelectorAll("[data-close]")
   .forEach((b) => (b.onclick = closePanels));
+document.querySelectorAll("[data-project-title]").forEach((link) => {
+  link.onclick = (event) => {
+    event.preventDefault();
+    const projectIndex = projects.findIndex(
+      (project) => project.title === link.dataset.projectTitle,
+    );
+    if (projectIndex < 0) return;
+    closePanels();
+    locked = false;
+    show(projectIndex);
+    setTimeout(openNote, 620);
+  };
+});
 const note = document.querySelector("#project-note");
 function fillNote() {
   const p = projects[current];
