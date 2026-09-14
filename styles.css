@@ -1018,3 +1018,30 @@ img.media-switching{opacity:0!important}
     background-position:center center!important;
   }
 }
+
+/* Mobile Safari: keep the project opening painted across the live viewport.
+   The hero may grow with its copy, but can never become shorter than the screen. */
+@media(max-width:760px){
+  html,body{background:#000}
+  body.detail-open{overscroll-behavior-y:none}
+  .project-note{
+    height:100vh!important;
+    height:100dvh!important;
+    min-height:100vh!important;
+    min-height:100dvh!important;
+    overscroll-behavior-y:contain;
+    background-color:#000!important;
+  }
+  .poop-note .case-hero{
+    position:relative!important;
+    top:auto!important;
+    height:auto!important;
+    min-height:100vh!important;
+    min-height:100dvh!important;
+    box-sizing:border-box!important;
+    background-color:#000!important;
+    background-repeat:no-repeat!important;
+    background-size:cover!important;
+    background-attachment:scroll!important;
+  }
+}
