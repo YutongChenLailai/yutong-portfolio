@@ -1,11 +1,22 @@
 const MEDIA_REVISION = "9d71b30971d3864280cef28025f41ccd0d555d56";
-const MEDIA_ORIGIN = `https://cdn.jsdelivr.net/gh/YutongChenLailai/yutong-portfolio@${MEDIA_REVISION}/`;
 const media = (src) =>
   src && src.startsWith("assets/") ? `${src}?v=${MEDIA_REVISION.slice(0, 8)}` : src;
 const mediaVariant = (src, width) =>
   media(src.replace(/\.webp$/i, `-${width}.webp`));
 const responsiveSet = (src) =>
   `${mediaVariant(src, 480)} 480w, ${mediaVariant(src, 960)} 960w, ${media(src)} 2000w`;
+const mobileCoverSource = (src) =>
+  window.matchMedia("(max-width: 760px)").matches && /\/cover\/cover\.webp$/i.test(src)
+    ? src.replace(/cover\.webp$/i, "cover-mobile.webp")
+    : src;
+const shouldPreloadAdjacent = () => {
+  const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+  return (
+    !window.matchMedia("(max-width: 760px)").matches &&
+    !connection?.saveData &&
+    !["slow-2g", "2g", "3g"].includes(connection?.effectiveType)
+  );
+};
 const setResponsiveImage = (img, src, sizes = "(max-width: 760px) 100vw, 80vw") => {
   img.removeAttribute("data-src");
   img.src = media(src);
@@ -15,7 +26,8 @@ const setResponsiveImage = (img, src, sizes = "(max-width: 760px) 100vw, 80vw") 
 };
 const responsivePreloads = new Map();
 const preloadResponsiveImage = (src, sizes = "(max-width: 760px) 100vw, 80vw") => {
-  const key = `${src}|${sizes}`;
+  const selectedSource = mobileCoverSource(src);
+  const key = `${selectedSource}|${sizes}`;
   if (responsivePreloads.has(key)) return responsivePreloads.get(key);
   const request = new Promise((resolve) => {
     const probe = new Image();
@@ -25,16 +37,27 @@ const preloadResponsiveImage = (src, sizes = "(max-width: 760px) 100vw, 80vw") =
       if (settled) return;
       settled = true;
       try { await probe.decode(); } catch (_) {}
-      resolve({ usingLocal });
+      resolve({ usingLocal, resolvedSrc: usingLocal ? selectedSource : src });
     };
     const useLocal = () => {
       if (settled || usingLocal) return;
       usingLocal = true;
       probe.removeAttribute("srcset");
-      probe.src = src;
+      probe.src = selectedSource;
     };
     probe.onload = finish;
     probe.onerror = useLocal;
+    if (selectedSource !== src) {
+      usingLocal = true;
+      probe.fetchPriority = "high";
+      probe.onerror = () => {
+        probe.onerror = finish;
+        probe.src = media(src);
+      };
+      probe.src = media(selectedSource);
+      window.setTimeout(finish, 10000);
+      return;
+    }
     probe.sizes = sizes;
     probe.srcset = responsiveSet(src);
     probe.src = media(src);
@@ -48,12 +71,12 @@ const swapResponsiveImage = async (img, src, sizes) => {
   const token = String((Number(img.dataset.swapToken) || 0) + 1);
   img.dataset.swapToken = token;
   img.classList.add("media-switching");
-  const { usingLocal } = await preloadResponsiveImage(src, sizes);
+  const { usingLocal, resolvedSrc } = await preloadResponsiveImage(src, sizes);
   if (img.dataset.swapToken !== token) return false;
   if (usingLocal) {
     img.removeAttribute("srcset");
     img.sizes = sizes;
-    img.src = src;
+    img.src = media(resolvedSrc || src);
   } else {
     setResponsiveImage(img, src, sizes);
   }
@@ -64,7 +87,6 @@ const swapResponsiveImage = async (img, src, sizes) => {
 const imagePath = (src) => {
   if (!src) return "";
   if (src.startsWith("assets/")) return src.split("?")[0];
-  if (src.startsWith(MEDIA_ORIGIN)) return src.slice(MEDIA_ORIGIN.length);
   return "";
 };
 const configureImage = (img) => {
@@ -116,6 +138,7 @@ const detailMediaObserver = new IntersectionObserver(
 const registerMedia = (root = document) => {
   root.querySelectorAll("img[data-src]").forEach((img) => {
     configureImage(img);
+    if (img.closest('[aria-hidden="true"]')) return;
     (img.closest("#project-note") ? detailMediaObserver : deferredMediaObserver).observe(img);
   });
   root.querySelectorAll("img[src]").forEach(configureImage);
@@ -410,6 +433,7 @@ let current = 0,
   locked = false,
   wheelLock = false,
   currentView = "home";
+let overlayOpener = null;
 const image = document.querySelector("#active-image"),
   title = document.querySelector("#active-title"),
   role = document.querySelector("#active-role"),
@@ -420,10 +444,27 @@ const image = document.querySelector("#active-image"),
   list = document.querySelector("#project-list"),
   home = document.querySelector("#home"),
   work = document.querySelector("#work"),
+  homeShortcut = document.querySelector("#home-shortcut"),
   mosaic = document.querySelector("#portrait-mosaic"),
   shards = document.querySelector("#shards");
 const cols = 8,
   rows = 6;
+const setLayerState = (element, isActive) => {
+  element.inert = !isActive;
+  element.setAttribute("aria-hidden", String(!isActive));
+};
+const syncInteractiveState = () => {
+  const openPanel = document.querySelector(".panel.open");
+  const noteOpen = note?.classList.contains("open");
+  const overlayOpen = Boolean(openPanel || noteOpen);
+  setLayerState(home, currentView === "home" && !overlayOpen);
+  setLayerState(work, currentView === "work" && !overlayOpen);
+  document.querySelectorAll(".panel").forEach((panel) =>
+    setLayerState(panel, panel === openPanel && !noteOpen),
+  );
+  if (note) setLayerState(note, noteOpen);
+  if (homeShortcut) homeShortcut.hidden = currentView === "home";
+};
 if (window.matchMedia("(min-width: 761px)").matches) {
   for (let r = 0; r < rows; r++) {
     for (let c = 0; c < cols; c++) {
@@ -454,7 +495,7 @@ setTimeout(() => mosaic.classList.add("assembled"), 120);
 function enterWork() {
   if (currentView === "work") return;
   currentView = "work";
-  closePanels();
+  closePanels(false);
   // Returning from the landing page must always start from the first curated work.
   // Resetting the transition guard also prevents a cached/missed image load from
   // leaving the previous project (for example Value Machine) on screen.
@@ -463,13 +504,17 @@ function enterWork() {
   home.classList.add("exit");
   work.classList.add("active");
   work.setAttribute("aria-hidden", "false");
+  syncInteractiveState();
 }
 function returnHome() {
   currentView = "home";
-  closePanels();
+  if (note.classList.contains("open")) closeNote(false, false);
+  closePanels(false);
+  clearProjectRoute();
   home.classList.remove("exit");
   work.classList.remove("active");
   work.setAttribute("aria-hidden", "true");
+  syncInteractiveState();
   mosaic.classList.remove("assembled");
   setTimeout(() => mosaic.classList.add("assembled"), 80);
 }
@@ -483,6 +528,7 @@ document.querySelector("#home-work").onclick = () => {
   setTimeout(() => document.querySelector('[data-open="index"]').click(), 700);
 };
 document.querySelector("#back-home").onclick = returnHome;
+homeShortcut.addEventListener("click", returnHome);
 projects.forEach((p, i) => {
   const dot = document.createElement("button");
   dot.setAttribute("aria-label", `Open ${p.title}`);
@@ -490,10 +536,10 @@ projects.forEach((p, i) => {
   dots.append(dot);
   const item = document.createElement("button");
   item.className = "project-item";
-  item.innerHTML = `<img src="${projectThumbnail(p.image)}" alt="" loading="lazy" decoding="async"><span>${String(i + 1).padStart(2, "0")} / ${String(projects.length).padStart(2, "0")}</span><strong>${p.title}</strong>`;
+  item.innerHTML = `<img data-src="${projectThumbnail(p.image)}" alt="${p.title} project cover" loading="lazy" decoding="async"><span>${String(i + 1).padStart(2, "0")} / ${String(projects.length).padStart(2, "0")}</span><strong>${p.title}</strong>`;
   item.onclick = () => {
     show(i);
-    closePanels();
+    closePanels(false);
   };
   list.append(item);
 });
@@ -508,6 +554,7 @@ function tagButtons(index, target) {
     (button) =>
       (button.onclick = (e) => {
         e.stopPropagation();
+        overlayOpener = e.currentTarget;
         openCategory(button.dataset.tag);
       }),
   );
@@ -527,16 +574,19 @@ function openCategory(tag) {
     if (!projectTags[i].includes(tag)) return;
     const item = document.createElement("button");
     item.className = "project-item";
-    item.innerHTML = `<img src="${projectThumbnail(p.image)}" alt="" loading="lazy" decoding="async"><span>${String(i + 1).padStart(2, "0")} / ${String(projects.length).padStart(2, "0")}</span><strong>${p.title}</strong><em>${projectTags[i].join(" · ")}</em>`;
+    item.innerHTML = `<img data-src="${projectThumbnail(p.image)}" alt="${p.title} project cover" loading="lazy" decoding="async"><span>${String(i + 1).padStart(2, "0")} / ${String(projects.length).padStart(2, "0")}</span><strong>${p.title}</strong><em>${projectTags[i].join(" · ")}</em>`;
     item.onclick = () => {
       show(i);
-      closePanels();
+      closePanels(false);
       setTimeout(openNote, 300);
     };
     gallery.append(item);
   });
   panel.classList.add("open");
   panel.setAttribute("aria-hidden", "false");
+  syncInteractiveState();
+  registerMedia(panel);
+  panel.querySelector("[data-close], #close-category")?.focus();
 }
 document.querySelector("#close-category").onclick = () => {
   returnCategory = null;
@@ -571,8 +621,10 @@ function show(index) {
       .forEach((d, i) => d.classList.toggle("active", i === current));
     await swapResponsiveImage(image, p.image, "100vw");
     finish();
-    preloadResponsiveImage(projects[(current + 1) % projects.length].image, "100vw");
-    preloadResponsiveImage(projects[(current - 1 + projects.length) % projects.length].image, "100vw");
+    if (shouldPreloadAdjacent()) {
+      preloadResponsiveImage(projects[(current + 1) % projects.length].image, "100vw");
+      preloadResponsiveImage(projects[(current - 1 + projects.length) % projects.length].image, "100vw");
+    }
   }, 260);
 }
 const next = () => show(current + 1),
@@ -611,20 +663,22 @@ document.querySelector("#note-prev").onclick = () => {
   }, 620);
 };
 addEventListener("keydown", (e) => {
-  if (currentView === "home" && (e.key === "ArrowDown" || e.key === "Enter")) {
+  const isInteractive = e.target.closest?.("button,a,input,textarea,select");
+  const overlayOpen = note.classList.contains("open") || document.querySelector(".panel.open");
+  if (!overlayOpen && !isInteractive && currentView === "home" && e.key === "ArrowDown") {
     enterWork();
     return;
   }
   if (
-    currentView === "work" &&
+    !overlayOpen && !isInteractive && currentView === "work" &&
     (e.key === "ArrowRight" || e.key === "ArrowDown")
   )
     next();
-  if (currentView === "work" && (e.key === "ArrowLeft" || e.key === "ArrowUp"))
+  if (!overlayOpen && !isInteractive && currentView === "work" && (e.key === "ArrowLeft" || e.key === "ArrowUp"))
     prev();
   if (e.key === "Escape") {
-    closePanels();
-    closeNote();
+    if (note.classList.contains("open")) closeNote();
+    else if (document.querySelector(".panel.open")) closePanels();
   }
 });
 addEventListener(
@@ -639,19 +693,25 @@ addEventListener(
   },
   { passive: true },
 );
-function closePanels() {
+function closePanels(restoreFocus = true) {
   document.querySelectorAll(".panel").forEach((p) => {
     p.classList.remove("open");
     p.setAttribute("aria-hidden", "true");
   });
+  syncInteractiveState();
+  if (restoreFocus && overlayOpener?.isConnected) overlayOpener.focus();
 }
 document.querySelectorAll("[data-open]").forEach(
   (b) =>
     (b.onclick = () => {
-      closePanels();
+      overlayOpener = b;
+      closePanels(false);
       const p = document.querySelector(`[data-panel="${b.dataset.open}"]`);
       p.classList.add("open");
       p.setAttribute("aria-hidden", "false");
+      syncInteractiveState();
+      registerMedia(p);
+      p.querySelector("[data-close]")?.focus();
     }),
 );
 document
@@ -1058,17 +1118,27 @@ const clearProjectRoute = () => {
   history.replaceState({}, "", `${location.pathname}${location.search}`);
 };
 function openNote(updateRoute = true) {
+  if (!note.classList.contains("open")) overlayOpener = document.activeElement;
   document.body.classList.add("detail-open");
   note.classList.add("open");
   note.setAttribute("aria-hidden", "false");
   note.scrollTo(0, 0);
   fillNote();
+  registerMedia(note);
+  syncInteractiveState();
+  document.querySelector("#close-note").focus();
+  document.title = `${projects[current].title} — Yutong Chen`;
+  document.querySelector('meta[name="description"]').content = projects[current].copy;
   if (updateRoute) setProjectRoute();
 }
 function closeNote(restore = true, updateRoute = true) {
   note.classList.remove("open");
   document.body.classList.remove("detail-open");
   note.setAttribute("aria-hidden", "true");
+  document.title = "Yutong Chen — Portfolio";
+  document.querySelector('meta[name="description"]').content = "Yutong Chen is an HCI researcher and creative technologist exploring creativity and cognition, human–AI interaction, embodied interaction and generative systems.";
+  syncInteractiveState();
+  if (restore && overlayOpener?.isConnected) overlayOpener.focus();
   if (updateRoute) clearProjectRoute();
   if (restore && returnCategory)
     setTimeout(() => openCategory(returnCategory), 250);
@@ -1118,7 +1188,12 @@ const restoreProjectRoute = () => {
     locked = false;
     show(routedIndex);
     setTimeout(() => openNote(false), 700);
+  } else {
+    document.querySelector("#route-status").textContent = "Project not found. Showing the portfolio home page.";
+    clearProjectRoute();
+    returnHome();
   }
 };
 addEventListener("hashchange", restoreProjectRoute);
+syncInteractiveState();
 restoreProjectRoute();

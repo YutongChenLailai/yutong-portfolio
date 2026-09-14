@@ -102,7 +102,7 @@ html,body,.site-shell,.home-screen,.stage,.panel,.project-note{background:#000;c
 
 /* RCA type scale: Source Sans 3, 400/600 */
 html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button,.meta span,.panel-head,.project-item span,.project-item em,.about-cn,.cn-note,.case-cn,.case-head,.case-hero #note-type,.case-label span,.process-frame figcaption{
-  font-family:"Source Sans 3",Arial,Helvetica,sans-serif!important;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"PingFang SC","Microsoft YaHei",sans-serif!important;
 }
 .home-header,.stage>header{font-size:18px;line-height:1;font-weight:600}
 .home-copy h1{font-family:"Source Sans 3",Arial,Helvetica,sans-serif;font-size:76px;line-height:.9;font-weight:600;letter-spacing:-.045em}
@@ -233,6 +233,28 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
   .about-cv{grid-template-columns:1fr}.about-portrait{padding:2rem}.about-resume section{grid-template-columns:1fr;gap:1rem}.about-resume dl{grid-template-columns:72px 1fr}
   .project-facts{grid-template-columns:1fr 1fr}.project-facts div{min-height:120px}.process-grid{grid-template-columns:1fr}.poop-poster h3,.poop-gallery h3,.poop-process h3{font-size:24px}
 }
+
+/* Product-quality accessibility and responsive navigation fixes. */
+.sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+.noscript-message{position:fixed;z-index:2000;left:1rem;right:1rem;top:1rem;margin:0;padding:1rem;background:#fff;color:#000;border:2px solid #000;font:16px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}.noscript-message a{color:#000;font-weight:600}
+.availability{margin:.65rem 0 0;color:#d8d8d8;font-size:14px;line-height:1.35}
+.identity h2{margin:0;max-width:96%;font-family:"Source Sans 3",Arial,Helvetica,sans-serif;font-size:64px;line-height:.95;font-weight:600;letter-spacing:-.04em;transition:.25s}
+.identity h2.changing,.role.changing{opacity:0;transform:translateY(12px)}
+:where(a,button,[tabindex]):focus-visible{outline:3px solid #7dd3fc!important;outline-offset:3px!important}
+.home-portals>*:focus-visible{outline:3px solid #7dd3fc!important;outline-offset:-4px!important}
+
+@media(max-width:1022px) and (min-width:599px){.identity h2{font-size:52px}}
+@media(max-width:598px){.identity h2{font-size:32px}}
+@media(max-width:760px){
+  .stage nav button:first-child{display:block!important}
+  .identity h2{max-width:100%;font-size:clamp(2.15rem,10.5vw,3.5rem);line-height:.92;overflow-wrap:anywhere}
+  .availability{display:none}
+}
+@media(max-width:420px){
+  .stage>header{padding-inline:10px}
+  .stage nav button,.stage .nav-link{padding-inline:8px!important;font-size:10px!important}
+}
+@media(max-width:380px){.identity h2{font-size:2.15rem}}
 
 /* PoopSlaves — RCA-style editorial case study */
 .poop-note .case-hero{
@@ -851,4 +873,148 @@ img.media-switching{opacity:0!important}
     transition:none!important;
   }
   .project-note.open{display:block!important;transform:none!important}
+}
+
+/* About research section: compact hierarchy and true tag chips. */
+.about-resume>header h2{
+  margin:0;
+  max-width:12ch;
+  font-size:clamp(44px,4.8vw,76px);
+  line-height:.92;
+  letter-spacing:-.045em;
+}
+.about-resume>header h2 span{
+  display:block;
+  margin-top:.55rem;
+  font-size:.34em;
+  letter-spacing:0;
+}
+.about-resume>section>h2{
+  margin:0;
+  font-size:16px;
+  line-height:1.25;
+  font-weight:600;
+  letter-spacing:0;
+}
+.about-resume>.research-profile,
+.about-resume>.research-interests{
+  display:grid;
+  grid-template-columns:minmax(180px,240px) minmax(0,1fr);
+  gap:clamp(24px,4vw,64px);
+  align-items:start;
+}
+.research-copy{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:clamp(24px,3vw,48px);
+  min-width:0;
+}
+.research-copy p{
+  margin:0;
+  max-width:60ch;
+  font-size:16px;
+  line-height:1.55;
+}
+.research-copy .cv-cn{margin-top:0}
+.research-interests ul{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:flex-start;
+  gap:8px;
+  min-width:0;
+  margin:0;
+  padding:0;
+  list-style:none;
+}
+.research-interests li{
+  flex:0 0 auto;
+  width:auto;
+  min-height:0;
+  padding:6px 11px;
+  border:1px solid #777;
+  border-radius:999px;
+  background:#111;
+  color:#fff;
+  font-size:13px;
+  line-height:1.25;
+  white-space:nowrap;
+}
+
+@media(max-width:1100px){
+  .research-copy{grid-template-columns:1fr}
+  .research-copy p{max-width:72ch}
+}
+
+@media(max-width:760px){
+  .about-resume>header h2{max-width:none;font-size:36px;line-height:.95}
+  .about-resume>section>h2{margin-bottom:14px;font-size:14px}
+  .about-resume>.research-profile,
+  .about-resume>.research-interests{display:block}
+  .research-copy{display:grid;grid-template-columns:1fr;gap:14px}
+  .research-copy p{font-size:14px;line-height:1.55}
+  .research-copy .cv-cn{margin-top:14px}
+  .research-interests ul{gap:7px}
+  .research-interests li{padding:5px 9px;font-size:11px;white-space:normal}
+}
+
+/* About: one consistent right-hand content axis. */
+@media(min-width:761px){
+  .about-resume{
+    grid-template-columns:minmax(320px,.82fr) minmax(0,1.18fr);
+  }
+  .about-resume>section,
+  .about-resume>.research-profile,
+  .about-resume>.research-interests{
+    grid-template-columns:minmax(320px,.82fr) minmax(0,1.18fr);
+    column-gap:clamp(2rem,6vw,7rem);
+  }
+}
+
+/* Persistent escape route from work, panels and case studies. */
+.home-shortcut{
+  position:fixed;
+  z-index:1200;
+  left:18px;
+  top:50%;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-height:46px;
+  padding:0 14px;
+  transform:translateY(-50%);
+  border:1px solid #fff;
+  border-radius:999px;
+  background:rgba(0,0,0,.82);
+  color:#fff;
+  font-size:12px;
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+  backdrop-filter:blur(8px);
+}
+.home-shortcut[hidden]{display:none!important}
+.home-shortcut span:first-child{font-size:20px;line-height:1}
+.home-shortcut:hover,.home-shortcut:focus-visible{background:#fff;color:#000}
+
+@media(max-width:760px){
+  .home-shortcut{
+    left:12px;
+    top:auto;
+    bottom:94px;
+    width:48px;
+    height:48px;
+    min-height:48px;
+    justify-content:center;
+    padding:0;
+    background:rgba(0,0,0,.88);
+  }
+  .home-shortcut span:last-child{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+  .poop-note .case-hero{
+    background-image:url('assets/projects/poopslaves/cover/hero-mobile-hd.webp?v=mobile-hd-1')!important;
+    background-position:center center!important;
+  }
+  .poop-note.plantiever-note .case-hero{
+    background-image:url('assets/projects/plantievers-illusion/cover/hero-mobile-hd.webp?v=mobile-hd-1')!important;
+    background-position:center center!important;
+  }
 }
