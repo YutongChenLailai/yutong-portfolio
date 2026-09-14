@@ -463,7 +463,7 @@ const syncInteractiveState = () => {
     setLayerState(panel, panel === openPanel && !noteOpen),
   );
   if (note) setLayerState(note, noteOpen);
-  if (homeShortcut) homeShortcut.hidden = currentView === "home";
+  if (homeShortcut) homeShortcut.hidden = currentView === "home" || !overlayOpen;
 };
 if (window.matchMedia("(min-width: 761px)").matches) {
   for (let r = 0; r < rows; r++) {

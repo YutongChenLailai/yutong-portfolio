@@ -970,6 +970,33 @@ img.media-switching{opacity:0!important}
   }
 }
 
+/* Final mobile navigation placement: distinct from carousel arrows and clear of content. */
+@media(max-width:760px){
+  .home-shortcut{
+    left:20px!important;
+    top:70px!important;
+    bottom:auto!important;
+    width:auto!important;
+    height:42px!important;
+    min-height:42px!important;
+    padding:0 13px!important;
+    gap:8px!important;
+    border:1px solid rgba(255,255,255,.72)!important;
+    border-radius:0!important;
+    background:rgba(0,0,0,.9)!important;
+  }
+  .home-shortcut span:last-child{
+    position:static!important;
+    width:auto!important;
+    height:auto!important;
+    overflow:visible!important;
+    clip:auto!important;
+    font-size:11px!important;
+    line-height:1!important;
+    text-transform:uppercase;
+  }
+}
+
 /* RCA-informed typographic and interaction rhythm. Monochrome by design:
    the reference grid and cadence are retained without RCA's orange accent. */
 :root{
