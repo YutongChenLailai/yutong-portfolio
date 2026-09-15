@@ -1287,3 +1287,54 @@ body{font-weight:400;letter-spacing:0}
     background-attachment:scroll!important;
   }
 }
+
+/* Phone QA: keep project metadata legible and remove accidental image frames. */
+@media(max-width:760px){
+  .home-header nav,.stage nav{
+    border-right:1px solid var(--quiet-rule);
+  }
+  .identity .kicker,.identity h1,.identity .role,.active-tags{
+    flex-shrink:0;
+  }
+  .active-tags{
+    width:100%;
+    min-height:38px;
+    flex-wrap:wrap!important;
+    overflow:visible!important;
+    align-content:flex-start;
+  }
+  .tag-button{
+    min-height:36px;
+    padding:7px 9px;
+    font-size:10px;
+  }
+  .plantiever-gallery,
+  .plantiever-gallery-stage,
+  .plantiever-gallery-stage figure,
+  .plantiever-gallery-main,
+  .process-frame img,
+  .outcome-image{
+    border:0!important;
+    outline:0!important;
+  }
+  .plantiever-gallery-footer{
+    border:0!important;
+    border-top:1px solid var(--quiet-rule)!important;
+  }
+  .plantiever-gallery-stage img,
+  .process-frame img,
+  .outcome-image,
+  .portfolio-rail img{
+    box-shadow:none!important;
+    outline:0!important;
+  }
+  .portfolio-rail figure{
+    overflow:hidden;
+    background:#000;
+  }
+  .portfolio-rail img{
+    width:calc(100% + 4px)!important;
+    max-width:none!important;
+    margin:-2px -2px 0!important;
+  }
+}
