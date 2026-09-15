@@ -1338,3 +1338,31 @@ body{font-weight:400;letter-spacing:0}
     margin:-2px -2px 0!important;
   }
 }
+
+/* One grid source of truth. Component borders now sit on the same responsive
+   columns as the page overlay instead of dividing the full viewport separately. */
+.home-portals{
+  padding-inline:var(--editorial-edge)!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+}
+.home-portals>*{
+  border-left:1px solid var(--quiet-rule)!important;
+  border-right:0!important;
+}
+.home-portals>*:last-child{
+  border-right:1px solid var(--quiet-rule)!important;
+}
+
+@media(max-width:760px){
+  .home-portals{
+    padding-inline:var(--editorial-edge)!important;
+    grid-template-columns:1fr!important;
+  }
+  .home-portals>*{
+    border-left:1px solid var(--quiet-rule)!important;
+    border-right:1px solid var(--quiet-rule)!important;
+  }
+  .home-header nav,.stage nav{
+    border-right:1px solid var(--quiet-rule)!important;
+  }
+}
