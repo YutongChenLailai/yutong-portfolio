@@ -807,15 +807,10 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
   .portfolio-series>header,.poop-results>header,.poop-research>header,.poop-graduation>header,.plantiever-storyboard>header{margin-inline:0}
 }
 
-/* A single editorial edge and intrinsic image frames across desktop widths. */
+/* Keep project sections, gallery headers and media on the same page edge. */
 @media(min-width:761px){
-  #case-sections{--detail-edge:clamp(24px,3vw,56px)}
-  #case-sections>.case-section,
-  #case-sections>.poop-research,
-  #case-sections>.poop-graduation,
-  #case-sections>.plantiever-storyboard{padding-left:var(--detail-edge)!important;padding-right:var(--detail-edge)!important}
-  #case-sections>.portfolio-series>header{margin-left:var(--detail-edge)!important;margin-right:var(--detail-edge)!important}
-  #case-sections>.portfolio-series>.portfolio-rail{padding-left:var(--detail-edge)!important;padding-right:var(--detail-edge)!important}
+  #case-sections>.portfolio-series>header{margin-inline:0!important}
+  #case-sections>.portfolio-series>.portfolio-rail{padding-inline:0!important}
   .outcome-image{display:block;width:auto!important;max-width:100%!important;height:auto!important;max-height:none!important;margin:1.5rem 0 0!important;border:0!important;background:transparent!important;object-fit:contain}
 }
 
@@ -1412,8 +1407,9 @@ body{font-weight:400;letter-spacing:0}
 .case-editorial h4:first-child{margin-top:0}
 .case-editorial .case-flow{font-size:clamp(16px,1.6vw,21px);font-weight:500;overflow-wrap:break-word}
 .case-insights{margin:0;padding:0;list-style:none;counter-reset:insight}
-.case-insights li{display:grid;grid-template-columns:2rem repeat(2,minmax(0,1fr));gap:clamp(16px,2vw,32px);align-items:start;margin-bottom:22px;counter-increment:insight;line-height:1.55}
-.case-insights li::before{content:counter(insight,decimal-leading-zero) ".";color:#aaa}
+.case-insights li{position:relative;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(24px,3vw,48px);align-items:start;margin-bottom:22px;counter-increment:insight;line-height:1.55}
+.case-insights li::before{position:absolute;left:0;content:counter(insight,decimal-leading-zero) ".";color:#aaa}
+.case-insights strong{padding-left:2rem}
 .case-insights strong,.case-insights .case-cn{display:block;min-width:0}
 .case-insights .case-cn{color:#ddd;font-size:16px!important;line-height:1.55}
 .poop-method{font-size:clamp(18px,1.5vw,21px)!important}
@@ -1443,6 +1439,8 @@ body{font-weight:400;letter-spacing:0}
   .bilingual-pair>p{font-size:17px}
   .case-editorial>.bilingual-pair{margin-bottom:28px}
   .case-insights li{grid-template-columns:2rem minmax(0,1fr);gap:8px 10px}
+  .case-insights li::before{position:static}
+  .case-insights strong{padding-left:0}
   .case-insights .case-cn{grid-column:2}
   .practice-statement .cv-cn{margin-top:10px;font-size:19px}
   .home-shortcut{top:7px!important;min-height:44px;padding:0 10px}
