@@ -1368,6 +1368,12 @@ body{font-weight:400;letter-spacing:0}
 .research-copy .cv-cn{color:#ddd;font-size:16px!important;line-height:1.55}
 
 /* Shared editorial rhythm: one heading row, one content edge, one bilingual row. */
+.project-note{--reading-width:920px;--reading-gap:clamp(24px,3vw,48px)}
+.case-hero-copy,.bilingual-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--reading-gap);max-width:var(--reading-width);align-items:start}
+.case-hero-copy{grid-column:1/-1;width:100%}
+.case-hero-copy #note-copy,.case-hero-copy #note-cn{align-self:start;margin:0;max-width:none}
+.case-hero-copy .case-tags{margin-top:16px}
+.poop-note .case-hero-copy{display:block}
 @media(min-width:761px){
   .project-note .case-head{margin-inline:calc(var(--pad)*-1)}
   .poop-note .case-head{inset-inline:0;margin-inline:0;width:100%}
@@ -1396,18 +1402,17 @@ body{font-weight:400;letter-spacing:0}
 }
 .case-label h3{display:flex;flex-wrap:wrap;align-items:baseline;gap:.2em .7em;min-width:0;margin:0;line-height:1.12!important;text-wrap:balance}
 .case-label small{line-height:1.35;text-wrap:balance}
-.case-body{max-width:920px}
-.bilingual-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(24px,3vw,48px);align-items:start;max-width:920px}
+.case-body{max-width:var(--reading-width)}
 .bilingual-pair>p{min-width:0;margin:0;font-size:18px;line-height:1.55;text-wrap:pretty}
 .bilingual-pair>.case-cn{color:#ddd;font-size:16px!important;line-height:1.55;line-break:strict}
-.case-editorial{max-width:920px}
+.case-editorial{max-width:var(--reading-width)}
 .case-editorial>.bilingual-pair{margin-bottom:28px}
 .case-editorial>.bilingual-pair:last-child{margin-bottom:0}
 .case-editorial h4{margin:28px 0 16px;font-size:18px;line-height:1.35}
 .case-editorial h4:first-child{margin-top:0}
 .case-editorial .case-flow{font-size:clamp(16px,1.6vw,21px);font-weight:500;overflow-wrap:break-word}
 .case-insights{margin:0;padding:0;list-style:none;counter-reset:insight}
-.case-insights li{position:relative;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(24px,3vw,48px);align-items:start;margin-bottom:22px;counter-increment:insight;line-height:1.55}
+.case-insights li{position:relative;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--reading-gap);align-items:start;margin-bottom:22px;counter-increment:insight;line-height:1.55}
 .case-insights li::before{position:absolute;left:0;content:counter(insight,decimal-leading-zero) ".";color:#aaa}
 .case-insights strong{padding-left:2rem}
 .case-insights strong,.case-insights .case-cn{display:block;min-width:0}
@@ -1430,6 +1435,8 @@ body{font-weight:400;letter-spacing:0}
 }
 @media(max-width:760px){
   #case-sections{--section-space:48px;--section-gap:20px}
+  .case-hero-copy{grid-template-columns:minmax(0,1fr);gap:8px}
+  .poop-note .case-hero-copy{order:3;width:100%}
   .case-label,.poop-research>header,.poop-graduation>header,.plantiever-storyboard>header,.portfolio-series>header{
     display:grid!important;grid-template-columns:max-content minmax(0,1fr);align-items:start;gap:12px;
   }
