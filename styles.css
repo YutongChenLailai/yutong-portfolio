@@ -1366,3 +1366,18 @@ body{font-weight:400;letter-spacing:0}
     border-right:1px solid var(--quiet-rule)!important;
   }
 }
+
+.practice-statement strong{display:block;font-size:clamp(1.4rem,2.4vw,2.2rem);font-weight:500;line-height:1.15;letter-spacing:-.025em}
+.practice-statement .cv-cn{margin-top:.65rem}
+.case-editorial{max-width:900px}
+.case-editorial h4{margin:2rem 0 .75rem;font-size:1.15rem;font-weight:600}
+.case-editorial h4:first-child{margin-top:0}
+.case-editorial p{margin:0 0 1rem;line-height:1.55}
+.case-editorial p.case-cn{margin:-.45rem 0 2rem}
+.case-editorial .case-flow{overflow-wrap:anywhere;font-size:clamp(1rem,1.6vw,1.35rem);font-weight:500}
+.case-insights{margin:0;padding-left:2rem;list-style:decimal-leading-zero}
+.case-insights li{padding:0 0 1.5rem .35rem;line-height:1.5}
+.case-insights strong,.case-insights .case-cn{display:block}
+.case-insights .case-cn{margin-top:.45rem}
+.poop-method{max-width:900px;margin:0 0 .75rem;font-size:clamp(1rem,1.5vw,1.25rem);line-height:1.5}
+.poop-method+.case-cn{max-width:900px;margin:0 0 2rem}

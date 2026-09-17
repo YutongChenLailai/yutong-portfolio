@@ -240,7 +240,7 @@ const caseCn = [
   "从沿海污染观察出发，以藻类材料与装置系统讨论生态修复。",
 ];
 const making = [
-  "I built the experience around character states, spatial hierarchy and repeated exchanges. Interactions were simplified until the economy could be understood through action rather than instruction.",
+  "I used successive VR prototypes to test how character roles, spatial hierarchy and repeated exchanges shape a player's sense of agency. Interactions were simplified until the unequal economy could be understood through action rather than instruction.",
   "Compositing, 3D scenes and rhythmic edits formed the visual language. Projection and physical placement were tested together to control how each symbol was read.",
   "Storyboards, interaction flows, workshop feedback and successive VR scene tests shaped the work. Navigation and visual assets were refined as one system.",
   "Mechanism prototypes, Arduino control, printed outputs and visitor-journey tests gradually formed the installation. The interface was reduced to a few legible actions.",
@@ -249,10 +249,10 @@ const making = [
   "I mapped the service flow, designed the core screens and tested gesture browsing. AI recognition supports the experience without becoming its visual centre.",
   "Archival material was reorganised into spatial layers, routes and concise story moments. Interface tests balanced clear wayfinding with discovery.",
   "Staged footage, symbolic props, sound and compressed edits were assembled around repetition and escalation.",
-  "Material experiments, feasibility studies, apparatus sketches, 3D renders and a service model were developed as one ecological system.",
+  "Algae-material experiments, apparatus sketches, 3D renders and a service model were developed together. Each prototype tested how coastal pollution might become perceptible and how an ecological response could work in practice.",
 ];
 const makingCn = [
-  "制作围绕角色状态、空间等级与重复交换展开，让玩家通过行动而不是说明理解这套经济。",
+  "通过多轮 VR 原型测试角色身份、空间等级与重复交换如何影响玩家的自主感，并简化交互，让不平等的经济规则通过行动而非说明被理解。",
   "通过合成、三维场景与节奏剪辑建立视觉语言，并同步测试投影和空间位置。",
   "制作经过故事板、交互流程、工作坊反馈与多轮 VR 场景测试，视觉和导航同步迭代。",
   "通过机械原型、Arduino 控制、打印输出与观众动线测试逐步完成装置。",
@@ -261,7 +261,7 @@ const makingCn = [
   "梳理服务流程、核心界面与手势浏览，让 AI 识别成为自然的辅助功能。",
   "档案材料被重组为空间图层、路线与短叙事节点，在导航与探索之间取得平衡。",
   "通过场景拍摄、象征性道具、声音与紧凑剪辑建立重复和升级的节奏。",
-  "整合材料实验、技术验证、装置草图、三维渲染与服务模型。",
+  "结合藻类材料实验、装置草图、三维渲染与服务模型，以不同原型检验如何让沿海污染变得可感，并探索生态回应在实践中的可能性。",
 ];
 const projectTags = [
   ["Critical Design", "VR", "Speculative"],
@@ -777,6 +777,39 @@ function fillNote() {
   const container = document.querySelector("#case-sections"),
     publication = publications[current];
   let sectionNumber = sections.length + 1;
+  if (p.title === "Plated Fantasies") {
+    container.insertAdjacentHTML("beforeend", `<section class="case-section"><div class="case-label"><span>${String(sectionNumber++).padStart(2, "0")}</span><h3>Research through interaction<small>通过交互开展研究</small></h3></div><div class="case-body case-editorial">
+      <p>This project explores how repeated cultural and media representations gradually embed themselves in everyday perception, and asks why the same symbol can provoke different feelings across different relationships and social contexts — and how capitalism exploits this fluidity of association.</p>
+      <p class="case-cn">这个项目关注文化与媒体中反复出现的表征，如何逐渐渗入并塑造日常感知，并追问：为何同一个符号会在不同的关系与社会情境中引发不同的感受，而资本主义又是如何利用这种联想的流动性。</p>
+      <p class="case-flow">Media &amp; Culture → Repetition → Sensory Association → Interactive Prototype → Reinterpretation</p>
+      <p class="case-cn case-flow">媒体与文化 → 重复 → 感官联想 → 互动原型 → 重新诠释</p>
+      <p>Rather than treating meaning as fixed, I use interactive prototypes to surface associations that usually go unnoticed. Through touch, sound, image, and movement, participants encounter familiar symbols in unfamiliar ways, actively reinterpreting their meanings.</p>
+      <p class="case-cn">我不把意义视为固定不变，而是借助互动原型，让通常不被注意的联想浮现。通过触觉、声音、影像与身体动作，参与者以陌生的方式重新遇见熟悉的符号，并主动重新诠释其意义。</p>
+      <p>For me, the prototype is not just a final outcome but a research method — a way to expose hidden perceptions, disrupt habitual interpretations, and observe how meaning shifts through interaction.</p>
+      <p class="case-cn">对我而言，原型不仅是最终的设计成果，更是一种研究方法：它能显现隐藏的感知，打断习以为常的理解方式，并观察意义如何在互动中生成变化。</p>
+    </div></section>`);
+  }
+  if (p.title === "Fetorium") {
+    container.insertAdjacentHTML("beforeend", `<section class="case-section"><div class="case-label"><span>${String(sectionNumber++).padStart(2, "0")}</span><h3>Research question &amp; insights<small>研究问题与关键发现</small></h3></div><div class="case-body case-editorial">
+      <h4>Main RQ / 核心研究问题</h4>
+      <p>How can an interactive system reveal how visual, embodied, and social cues shape people’s anticipation and interpretation of odor in the absence of physical smell?</p>
+      <p class="case-cn">互动系统如何揭示在没有真实气味时，视觉、身体与社会线索如何共同影响人们对气味的预期与解释？</p>
+      <h4>Key Insights / 关键发现</h4>
+      <ol class="case-insights">
+        <li><strong>Smell can be anticipated before it is detected.</strong><span class="case-cn">视觉、语言与既有经验会使人在真正闻到气味之前，便已产生气味预期。</span></li>
+        <li><strong>“Stench” can become a social label.</strong><span class="case-cn">“臭”这一感官描述，可能延伸为对身体、职业、身份乃至文化的评判。</span></li>
+        <li><strong>Perception is relational.</strong><span class="case-cn">气味感知并非仅仅来自鼻子，也受到身体、空间、记忆与文化的共同影响。</span></li>
+      </ol>
+    </div></section>
+    <section class="case-section"><div class="case-label"><span>${String(sectionNumber++).padStart(2, "0")}</span><h3>Embodied atmosphere<small>具身的感官氛围</small></h3></div><div class="case-body case-editorial">
+      <p>Research on atmosphere and sensory ethnography suggests that people do not experience a space through a single stimulus; perception is shaped jointly by bodily movement, spatial conditions, memory, sound, material, and social context.</p>
+      <p class="case-cn">关于氛围（atmosphere）与感官民族志（sensory ethnography）的研究指出，人对空间的感受并非由某一单一刺激决定，而是由身体移动、空间条件、记忆、声音、材料与社会经验共同形塑。</p>
+      <p>This informed the design of the white-sock tunnel. Rather than asking participants to simply look at the installation, I wanted them to bend, crawl, and physically enter the space.</p>
+      <p class="case-cn">这一思路直接影响了白袜隧道的设计——我不希望观众只是站在外面“看”作品，而是要让他们弯腰、爬行，真正进入这个空间。</p>
+      <p>Before participants even reach the main installation, the tunnel already reshapes their posture, distance, field of view, and sense of comfort. In this way, “stench” is presented not as a single smell but as an atmosphere gradually constructed through the body's encounter with the environment.</p>
+      <p class="case-cn">在抵达主装置之前，隧道已经预先改变了他们的身体姿势、观看距离、视野与舒适感。因此，“臭”并不是以单一气味的形式被呈现，而是在身体与环境的互动中逐渐建构出的一种感官氛围。</p>
+    </div></section>`);
+  }
   if (p.title === "Plantiever’s Illusion") {
     container.insertAdjacentHTML(
       "beforeend",
@@ -1019,6 +1052,8 @@ function renderPoopSlaves() {
     </section>
     <section class="poop-research">
       <header><span>02</span><div><h3>Research & Conference Presentations</h3><p>论文与会议展示</p></div></header>
+      <p class="poop-method">Successive VR prototypes tested how unequal rules, delayed feedback and constrained movement could make bodily commodification felt rather than merely described.</p>
+      <p class="case-cn">通过多轮 VR 原型，测试不平等规则、延迟反馈与受限行动如何让身体商品化成为可感的体验，而不只是文字描述。</p>
       <div class="poop-paper-grid">
         <article><img data-src="assets/projects/poopslaves/research/hcii-poster.webp" alt="HCII poster for Visceral Interaction" loading="lazy"><div class="poop-paper-copy"><h4>HCII 2026 · Late Breaking Work</h4><p>Visceral Interaction: Operationalizing Cognitive Friction through Rule-Based VR Economic Simulation</p><a href="https://scholar.google.com/scholar?q=Visceral+Interaction+Operationalizing+Cognitive+Friction+through+Rule-Based+VR+Economic+Simulation" target="_blank" rel="noreferrer">Paper record / 论文链接 ↗</a></div></article>
         <article class="poop-paper-card--cc">
