@@ -778,7 +778,7 @@ function fillNote() {
     publication = publications[current];
   let sectionNumber = sections.length + 1;
   if (p.title === "Plated Fantasies") {
-    container.insertAdjacentHTML("beforeend", `<section class="case-section"><div class="case-label"><span>${String(sectionNumber++).padStart(2, "0")}</span><h3>Research through interaction<small>通过交互开展研究</small></h3></div><div class="case-body case-editorial">
+    container.insertAdjacentHTML("beforeend", `<section class="case-section case-editorial-section"><div class="case-label"><span>${String(sectionNumber++).padStart(2, "0")}</span><h3>Research through interaction<small>通过交互开展研究</small></h3></div><div class="case-body case-editorial">
       <p>This project explores how repeated cultural and media representations gradually embed themselves in everyday perception, and asks why the same symbol can provoke different feelings across different relationships and social contexts — and how capitalism exploits this fluidity of association.</p>
       <p class="case-cn">这个项目关注文化与媒体中反复出现的表征，如何逐渐渗入并塑造日常感知，并追问：为何同一个符号会在不同的关系与社会情境中引发不同的感受，而资本主义又是如何利用这种联想的流动性。</p>
       <p class="case-flow">Media &amp; Culture → Repetition → Sensory Association → Interactive Prototype → Reinterpretation</p>
@@ -790,7 +790,7 @@ function fillNote() {
     </div></section>`);
   }
   if (p.title === "Fetorium") {
-    container.insertAdjacentHTML("beforeend", `<section class="case-section"><div class="case-label"><span>${String(sectionNumber++).padStart(2, "0")}</span><h3>Research question &amp; insights<small>研究问题与关键发现</small></h3></div><div class="case-body case-editorial">
+    container.insertAdjacentHTML("beforeend", `<section class="case-section case-editorial-section"><div class="case-label"><span>${String(sectionNumber++).padStart(2, "0")}</span><h3>Research question &amp; insights<small>研究问题与关键发现</small></h3></div><div class="case-body case-editorial">
       <h4>Main RQ / 核心研究问题</h4>
       <p>How can an interactive system reveal how visual, embodied, and social cues shape people’s anticipation and interpretation of odor in the absence of physical smell?</p>
       <p class="case-cn">互动系统如何揭示在没有真实气味时，视觉、身体与社会线索如何共同影响人们对气味的预期与解释？</p>
@@ -801,7 +801,7 @@ function fillNote() {
         <li><strong>Perception is relational.</strong><span class="case-cn">气味感知并非仅仅来自鼻子，也受到身体、空间、记忆与文化的共同影响。</span></li>
       </ol>
     </div></section>
-    <section class="case-section"><div class="case-label"><span>${String(sectionNumber++).padStart(2, "0")}</span><h3>Embodied atmosphere<small>具身的感官氛围</small></h3></div><div class="case-body case-editorial">
+    <section class="case-section case-editorial-section"><div class="case-label"><span>${String(sectionNumber++).padStart(2, "0")}</span><h3>Embodied atmosphere<small>具身的感官氛围</small></h3></div><div class="case-body case-editorial">
       <p>Research on atmosphere and sensory ethnography suggests that people do not experience a space through a single stimulus; perception is shaped jointly by bodily movement, spatial conditions, memory, sound, material, and social context.</p>
       <p class="case-cn">关于氛围（atmosphere）与感官民族志（sensory ethnography）的研究指出，人对空间的感受并非由某一单一刺激决定，而是由身体移动、空间条件、记忆、声音、材料与社会经验共同形塑。</p>
       <p>This informed the design of the white-sock tunnel. Rather than asking participants to simply look at the installation, I wanted them to bend, crawl, and physically enter the space.</p>

@@ -1381,3 +1381,41 @@ body{font-weight:400;letter-spacing:0}
 .case-insights .case-cn{margin-top:.45rem}
 .poop-method{max-width:900px;margin:0 0 .75rem;font-size:clamp(1rem,1.5vw,1.25rem);line-height:1.5}
 .poop-method+.case-cn{max-width:900px;margin:0 0 2rem}
+
+/* Give both languages the same reading priority in the new editorial copy. */
+@media(min-width:761px){
+  .about-resume>.practice-statement,.about-resume>.research-profile,.about-resume>.research-interests{
+    grid-template-columns:minmax(180px,220px) minmax(0,1fr);
+    column-gap:clamp(24px,4vw,56px);
+  }
+  .practice-statement>p,.case-editorial{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    column-gap:clamp(24px,3vw,48px);
+  }
+  .case-editorial{row-gap:28px}
+  .case-editorial h4,.case-insights{grid-column:1/-1}
+  .case-editorial p,.case-editorial p.case-cn{margin:0}
+}
+.practice-statement>p{margin:0}
+.practice-statement .cv-cn{color:#fff;font-size:clamp(18px,1.8vw,24px);line-height:1.3}
+.research-copy .cv-cn,.case-editorial .case-cn,.case-insights .case-cn,.poop-method+.case-cn{
+  color:#ddd;
+  font-size:16px!important;
+  line-height:1.55;
+}
+.case-editorial>p:first-child{font-size:18px!important;line-height:1.55!important;letter-spacing:0}
+.case-editorial h4{margin:0;font-size:18px}
+.case-insights li{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(24px,3vw,48px)}
+.case-insights .case-cn{margin:0}
+.case-hero #note-cn,.case-section .case-cn{color:#ddd;font-size:16px!important;line-height:1.55}
+#case-sections>.case-editorial-section{padding-block:56px!important}
+@media(max-width:760px){
+  .practice-statement .cv-cn{margin-top:10px;font-size:19px}
+  .case-editorial>p{margin-bottom:8px}
+  .case-editorial>p.case-cn{margin:0 0 28px}
+  .case-editorial h4{margin:0 0 16px}
+  .case-insights li{display:list-item;padding-bottom:22px}
+  .case-insights .case-cn{margin-top:8px}
+  #case-sections>.case-editorial-section{padding-block:40px!important}
+}
