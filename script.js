@@ -492,7 +492,7 @@ if (window.matchMedia("(min-width: 761px)").matches) {
   }
 }
 setTimeout(() => mosaic.classList.add("assembled"), 120);
-function enterWork() {
+function enterWork(instant = false) {
   if (currentView === "work") return;
   currentView = "work";
   closePanels(false);
@@ -500,17 +500,21 @@ function enterWork() {
   // Resetting the transition guard also prevents a cached/missed image load from
   // leaving the previous project (for example Value Machine) on screen.
   locked = false;
-  show(0);
+  show(0, true);
+  if (instant) document.querySelector(".site-shell").classList.add("instant-work");
   home.classList.add("exit");
   work.classList.add("active");
   work.setAttribute("aria-hidden", "false");
   syncInteractiveState();
+  wheelLock = true;
+  setTimeout(() => (wheelLock = false), 900);
 }
 function returnHome() {
   currentView = "home";
   if (note.classList.contains("open")) closeNote(false, false);
   closePanels(false);
   clearProjectRoute();
+  document.querySelector(".site-shell").classList.remove("instant-work");
   home.classList.remove("exit");
   work.classList.remove("active");
   work.setAttribute("aria-hidden", "true");
@@ -518,7 +522,7 @@ function returnHome() {
   mosaic.classList.remove("assembled");
   setTimeout(() => mosaic.classList.add("assembled"), 80);
 }
-document.querySelector("#enter-work").onclick = enterWork;
+document.querySelector("#enter-work").onclick = () => enterWork(true);
 document.querySelector('[data-home-panel="about"]').onclick = () => {
   enterWork();
   setTimeout(() => document.querySelector('[data-open="about"]').click(), 500);
@@ -593,15 +597,36 @@ document.querySelector("#close-category").onclick = () => {
   closePanels();
 };
 tagButtons(0, activeTags);
-function show(index) {
+let showSequence = 0;
+function show(index, instant = false) {
   if (locked) return;
   locked = true;
+  const sequence = ++showSequence;
   current = (index + projects.length) % projects.length;
+  const p = projects[current];
+  const render = () => {
+    title.textContent = p.title;
+    role.textContent = p.role;
+    num.textContent = `${String(current + 1).padStart(2, "0")} / ${String(projects.length).padStart(2, "0")}`;
+    medium.textContent = p.medium;
+    tagButtons(current, activeTags);
+    document.querySelectorAll(".dots button").forEach((d, i) => d.classList.toggle("active", i === current));
+  };
+  if (instant) {
+    image.dataset.swapToken = String((Number(image.dataset.swapToken) || 0) + 1);
+    setResponsiveImage(image, p.image, "100vw");
+    render();
+    image.classList.remove("changing", "media-switching");
+    title.classList.remove("changing");
+    role.classList.remove("changing");
+    locked = false;
+    return;
+  }
   image.classList.add("changing");
   title.classList.add("changing");
   role.classList.add("changing");
   setTimeout(async () => {
-    const p = projects[current];
+    if (sequence !== showSequence) return;
     let finished = false;
     const finish = () => {
       if (finished) return;
@@ -611,15 +636,9 @@ function show(index) {
       role.classList.remove("changing");
       locked = false;
     };
-    title.textContent = p.title;
-    role.textContent = p.role;
-    num.textContent = `${String(current + 1).padStart(2, "0")} / ${String(projects.length).padStart(2, "0")}`;
-    medium.textContent = p.medium;
-    tagButtons(current, activeTags);
-    document
-      .querySelectorAll(".dots button")
-      .forEach((d, i) => d.classList.toggle("active", i === current));
+    render();
     await swapResponsiveImage(image, p.image, "100vw");
+    if (sequence !== showSequence) return;
     finish();
     if (shouldPreloadAdjacent()) {
       preloadResponsiveImage(projects[(current + 1) % projects.length].image, "100vw");
