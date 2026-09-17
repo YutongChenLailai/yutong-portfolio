@@ -1368,54 +1368,82 @@ body{font-weight:400;letter-spacing:0}
 }
 
 .practice-statement strong{display:block;font-size:clamp(1.4rem,2.4vw,2.2rem);font-weight:500;line-height:1.15;letter-spacing:-.025em}
-.practice-statement .cv-cn{margin-top:.65rem}
-.case-editorial{max-width:900px}
-.case-editorial h4{margin:2rem 0 .75rem;font-size:1.15rem;font-weight:600}
-.case-editorial h4:first-child{margin-top:0}
-.case-editorial p{margin:0 0 1rem;line-height:1.55}
-.case-editorial p.case-cn{margin:-.45rem 0 2rem}
-.case-editorial .case-flow{overflow-wrap:anywhere;font-size:clamp(1rem,1.6vw,1.35rem);font-weight:500}
-.case-insights{margin:0;padding-left:2rem;list-style:decimal-leading-zero}
-.case-insights li{padding:0 0 1.5rem .35rem;line-height:1.5}
-.case-insights strong,.case-insights .case-cn{display:block}
-.case-insights .case-cn{margin-top:.45rem}
-.poop-method{max-width:900px;margin:0 0 .75rem;font-size:clamp(1rem,1.5vw,1.25rem);line-height:1.5}
-.poop-method+.case-cn{max-width:900px;margin:0 0 2rem}
+.practice-statement>p{margin:0}
+.practice-statement .cv-cn{color:#fff;font-size:clamp(18px,1.8vw,24px);line-height:1.3}
+.research-copy .cv-cn{color:#ddd;font-size:16px!important;line-height:1.55}
 
-/* Give both languages the same reading priority in the new editorial copy. */
+/* Shared editorial rhythm: one heading row, one content edge, one bilingual row. */
+@media(min-width:761px){
+  .project-note .case-head{margin-inline:calc(var(--pad)*-1)}
+  .poop-note .case-head{inset-inline:0;margin-inline:0;width:100%}
+}
+@media(min-width:761px) and (max-width:1100px){
+  .project-note:not(.poop-note) .case-head{margin-inline:calc(clamp(24px,5vw,56px)*-1)}
+}
+#case-sections{--section-space:clamp(48px,5vw,80px);--section-gap:24px}
+#case-sections>.case-section,
+#case-sections>.poop-research,
+#case-sections>.poop-graduation,
+#case-sections>.plantiever-storyboard,
+#case-sections>.portfolio-series{padding-block:var(--section-space)!important}
+.case-label,
+.poop-research>header,
+.poop-graduation>header,
+.plantiever-storyboard>header,
+.portfolio-series>header{
+  display:grid;
+  grid-template-columns:max-content minmax(0,1fr) auto;
+  column-gap:16px;
+  align-items:baseline;
+  margin-bottom:var(--section-gap)!important;
+  padding-bottom:14px;
+  border-bottom:1px solid var(--quiet-rule);
+}
+.case-label h3{display:flex;flex-wrap:wrap;align-items:baseline;gap:.2em .7em;min-width:0;margin:0;line-height:1.12!important;text-wrap:balance}
+.case-label small{line-height:1.35;text-wrap:balance}
+.case-body{max-width:920px}
+.bilingual-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(24px,3vw,48px);align-items:start;max-width:920px}
+.bilingual-pair>p{min-width:0;margin:0;font-size:18px;line-height:1.55;text-wrap:pretty}
+.bilingual-pair>.case-cn{color:#ddd;font-size:16px!important;line-height:1.55;line-break:strict}
+.case-editorial{max-width:920px}
+.case-editorial>.bilingual-pair{margin-bottom:28px}
+.case-editorial>.bilingual-pair:last-child{margin-bottom:0}
+.case-editorial h4{margin:28px 0 16px;font-size:18px;line-height:1.35}
+.case-editorial h4:first-child{margin-top:0}
+.case-editorial .case-flow{font-size:clamp(16px,1.6vw,21px);font-weight:500;overflow-wrap:break-word}
+.case-insights{margin:0;padding:0;list-style:none;counter-reset:insight}
+.case-insights li{display:grid;grid-template-columns:2rem repeat(2,minmax(0,1fr));gap:clamp(16px,2vw,32px);align-items:start;margin-bottom:22px;counter-increment:insight;line-height:1.55}
+.case-insights li::before{content:counter(insight,decimal-leading-zero) ".";color:#aaa}
+.case-insights strong,.case-insights .case-cn{display:block;min-width:0}
+.case-insights .case-cn{color:#ddd;font-size:16px!important;line-height:1.55}
+.poop-method{font-size:clamp(18px,1.5vw,21px)!important}
+.bilingual-pair>.poop-graduation-lead{font-size:clamp(1.3rem,2.2vw,2.3rem);line-height:1.2}
+.case-hero #note-cn,.case-section .case-cn{color:#ddd;line-height:1.55}
+.case-body img,.plantiever-storyboard figure{max-width:100%}
+.home-shortcut{top:12px!important;left:50%!important;right:auto!important;bottom:auto!important;transform:translateX(-50%)!important}
 @media(min-width:761px){
   .about-resume>.practice-statement,.about-resume>.research-profile,.about-resume>.research-interests{
     grid-template-columns:minmax(180px,220px) minmax(0,1fr);
     column-gap:clamp(24px,4vw,56px);
   }
-  .practice-statement>p,.case-editorial{
+  .practice-statement>p{
     display:grid;
     grid-template-columns:repeat(2,minmax(0,1fr));
     column-gap:clamp(24px,3vw,48px);
   }
-  .case-editorial{row-gap:28px}
-  .case-editorial h4,.case-insights{grid-column:1/-1}
-  .case-editorial p,.case-editorial p.case-cn{margin:0}
 }
-.practice-statement>p{margin:0}
-.practice-statement .cv-cn{color:#fff;font-size:clamp(18px,1.8vw,24px);line-height:1.3}
-.research-copy .cv-cn,.case-editorial .case-cn,.case-insights .case-cn,.poop-method+.case-cn{
-  color:#ddd;
-  font-size:16px!important;
-  line-height:1.55;
-}
-.case-editorial>p:first-child{font-size:18px!important;line-height:1.55!important;letter-spacing:0}
-.case-editorial h4{margin:0;font-size:18px}
-.case-insights li{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(24px,3vw,48px)}
-.case-insights .case-cn{margin:0}
-.case-hero #note-cn,.case-section .case-cn{color:#ddd;font-size:16px!important;line-height:1.55}
-#case-sections>.case-editorial-section{padding-block:56px!important}
 @media(max-width:760px){
+  #case-sections{--section-space:48px;--section-gap:20px}
+  .case-label,.poop-research>header,.poop-graduation>header,.plantiever-storyboard>header,.portfolio-series>header{
+    display:grid!important;grid-template-columns:max-content minmax(0,1fr);align-items:start;gap:12px;
+  }
+  .case-label h3{display:block;overflow-wrap:normal}
+  .case-label small{display:block;margin-top:5px}
+  .bilingual-pair{grid-template-columns:minmax(0,1fr);gap:8px}
+  .bilingual-pair>p{font-size:17px}
+  .case-editorial>.bilingual-pair{margin-bottom:28px}
+  .case-insights li{grid-template-columns:2rem minmax(0,1fr);gap:8px 10px}
+  .case-insights .case-cn{grid-column:2}
   .practice-statement .cv-cn{margin-top:10px;font-size:19px}
-  .case-editorial>p{margin-bottom:8px}
-  .case-editorial>p.case-cn{margin:0 0 28px}
-  .case-editorial h4{margin:0 0 16px}
-  .case-insights li{display:list-item;padding-bottom:22px}
-  .case-insights .case-cn{margin-top:8px}
-  #case-sections>.case-editorial-section{padding-block:40px!important}
+  .home-shortcut{top:7px!important;min-height:44px;padding:0 10px}
 }
