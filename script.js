@@ -242,30 +242,6 @@ const caseCn = [
   "研究恐惧如何被环境、制度与社会传播持续喂养的实验影像。",
   "从沿海污染观察出发，以藻类材料与装置系统讨论生态修复。",
 ];
-const making = [
-  "I used successive VR prototypes to test how character roles, spatial hierarchy and repeated exchanges shape a player's sense of agency. Interactions were simplified until the unequal economy could be understood through action rather than instruction.",
-  "Compositing, 3D scenes and rhythmic edits formed the visual language. Projection and physical placement were tested together to control how each symbol was read.",
-  "Storyboards, interaction flows, workshop feedback and successive VR scene tests shaped the work. Navigation and visual assets were refined as one system.",
-  "Mechanism prototypes, Arduino control, printed outputs and visitor-journey tests gradually formed the installation. The interface was reduced to a few legible actions.",
-  "Puppet construction, facial detection and TouchDesigner feedback were developed in parallel, with careful tuning between expression and response.",
-  "Projection, object placement and TouchDesigner behaviours were composed as one responsive table, then tested for sightlines, timing and collective viewing.",
-  "I mapped the service flow, designed the core screens and tested gesture browsing. AI recognition supports the experience without becoming its visual centre.",
-  "Archival material was reorganised into spatial layers, routes and concise story moments. Interface tests balanced clear wayfinding with discovery.",
-  "Staged footage, symbolic props, sound and compressed edits were assembled around repetition and escalation.",
-  "Algae-material experiments, apparatus sketches, 3D renders and a service model were developed together. Each prototype tested how coastal pollution might become perceptible and how an ecological response could work in practice.",
-];
-const makingCn = [
-  "通过多轮 VR 原型测试角色身份、空间等级与重复交换如何影响玩家的自主感，并简化交互，让不平等的经济规则通过行动而非说明被理解。",
-  "通过合成、三维场景与节奏剪辑建立视觉语言，并同步测试投影和空间位置。",
-  "制作经过故事板、交互流程、工作坊反馈与多轮 VR 场景测试，视觉和导航同步迭代。",
-  "通过机械原型、Arduino 控制、打印输出与观众动线测试逐步完成装置。",
-  "木偶制作、面部检测与 TouchDesigner 反馈并行开发，并反复调整响应时序。",
-  "投影、物件与 TouchDesigner 行为被整合为同一套响应式餐桌系统。",
-  "梳理服务流程、核心界面与手势浏览，让 AI 识别成为自然的辅助功能。",
-  "档案材料被重组为空间图层、路线与短叙事节点，在导航与探索之间取得平衡。",
-  "通过场景拍摄、象征性道具、声音与紧凑剪辑建立重复和升级的节奏。",
-  "结合藻类材料实验、装置草图、三维渲染与服务模型，以不同原型检验如何让沿海污染变得可感，并探索生态回应在实践中的可能性。",
-];
 const projectTags = [
   ["Critical Design", "VR", "Speculative"],
   ["Culture", "Moving Image", "Installation"],
@@ -421,8 +397,6 @@ const displayOrder = [0, 3, 1, 4, 5, 6, 7, 8, 9, 2];
 const reorder = (items) => displayOrder.map((index) => items[index]);
 projects.splice(0, projects.length, ...reorder(projects));
 caseCn.splice(0, caseCn.length, ...reorder(caseCn));
-making.splice(0, making.length, ...reorder(making));
-makingCn.splice(0, makingCn.length, ...reorder(makingCn));
 projectTags.splice(0, projectTags.length, ...reorder(projectTags));
 const originalVideos = [...projectVideos];
 projectVideos.splice(0, projectVideos.length, ...reorder(originalVideos));
@@ -777,17 +751,9 @@ function fillNote() {
     renderPoopSlaves();
     return;
   }
-  const sections = [
-    [
-      "01",
-      "Research, direction & making",
-      "调研、方向与制作",
-      `The research was condensed into one clear design direction: ${p.role.toLowerCase()} ${making[current]}`,
-      `前期调研、方向选择与制作过程被合并为一条连续叙事。以“${p.role.replace(".", "")}”作为核心形式。 ${makingCn[current]}`,
-    ],
-    ["02", "Final outcome", "最终成果", p.copy, caseCn[current]],
-  ];
-  if (["Fetorium", "Plated Fantasies"].includes(p.title)) sections.pop();
+  const sections = ["Fetorium", "Plated Fantasies"].includes(p.title)
+    ? []
+    : [["01", "Final outcome", "最终成果", p.copy, caseCn[current]]];
   const detailOutcomeImages = {
     "Closet X": "assets/projects/closet-x/gallery/outcome-01.webp",
     "Navigating the Past": "assets/projects/navigating-the-past/gallery/outcome-01.webp",
@@ -795,7 +761,7 @@ function fillNote() {
     "The Forbidden Hue": "assets/projects/forbidden-hue/gallery/outcome-01.webp",
   };
   const outcomeImage = detailOutcomeImages[p.title] || p.image;
-  document.querySelector("#case-sections").innerHTML = sections.map((s, i) => `<section class="case-section"><div class="case-label"><span>${s[0]}</span><h3>${s[1]}<small>${s[2]}</small></h3></div><div class="case-body"><div class="bilingual-pair"><p lang="en">${s[3]}</p><p class="case-cn" lang="zh">${s[4]}</p></div>${i === 1 && !["Plantiever’s Illusion", "Value Machine"].includes(p.title) ? `<img class="outcome-image" data-src="${outcomeImage}" alt="${p.title} final outcome" loading="lazy" decoding="async">` : ""}</div></section>`).join("");
+  document.querySelector("#case-sections").innerHTML = sections.map((s) => `<section class="case-section"><div class="case-label"><span>${s[0]}</span><h3>${s[1]}<small>${s[2]}</small></h3></div><div class="case-body"><div class="bilingual-pair"><p lang="en">${s[3]}</p><p class="case-cn" lang="zh">${s[4]}</p></div>${!["Plantiever’s Illusion", "Value Machine"].includes(p.title) ? `<img class="outcome-image" data-src="${outcomeImage}" alt="${p.title} final outcome" loading="lazy" decoding="async">` : ""}</div></section>`).join("");
   const container = document.querySelector("#case-sections"),
     publication = publications[current];
   let sectionNumber = sections.length + 1;
