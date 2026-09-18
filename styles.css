@@ -1452,3 +1452,8 @@ body{font-weight:400;letter-spacing:0}
   .practice-statement .cv-cn{margin-top:10px;font-size:19px}
   .home-shortcut{top:7px!important;min-height:44px;padding:0 10px}
 }
+
+@media(min-width:761px){
+  .project-note{--pad:clamp(48px,8vw,128px);padding-inline:var(--pad)}
+  .project-note:not(.poop-note) .case-head{margin-inline:calc(var(--pad)*-1)}
+}
