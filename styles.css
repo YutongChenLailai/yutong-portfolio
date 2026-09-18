@@ -606,7 +606,7 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
   border-bottom:0;isolation:isolate;
 }
 .poop-note.plantiever-note .case-hero{background-image:url('assets/projects/plantievers-illusion/cover/detail-hero.webp?v=9d71b309')!important;background-position:center 48%}
-.poop-note.value-note .case-hero{background-image:url('assets/projects/value-machine/cover/detail-hero.webp?v=9d71b309')!important;background-position:center 18%!important}
+.poop-note.value-note .case-hero{background-image:url('assets/projects/value-machine/cover/cover.webp?v=bb51a916')!important;background-position:center 18%!important}
 .poop-note .case-hero:after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.6);z-index:-1;pointer-events:none}
 .poop-note.plantiever-note .case-hero:after{background:rgba(0,0,0,.34)}
 .poop-note.value-note .case-hero:after{background:rgba(0,0,0,.38)}
@@ -824,7 +824,7 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
 @media(max-width:760px){
   .poop-note .case-hero{background-image:url('assets/projects/poopslaves/cover/cover-960.webp?v=9d71b309')!important}
   .poop-note.plantiever-note .case-hero{background-image:url('assets/projects/plantievers-illusion/cover/detail-hero-960.webp?v=9d71b309')!important}
-  .poop-note.value-note .case-hero{background-image:url('assets/projects/value-machine/cover/detail-hero-960.webp?v=9d71b309')!important}
+  .poop-note.value-note .case-hero{background-image:url('assets/projects/value-machine/cover/cover-mobile.webp?v=bb51a916')!important}
 }
 
 @media(max-width:380px){

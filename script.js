@@ -1,6 +1,9 @@
 const MEDIA_REVISION = "9d71b30971d3864280cef28025f41ccd0d555d56";
+const VALUE_MACHINE_COVER_REVISION = "bb51a916";
 const media = (src) =>
-  src && src.startsWith("assets/") ? `${src}?v=${MEDIA_REVISION.slice(0, 8)}` : src;
+  src && src.startsWith("assets/")
+    ? `${src}?v=${src.startsWith("assets/projects/value-machine/cover/") ? VALUE_MACHINE_COVER_REVISION : MEDIA_REVISION.slice(0, 8)}`
+    : src;
 const mediaVariant = (src, width) =>
   media(src.replace(/\.webp$/i, `-${width}.webp`));
 const responsiveSet = (src) =>
