@@ -226,7 +226,7 @@ const projects = [
     role: "Ecological witnessing.",
     medium: "bio-art · coastal ecology · installation",
     image: "assets/projects/drown-in-algae/cover/cover.webp",
-    copy: "A bio-art system anchored in coastal pollution, combining environmental observation, algae-based material research and ecological repair.",
+    copy: "Drown in Algae explores how living interfaces and feedback mechanisms can make invisible pollution, ecological remediation, and their environmental value perceptible, intelligible, and participatory.",
   },
 ];
 const projectThumbnail = (src) => media(src.replace(/\.webp$/i, "-thumb.webp"));
@@ -240,7 +240,7 @@ const caseCn = [
   "连接衣物识别、个人造型、虚拟试穿与可持续管理的智能衣橱。",
   "用增强现实与分层导航连接哈尔滨历史街区、档案故事与当代行走。",
   "研究恐惧如何被环境、制度与社会传播持续喂养的实验影像。",
-  "从沿海污染观察出发，以藻类材料与装置系统讨论生态修复。",
+  "Drown in Algae 探索如何通过生命界面与反馈机制，让不可见的污染、生态修复及其环境价值变得可感知、可理解、可参与。",
 ];
 const projectTags = [
   ["Critical Design", "VR", "Speculative"],
@@ -751,7 +751,7 @@ function fillNote() {
     renderPoopSlaves();
     return;
   }
-  const sections = ["Fetorium", "Plated Fantasies"].includes(p.title)
+  const sections = ["Fetorium", "Plated Fantasies", "Drown in Algae"].includes(p.title)
     ? []
     : [["01", "Final outcome", "最终成果", p.copy, caseCn[current]]];
   const detailOutcomeImages = {
@@ -765,6 +765,13 @@ function fillNote() {
   const container = document.querySelector("#case-sections"),
     publication = publications[current];
   let sectionNumber = sections.length + 1;
+  if (p.title === "Drown in Algae") {
+    container.insertAdjacentHTML("beforeend", `<section class="case-section case-editorial-section"><div class="case-label"><span>${String(sectionNumber++).padStart(2, "0")}</span><h3>Perceptual gap &amp; environmental value<small>感知落差与环境价值</small></h3></div><div class="case-body case-editorial">
+      <div class="bilingual-pair"><p lang="en">How can people perceive pollution once it no longer appears visibly polluted? Oil spills are initially highly visible, yet as oil disperses, dilutes, and weathers, its visual traces gradually disappear while its ecological impacts may persist.</p><p class="case-cn" lang="zh">当污染不再“看起来像污染”时，人们如何感知它仍然存在？石油泄漏最初往往高度可见，但随着扩散、稀释与风化，视觉痕迹会逐渐消失，而生态影响可能持续存在。</p></div>
+      <div class="bilingual-pair"><p lang="en">The project examines the perceptual gap between environmental conditions and public awareness, reframing algae as a biological interactive interface. It further introduces a carbon-credit mechanism that translates ecological remediation data into traceable environmental-value feedback, exploring the relationships between public participation, corporate incentives, and environmental governance.</p><p class="case-cn" lang="zh">本项目关注环境真实状态与公众感知之间的“感知落差”，并将藻类重新定义为一种生物交互界面。在此基础上，项目进一步引入碳积分机制，将生态修复数据转化为可追踪的环境价值反馈，探索公众参与、企业激励与生态治理之间的互动关系。</p></div>
+      <img class="outcome-image" data-src="${p.image}" alt="Drown in Algae final outcome" loading="lazy" decoding="async">
+    </div></section>`);
+  }
   if (p.title === "Plated Fantasies") {
     container.insertAdjacentHTML("beforeend", `<section class="case-section case-editorial-section"><div class="case-label"><span>${String(sectionNumber++).padStart(2, "0")}</span><h3>Research through interaction<small>通过交互开展研究</small></h3></div><div class="case-body case-editorial">
       <div class="bilingual-pair"><p lang="en">This project explores how repeated cultural and media representations gradually embed themselves in everyday perception, and asks why the same symbol can provoke different feelings across different relationships and social contexts — and how capitalism exploits this fluidity of association.</p><p class="case-cn" lang="zh">这个项目关注文化与媒体中反复出现的表征，如何逐渐渗入并塑造日常感知，并追问：为何同一个符号会在不同的关系与社会情境中引发不同的感受，而资本主义又是如何利用这种联想的流动性。</p></div>
