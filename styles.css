@@ -1493,6 +1493,41 @@ body{font-weight:400;letter-spacing:0}
   .bilingual-pair>.poop-graduation-lead{font-size:17px!important}
 }
 
+/* One section-index component across every case-study section. */
+.case-label>span,
+.poop-results>header>span,
+.poop-research>header>span,
+.poop-graduation>header>span,
+.plantiever-storyboard>header>span,
+.portfolio-series>header>span,
+.poop-poster header>span,
+.poop-gallery header>span,
+.poop-process header>span{
+  display:grid;
+  place-items:center;
+  width:max-content;
+  min-width:40px;
+  min-height:36px;
+  box-sizing:border-box;
+  margin:0;
+  padding:6px 9px;
+  background:#fff;
+  color:#000!important;
+  font:600 14px/1.25 "DM Mono",monospace;
+}
+@media(max-width:760px){
+  .case-label>span,
+  .poop-research>header>span,
+  .poop-graduation>header>span,
+  .plantiever-storyboard>header>span,
+  .portfolio-series>header>span{
+    min-width:36px;
+    min-height:32px;
+    margin:0;
+    font-size:12px;
+  }
+}
+
 /* Homepage copy and About research use the same editorial axes. */
 @media(min-width:761px){
   .home-copy{
