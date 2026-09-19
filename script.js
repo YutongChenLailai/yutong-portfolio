@@ -500,10 +500,8 @@ function returnHome() {
   setTimeout(() => mosaic.classList.add("assembled"), 80);
 }
 document.querySelector("#enter-work").onclick = () => enterWork(true);
-document.querySelector('[data-home-panel="about"]').onclick = () => {
-  enterWork();
-  setTimeout(() => document.querySelector('[data-open="about"]').click(), 500);
-};
+document.querySelector('[data-home-panel="about"]').onclick = () =>
+  document.querySelector('[data-open="about"]').click();
 document.querySelector("#home-work").onclick = () => {
   enterWork(true);
   document.querySelector('[data-open="index"]').click();
