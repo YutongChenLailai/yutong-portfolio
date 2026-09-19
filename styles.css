@@ -1026,6 +1026,7 @@ body{font-weight:400;letter-spacing:0}
     var(--quiet-rule) calc(100% - 1px));
 }
 .stage:before{z-index:3;bottom:0}
+.home-screen:before{display:none}
 .home-copy{
   left:var(--editorial-edge);
   width:min(560px,42vw);
