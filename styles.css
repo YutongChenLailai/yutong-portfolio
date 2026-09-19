@@ -1477,6 +1477,22 @@ body{font-weight:400;letter-spacing:0}
   .poop-research h3,.poop-graduation h3,.plantiever-storyboard h3{font-size:24px;line-height:1.05}
 }
 
+/* Detail content follows the same left/right axes as the opening composition. */
+@media(min-width:761px){
+  .poop-note #case-sections>.case-section,
+  .poop-note #case-sections>.poop-research,
+  .poop-note #case-sections>.poop-graduation,
+  .poop-note #case-sections>.plantiever-storyboard,
+  .poop-note #case-sections>.portfolio-series{
+    margin-left:calc(clamp(44px,11.5vw,235px) - var(--pad));
+    margin-right:calc(6.25vw - var(--pad));
+  }
+}
+.bilingual-pair>.poop-graduation-lead{max-width:none;font-size:18px!important;line-height:1.55}
+@media(max-width:760px){
+  .bilingual-pair>.poop-graduation-lead{font-size:17px!important}
+}
+
 /* Homepage copy and About research use the same editorial axes. */
 @media(min-width:761px){
   .home-copy{
