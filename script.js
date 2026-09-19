@@ -505,8 +505,8 @@ document.querySelector('[data-home-panel="about"]').onclick = () => {
   setTimeout(() => document.querySelector('[data-open="about"]').click(), 500);
 };
 document.querySelector("#home-work").onclick = () => {
-  enterWork();
-  setTimeout(() => document.querySelector('[data-open="index"]').click(), 700);
+  enterWork(true);
+  document.querySelector('[data-open="index"]').click();
 };
 document.querySelector("#back-home").onclick = returnHome;
 homeShortcut.addEventListener("click", returnHome);
