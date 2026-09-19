@@ -450,8 +450,6 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
   background:#fff;
 }
 .portfolio-rail figcaption{margin-top:.7rem;color:#aaa;font-size:14px}
-.forbidden-sketch-series .portfolio-rail figure{flex-basis:min(70vw,980px)}
-.forbidden-sketch-series .portfolio-rail img{aspect-ratio:4/3;object-fit:contain;background:#000}
 @media(max-width:598px){
   .case-section{padding:4rem 0}
   .case-label{align-items:flex-start}
@@ -463,7 +461,6 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
   .portfolio-series header p,.portfolio-series header small{font-size:14px}
   .portfolio-rail{padding-inline:0}
   .portfolio-rail figure{flex-basis:94vw}
-  .forbidden-sketch-series .portfolio-rail figure{flex-basis:88vw}
 }
 
 /* Full-cell hover and responsive stabilization */
@@ -790,7 +787,7 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
   .portfolio-series>header>small{display:none}
   .portfolio-rail{gap:12px;scroll-padding-left:16px;margin-inline:-16px;padding:0 16px 14px!important;scrollbar-width:none}
   .portfolio-rail::-webkit-scrollbar{display:none}
-  .portfolio-rail figure,.forbidden-sketch-series .portfolio-rail figure{flex-basis:calc(100vw - 48px)}
+  .portfolio-rail figure{flex-basis:calc(100vw - 48px)}
 
   .about-portrait{height:42svh;padding:1rem!important}
   .about-resume{padding:28px 16px!important}
@@ -1460,7 +1457,7 @@ body{font-weight:400;letter-spacing:0}
 }
 
 @media(min-width:1101px){
-  .portfolio-series:not(.forbidden-sketch-series) .portfolio-rail figure{flex-basis:min(82vw,1500px)}
+  .portfolio-series .portfolio-rail figure{flex-basis:min(82vw,1500px)}
 }
 
 /* Homepage copy and About research use the same editorial axes. */

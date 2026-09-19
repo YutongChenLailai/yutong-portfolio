@@ -1,4 +1,4 @@
-const MEDIA_REVISION = "9d71b30971d3864280cef28025f41ccd0d555d56";
+const MEDIA_REVISION = "f79d8b24";
 const VALUE_MACHINE_COVER_REVISION = "bb51a916";
 const media = (src) =>
   src && src.startsWith("assets/")
@@ -384,14 +384,6 @@ const portfolioSeries = {
   Fetorium: fetoriumPortfolioSeries,
   "Plated Fantasies": platedFantasiesPortfolioSeries,
 };
-const forbiddenHueSketches = [
-  "assets/projects/forbidden-hue/gallery/sketch-chan.webp",
-  "assets/projects/forbidden-hue/gallery/sketch-wang.webp",
-  "assets/projects/forbidden-hue/gallery/sketch-chu.webp",
-  "assets/projects/forbidden-hue/gallery/sketch-rong.webp",
-  "assets/projects/forbidden-hue/gallery/sketch-sheng.webp",
-];
-
 // Keep every project's parallel content aligned with the curated portfolio order.
 const displayOrder = [0, 3, 1, 4, 5, 6, 7, 8, 9, 2];
 const reorder = (items) => displayOrder.map((index) => items[index]);
@@ -955,13 +947,6 @@ function fillNote() {
       valuePointerStart = null;
     });
     renderValueGallery();
-    sectionNumber += 1;
-  }
-  if (p.title === "The Forbidden Hue") {
-    container.insertAdjacentHTML(
-      "beforeend",
-      `<section class="portfolio-series forbidden-sketch-series"><header><span>${String(sectionNumber).padStart(2, "0")}</span><div><h3>Award-Winning Psychological Art Sketches</h3><p>First Prize selection · Original drawings</p></div><small>Drag or scroll horizontally / 左右滑动</small></header><div class="portfolio-rail">${forbiddenHueSketches.map((src, i) => `<figure><img data-src="${src}" alt="The Forbidden Hue award-winning psychological art sketch ${i + 1}" loading="lazy"><figcaption>${String(i + 1).padStart(2, "0")} / ${String(forbiddenHueSketches.length).padStart(2, "0")}</figcaption></figure>`).join("")}</div></section>`,
-    );
     sectionNumber += 1;
   }
   const selectedPortfolioSeries = portfolioSeries[p.title];
