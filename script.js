@@ -1,4 +1,4 @@
-const MEDIA_REVISION = "4c52df91";
+const MEDIA_REVISION = "08e5138f";
 const VALUE_MACHINE_COVER_REVISION = "bb51a916";
 const media = (src) =>
   src && src.startsWith("assets/")
