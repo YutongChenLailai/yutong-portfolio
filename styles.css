@@ -1466,11 +1466,14 @@ body{font-weight:400;letter-spacing:0}
 /* Homepage copy and About research use the same editorial axes. */
 @media(min-width:761px){
   .home-copy{
-    width:min(760px,calc(66.666vw - var(--editorial-edge)));
+    right:calc(33.333vw + var(--editorial-edge)/3 + 24px);
+    width:auto;
   }
   .home-copy .intro,
-  .home-copy .intro-cn{
-    max-width:720px;
+  .home-copy .intro-cn,
+  .home-copy .availability{
+    width:100%;
+    max-width:none;
     text-wrap:pretty;
   }
   .home-copy .intro{margin-top:18px}
