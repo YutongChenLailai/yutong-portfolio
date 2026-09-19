@@ -1467,6 +1467,16 @@ body{font-weight:400;letter-spacing:0}
   .portfolio-series .portfolio-rail figure{flex-basis:min(82vw,1500px)}
 }
 
+/* Keep every detail section on the same editorial scale and use the available canvas. */
+.backdrop{background:#000}
+.poop-research h3,.poop-graduation h3,.plantiever-storyboard h3{font-size:30px;line-height:1}
+@media(min-width:761px){
+  .project-note{--pad:clamp(36px,4vw,72px);--reading-width:1440px}
+}
+@media(max-width:760px){
+  .poop-research h3,.poop-graduation h3,.plantiever-storyboard h3{font-size:24px;line-height:1.05}
+}
+
 /* Homepage copy and About research use the same editorial axes. */
 @media(min-width:761px){
   .home-copy{
