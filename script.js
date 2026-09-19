@@ -721,7 +721,7 @@ function fillNote() {
   const p = projects[current];
   note.classList.toggle(
     "poop-note",
-    ["PoopSlaves", "Plantiever’s Illusion", "Value Machine"].includes(p.title),
+    ["PoopSlaves", "Plantiever’s Illusion", "Value Machine", "Fetorium"].includes(p.title),
   );
   note.classList.toggle("plantiever-note", p.title === "Plantiever’s Illusion");
   note.classList.toggle("value-note", p.title === "Value Machine");
