@@ -5,12 +5,12 @@ const media = (src) =>
     ? `${src}?v=${src.startsWith("assets/projects/value-machine/cover/") ? VALUE_MACHINE_COVER_REVISION : MEDIA_REVISION.slice(0, 8)}`
     : src;
 const mediaVariant = (src, width) =>
-  media(src.replace(/\.webp$/i, `-${width}.webp`));
+  media(src.replace(/\.(webp|jpe?g)$/i, `-${width}.$1`));
 const responsiveSet = (src) =>
   `${mediaVariant(src, 480)} 480w, ${mediaVariant(src, 960)} 960w, ${media(src)} 2000w`;
 const mobileCoverSource = (src) =>
-  window.matchMedia("(max-width: 760px)").matches && /\/cover\/cover\.webp$/i.test(src)
-    ? src.replace(/cover\.webp$/i, "cover-mobile.webp")
+  window.matchMedia("(max-width: 760px)").matches && /\/cover\/cover\.(webp|jpe?g)$/i.test(src)
+    ? src.replace(/cover\.(webp|jpe?g)$/i, "cover-mobile.$1")
     : src;
 const shouldPreloadAdjacent = () => {
   const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
@@ -109,7 +109,7 @@ const configureImage = (img) => {
     img.loading = "lazy";
     return;
   }
-  const isThumbnail = /-thumb\.webp$/i.test(path);
+  const isThumbnail = /-thumb\.(webp|jpe?g)$/i.test(path);
   if (!isThumbnail) {
     img.srcset = responsiveSet(path);
     if (!img.sizes)
@@ -177,7 +177,7 @@ const projects = [
     role: "Heritage through virtual play.",
     medium: "VR game · heritage · narrative",
     image: "assets/projects/forbidden-hue/cover/cover.webp",
-    copy: "A cross-media VR experience that reconstructs Yao history through exploratory play, ritual space and multiple narrative paths.",
+    copy: "How does immersive interaction shape users’ understanding of historical authenticity, cultural identity and narrative power?",
   },
   {
     title: "Value Machine",
@@ -204,7 +204,7 @@ const projects = [
     title: "Closet X",
     role: "AI wardrobe interface.",
     medium: "UX · AI recognition · virtual try-on",
-    image: "assets/projects/closet-x/cover/cover.webp",
+    image: "assets/projects/closet-x/cover/cover.jpg",
     copy: "A wardrobe-management system connecting garment recognition, personal styling, sustainable use and virtual dressing.",
   },
   {
@@ -225,15 +225,16 @@ const projects = [
     title: "Drown in Algae",
     role: "Ecological witnessing.",
     medium: "bio-art · coastal ecology · installation",
-    image: "assets/projects/drown-in-algae/cover/cover.webp",
+    image: "assets/projects/drown-in-algae/cover/cover.jpg",
     copy: "Drown in Algae explores how living interfaces and feedback mechanisms can make invisible pollution, ecological remediation, and their environmental value perceptible, intelligible, and participatory.",
   },
 ];
-const projectThumbnail = (src) => media(src.replace(/\.webp$/i, "-thumb.webp"));
+const projectThumbnail = (src) =>
+  media(src.replace(/\.(webp|jpe?g)$/i, "-thumb.$1"));
 const caseCn = [
   "一个把排泄物设为稀缺货币的推想式 VR 系统，让权力、价值与身体控制变得可感。",
   "以动态影像和空间装置重组传统吉祥符号，在熟悉与陌生之间激活文化记忆。",
-  "通过 VR 游戏、叙事路径与仪式空间重新进入瑶族历史。",
+  "沉浸式交互如何塑造用户对历史真实性、文化身份与叙事权力的理解？",
   "邀请观众参与艺术生产与定价，揭示声誉如何制造价值。",
   "通过响应式木偶与面部识别，把“臭味”造成的社会边界转化成可见反馈。",
   "把餐桌变成感知实验，讨论食欲来自身体还是被训练的文化想象。",
@@ -721,12 +722,20 @@ function fillNote() {
   const p = projects[current];
   note.classList.toggle(
     "poop-note",
-    ["PoopSlaves", "Plantiever’s Illusion", "Value Machine", "Fetorium"].includes(p.title),
+    ["PoopSlaves", "Plantiever’s Illusion", "Value Machine", "Fetorium", "Closet X", "Navigating the Past", "Feeding Fear / PEEEP"].includes(p.title),
   );
   note.classList.toggle("plantiever-note", p.title === "Plantiever’s Illusion");
   note.classList.toggle("value-note", p.title === "Value Machine");
   note.classList.toggle("fetorium-note", p.title === "Fetorium");
-  document.querySelector(".case-hero").style.backgroundImage = "";
+  const detailHeroImages = {
+    "Closet X": "assets/projects/closet-x/gallery/outcome-01.jpg",
+    "Navigating the Past": p.image,
+    "Feeding Fear / PEEEP": p.image,
+  };
+  const caseHero = document.querySelector(".case-hero");
+  if (detailHeroImages[p.title])
+    caseHero.style.setProperty("background-image", `url('${media(detailHeroImages[p.title])}')`, "important");
+  else caseHero.style.removeProperty("background-image");
   document.querySelector("#note-type").textContent = p.medium;
   document.querySelector("#note-title").textContent = p.title;
   const videos = projectVideos[current];
@@ -746,7 +755,7 @@ function fillNote() {
     ? []
     : [["01", "Final outcome", "最终成果", p.copy, caseCn[current]]];
   const detailOutcomeImages = {
-    "Closet X": "assets/projects/closet-x/gallery/outcome-01.webp",
+    "Closet X": "assets/projects/closet-x/gallery/outcome-01.jpg",
     "Navigating the Past": "assets/projects/navigating-the-past/gallery/outcome-01.webp",
     "Feeding Fear / PEEEP": "assets/projects/feeding-fear/gallery/outcome-01.webp",
     "The Forbidden Hue": "assets/projects/forbidden-hue/gallery/outcome-01.webp",
