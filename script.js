@@ -176,7 +176,7 @@ const projects = [
     title: "The Forbidden Hue",
     role: "Heritage through virtual play.",
     medium: "VR game · heritage · narrative",
-    image: "assets/projects/forbidden-hue/gallery/outcome-01.webp",
+    image: "assets/projects/forbidden-hue/cover/cover.webp",
     copy: "How does immersive interaction shape users’ understanding of historical authenticity, cultural identity and narrative power?",
   },
   {
