@@ -625,13 +625,13 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
 .poop-note .case-hero #note-cn,.poop-note .case-hero .case-tags{display:none!important}
 .poop-note .case-video-links{
   position:absolute;left:37.5%;right:6.25%;bottom:0;height:154px;z-index:3;
-  display:grid!important;grid-template-columns:repeat(3,1fr);gap:0;margin:0;background:#000;border-top:1px solid #fff;
+  display:grid!important;grid-template-columns:repeat(3,1fr);gap:0;margin:0;background:#000;border:0;
 }
 .poop-note.value-note .case-video-links{grid-template-columns:1fr}
 .poop-note.single-video-note .case-video-links{grid-template-columns:1fr}
 .poop-note .case-video-links:empty{display:none!important}
 .poop-note .case-video-links a{
-  display:flex;align-items:flex-start;padding:48px 22px!important;border:0!important;border-left:1px solid #c7c7c7!important;
+  display:flex;align-items:flex-start;padding:48px 22px!important;border:0!important;
   background:#000!important;color:#fff!important;font-size:16px!important;line-height:1.25;text-decoration:none;
 }
 .poop-note .case-video-links a:focus-visible{background:#fff!important;color:#000!important}
@@ -670,7 +670,7 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
   .poop-note .case-hero #note-type{order:1}.poop-note .case-hero h2{order:2;margin:0 0 1rem!important;font-size:28px!important;text-align:left}.poop-note .case-hero #note-copy{order:3}
   .poop-note .case-hero #note-copy{margin:0 0 1.5rem!important;max-width:34rem}
   .poop-note .case-video-links{order:4;height:auto;grid-template-columns:1fr;margin:0 -1rem;width:calc(100% + 2rem)}
-  .poop-note .case-video-links a{min-height:68px;padding:22px 1rem!important;border-left:0!important;border-top:1px solid #aaa!important}
+  .poop-note .case-video-links a{min-height:68px;padding:22px 1rem!important;border:0!important}
 }
 
 /* One responsive left edge for every standard project-detail section. */
@@ -738,9 +738,8 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
   .case-hero{display:block!important;min-height:0!important;padding:32px 0 36px!important;border-bottom:1px solid #fff}
   .case-hero #note-type{margin:0 0 1rem;font-size:12px}
   .case-hero h2{margin:0 0 1.25rem;font-size:clamp(2.65rem,13vw,4.4rem)!important;line-height:.88!important;letter-spacing:-.045em!important}
-  .case-video-links{display:grid;gap:0;margin:1.3rem 0;border:1px solid #fff}
-  .case-video-links a{display:flex;align-items:center;min-height:56px;width:100%;padding:14px!important;border:0;border-bottom:1px solid #555;font-size:14px}
-  .case-video-links a:last-child{border-bottom:0}
+  .case-video-links{display:grid;gap:0;margin:1.3rem 0;border:0}
+  .case-video-links a{display:flex;align-items:center;min-height:56px;width:100%;padding:14px!important;border:0!important;font-size:14px}
   .case-hero #note-copy{margin:0 0 .9rem;font-size:16px!important;line-height:1.45}
   .case-hero #note-cn{margin:0;font-size:14px!important}
   .case-tags{gap:6px;margin-top:1.2rem}
