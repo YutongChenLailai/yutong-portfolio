@@ -1,4 +1,4 @@
-const MEDIA_REVISION = "08e5138f";
+const MEDIA_REVISION = "20260920-final";
 const VALUE_MACHINE_COVER_REVISION = "bb51a916";
 const media = (src) =>
   src && src.startsWith("assets/")
@@ -176,7 +176,7 @@ const projects = [
     title: "The Forbidden Hue",
     role: "Heritage through virtual play.",
     medium: "VR game · heritage · narrative",
-    image: "assets/projects/forbidden-hue/cover/cover.webp",
+    image: "assets/projects/forbidden-hue/gallery/outcome-01.webp",
     copy: "How does immersive interaction shape users’ understanding of historical authenticity, cultural identity and narrative power?",
   },
   {
@@ -230,7 +230,11 @@ const projects = [
   },
 ];
 const projectThumbnail = (src) =>
-  media(src.replace(/\.(webp|jpe?g)$/i, "-thumb.$1"));
+  media(
+    src.includes("/gallery/")
+      ? src.replace(/\.(webp|jpe?g)$/i, "-480.$1")
+      : src.replace(/\.(webp|jpe?g)$/i, "-thumb.$1"),
+  );
 const caseCn = [
   "一个把排泄物设为稀缺货币的推想式 VR 系统，让权力、价值与身体控制变得可感。",
   "以动态影像和空间装置重组传统吉祥符号，在熟悉与陌生之间激活文化记忆。",
@@ -720,10 +724,12 @@ document.querySelectorAll("[data-project-title]").forEach((link) => {
 const note = document.querySelector("#project-note");
 function fillNote() {
   const p = projects[current];
+  const videos = projectVideos[current];
   note.classList.toggle(
     "poop-note",
-    ["PoopSlaves", "Plantiever’s Illusion", "Value Machine", "Fetorium", "Closet X", "Navigating the Past", "Feeding Fear / PEEEP"].includes(p.title),
+    ["PoopSlaves", "Plantiever’s Illusion", "Value Machine", "Fetorium", "Closet X", "Navigating the Past", "Feeding Fear / PEEEP", "Drown in Algae", "The Forbidden Hue"].includes(p.title),
   );
+  note.classList.toggle("single-video-note", videos.length === 1);
   note.classList.toggle("plantiever-note", p.title === "Plantiever’s Illusion");
   note.classList.toggle("value-note", p.title === "Value Machine");
   note.classList.toggle("fetorium-note", p.title === "Fetorium");
@@ -731,6 +737,8 @@ function fillNote() {
     "Closet X": "assets/projects/closet-x/gallery/outcome-01.jpg",
     "Navigating the Past": p.image,
     "Feeding Fear / PEEEP": p.image,
+    "Drown in Algae": p.image,
+    "The Forbidden Hue": p.image,
   };
   const caseHero = document.querySelector(".case-hero");
   if (detailHeroImages[p.title])
@@ -738,7 +746,6 @@ function fillNote() {
   else caseHero.style.removeProperty("background-image");
   document.querySelector("#note-type").textContent = p.medium;
   document.querySelector("#note-title").textContent = p.title;
-  const videos = projectVideos[current];
   document.querySelector("#case-video-links").innerHTML = videos
     .map((v, i) => `<a href="https://youtu.be/${v.id}" target="_blank" rel="noreferrer">${videos.length > 1 ? `Video ${i + 1}` : "Watch video"} · ${v.label} ↗</a>`)
     .join("");

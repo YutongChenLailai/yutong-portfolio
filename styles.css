@@ -625,15 +625,21 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
 .poop-note .case-hero #note-cn,.poop-note .case-hero .case-tags{display:none!important}
 .poop-note .case-video-links{
   position:absolute;left:37.5%;right:6.25%;bottom:0;height:154px;z-index:3;
-  display:grid!important;grid-template-columns:repeat(3,1fr);gap:0;margin:0;background:#fff;border-top:1px solid #000;
+  display:grid!important;grid-template-columns:repeat(3,1fr);gap:0;margin:0;background:#000;border-top:1px solid #fff;
 }
 .poop-note.value-note .case-video-links{grid-template-columns:1fr}
+.poop-note.single-video-note .case-video-links{grid-template-columns:1fr}
+.poop-note .case-video-links:empty{display:none!important}
 .poop-note .case-video-links a{
   display:flex;align-items:flex-start;padding:48px 22px!important;border:0!important;border-left:1px solid #c7c7c7!important;
   background:#000!important;color:#fff!important;font-size:16px!important;line-height:1.25;text-decoration:none;
 }
 .poop-note .case-video-links a:focus-visible{background:#fff!important;color:#000!important}
 @media(hover:hover){.poop-note .case-video-links a:hover{background:#fff!important;color:#000!important}}
+
+.backdrop{border-left:0!important}
+.note-nav button{background:#000!important;color:#fff!important;border-top:1px solid #fff!important;border-right:1px solid #fff!important}
+.note-nav button:hover,.note-nav button:focus-visible{background:#fff!important;color:#000!important}
 
 @media(min-width:901px){
   .poop-note .case-hero{background-attachment:fixed!important}
