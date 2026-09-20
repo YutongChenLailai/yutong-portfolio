@@ -271,7 +271,7 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
 }
 .poop-note .case-hero h2{max-width:12ch;text-shadow:0 2px 24px #000}
 .poop-note .case-hero>p{max-width:760px;text-shadow:0 1px 12px #000}
-.poop-note .case-video-links a{background:#000;border-color:#fff}
+.poop-note .case-video-links a{background:#000;border:0!important}
 .poop-results header>span,.poop-research header>span,.poop-graduation header>span{font-size:14px;color:#aaa}
 .poop-results,.poop-research,.poop-graduation{padding:clamp(3.5rem,7vw,7rem) 0;border-bottom:1px solid #fff}
 .poop-results>header,.poop-research>header,.poop-graduation>header{display:grid;grid-template-columns:auto 1fr auto;gap:1.25rem;align-items:start;margin-bottom:2rem}
