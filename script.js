@@ -846,7 +846,6 @@ function fillNote() {
       galleryPointerStart = null;
     });
     renderGallery();
-    sectionNumber += 1;
     container.insertAdjacentHTML(
       "beforeend",
       `<section class="plantiever-storyboard">
@@ -948,7 +947,6 @@ function fillNote() {
       valuePointerStart = null;
     });
     renderValueGallery();
-    sectionNumber += 1;
   }
   const selectedPortfolioSeries = portfolioSeries[p.title];
   if (selectedPortfolioSeries) {
