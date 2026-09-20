@@ -1533,6 +1533,16 @@ body{font-weight:400;letter-spacing:0}
   }
 }
 
+/* Projects without a photographic hero use the same title scale as those with one. */
+.project-note:not(.poop-note) .case-hero h2{
+  font-size:clamp(28px,2.2vw,34px)!important;
+  line-height:1!important;
+  letter-spacing:-.025em!important;
+}
+@media(max-width:760px){
+  .project-note:not(.poop-note) .case-hero h2{font-size:31px!important}
+}
+
 /* Homepage copy and About research use the same editorial axes. */
 @media(min-width:761px){
   .home-copy{
