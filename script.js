@@ -423,10 +423,7 @@ const image = document.querySelector("#active-image"),
   home = document.querySelector("#home"),
   work = document.querySelector("#work"),
   homeShortcut = document.querySelector("#home-shortcut"),
-  mosaic = document.querySelector("#portrait-mosaic"),
-  shards = document.querySelector("#shards");
-const cols = 8,
-  rows = 6;
+  mosaic = document.querySelector("#portrait-mosaic");
 const setLayerState = (element, isActive) => {
   element.inert = !isActive;
   element.setAttribute("aria-hidden", String(!isActive));
@@ -443,33 +440,6 @@ const syncInteractiveState = () => {
   if (note) setLayerState(note, noteOpen);
   if (homeShortcut) homeShortcut.hidden = currentView === "home" || !overlayOpen;
 };
-if (window.matchMedia("(min-width: 761px)").matches) {
-  for (let r = 0; r < rows; r++) {
-    for (let c = 0; c < cols; c++) {
-    const shard = document.createElement("span"),
-      img = document.createElement("img");
-    shard.className = "shard";
-    const seed = r * cols + c,
-      x = (c - (cols - 1) / 2) * (18 + (seed % 4) * 5),
-      y = (r - (rows - 1) / 2) * (13 + (seed % 5) * 4);
-    const clips = [
-      "polygon(5% 2%,96% 8%,91% 94%,2% 88%)",
-      "polygon(12% 0,100% 13%,88% 100%,0 82%)",
-      "polygon(0 9%,92% 0,100% 86%,9% 100%)",
-      "polygon(7% 0,100% 6%,94% 100%,0 91%)",
-    ];
-    shard.style.cssText = `left:${c * (100 / cols)}%;top:${r * (100 / rows)}%;width:${100 / cols + 0.35}%;height:${100 / rows + 0.35}%;clip-path:${clips[seed % clips.length]};transform:translate(${x}px,${y}px) rotate(${((seed * 7) % 17) - 8}deg) scale(.86);transition-delay:${seed * 18}ms`;
-    img.src = media("assets/site/home/portrait-bus.webp");
-    img.style.width = `${cols * 100}%`;
-    img.style.height = `${rows * 100}%`;
-    img.style.left = `-${c * 100}%`;
-    img.style.top = `-${r * 100}%`;
-    shard.append(img);
-      shards.append(shard);
-    }
-  }
-}
-setTimeout(() => mosaic.classList.add("assembled"), 120);
 function enterWork(instant = false) {
   if (currentView === "work") return;
   currentView = "work";
@@ -495,8 +465,6 @@ function returnHome() {
   work.classList.remove("active");
   work.setAttribute("aria-hidden", "true");
   syncInteractiveState();
-  mosaic.classList.remove("assembled");
-  setTimeout(() => mosaic.classList.add("assembled"), 80);
 }
 const openWorkIndex = () => {
   enterWork(true);
@@ -1316,7 +1284,7 @@ function openNote(updateRoute = true) {
   enhancePortfolioRails();
   registerMedia(note);
   syncInteractiveState();
-  document.querySelector("#close-note").focus();
+  note.focus({ preventScroll: true });
   document.title = `${projects[current].title} — Yutong Chen`;
   document.querySelector('meta[name="description"]').content = projects[current].copy;
   if (updateRoute) setProjectRoute();
@@ -1376,12 +1344,6 @@ addEventListener("pointermove", (e) => {
     py = e.clientY / innerHeight - 0.5;
   if (currentView === "home") {
     mosaic.style.transform = `translate(${px * 15}px,${py * 12}px) rotateY(${px * 3}deg)`;
-    document
-      .querySelectorAll(".shard")
-      .forEach(
-        (s, i) =>
-          (s.style.margin = `${py * ((i % rows) - 2.5) * 1.2}px 0 0 ${px * ((i % cols) - 3.5) * 1.2}px`),
-      );
   } else
     image.style.transform = `scale(1.045) translate(${px * -1.1}%,${py * -1.1}%)`;
 });

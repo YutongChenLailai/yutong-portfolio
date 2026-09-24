@@ -18,7 +18,7 @@
     <link rel="icon" type="image/webp" href="assets/site/about/portrait-480.webp" />
     <title>Yutong Chen — Portfolio</title>
     <link rel="preload" as="image" href="assets/site/home/portrait-bus.webp" imagesrcset="assets/site/home/portrait-bus-480.webp 480w, assets/site/home/portrait-bus-960.webp 960w, assets/site/home/portrait-bus.webp 2000w" imagesizes="100vw" fetchpriority="high" />
-    <link rel="stylesheet" href="styles.css?v=section-headings-20260924" />
+    <link rel="stylesheet" href="styles.css?v=detail-controls-20260924" />
   </head>
   <body>
     <noscript><p class="noscript-message">This portfolio needs JavaScript for project navigation. You can still contact Yutong at <a href="mailto:chenyutong11126@gmail.com">chenyutong11126@gmail.com</a>.</p></noscript>
@@ -62,7 +62,6 @@
             fetchpriority="high"
             decoding="async"
           />
-          <div class="shards" id="shards" aria-hidden="true"></div>
         </div>
         <div class="home-foot home-portals">
           <button id="enter-work"><span>01</span><strong>Selected Works</strong><b>View projects →</b></button>
@@ -215,10 +214,10 @@
         </div>
         <div class="project-list" id="category-list"></div>
       </aside>
-      <aside class="project-note" id="project-note" role="dialog" aria-modal="true" aria-labelledby="note-title" aria-hidden="true">
+      <aside class="project-note" id="project-note" role="dialog" aria-modal="true" aria-labelledby="note-title" aria-hidden="true" tabindex="-1">
         <header class="case-head">
           <span id="case-count">01 / 10</span
-          ><button id="close-note">Close ×</button>
+          ><button id="close-note" type="button" aria-label="Close project"><span aria-hidden="true">×</span></button>
         </header>
         <div class="case-hero">
           <div class="poop-rca-grid" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div>
@@ -244,10 +243,10 @@
         </nav>
       </aside>
       <div class="cursor" aria-hidden="true"></div>
-      <button class="home-shortcut" id="home-shortcut" type="button" aria-label="Return to homepage" hidden><span aria-hidden="true">←</span><span>Home</span></button>
+      <button class="home-shortcut" id="home-shortcut" type="button" aria-label="Return to homepage" hidden><span aria-hidden="true">‹</span></button>
       <p class="sr-only" id="route-status" aria-live="assertive"></p>
     </main>
-    <script src="script.js?v=section-headings-20260924"></script>
+    <script src="script.js?v=detail-controls-20260924"></script>
     <script type="application/ld+json">
       {"@context":"https://schema.org","@type":"Person","name":"Yutong Chen","alternateName":"陈宇同","url":"https://yutongchenlailai.github.io/yutong-portfolio/","jobTitle":"HCI Researcher and Creative Technologist","knowsAbout":["Creativity and Cognition","Human–AI Interaction","Human–AI Co-Creation","Embodied Interaction","Speculative Interactive Systems","AI-assisted Prototyping"],"alumniOf":[{"@type":"CollegeOrUniversity","name":"Harbin Institute of Technology, Shenzhen"},{"@type":"CollegeOrUniversity","name":"Royal College of Art"}],"sameAs":["https://scholar.google.com/citations?hl=en&user=yYgrzP8AAAAJ"]}
     </script>
