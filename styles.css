@@ -1593,3 +1593,20 @@ body{font-weight:400;letter-spacing:0}
     gap:18px;
   }
 }
+
+/* Interaction consistency: visible press/loading states and readable mobile positioning. */
+button:active,a:active{filter:brightness(.82)}
+button:disabled{cursor:wait;opacity:.55}
+.portfolio-rail:focus-visible{outline:2px solid #fff;outline-offset:4px}
+@media(max-width:760px){
+  .home-copy .intro{
+    display:-webkit-box!important;
+    overflow:hidden;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:3;
+    margin-top:10px!important;
+    font-size:13px!important;
+    line-height:1.45!important;
+  }
+  .home-copy .intro-cn{display:none!important}
+}

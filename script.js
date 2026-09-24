@@ -405,9 +405,13 @@ displayOrder.forEach((originalIndex, newIndex) => {
 });
 let current = 0,
   locked = false,
-  wheelLock = false,
   currentView = "home";
 let overlayOpener = null;
+let categoryOrigin = null;
+let detailOriginPanel = null;
+let noteNavLocked = false;
+let suppressNextRouteRestore = false;
+const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const image = document.querySelector("#active-image"),
   title = document.querySelector("#active-title"),
   role = document.querySelector("#active-role"),
@@ -480,8 +484,6 @@ function enterWork(instant = false) {
   work.classList.add("active");
   work.setAttribute("aria-hidden", "false");
   syncInteractiveState();
-  wheelLock = true;
-  setTimeout(() => (wheelLock = false), 900);
 }
 function returnHome() {
   currentView = "home";
@@ -496,13 +498,14 @@ function returnHome() {
   mosaic.classList.remove("assembled");
   setTimeout(() => mosaic.classList.add("assembled"), 80);
 }
-document.querySelector("#enter-work").onclick = () => enterWork(true);
-document.querySelector('[data-home-panel="about"]').onclick = () =>
-  document.querySelector('[data-open="about"]').click();
-document.querySelector("#home-work").onclick = () => {
+const openWorkIndex = () => {
   enterWork(true);
   document.querySelector('[data-open="index"]').click();
 };
+document.querySelector("#enter-work").onclick = openWorkIndex;
+document.querySelector('[data-home-panel="about"]').onclick = () =>
+  document.querySelector('[data-open="about"]').click();
+document.querySelector("#home-work").onclick = openWorkIndex;
 document.querySelector("#back-home").onclick = returnHome;
 homeShortcut.addEventListener("click", returnHome);
 projects.forEach((p, i) => {
@@ -514,8 +517,10 @@ projects.forEach((p, i) => {
   item.className = "project-item";
   item.innerHTML = `<img data-src="${projectThumbnail(p.image)}" alt="${p.title} project cover" loading="lazy" decoding="async"><span>${String(i + 1).padStart(2, "0")} / ${String(projects.length).padStart(2, "0")}</span><strong>${p.title}</strong>`;
   item.onclick = () => {
-    show(i);
+    detailOriginPanel = { name: "index", scrollTop: item.closest(".panel").scrollTop };
+    show(i, true);
     closePanels(false);
+    openNote();
   };
   list.append(item);
 });
@@ -536,8 +541,11 @@ function tagButtons(index, target) {
   );
 }
 function openCategory(tag) {
-  closeNote(false);
-  closePanels();
+  categoryOrigin = note.classList.contains("open")
+    ? { project: current, scrollTop: note.scrollTop }
+    : null;
+  closeNote(false, false);
+  closePanels(false);
   returnCategory = tag;
   const panel = document.querySelector("#category-panel"),
     gallery = document.querySelector("#category-list");
@@ -552,9 +560,10 @@ function openCategory(tag) {
     item.className = "project-item";
     item.innerHTML = `<img data-src="${projectThumbnail(p.image)}" alt="${p.title} project cover" loading="lazy" decoding="async"><span>${String(i + 1).padStart(2, "0")} / ${String(projects.length).padStart(2, "0")}</span><strong>${p.title}</strong><em>${projectTags[i].join(" · ")}</em>`;
     item.onclick = () => {
-      show(i);
+      detailOriginPanel = null;
+      show(i, true);
       closePanels(false);
-      setTimeout(openNote, 300);
+      openNote();
     };
     gallery.append(item);
   });
@@ -566,7 +575,16 @@ function openCategory(tag) {
 }
 document.querySelector("#close-category").onclick = () => {
   returnCategory = null;
-  closePanels();
+  const origin = categoryOrigin;
+  categoryOrigin = null;
+  closePanels(false);
+  if (origin) {
+    show(origin.project, true);
+    openNote(false);
+    note.scrollTop = origin.scrollTop;
+  } else if (overlayOpener?.isConnected && !overlayOpener.closest("[inert]")) {
+    overlayOpener.focus();
+  }
 };
 tagButtons(0, activeTags);
 let showSequence = 0;
@@ -582,7 +600,11 @@ function show(index, instant = false) {
     num.textContent = `${String(current + 1).padStart(2, "0")} / ${String(projects.length).padStart(2, "0")}`;
     medium.textContent = p.medium;
     tagButtons(current, activeTags);
-    document.querySelectorAll(".dots button").forEach((d, i) => d.classList.toggle("active", i === current));
+    document.querySelectorAll(".dots button").forEach((d, i) => {
+      d.classList.toggle("active", i === current);
+      if (i === current) d.setAttribute("aria-current", "true");
+      else d.removeAttribute("aria-current");
+    });
   };
   if (instant) {
     image.dataset.swapToken = String((Number(image.dataset.swapToken) || 0) + 1);
@@ -637,22 +659,23 @@ work.addEventListener("pointerup", (event) => {
   dx < 0 ? next() : prev();
 });
 work.addEventListener("pointercancel", () => (workSwipeStart = null));
-document.querySelector("#note-next").onclick = () => {
-  locked = false;
-  next();
+const navigateNote = (direction) => {
+  if (noteNavLocked) return;
+  noteNavLocked = true;
+  const buttons = [document.querySelector("#note-prev"), document.querySelector("#note-next")];
+  buttons.forEach((button) => (button.disabled = true));
+  show(current + direction, true);
+  fillNote();
+  enhancePortfolioRails();
+  note.scrollTo(0, 0);
+  setProjectRoute(current, true);
   setTimeout(() => {
-    fillNote();
-    setProjectRoute();
-  }, 620);
+    noteNavLocked = false;
+    buttons.forEach((button) => (button.disabled = false));
+  }, reducedMotion ? 0 : 220);
 };
-document.querySelector("#note-prev").onclick = () => {
-  locked = false;
-  prev();
-  setTimeout(() => {
-    fillNote();
-    setProjectRoute();
-  }, 620);
-};
+document.querySelector("#note-next").onclick = () => navigateNote(1);
+document.querySelector("#note-prev").onclick = () => navigateNote(-1);
 addEventListener("keydown", (e) => {
   const isInteractive = e.target.closest?.("button,a,input,textarea,select");
   const overlayOpen = note.classList.contains("open") || document.querySelector(".panel.open");
@@ -672,18 +695,6 @@ addEventListener("keydown", (e) => {
     else if (document.querySelector(".panel.open")) closePanels();
   }
 });
-addEventListener(
-  "wheel",
-  (e) => {
-    if (note.classList.contains("open") && note.contains(e.target)) return;
-    if (wheelLock || Math.abs(e.deltaY) < 12) return;
-    wheelLock = true;
-    if (currentView === "home" && e.deltaY > 0) enterWork();
-    else if (currentView === "work") e.deltaY > 0 ? next() : prev();
-    setTimeout(() => (wheelLock = false), 900);
-  },
-  { passive: true },
-);
 function closePanels(restoreFocus = true) {
   document.querySelectorAll(".panel").forEach((p) => {
     p.classList.remove("open");
@@ -715,10 +726,13 @@ document.querySelectorAll("[data-project-title]").forEach((link) => {
       (project) => project.title === link.dataset.projectTitle,
     );
     if (projectIndex < 0) return;
-    closePanels();
-    locked = false;
-    show(projectIndex);
-    setTimeout(openNote, 620);
+    const originPanel = link.closest("[data-panel]");
+    detailOriginPanel = originPanel
+      ? { name: originPanel.dataset.panel, scrollTop: originPanel.scrollTop }
+      : null;
+    closePanels(false);
+    show(projectIndex, true);
+    openNote();
   };
 });
 const note = document.querySelector("#project-note");
@@ -1126,15 +1140,30 @@ const projectSlug = (title) =>
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "");
-const setProjectRoute = (index = current) => {
+const setProjectRoute = (index = current, replace = false) => {
   const url = new URL(location.href);
   url.hash = `project/${projectSlug(projects[index].title)}`;
-  history.replaceState({ project: index }, "", url);
+  const state = { project: index, portfolioDetail: true };
+  history[replace ? "replaceState" : "pushState"](state, "", url);
 };
 const clearProjectRoute = () => {
   if (!location.hash.startsWith("#project/")) return;
   history.replaceState({}, "", `${location.pathname}${location.search}`);
 };
+function enhancePortfolioRails() {
+  note.querySelectorAll(".portfolio-rail").forEach((rail) => {
+    rail.tabIndex = 0;
+    rail.setAttribute("aria-label", "Project portfolio images. Use left and right arrow keys to browse.");
+    rail.onkeydown = (event) => {
+      if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+      event.preventDefault();
+      rail.scrollBy({
+        left: (event.key === "ArrowRight" ? 1 : -1) * rail.clientWidth * 0.85,
+        behavior: reducedMotion ? "auto" : "smooth",
+      });
+    };
+  });
+}
 function openNote(updateRoute = true) {
   if (!note.classList.contains("open")) overlayOpener = document.activeElement;
   document.body.classList.add("detail-open");
@@ -1142,6 +1171,7 @@ function openNote(updateRoute = true) {
   note.setAttribute("aria-hidden", "false");
   note.scrollTo(0, 0);
   fillNote();
+  enhancePortfolioRails();
   registerMedia(note);
   syncInteractiveState();
   document.querySelector("#close-note").focus();
@@ -1150,6 +1180,10 @@ function openNote(updateRoute = true) {
   if (updateRoute) setProjectRoute();
 }
 function closeNote(restore = true, updateRoute = true) {
+  const categoryToRestore = returnCategory;
+  returnCategory = null;
+  const panelToRestore = restore && !categoryToRestore ? detailOriginPanel : null;
+  if (restore) detailOriginPanel = null;
   note.classList.remove("open");
   document.body.classList.remove("detail-open");
   note.setAttribute("aria-hidden", "true");
@@ -1157,9 +1191,23 @@ function closeNote(restore = true, updateRoute = true) {
   document.querySelector('meta[name="description"]').content = "Yutong Chen is an HCI researcher and creative technologist exploring creativity and cognition, human–AI interaction, embodied interaction and generative systems.";
   syncInteractiveState();
   if (restore && overlayOpener?.isConnected) overlayOpener.focus();
-  if (updateRoute) clearProjectRoute();
-  if (restore && returnCategory)
-    setTimeout(() => openCategory(returnCategory), 250);
+  if (updateRoute) {
+    if (history.state?.portfolioDetail) {
+      suppressNextRouteRestore = Boolean(categoryToRestore);
+      history.back();
+    }
+    else clearProjectRoute();
+  }
+  if (restore && categoryToRestore) openCategory(categoryToRestore);
+  else if (restore && panelToRestore) {
+    const panel = document.querySelector(`[data-panel="${panelToRestore.name}"]`);
+    panel?.classList.add("open");
+    if (panel) {
+      panel.scrollTop = panelToRestore.scrollTop;
+      syncInteractiveState();
+      panel.querySelector("[data-close]")?.focus();
+    }
+  }
 }
 document.querySelector("#read-project").onclick = openNote;
 document.querySelector("#close-note").onclick = closeNote;
@@ -1193,9 +1241,13 @@ document.querySelectorAll("button,a").forEach((el) => {
 });
 document.querySelector(".dots button")?.classList.add("active");
 const restoreProjectRoute = () => {
+  if (suppressNextRouteRestore) {
+    suppressNextRouteRestore = false;
+    return;
+  }
   const routeMatch = location.hash.match(/^#project\/([^/]+)$/);
   if (!routeMatch) {
-    if (note.classList.contains("open")) closeNote(false, false);
+    if (note.classList.contains("open")) closeNote(true, false);
     return;
   }
   const routedIndex = projects.findIndex(
@@ -1203,15 +1255,14 @@ const restoreProjectRoute = () => {
   );
   if (routedIndex >= 0) {
     enterWork();
-    locked = false;
-    show(routedIndex);
-    setTimeout(() => openNote(false), 700);
+    show(routedIndex, true);
+    openNote(false);
   } else {
     document.querySelector("#route-status").textContent = "Project not found. Showing the portfolio home page.";
     clearProjectRoute();
     returnHome();
   }
 };
-addEventListener("hashchange", restoreProjectRoute);
+addEventListener("popstate", restoreProjectRoute);
 syncInteractiveState();
 restoreProjectRoute();
