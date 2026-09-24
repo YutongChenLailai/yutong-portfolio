@@ -1,5 +1,6 @@
 const MEDIA_REVISION = "20260924-vivid";
 const VALUE_MACHINE_COVER_REVISION = "bb51a916";
+const VIVID_PLATFORM_URL = "https://community-memory-prototype.vercel.app/";
 const media = (src) =>
   src && src.startsWith("assets/")
     ? `${src}?v=${src.startsWith("assets/projects/value-machine/cover/") ? VALUE_MACHINE_COVER_REVISION : MEDIA_REVISION.slice(0, 8)}`
@@ -577,6 +578,8 @@ function show(index, instant = false) {
     role.textContent = p.role;
     num.textContent = `${String(current + 1).padStart(2, "0")} / ${String(projects.length).padStart(2, "0")}`;
     medium.textContent = p.medium;
+    document.querySelector(".project-link span").textContent = p.title === "VIVID" ? "Platform" : "Selected project";
+    document.querySelector("#read-project").textContent = p.title === "VIVID" ? "Open platform ↗" : "View project →";
     tagButtons(current, activeTags);
     document.querySelectorAll(".dots button").forEach((d, i) => {
       d.classList.toggle("active", i === current);
@@ -686,18 +689,19 @@ addEventListener("keydown", (e) => {
 
 let pageNavigationLocked = false;
 const changeTopLevelView = (direction) => {
-  if (pageNavigationLocked || note.classList.contains("open") || document.querySelector(".panel.open")) return;
+  if (pageNavigationLocked || note.classList.contains("open") || document.querySelector(".panel.open")) return false;
   if (direction > 0 && currentView === "home") enterWork();
-  else if (direction < 0 && currentView === "work" && work.scrollTop <= 1) returnHome();
-  else return;
+  else if (direction > 0 && currentView === "work") next();
+  else if (direction < 0 && currentView === "work" && current === 0) returnHome();
+  else if (direction < 0 && currentView === "work") prev();
+  else return false;
   pageNavigationLocked = true;
   setTimeout(() => (pageNavigationLocked = false), reducedMotion ? 0 : 760);
+  return true;
 };
 addEventListener("wheel", (event) => {
   if (Math.abs(event.deltaY) <= Math.abs(event.deltaX) || Math.abs(event.deltaY) < 18) return;
-  const before = currentView;
-  changeTopLevelView(Math.sign(event.deltaY));
-  if (before !== currentView) event.preventDefault();
+  if (changeTopLevelView(Math.sign(event.deltaY))) event.preventDefault();
 }, { passive: false });
 
 let pageSwipeStart = null;
@@ -786,9 +790,9 @@ function fillNote() {
   else caseHero.style.removeProperty("background-image");
   document.querySelector("#note-type").textContent = p.medium;
   document.querySelector("#note-title").textContent = p.title;
-  document.querySelector("#case-video-links").innerHTML = videos
-    .map((v, i) => `<a href="https://youtu.be/${v.id}" target="_blank" rel="noreferrer">${videos.length > 1 ? `Video ${i + 1}` : "Watch video"} · ${v.label} ↗</a>`)
-    .join("");
+  document.querySelector("#case-video-links").innerHTML = p.title === "VIVID"
+    ? `<a href="${VIVID_PLATFORM_URL}" target="_blank" rel="noreferrer">Open platform / 访问平台 ↗</a>`
+    : videos.map((v, i) => `<a href="https://youtu.be/${v.id}" target="_blank" rel="noreferrer">${videos.length > 1 ? `Video ${i + 1}` : "Watch video"} · ${v.label} ↗</a>`).join("");
   document.querySelector("#note-copy").textContent = p.copy;
   document.querySelector("#note-cn").textContent = caseCn[current];
   tagButtons(current, document.querySelector("#case-tags"));
@@ -1338,7 +1342,10 @@ function closeNote(restore = true, updateRoute = true) {
     }
   }
 }
-document.querySelector("#read-project").onclick = openNote;
+document.querySelector("#read-project").onclick = () => {
+  if (projects[current].title === "VIVID") window.open(VIVID_PLATFORM_URL, "_blank", "noopener,noreferrer");
+  else openNote();
+};
 document.querySelector("#close-note").onclick = closeNote;
 let noteSwipeStart = null;
 note.addEventListener("pointerdown", (event) => {
