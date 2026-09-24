@@ -895,6 +895,71 @@ body{font-weight:400;letter-spacing:0}
   font:600 14px/1.25 "DM Mono",monospace;
 }
 
+/* One visual title component for every case-study section. */
+.case-label,
+.poop-results>header,
+.poop-research>header,
+.poop-graduation>header,
+.poop-project-section>header,
+.plantiever-storyboard>header,
+.portfolio-series>header{
+  position:static;
+  width:auto;
+  height:auto;
+  display:grid;
+  grid-template-columns:80px minmax(0,1fr) auto;
+  align-items:start;
+  gap:0 32px;
+  margin:0 0 42px!important;
+  padding:0;
+  overflow:visible;
+  clip:auto;
+  white-space:normal;
+  border:0;
+}
+.case-label>span,
+.poop-results>header>span,
+.poop-research>header>span,
+.poop-graduation>header>span,
+.poop-project-section>header>span,
+.plantiever-storyboard>header>span,
+.portfolio-series>header>span{
+  width:80px;
+  min-width:80px;
+  min-height:72px;
+  padding:0;
+  font-size:26px;
+}
+.case-label h3,
+.poop-results h3,
+.poop-research h3,
+.poop-graduation h3,
+.poop-project-section h3,
+.plantiever-storyboard h3,
+.portfolio-series h3{
+  display:block;
+  margin:0;
+  font-size:clamp(38px,3.25vw,52px)!important;
+  line-height:1.04!important;
+  font-weight:600;
+  letter-spacing:-.035em;
+}
+.case-label h3 small,
+.poop-results>header>div>p,
+.poop-research>header>div>p,
+.poop-graduation>header>div>p,
+.poop-project-section>header>div>p,
+.plantiever-storyboard>header>div>p,
+.portfolio-series>header>div>p{
+  display:block;
+  margin:10px 0 0;
+  color:#aaa;
+  font-size:clamp(20px,1.7vw,29px)!important;
+  line-height:1.2;
+  font-weight:400;
+  letter-spacing:-.015em;
+}
+
 
 /* Projects without a photographic hero use the same title scale as those with one. */
 .project-note:not(.poop-note) .case-hero h2{
@@ -916,11 +981,10 @@ button:disabled{cursor:wait;opacity:.55}
 .case-hero,#case-sections{transition:opacity .14s ease}
 .project-note.is-switching .case-hero,.project-note.is-switching #case-sections{opacity:0}
 .project-edge-nav{position:fixed;z-index:4;inset:0;pointer-events:none}
-.project-nav-edge{position:fixed;top:15%;bottom:15%;width:clamp(54px,5vw,72px);display:flex;flex-direction:column;justify-content:center;gap:6px;border:0;background:rgba(0,0,0,.88);color:#fff;opacity:0;pointer-events:auto;transition:opacity .18s ease,background .18s ease,color .18s ease}
-.project-nav-edge--prev{left:0;align-items:flex-start;padding-left:14px;text-align:left}
-.project-nav-edge--next{right:0;align-items:flex-end;padding-right:14px;text-align:right}
-.project-nav-edge>span{font-size:28px;line-height:1}.project-nav-edge small{font:500 10px DM Mono,monospace;text-transform:uppercase}.project-nav-edge strong{max-width:120px;font-size:12px;line-height:1.25}
-.project-nav-edge:hover,.project-nav-edge:focus,.project-nav-edge:focus-visible{opacity:1;background:#fff;color:#000;outline:0}
+.project-nav-edge{position:fixed;top:15%;bottom:15%;width:72px;display:grid;place-items:center;border:0;background:transparent;color:#fff;opacity:.25;pointer-events:auto;transition:opacity .18s ease}
+.project-nav-edge--prev{left:0}.project-nav-edge--next{right:0}
+.project-nav-edge>span{display:grid;place-items:center;width:44px;height:44px;border:1px solid #fff;border-radius:50%;background:#000;font-size:22px;line-height:1;transition:background .18s ease,color .18s ease}
+.project-nav-edge:hover,.project-nav-edge:focus,.project-nav-edge:focus-visible{opacity:1;outline:0}.project-nav-edge:hover>span,.project-nav-edge:focus>span,.project-nav-edge:focus-visible>span{background:#fff;color:#000}
 .project-nav-edge:disabled{pointer-events:none}
 
 /* Consolidated responsive hierarchy: desktop base, tablet, mobile, narrow mobile. */
@@ -1062,8 +1126,8 @@ button:disabled{cursor:wait;opacity:.55}
   button,a{-webkit-tap-highlight-color:transparent}
   img{display:block;max-width:100%;height:auto}
   .home-screen,.stage,.panel,.project-note{max-width:100%;overflow-x:hidden}
-  .project-nav-edge{top:50%;bottom:auto;width:46px;height:52px;padding:0;align-items:center;opacity:.72;border:1px solid #fff;background:#000;transform:translateY(-50%)}
-  .project-nav-edge--prev{left:8px}.project-nav-edge--next{right:8px}.project-nav-edge small,.project-nav-edge strong{display:none}.project-nav-edge>span{font-size:24px}
+  .project-nav-edge{top:50%;bottom:auto;width:56px;height:64px;padding:0;opacity:.72;border:0;background:transparent;transform:translateY(-50%)}
+  .project-nav-edge--prev{left:2px}.project-nav-edge--next{right:2px}.project-nav-edge>span{width:42px;height:42px;font-size:20px}
 
   .home-header,.stage>header,.panel-head,.case-head{
     min-height:58px;height:58px;padding-inline:var(--page-edge);font-size:12px;border-bottom:1px solid var(--quiet-rule)
@@ -1172,10 +1236,10 @@ button:disabled{cursor:wait;opacity:.55}
 
   #case-sections{--section-space:52px;--section-gap:22px}
   #case-sections>.case-section,#case-sections>.poop-results,#case-sections>.poop-research,#case-sections>.poop-graduation,#case-sections>.poop-project-section,#case-sections>.plantiever-storyboard,#case-sections>.portfolio-series{margin-inline:0;padding:var(--section-space) 0!important;border-bottom:1px solid #fff}
-  .case-label,.poop-results>header,.poop-research>header,.poop-graduation>header,.poop-project-section>header,.plantiever-storyboard>header,.portfolio-series>header{display:grid!important;grid-template-columns:max-content minmax(0,1fr);align-items:start;gap:12px;margin-bottom:var(--section-gap)!important;padding-bottom:14px;border-bottom:1px solid var(--quiet-rule)}
-  .case-label h3,.poop-results h3,.poop-research h3,.poop-graduation h3,.poop-project-section h3,.plantiever-storyboard h3,.portfolio-series h3{min-width:0;margin:0;font-size:25px!important;line-height:1.08;overflow-wrap:anywhere}
-  .case-label small{display:block;margin-top:5px;font-size:14px}
-  .case-label>span,.poop-results>header>span,.poop-research>header>span,.poop-graduation>header>span,.poop-project-section>header>span,.plantiever-storyboard>header>span,.portfolio-series>header>span{min-width:36px;min-height:32px;margin:0;font-size:12px}
+  .case-label,.poop-results>header,.poop-research>header,.poop-graduation>header,.poop-project-section>header,.plantiever-storyboard>header,.portfolio-series>header{display:grid!important;grid-template-columns:48px minmax(0,1fr);align-items:start;gap:14px;margin-bottom:28px!important;padding:0;border:0}
+  .case-label h3,.poop-results h3,.poop-research h3,.poop-graduation h3,.poop-project-section h3,.plantiever-storyboard h3,.portfolio-series h3{min-width:0;margin:0;font-size:28px!important;line-height:1.05!important;overflow-wrap:anywhere}
+  .case-label h3 small,.poop-results>header>div>p,.poop-research>header>div>p,.poop-graduation>header>div>p,.poop-project-section>header>div>p,.plantiever-storyboard>header>div>p,.portfolio-series>header>div>p{margin-top:6px;font-size:16px!important;line-height:1.2}
+  .case-label>span,.poop-results>header>span,.poop-research>header>span,.poop-graduation>header>span,.poop-project-section>header>span,.plantiever-storyboard>header>span,.portfolio-series>header>span{width:48px;min-width:48px;min-height:44px;margin:0;padding:0;font-size:16px}
   .case-body,.case-editorial{max-width:100%}.case-body>p:first-child{font-size:18px!important;line-height:1.5!important}
   .bilingual-pair,.case-hero-copy{grid-template-columns:minmax(0,1fr);gap:8px}
   .bilingual-pair>p{font-size:17px;line-height:1.55}.bilingual-pair>.case-cn{font-size:15px!important}

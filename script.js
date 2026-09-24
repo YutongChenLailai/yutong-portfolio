@@ -819,15 +819,14 @@ function fillNote() {
   const nextProject = projects[(current + 1) % projects.length];
   const previousButton = document.querySelector("#note-prev");
   const nextButton = document.querySelector("#note-next");
-  previousButton.querySelector("[data-project-nav-title]").textContent = previousProject.title;
-  nextButton.querySelector("[data-project-nav-title]").textContent = nextProject.title;
   previousButton.setAttribute("aria-label", `Previous project: ${previousProject.title}`);
   nextButton.setAttribute("aria-label", `Next project: ${nextProject.title}`);
   if (p.title === "PoopSlaves") {
     renderPoopSlaves();
     return;
   }
-  const sections = ["Fetorium", "Plated Fantasies", "Drown in Algae"].includes(p.title)
+  const leadWithDesignSection = ["Closet X", "Navigating the Past"].includes(p.title);
+  const sections = ["Fetorium", "Plated Fantasies", "Drown in Algae"].includes(p.title) || leadWithDesignSection
     ? []
     : [["01", "Final outcome", "最终成果", p.copy, caseCn[current]]];
   const detailOutcomeImages = {
@@ -843,6 +842,8 @@ function fillNote() {
   let sectionNumber = sections.length + 1;
   const appendEditorial = (title, cnTitle, body) =>
     container.insertAdjacentHTML("beforeend", `<section class="case-section case-editorial-section"><div class="case-label"><span>${String(sectionNumber++).padStart(2, "0")}</span><h3>${title}<small>${cnTitle}</small></h3></div><div class="case-body case-editorial">${body}</div></section>`);
+  const appendOutcome = () =>
+    container.insertAdjacentHTML("beforeend", `<section class="case-section"><div class="case-label"><span>${String(sectionNumber++).padStart(2, "0")}</span><h3>Final outcome<small>最终成果</small></h3></div><div class="case-body"><div class="bilingual-pair"><p lang="en">${p.copy}</p><p class="case-cn" lang="zh-CN">${caseCn[current]}</p></div><img class="outcome-image" data-src="${outcomeImage}" alt="${p.title} final outcome" loading="lazy" decoding="async"></div></section>`);
   if (p.title === "Drown in Algae") {
     container.insertAdjacentHTML("beforeend", `<section class="case-section case-editorial-section"><div class="case-label"><span>${String(sectionNumber++).padStart(2, "0")}</span><h3>Perceptual gap &amp; environmental value<small>感知落差与环境价值</small></h3></div><div class="case-body case-editorial">
       <div class="bilingual-pair"><p lang="en">How can people perceive pollution once it no longer appears visibly polluted? Oil spills are initially highly visible, yet as oil disperses, dilutes, and weathers, its visual traces gradually disappear while its ecological impacts may persist.</p><p class="case-cn" lang="zh">当污染不再“看起来像污染”时，人们如何感知它仍然存在？石油泄漏最初往往高度可见，但随着扩散、稀释与风化，视觉痕迹会逐渐消失，而生态影响可能持续存在。</p></div>
@@ -881,10 +882,12 @@ function fillNote() {
   if (p.title === "Closet X") {
     appendEditorial("Key Design Decision", "关键交互决策", `
       <div class="bilingual-pair"><p lang="en">The initial smart-mirror concept relied on touchscreen controls, but this created several problems in use: people would need to repeatedly move toward and away from the mirror, controls placed too high or low could be difficult to reach, and frequent touching would leave fingerprints on the reflective surface. We therefore moved the core interaction to <strong>gesture control</strong>. Users can browse and make selections while remaining at a natural viewing distance, allowing the interface to adapt to the body's position in front of the mirror rather than requiring the body to continually adapt to the screen.</p><p class="case-cn" lang="zh-CN">最初的方案考虑使用触摸屏控制智能试衣镜，但真实使用场景暴露出了明显的问题：用户需要反复靠近和远离镜面，较高或较低的按钮不容易触及，同时触摸也容易在镜面留下指纹。因此，我们最终将核心操作改为<strong>手势交互</strong>。用户可以保持正常试衣距离完成浏览与选择，让交互方式适应镜子前的身体位置，而不是要求身体不断适应屏幕。</p></div>`);
+    appendOutcome();
   }
   if (p.title === "Navigating the Past") {
     appendEditorial("Interaction System", "交互系统", `
       <div class="bilingual-pair"><p lang="en">The project organizes the digital experience of the historic district through three connected spatial interfaces: <strong>path guidance, light-based boundary installations, and AR landmark interaction</strong>. A WeChat Mini Program supports navigation and information access, while real-time visual recognition identifies historic landmarks and location-based triggers connect digital content with the user's position. The interface therefore extends beyond the phone screen, operating together with streets, buildings, and the visitor's physical movement through the district.</p><p class="case-cn" lang="zh-CN">项目将历史街区的数字体验拆分为三个相互连接的空间界面：<strong>路径引导、边界光影装置与地标 AR 交互</strong>。微信小程序负责导航与信息组织，实时视觉识别用于识别历史地标，位置联动则根据用户所在位置触发对应内容。数字界面因此不只存在于手机屏幕中，而是与街道、建筑和人的实际移动共同构成导览过程。</p></div>`);
+    appendOutcome();
   }
   if (p.title === "Fetorium") {
     container.insertAdjacentHTML("beforeend", `<section class="case-section case-editorial-section"><div class="case-label"><span>${String(sectionNumber++).padStart(2, "0")}</span><h3>Research question &amp; insights<small>研究问题与关键发现</small></h3></div><div class="case-body case-editorial">
