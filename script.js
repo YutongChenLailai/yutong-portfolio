@@ -664,21 +664,31 @@ const navigateNote = (direction) => {
   noteNavLocked = true;
   const buttons = [document.querySelector("#note-prev"), document.querySelector("#note-next")];
   buttons.forEach((button) => (button.disabled = true));
-  show(current + direction, true);
-  fillNote();
-  enhancePortfolioRails();
-  note.scrollTo(0, 0);
-  setProjectRoute(current, true);
+  note.classList.add("is-switching");
   setTimeout(() => {
+    show(current + direction, true);
+    fillNote();
+    enhancePortfolioRails();
+    registerMedia(note);
+    note.scrollTo(0, 0);
+    setProjectRoute(current, true);
+    document.title = `${projects[current].title} — Yutong Chen`;
+    document.querySelector('meta[name="description"]').content = projects[current].copy;
+    note.classList.remove("is-switching");
     noteNavLocked = false;
     buttons.forEach((button) => (button.disabled = false));
-  }, reducedMotion ? 0 : 220);
+  }, reducedMotion ? 0 : 140);
 };
 document.querySelector("#note-next").onclick = () => navigateNote(1);
 document.querySelector("#note-prev").onclick = () => navigateNote(-1);
 addEventListener("keydown", (e) => {
   const isInteractive = e.target.closest?.("button,a,input,textarea,select");
   const overlayOpen = note.classList.contains("open") || document.querySelector(".panel.open");
+  if (note.classList.contains("open") && !isInteractive && (e.key === "ArrowLeft" || e.key === "ArrowRight")) {
+    e.preventDefault();
+    navigateNote(e.key === "ArrowRight" ? 1 : -1);
+    return;
+  }
   if (!overlayOpen && !isInteractive && currentView === "home" && e.key === "ArrowDown") {
     enterWork();
     return;
@@ -694,6 +704,39 @@ addEventListener("keydown", (e) => {
     if (note.classList.contains("open")) closeNote();
     else if (document.querySelector(".panel.open")) closePanels();
   }
+});
+
+let pageNavigationLocked = false;
+const changeTopLevelView = (direction) => {
+  if (pageNavigationLocked || note.classList.contains("open") || document.querySelector(".panel.open")) return;
+  if (direction > 0 && currentView === "home") enterWork();
+  else if (direction < 0 && currentView === "work" && work.scrollTop <= 1) returnHome();
+  else return;
+  pageNavigationLocked = true;
+  setTimeout(() => (pageNavigationLocked = false), reducedMotion ? 0 : 760);
+};
+addEventListener("wheel", (event) => {
+  if (Math.abs(event.deltaY) <= Math.abs(event.deltaX) || Math.abs(event.deltaY) < 18) return;
+  const before = currentView;
+  changeTopLevelView(Math.sign(event.deltaY));
+  if (before !== currentView) event.preventDefault();
+}, { passive: false });
+
+let pageSwipeStart = null;
+[home, work].forEach((screen) => {
+  screen.addEventListener("pointerdown", (event) => {
+    if (event.pointerType === "mouse" || event.target.closest("button,a")) return;
+    pageSwipeStart = { x: event.clientX, y: event.clientY };
+  });
+  screen.addEventListener("pointerup", (event) => {
+    if (!pageSwipeStart) return;
+    const dx = event.clientX - pageSwipeStart.x;
+    const dy = event.clientY - pageSwipeStart.y;
+    pageSwipeStart = null;
+    if (Math.abs(dy) < 60 || Math.abs(dy) <= Math.abs(dx)) return;
+    changeTopLevelView(dy < 0 ? 1 : -1);
+  });
+  screen.addEventListener("pointercancel", () => (pageSwipeStart = null));
 });
 function closePanels(restoreFocus = true) {
   document.querySelectorAll(".panel").forEach((p) => {
@@ -741,13 +784,14 @@ function fillNote() {
   const videos = projectVideos[current];
   note.classList.toggle(
     "poop-note",
-    ["PoopSlaves", "Plantiever’s Illusion", "Value Machine", "Fetorium", "Closet X", "Navigating the Past", "Feeding Fear / PEEEP", "Drown in Algae", "The Forbidden Hue"].includes(p.title),
+    ["PoopSlaves", "Plantiever’s Illusion", "Value Machine", "Fetorium", "Plated Fantasies", "Closet X", "Navigating the Past", "Feeding Fear / PEEEP", "Drown in Algae", "The Forbidden Hue"].includes(p.title),
   );
   note.classList.toggle("single-video-note", videos.length === 1);
   note.classList.toggle("plantiever-note", p.title === "Plantiever’s Illusion");
   note.classList.toggle("value-note", p.title === "Value Machine");
   note.classList.toggle("fetorium-note", p.title === "Fetorium");
   const detailHeroImages = {
+    "Plated Fantasies": "assets/projects/plated-fantasies/detail/hero.jpg",
     "Closet X": "assets/projects/closet-x/gallery/outcome-01.jpg",
     "Navigating the Past": p.image,
     "Feeding Fear / PEEEP": p.image,
@@ -755,8 +799,11 @@ function fillNote() {
     "The Forbidden Hue": p.image,
   };
   const caseHero = document.querySelector(".case-hero");
-  if (detailHeroImages[p.title])
-    caseHero.style.setProperty("background-image", `url('${media(detailHeroImages[p.title])}')`, "important");
+  let detailHeroImage = detailHeroImages[p.title];
+  if (p.title === "Plated Fantasies" && innerWidth <= 1200)
+    detailHeroImage = `assets/projects/plated-fantasies/detail/hero-${innerWidth <= 640 ? "480" : "960"}.jpg`;
+  if (detailHeroImage)
+    caseHero.style.setProperty("background-image", `url('${media(detailHeroImage)}')`, "important");
   else caseHero.style.removeProperty("background-image");
   document.querySelector("#note-type").textContent = p.medium;
   document.querySelector("#note-title").textContent = p.title;
@@ -768,6 +815,14 @@ function fillNote() {
   tagButtons(current, document.querySelector("#case-tags"));
   document.querySelector("#case-count").textContent =
     `${String(current + 1).padStart(2, "0")} / ${String(projects.length).padStart(2, "0")}`;
+  const previousProject = projects[(current - 1 + projects.length) % projects.length];
+  const nextProject = projects[(current + 1) % projects.length];
+  const previousButton = document.querySelector("#note-prev");
+  const nextButton = document.querySelector("#note-next");
+  previousButton.querySelector("[data-project-nav-title]").textContent = previousProject.title;
+  nextButton.querySelector("[data-project-nav-title]").textContent = nextProject.title;
+  previousButton.setAttribute("aria-label", `Previous project: ${previousProject.title}`);
+  nextButton.setAttribute("aria-label", `Next project: ${nextProject.title}`);
   if (p.title === "PoopSlaves") {
     renderPoopSlaves();
     return;
@@ -786,6 +841,8 @@ function fillNote() {
   const container = document.querySelector("#case-sections"),
     publication = publications[current];
   let sectionNumber = sections.length + 1;
+  const appendEditorial = (title, cnTitle, body) =>
+    container.insertAdjacentHTML("beforeend", `<section class="case-section case-editorial-section"><div class="case-label"><span>${String(sectionNumber++).padStart(2, "0")}</span><h3>${title}<small>${cnTitle}</small></h3></div><div class="case-body case-editorial">${body}</div></section>`);
   if (p.title === "Drown in Algae") {
     container.insertAdjacentHTML("beforeend", `<section class="case-section case-editorial-section"><div class="case-label"><span>${String(sectionNumber++).padStart(2, "0")}</span><h3>Perceptual gap &amp; environmental value<small>感知落差与环境价值</small></h3></div><div class="case-body case-editorial">
       <div class="bilingual-pair"><p lang="en">How can people perceive pollution once it no longer appears visibly polluted? Oil spills are initially highly visible, yet as oil disperses, dilutes, and weathers, its visual traces gradually disappear while its ecological impacts may persist.</p><p class="case-cn" lang="zh">当污染不再“看起来像污染”时，人们如何感知它仍然存在？石油泄漏最初往往高度可见，但随着扩散、稀释与风化，视觉痕迹会逐渐消失，而生态影响可能持续存在。</p></div>
@@ -800,6 +857,34 @@ function fillNote() {
       <div class="bilingual-pair"><p lang="en">Rather than treating meaning as fixed, I use interactive prototypes to surface associations that usually go unnoticed. Through touch, sound, image, and movement, participants encounter familiar symbols in unfamiliar ways, actively reinterpreting their meanings.</p><p class="case-cn" lang="zh">我不把意义视为固定不变，而是借助互动原型，让通常不被注意的联想浮现。通过触觉、声音、影像与身体动作，参与者以陌生的方式重新遇见熟悉的符号，并主动重新诠释其意义。</p></div>
       <div class="bilingual-pair"><p lang="en">For me, the prototype is not just a final outcome but a research method — a way to expose hidden perceptions, disrupt habitual interpretations, and observe how meaning shifts through interaction.</p><p class="case-cn" lang="zh">对我而言，原型不仅是最终的设计成果，更是一种研究方法：它能显现隐藏的感知，打断习以为常的理解方式，并观察意义如何在互动中生成变化。</p></div>
     </div></section>`);
+  }
+  if (p.title === "The Forbidden Hue") {
+    appendEditorial("Overview", "项目概述", `
+      <div class="bilingual-pair"><p lang="en">The Forbidden Hue is a cross-media cultural heritage project combining situated mystery play, digital narrative, and VR. Based on field research in Tiegang Village, cultural materials including Yao and Zhuang wedding customs, rituals, clothing, architecture, and traditional practices were translated into characters, clues, and spatial scenes. Players encounter this material through exploration, investigation, and digital interaction rather than through static explanation.</p><p class="case-cn" lang="zh-CN">《五色缚》是一个融合实景推理、数字叙事与 VR 的文化遗产项目。项目基于铁岗村田野调研，将瑶族、壮族村落中的婚俗、祭祀、服饰、建筑与传统技艺转译为角色、线索和空间场景。玩家通过实地探索、搜证与数字交互逐步理解故事，使文化内容不再只是被观看，而是在行动中被发现。</p></div>`);
+    appendEditorial("Interaction Design", "交互设计", `
+      <div class="bilingual-pair"><p lang="en">The physical village and virtual scenes form a connected experience space. Players search for clues across real locations and enter Quest VR environments developed in Unity at selected narrative points. At the Pan King altar, players raise a torch using gesture and grip detection, revealing narrative information through bodily movement and changing viewpoints.</p><p class="case-cn" lang="zh-CN">真实村落与虚拟场景共同构成体验空间。玩家在不同地点寻找线索，并在特定节点进入 Unity 构建的 Quest VR 场景。在盘王祭坛中，玩家通过手势与抓握识别举起火把，随着身体移动和视角变化逐步发现空间中的叙事信息。</p></div>`);
+    appendEditorial("Design Focus", "设计重点", `
+      <div class="bilingual-pair"><p lang="en">The project is less concerned with digitizing as much cultural material as possible than with deciding <strong>how that material is encountered</strong>. The design shifts cultural content from static presentation toward something gradually understood through action:</p><p class="case-cn" lang="zh-CN">这个项目关注的并不是如何把更多文化资料“数字化”，而是如何决定这些资料<strong>以什么方式被遇见</strong>。我更关心的是把文化内容从静态展示转变为一个需要行动才能逐渐理解的过程：</p></div>
+      <div class="bilingual-pair"><p class="case-flow" lang="en">Cultural material → Spatial clue → Bodily action → Digital response → Narrative understanding</p><p class="case-cn case-flow" lang="zh-CN">文化材料 → 空间线索 → 身体行动 → 数字反馈 → 叙事理解</p></div>
+      <div class="bilingual-pair"><p lang="en">Physical space and VR therefore function not as separate media, but as different information layers within the same experience.</p><p class="case-cn" lang="zh-CN">实景与 VR 在这里并不是两个独立媒介，而是同一体验中的不同信息层。</p></div>`);
+    appendEditorial("Takeaway", "项目反思", `
+      <div class="bilingual-pair"><p lang="en">The Forbidden Hue led me to think about digitization of cultural heritage as more than reproducing physical content on a screen or inside VR. A more important question is <strong>how interaction changes the process through which people encounter, search for, and make sense of cultural information.</strong> When space, bodily action, and digital media participate in the narrative together, heritage becomes less an object to observe and more an experience assembled through exploration.</p><p class="case-cn" lang="zh-CN">《五色缚》让我开始思考，文化遗产的数字化并不一定意味着把现实内容复制进屏幕或 VR。更重要的问题可能是：<strong>交互如何改变一个人接触、寻找和理解文化信息的过程。</strong>当空间、身体行动和数字媒介共同参与叙事时，文化内容不再只是被观看的对象，而成为一个需要通过探索逐渐建立起来的经验。</p></div>`);
+  }
+  if (p.title === "Plantiever’s Illusion") {
+    appendEditorial("Overview", "项目概述", `
+      <div class="bilingual-pair"><p lang="en">In Chinese visual culture, the pine tree is commonly associated with longevity, endurance, blessing, and moral constancy. Through repetition, these associations can become so familiar that they begin to feel natural and self-evident. Plantiever’s Illusion begins with this familiarity. It places pine imagery alongside human bodies, turtles, braided hair, water, and enclosed spaces, using staged performance, superimposition, repeated framing, slowed pacing, and sound to alter the conditions under which the symbol is encountered. Rather than erasing the pine tree’s inherited meaning, the work keeps it recognizable while making its interpretation less stable.</p><p class="case-cn" lang="zh-CN">在中国视觉文化中，松树常与长寿、坚韧、祝福和品格联系在一起。随着这些象征不断被重复，它们也逐渐变得熟悉而稳定，以至于我们很少再意识到自己是如何理解它们的。Plantiever’s Illusion 从这种“过度熟悉”出发，将松树与人体、乌龟、辫发、水和封闭空间重新并置。通过表演影像、叠化、重复构图、缓慢节奏与声音，作品不试图消除松树原有的文化含义，而是改变它被观看和感知的条件。熟悉的吉祥符号因此仍然可以被辨认，却不再只能指向一个稳定的答案。</p></div>`);
+    appendEditorial("Core Question", "核心问题", `
+      <div class="bilingual-pair poop-question"><p lang="en">How can a digitally mediated moving-image installation support viewers in reflecting on and reinterpreting familiar cultural symbols?</p><p class="case-cn" lang="zh-CN">数字媒介化的动态影像装置如何支持观众反思并重新诠释熟悉的文化符号？</p></div>`);
+    appendEditorial("Takeaway", "项目反思", `
+      <div class="bilingual-pair"><p lang="en">This project led me to think about design not only as a way of creating new symbols, but also as a way of changing how existing ones are encountered. Reinterpretation does not always require supplying a new meaning. Sometimes it begins by <strong>slowing down a meaning that has become too automatic.</strong></p><p class="case-cn" lang="zh-CN">这个项目让我开始关注：设计不一定需要创造新的符号，也可以改变我们与既有符号相遇的方式。有时，重新解释并不来自提供一个新的答案，而来自<strong>延缓一个原本过于迅速的答案</strong>。</p></div>`);
+  }
+  if (p.title === "Closet X") {
+    appendEditorial("Key Design Decision", "关键交互决策", `
+      <div class="bilingual-pair"><p lang="en">The initial smart-mirror concept relied on touchscreen controls, but this created several problems in use: people would need to repeatedly move toward and away from the mirror, controls placed too high or low could be difficult to reach, and frequent touching would leave fingerprints on the reflective surface. We therefore moved the core interaction to <strong>gesture control</strong>. Users can browse and make selections while remaining at a natural viewing distance, allowing the interface to adapt to the body's position in front of the mirror rather than requiring the body to continually adapt to the screen.</p><p class="case-cn" lang="zh-CN">最初的方案考虑使用触摸屏控制智能试衣镜，但真实使用场景暴露出了明显的问题：用户需要反复靠近和远离镜面，较高或较低的按钮不容易触及，同时触摸也容易在镜面留下指纹。因此，我们最终将核心操作改为<strong>手势交互</strong>。用户可以保持正常试衣距离完成浏览与选择，让交互方式适应镜子前的身体位置，而不是要求身体不断适应屏幕。</p></div>`);
+  }
+  if (p.title === "Navigating the Past") {
+    appendEditorial("Interaction System", "交互系统", `
+      <div class="bilingual-pair"><p lang="en">The project organizes the digital experience of the historic district through three connected spatial interfaces: <strong>path guidance, light-based boundary installations, and AR landmark interaction</strong>. A WeChat Mini Program supports navigation and information access, while real-time visual recognition identifies historic landmarks and location-based triggers connect digital content with the user's position. The interface therefore extends beyond the phone screen, operating together with streets, buildings, and the visitor's physical movement through the district.</p><p class="case-cn" lang="zh-CN">项目将历史街区的数字体验拆分为三个相互连接的空间界面：<strong>路径引导、边界光影装置与地标 AR 交互</strong>。微信小程序负责导航与信息组织，实时视觉识别用于识别历史地标，位置联动则根据用户所在位置触发对应内容。数字界面因此不只存在于手机屏幕中，而是与街道、建筑和人的实际移动共同构成导览过程。</p></div>`);
   }
   if (p.title === "Fetorium") {
     container.insertAdjacentHTML("beforeend", `<section class="case-section case-editorial-section"><div class="case-label"><span>${String(sectionNumber++).padStart(2, "0")}</span><h3>Research question &amp; insights<small>研究问题与关键发现</small></h3></div><div class="case-body case-editorial">
@@ -1265,6 +1350,20 @@ function closeNote(restore = true, updateRoute = true) {
 }
 document.querySelector("#read-project").onclick = openNote;
 document.querySelector("#close-note").onclick = closeNote;
+let noteSwipeStart = null;
+note.addEventListener("pointerdown", (event) => {
+  if (!matchMedia("(pointer:coarse)").matches || event.target.closest("button,a,.portfolio-rail,.plantiever-gallery")) return;
+  noteSwipeStart = { x: event.clientX, y: event.clientY };
+});
+note.addEventListener("pointerup", (event) => {
+  if (!noteSwipeStart) return;
+  const dx = event.clientX - noteSwipeStart.x;
+  const dy = event.clientY - noteSwipeStart.y;
+  noteSwipeStart = null;
+  if (Math.abs(dx) < 64 || Math.abs(dx) <= Math.abs(dy)) return;
+  navigateNote(dx < 0 ? 1 : -1);
+});
+note.addEventListener("pointercancel", () => (noteSwipeStart = null));
 const cursor = document.querySelector(".cursor");
 addEventListener("pointermove", (e) => {
   if (!matchMedia("(hover:hover) and (pointer:fine)").matches) return;
