@@ -1,4 +1,4 @@
-const MEDIA_REVISION = "20260924-covers";
+const MEDIA_REVISION = "20260924-vivid";
 const VALUE_MACHINE_COVER_REVISION = "bb51a916";
 const media = (src) =>
   src && src.startsWith("assets/")
@@ -228,6 +228,13 @@ const projects = [
     image: "assets/projects/drown-in-algae/cover/cover.jpg",
     copy: "Drown in Algae explores how living interfaces and feedback mechanisms can make invisible pollution, ecological remediation, and their environmental value perceptible, intelligible, and participatory.",
   },
+  {
+    title: "VIVID",
+    role: "Visualising Interwoven Voices through Iterative Documentation.",
+    medium: "platform",
+    image: "assets/projects/vivid/cover/cover.webp",
+    copy: "Visualising Interwoven Voices through Iterative Documentation.",
+  },
 ];
 const projectThumbnail = (src) =>
   media(
@@ -246,6 +253,7 @@ const caseCn = [
   "用增强现实与分层导航连接哈尔滨历史街区、档案故事与当代行走。",
   "研究恐惧如何被环境、制度与社会传播持续喂养的实验影像。",
   "Drown in Algae 探索如何通过生命界面与反馈机制，让不可见的污染、生态修复及其环境价值变得可感知、可理解、可参与。",
+  "",
 ];
 const projectTags = [
   ["Critical Design", "VR", "Speculative"],
@@ -258,6 +266,7 @@ const projectTags = [
   ["Cultural Heritage", "AR", "Architecture"],
   ["Moving Image", "Social Psychology"],
   ["Ecology", "Bio-art", "Installation"],
+  ["Platform"],
 ];
 const projectVideos = [
   [
@@ -313,6 +322,7 @@ const projectVideos = [
   [{ id: "7PBkRF7aY6c", title: "Closet X", label: "System film / 系统展示" }],
   [],
   [{ id: "bo7ichlhwmQ", title: "Feeding Fear", label: "Full film / 完整影像" }],
+  [],
   [],
 ];
 const publications = {
@@ -390,7 +400,7 @@ const portfolioSeries = {
   "Plated Fantasies": platedFantasiesPortfolioSeries,
 };
 // Keep every project's parallel content aligned with the curated portfolio order.
-const displayOrder = [0, 3, 1, 4, 5, 6, 7, 8, 9, 2];
+const displayOrder = [0, 3, 1, 4, 5, 6, 7, 10, 8, 9, 2];
 const reorder = (items) => displayOrder.map((index) => items[index]);
 projects.splice(0, projects.length, ...reorder(projects));
 caseCn.splice(0, caseCn.length, ...reorder(caseCn));
@@ -752,7 +762,7 @@ function fillNote() {
   const videos = projectVideos[current];
   note.classList.toggle(
     "poop-note",
-    ["PoopSlaves", "Plantiever’s Illusion", "Value Machine", "Fetorium", "Plated Fantasies", "Closet X", "Navigating the Past", "Feeding Fear / PEEEP", "Drown in Algae", "The Forbidden Hue"].includes(p.title),
+    ["PoopSlaves", "Plantiever’s Illusion", "Value Machine", "Fetorium", "Plated Fantasies", "Closet X", "Navigating the Past", "VIVID", "Feeding Fear / PEEEP", "Drown in Algae", "The Forbidden Hue"].includes(p.title),
   );
   note.classList.toggle("single-video-note", videos.length === 1);
   note.classList.toggle("plantiever-note", p.title === "Plantiever’s Illusion");
@@ -762,6 +772,7 @@ function fillNote() {
     "Plated Fantasies": "assets/projects/plated-fantasies/detail/hero.jpg",
     "Closet X": "assets/projects/closet-x/gallery/outcome-01.jpg",
     "Navigating the Past": p.image,
+    VIVID: p.image,
     "Feeding Fear / PEEEP": p.image,
     "Drown in Algae": p.image,
     "The Forbidden Hue": p.image,
@@ -794,7 +805,7 @@ function fillNote() {
     return;
   }
   const leadWithDesignSection = ["Closet X", "Navigating the Past"].includes(p.title);
-  const sections = ["Fetorium", "Plated Fantasies", "Drown in Algae"].includes(p.title) || leadWithDesignSection
+  const sections = ["Fetorium", "Plated Fantasies", "Drown in Algae", "VIVID"].includes(p.title) || leadWithDesignSection
     ? []
     : [["01", "Final outcome", "最终成果", p.copy, caseCn[current]]];
   const detailOutcomeImages = {
