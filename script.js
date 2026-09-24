@@ -1,4 +1,4 @@
-const MEDIA_REVISION = "20260920-final";
+const MEDIA_REVISION = "20260924-covers";
 const VALUE_MACHINE_COVER_REVISION = "bb51a916";
 const media = (src) =>
   src && src.startsWith("assets/")
@@ -182,7 +182,7 @@ const projects = [
   {
     title: "Value Machine",
     role: "Participatory art-market critique.",
-    medium: "installation · Arduino · participation",
+    medium: "participatory installation · authorship · institutional framing",
     image: "assets/projects/value-machine/cover/cover.webp",
     copy: "Visitors feed a fictional artist-machine, generate images and participate in their valuation, exposing how reputation manufactures artistic worth.",
   },
@@ -873,6 +873,14 @@ function fillNote() {
       <div class="bilingual-pair"><p lang="en">This informed the design of the white-sock tunnel. Rather than asking participants to simply look at the installation, I wanted them to bend, crawl, and physically enter the space.</p><p class="case-cn" lang="zh">这一思路直接影响了白袜隧道的设计——我不希望观众只是站在外面“看”作品，而是要让他们弯腰、爬行，真正进入这个空间。</p></div>
       <div class="bilingual-pair"><p lang="en">Before participants even reach the main installation, the tunnel already reshapes their posture, distance, field of view, and sense of comfort. In this way, “stench” is presented not as a single smell but as an atmosphere gradually constructed through the body's encounter with the environment.</p><p class="case-cn" lang="zh">在抵达主装置之前，隧道已经预先改变了他们的身体姿势、观看距离、视野与舒适感。因此，“臭”并不是以单一气味的形式被呈现，而是在身体与环境的互动中逐渐建构出的一种感官氛围。</p></div>
     </div></section>`);
+  }
+  if (p.title === "Value Machine") {
+    appendEditorial("Core Question", "核心问题", `
+      <div class="bilingual-pair poop-question"><p lang="en">When does our judgment of an artwork become a judgment of the name attached to it?</p><p class="case-cn" lang="zh-CN">我们是在评价一件作品，还是在评价附着在作品上的名字？</p></div>`);
+    appendEditorial("Participatory Mechanism", "参与机制", `
+      <div class="bilingual-pair"><p lang="en">Value Machine constructs an exhibition and auction around a fictional high-profile artist. Participants first generate images through an interactive installation without knowing what will happen to them next. These images are then reframed, exhibited, and auctioned under the fictional artist's name.</p><p class="case-cn" lang="zh-CN">Value Machine 围绕一个虚构的知名艺术家构建了一套完整的展览与拍卖机制。参与者首先通过互动装置生成图像，却不知道这些图像之后会发生什么。作品随后被重新包装，以虚构艺术家的名义进入展览，并进一步参与拍卖。</p></div>
+      <div class="bilingual-pair"><p lang="en">Once audiences believe that the works belong to an established artist, they begin to reassess and bid on them—including, in some cases, images that they themselves had previously produced. The final reveal destabilizes the relationship between creation, authorship, reputation, and perceived value.</p><p class="case-cn" lang="zh-CN">当观众相信这些作品出自一位具有声望的艺术家时，他们开始重新评价并为这些作品竞价——其中甚至包括他们自己此前生成的内容。最终的揭示让创作、作者身份与市场价值之间的关系重新变得不稳定。</p></div>
+      <div class="bilingual-pair"><p class="case-flow" lang="en">Create → Reframe → Exhibit → Bid → Reveal</p><p class="case-cn case-flow" lang="zh-CN">创作 → 重构语境 → 展览 → 竞价 → 揭示</p></div>`);
   }
   if (p.title === "Plantiever’s Illusion") {
     container.insertAdjacentHTML(
