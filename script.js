@@ -1049,8 +1049,62 @@ function renderPoopSlaves() {
         </div>
       </div>
     </section>
+    <section class="poop-project-section">
+      <header><span>02</span><div><h3>Overview</h3><p>项目概述</p></div></header>
+      <div class="poop-project-copy">
+        <p lang="en">PoopSlaves constructs a fictional physiological economy in which bodily waste becomes scarce because of its imagined use in medicine, energy, and identity authentication.</p>
+        <p lang="zh-CN" class="case-cn">PoopSlaves 构建了一个虚构的生理经济：在这个世界中，排泄物因医疗、能源和身份认证等用途成为稀缺资源。</p>
+        <p lang="en">Participants enter the system as producers. Their local actions continuously generate resources, but those resources do not remain under their control. The system redirects, evaluates, and accumulates what they produce, gradually revealing a separation between being able to act and being able to determine the consequences of that action.</p>
+        <p lang="zh-CN" class="case-cn">参与者扮演系统中的生产者，通过局部操作不断产生资源。但这些产出并不真正属于生产者。系统会重新转移、估值并累积资源，使参与者逐渐意识到，能够采取行动并不意味着能够控制行动的结果。</p>
+        <p lang="en">Rather than explaining bodily commodification, constructed scarcity, and unequal value extraction through narrative alone, the project turns these relationships into rules that participants can encounter through interaction.</p>
+        <p lang="zh-CN" class="case-cn">项目以这种刻意设置的不对称关系为核心，将身体商品化、稀缺性制造和不平等价值抽取转化为可以被操作和感知的交互规则，而不是只通过叙事进行描述。</p>
+      </div>
+    </section>
+    <section class="poop-project-section">
+      <header><span>03</span><div><h3>Research Question</h3><p>研究问题</p></div></header>
+      <div class="bilingual-pair poop-question"><p lang="en">What happens when participants can act within a system but cannot control the outcomes of their actions?</p><p class="case-cn" lang="zh-CN">当参与者能够行动，却无法控制行动的结果时，会发生什么？</p></div>
+    </section>
+    <section class="poop-project-section">
+      <header><span>04</span><div><h3>Interaction Logic</h3><p>交互逻辑</p></div></header>
+      <div class="poop-project-copy">
+        <p lang="en">Participants begin with local production actions inside the Unreal Engine environment. The resulting resources are routed away and reappear in the TouchDesigner visualization as movement, shifts in value, and system-level accumulation.</p>
+        <p lang="zh-CN" class="case-cn">参与者首先在 Unreal Engine 场景中执行局部的生产行为，并生成相应资源。这些资源随后被系统转移，并在 TouchDesigner 界面中以资源流动、价值变化形式重新出现。</p>
+        <p lang="en">Participants can produce, trigger, and observe change, but they cannot recover the value they generate, redirect its valuation, or determine where it ultimately accumulates.</p>
+        <p lang="zh-CN" class="case-cn">参与者可以生产、触发和观察变化，却无法取回已经产生的价值，也无法重新决定它的估值方式或最终累积的位置。</p>
+        <p class="poop-flow" lang="en">Local action → Resource production → System transfer → Revaluation → Accumulation</p>
+        <p class="case-cn poop-flow" lang="zh-CN">局部行动 → 资源产生 → 系统转移 → 价值重新分配 → 整体累积</p>
+        <p lang="en">The interaction deliberately weakens the usual expectation that a user's input should lead to an outcome they can directly control.</p>
+        <p lang="zh-CN" class="case-cn">这种反馈结构有意削弱了“我的输入必然对应我的结果”这一常见交互预期。</p>
+      </div>
+    </section>
+    <section class="poop-project-section">
+      <header><span>05</span><div><h3>Design Strategy</h3><p>设计策略</p></div></header>
+      <div class="poop-strategy-grid">
+        <article><h4>Temporal Friction <small>时间摩擦</small></h4><p lang="en">Delay, repetition, and waiting interrupt the impulse to immediately learn and optimize the system.</p><p class="case-cn" lang="zh-CN">通过等待、重复和延迟，打断玩家快速理解规则并优化操作的惯性。</p></article>
+        <article><h4>Feedback Decoupling <small>反馈解耦</small></h4><p lang="en">Actions produce visible feedback without giving participants direct control over the final outcome.</p><p class="case-cn" lang="zh-CN">参与者的行为会产生反馈，但行为与最终结果之间不存在直接的一一对应关系。</p></article>
+        <article><h4>Scale Asymmetry <small>尺度不对称</small></h4><p lang="en">Small bodily actions feed into a much larger process of accumulation, creating an asymmetry between individual action and systemic consequence.</p><p class="case-cn" lang="zh-CN">微小、局部的身体行为不断进入更大的资源累积系统，使个人行动与系统结果之间形成明显的尺度差异。</p></article>
+      </div>
+    </section>
+    <section class="poop-project-section">
+      <header><span>06</span><div><h3>System Prototype</h3><p>系统原型</p></div></header>
+      <div class="poop-system-grid">
+        <article><h4>Unreal Engine 5</h4><p lang="en">Builds the real-time 3D environment, spatial hierarchy, character behavior, and event triggers.</p><p class="case-cn" lang="zh-CN">构建实时 3D 世界、空间层级、角色行为以及事件触发机制。</p></article>
+        <article><h4>TouchDesigner</h4><p lang="en">Visualizes resource movement, changing values, and accumulation across the system in real time.</p><p class="case-cn" lang="zh-CN">实时呈现资源移动、价值变化以及不同层级中的资源累积。</p></article>
+        <article><h4>OSC</h4><p lang="en">Synchronizes interaction events in Unreal Engine with data-state changes in TouchDesigner.</p><p class="case-cn" lang="zh-CN">同步 Unreal Engine 中发生的交互事件与 TouchDesigner 中的数据状态变化。</p></article>
+        <article><h4>Blender</h4><p lang="en">Used for character modeling, sculpting, and visual worldbuilding.</p><p class="case-cn" lang="zh-CN">用于角色建模、造型和视觉世界构建。</p></article>
+      </div>
+    </section>
+    <section class="poop-project-section">
+      <header><span>07</span><div><h3>Preliminary Observations</h3><p>初步观察 · Early demonstrations</p></div></header>
+      <div class="poop-project-copy">
+        <p lang="en">During early demonstrations, some participants initially approached PoopSlaves as a system to be learned and optimized. As interaction continued, they began to recognize that becoming more effective at local actions did not give them greater control over the system as a whole. Doing more and determining what happens next became two different forms of agency.</p>
+        <p class="case-cn" lang="zh-CN">在早期展示中，一些参与者最初会把 PoopSlaves 当作一个可以被学习和优化的游戏系统。随着交互继续，他们开始发现：提高局部操作效率并不会带来对整个系统的控制。能够“做更多”与能够决定“结果如何发生”是两件不同的事情。</p>
+        <p lang="en">The grotesque visual language also worked more clearly when it was tied to role functions, spatial hierarchy, and accumulation rules rather than used as spectacle on its own.</p>
+        <p class="case-cn" lang="zh-CN">同时，夸张和怪诞的视觉元素在与角色职能、空间层级以及资源累积规则直接对应时，比单纯作为视觉冲击出现更有效。</p>
+      </div>
+    </section>
     <section class="poop-research">
-      <header><span>02</span><div><h3>Research & Conference Presentations</h3><p>论文与会议展示</p></div></header>
+      <header><span>08</span><div><h3>Research & Conference Presentations</h3><p>论文与会议展示</p></div></header>
       <div class="bilingual-pair"><p class="poop-method" lang="en">Successive VR prototypes tested how unequal rules, delayed feedback and constrained movement could make bodily commodification felt rather than merely described.</p><p class="case-cn" lang="zh">通过多轮 VR 原型，测试不平等规则、延迟反馈与受限行动如何让身体商品化成为可感的体验，而不只是文字描述。</p></div>
       <div class="poop-paper-grid">
         <article><img data-src="assets/projects/poopslaves/research/hcii-poster.webp" alt="HCII poster for Visceral Interaction" loading="lazy"><div class="poop-paper-copy"><h4>HCII 2026 · Late Breaking Work</h4><p>Visceral Interaction: Operationalizing Cognitive Friction through Rule-Based VR Economic Simulation</p><a href="https://scholar.google.com/scholar?q=Visceral+Interaction+Operationalizing+Cognitive+Friction+through+Rule-Based+VR+Economic+Simulation" target="_blank" rel="noreferrer">Paper record / 论文链接 ↗</a></div></article>
@@ -1066,7 +1120,7 @@ function renderPoopSlaves() {
       </div>
     </section>
     <section class="poop-graduation">
-      <header><span>03</span><div><h3>HIT Outstanding Graduation Project</h3><p>哈尔滨工业大学优秀毕业设计</p></div></header>
+      <header><span>09</span><div><h3>HIT Outstanding Graduation Project</h3><p>哈尔滨工业大学优秀毕业设计</p></div></header>
       <div class="bilingual-pair"><p class="poop-graduation-lead" lang="en">PoopSlaves was presented as Yutong Chen's undergraduate graduation project at Harbin Institute of Technology and received recognition as an Outstanding Graduation Project.</p><p class="case-cn" lang="zh">PoopSlaves 作为陈宇同在哈尔滨工业大学的本科毕业设计进行展出，并获评优秀毕业设计。</p></div>
       <div class="poop-honour-grid">
         <figure><img data-src="assets/projects/poopslaves/research/graduation-display.webp" alt="PoopSlaves undergraduate graduation exhibition display" loading="lazy"><figcaption>Graduation exhibition / 本科毕业设计陈列</figcaption></figure>
@@ -1074,7 +1128,7 @@ function renderPoopSlaves() {
         <figure><img data-src="assets/projects/poopslaves/research/graduation-certificate.webp" alt="Outstanding Graduation Project certificate" loading="lazy"><figcaption>Outstanding Graduation Project certificate / 优秀毕业设计证书</figcaption></figure>
       </div>
     </section>
-    <section class="portfolio-series"><header><span>04</span><div><h3>MA Application Portfolio Series</h3><p>硕士申请作品集系列套图 · Original full-resolution spreads</p></div><small>Drag or scroll horizontally / 左右滑动</small></header><div class="portfolio-rail">${poopPortfolioSeries.map((src, i) => `<figure><img data-src="${src}" alt="PoopSlaves MA application portfolio spread ${i + 1}" loading="lazy"><figcaption>${String(i + 1).padStart(2, "0")} / ${String(poopPortfolioSeries.length).padStart(2, "0")}</figcaption></figure>`).join("")}</div></section>`;
+    <section class="portfolio-series"><header><span>10</span><div><h3>MA Application Portfolio Series</h3><p>硕士申请作品集系列套图 · Original full-resolution spreads</p></div><small>Drag or scroll horizontally / 左右滑动</small></header><div class="portfolio-rail">${poopPortfolioSeries.map((src, i) => `<figure><img data-src="${src}" alt="PoopSlaves MA application portfolio spread ${i + 1}" loading="lazy"><figcaption>${String(i + 1).padStart(2, "0")} / ${String(poopPortfolioSeries.length).padStart(2, "0")}</figcaption></figure>`).join("")}</div></section>`;
   const hero = document.querySelector(".case-hero");
   hero.style.backgroundImage = `linear-gradient(90deg,rgba(0,0,0,.82),rgba(0,0,0,.12)),url('${media("assets/projects/poopslaves/cover/cover.webp")}')`;
   let outcomeIndex = 0;
