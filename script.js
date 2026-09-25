@@ -941,7 +941,7 @@ function fillNote() {
               <img class="poop-paper-media-image is-active" data-src="assets/projects/plantievers-illusion/research/creativity-cognition-poster.webp" alt="ACM Creativity and Cognition 2026 poster for Unsettling the Auspicious Pine" loading="lazy" decoding="async">
               <img class="poop-paper-media-image" data-src="assets/projects/plantievers-illusion/research/creativity-cognition-photo.webp" alt="Unsettling the Auspicious Pine presented at ACM Creativity and Cognition 2026" loading="lazy" decoding="async">
               <span class="poop-paper-count">01 / 02</span>
-              <button class="poop-paper-arrow" type="button" aria-label="Show C&amp;C presentation documentation"><span>›</span></button>
+              <button class="poop-paper-arrow" type="button" aria-label="Show C&amp;C presentation documentation"><span>→</span></button>
             </div>
             <div class="poop-paper-copy"><h4>ACM Creativity &amp; Cognition 2026</h4><p>Unsettling the Auspicious Pine: A Digitally Mediated Moving-Image Installation for Reflective Reinterpretation</p><a href="https://scholar.google.com/citations?view_op=view_citation&amp;hl=en&amp;user=yYgrzP8AAAAJ&amp;citation_for_view=yYgrzP8AAAAJ:u5HHmVD_uO8C" target="_blank" rel="noreferrer">Google Scholar / 查看论文 ↗</a></div>
           </article>
@@ -980,8 +980,8 @@ function fillNote() {
         <footer class="plantiever-gallery-footer">
           <div class="plantiever-gallery-caption"><p>Value Machine — Final outcome</p><span>Image 01 / ${String(valueMachineOutcomeGallery.length).padStart(2, "0")}</span></div>
           <div class="plantiever-gallery-controls">
-            <button type="button" data-value-direction="-1" aria-label="Previous image">‹</button>
-            <button type="button" data-value-direction="1" aria-label="Next image">›</button>
+            <button type="button" data-value-direction="-1" aria-label="Previous image">←</button>
+            <button type="button" data-value-direction="1" aria-label="Next image">→</button>
           </div>
         </footer>
       </section>`,
@@ -1079,7 +1079,7 @@ function renderPoopSlaves() {
     <section class="poop-results">
       <header><span>01</span><div><h3>Final Outcomes</h3><p>最终成果 · RCA homepage-style feature carousel</p></div></header>
       <div class="poop-rca-carousel" aria-label="PoopSlaves final outcomes">
-        <button class="poop-rca-arrow poop-rca-arrow--prev" data-poop-direction="-1" aria-label="Previous outcome"><span>‹</span></button>
+        <button class="poop-rca-arrow poop-rca-arrow--prev" data-poop-direction="-1" aria-label="Previous outcome"><span>←</span></button>
         <figure class="poop-rca-slide" aria-live="polite">
           <img src="${outcomes[0].image}" alt="PoopSlaves final outcome 1 of ${outcomes.length}" loading="eager">
           <figcaption>
@@ -1089,10 +1089,10 @@ function renderPoopSlaves() {
             <p class="case-cn poop-rca-cn">${outcomes[0].cn}</p>
           </figcaption>
         </figure>
-        <button class="poop-rca-arrow poop-rca-arrow--next" data-poop-direction="1" aria-label="Next outcome"><span>›</span></button>
+        <button class="poop-rca-arrow poop-rca-arrow--next" data-poop-direction="1" aria-label="Next outcome"><span>→</span></button>
         <div class="poop-rca-mobile-controls" aria-label="Outcome gallery controls">
-          <button data-poop-direction="-1" aria-label="Previous outcome"><span>‹</span></button>
-          <button data-poop-direction="1" aria-label="Next outcome"><span>›</span></button>
+          <button data-poop-direction="-1" aria-label="Previous outcome"><span>←</span></button>
+          <button data-poop-direction="1" aria-label="Next outcome"><span>→</span></button>
         </div>
       </div>
     </section>
@@ -1160,7 +1160,7 @@ function renderPoopSlaves() {
             <img class="poop-paper-media-image is-active" data-src="assets/projects/poopslaves/research/creativity-cognition-poster.webp" alt="Creativity and Cognition poster for Excremental Economy" loading="lazy" decoding="async">
             <img class="poop-paper-media-image" data-src="assets/projects/poopslaves/research/creativity-cognition-photo.webp" alt="PoopSlaves poster presented at Creativity and Cognition" loading="lazy" decoding="async">
             <span class="poop-paper-count">01 / 02</span>
-            <button class="poop-paper-arrow" type="button" aria-label="Show C&amp;C presentation documentation"><span>›</span></button>
+            <button class="poop-paper-arrow" type="button" aria-label="Show C&amp;C presentation documentation"><span>→</span></button>
           </div>
           <div class="poop-paper-copy"><h4>ACM Creativity & Cognition 2026</h4><p>Excremental Economy: A Rule-Based Speculative System for Staging Bodily Commodification and Unequal Value Extraction</p><a href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=yYgrzP8AAAAJ&citation_for_view=yYgrzP8AAAAJ:u-x6o8ySG0sC" target="_blank" rel="noreferrer">Google Scholar / 查看论文 ↗</a></div>
         </article>
