@@ -70,7 +70,7 @@ html,body,.site-shell,.home-screen,.stage,.panel,.project-note{background:#000;c
 
 .panel-head,.case-head{background:#000;color:#fff;border-bottom-color:#fff}
 .project-list{border-left-color:#fff}
-.project-item{color:#fff;border-right-color:#fff;border-bottom-color:#fff}
+.project-item{color:#fff;border-right:0;border-bottom-color:#fff}
 .project-item span,.project-item em{color:#aaa}
 .category-intro{border-bottom-color:#fff}
 .about-grid{border-color:#fff}
@@ -424,6 +424,12 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
 .about-resume .cv-groups{display:grid;gap:1.5rem}
 .about-resume .cv-group h3{margin:0 0 .75rem;font-size:.82rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
 .about-resume .cv-group p{margin:0;line-height:1.55}
+.cv-chip-list{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}
+.cv-chip-list li{margin:0}
+.cv-chip-list a,.cv-chip-list span{display:inline-flex;align-items:center;min-height:30px;padding:5px 11px;border:1px solid #777;border-radius:999px;background:#111;color:#fff;font-size:13px;line-height:1.25;text-decoration:none;white-space:nowrap}
+.cv-chip-list a{transition:background-color .18s,color .18s,border-color .18s}
+.cv-chip-list a:hover,.cv-chip-list a:focus-visible{border-color:#fff;background:#fff;color:#000;outline:0}
+.cv-contact-intro{margin:0 0 14px!important}
 
 /* RCA 2026 profile rhythm: bounded hero image, then full-width biography */
 .about-cv{
@@ -464,7 +470,7 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
   border-bottom:0!important;
 }
 .about-resume>header h1{font-size:clamp(3rem,6.8vw,7.2rem)}
-.about-resume>.about-summary{margin:0!important;font-size:clamp(1rem,1.3vw,1.25rem)}
+.about-resume>.about-summary{margin:0!important;font-size:16px}
 .about-resume>section{
   grid-column:1/-1;
   padding-block:clamp(1.5rem,2.5vw,2.5rem);
@@ -581,9 +587,11 @@ img.media-switching{opacity:0!important}
 .about-resume>header h2 span{
   display:block;
   margin-top:.55rem;
-  font-size:.34em;
+  font-size:16px;
+  line-height:1.35;
   letter-spacing:0;
 }
+.about-resume>header p{font-size:16px!important;line-height:1.55!important}
 .about-resume>section>h2{
   margin:0;
   font-size:16px;
@@ -634,6 +642,8 @@ img.media-switching{opacity:0!important}
   line-height:1.25;
   white-space:nowrap;
 }
+.about-resume>.cv-chip-section{display:grid;grid-template-columns:minmax(180px,220px) minmax(0,1fr);column-gap:clamp(24px,4vw,56px);align-items:start}
+.cv-chip-section .cv-groups{gap:18px}
 
 
 
