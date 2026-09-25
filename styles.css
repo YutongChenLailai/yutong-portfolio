@@ -265,9 +265,9 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
 .poop-rca-slide h4{margin:0 0 .8rem;font-size:clamp(1.65rem,2.35vw,2.8rem);line-height:1.08;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.12em}
 .poop-rca-copy{margin:0!important;color:#bbb!important;font-size:clamp(1rem,1.4vw,1.35rem)!important;line-height:1.45}
 .poop-rca-cn{margin:.8rem 0 0!important;max-width:46rem;color:#888!important}
-.poop-rca-arrow,.poop-rca-mobile-controls button{display:grid;place-items:center;width:58px;height:58px;padding:0;border:1px solid #aaa;border-radius:50%;background:#000;color:#fff;transition:background .2s,color .2s,border-color .2s}
+.poop-rca-arrow,.poop-rca-mobile-controls button{display:grid;place-items:center;width:44px;height:44px;padding:0;border:1px solid #fff;border-radius:50%;background:#000;color:#fff;transition:background .18s,color .18s,border-color .18s}
 .poop-rca-arrow{position:absolute;top:min(16.13vw,290px);transform:translateY(-50%);z-index:2}
-.poop-rca-arrow span,.poop-rca-mobile-controls span{font-size:2.2rem;font-weight:300;line-height:.7;transform:translateY(-2px)}
+.poop-rca-arrow span,.poop-rca-mobile-controls span{font-size:22px;font-weight:300;line-height:1}
 .poop-rca-arrow:hover,.poop-rca-mobile-controls button:hover{background:#fff;color:#000;border-color:#fff}
 .poop-rca-arrow--prev{left:8%}.poop-rca-arrow--next{right:8%}
 .poop-rca-mobile-controls{display:none}
@@ -283,8 +283,8 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
 .poop-paper-media-image{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .28s ease;will-change:opacity}
 .poop-paper-media-image.is-active{opacity:1}
 .poop-paper-count{position:absolute;left:1rem;bottom:1rem;padding:.45rem .65rem;background:rgba(0,0,0,.72);color:#fff;font-size:12px;letter-spacing:.08em}
-.poop-paper-arrow{position:absolute;right:1.2rem;top:50%;display:grid;place-items:center;width:54px;height:54px;padding:0;transform:translateY(-50%);border:1px solid #fff;border-radius:50%;background:rgba(0,0,0,.78);color:#fff;z-index:2;transition:background .2s,color .2s}
-.poop-paper-arrow span{font-size:2.25rem;line-height:.75;transform:translateY(-2px)}
+.poop-paper-arrow{position:absolute;right:1.2rem;top:50%;display:grid;place-items:center;width:44px;height:44px;padding:0;transform:translateY(-50%);border:1px solid #fff;border-radius:50%;background:#000;color:#fff;z-index:2;transition:background .18s,color .18s}
+.poop-paper-arrow span{font-size:22px;line-height:1}
 .poop-paper-arrow:hover{background:#fff;color:#000}
 .poop-conference-photo{width:min(420px,55%);margin:2rem 0 0 auto}.poop-conference-photo img{display:block;width:100%;height:auto}
 .poop-graduation-lead{max-width:800px;font-size:clamp(1.3rem,2.2vw,2.3rem);line-height:1.2}
@@ -339,8 +339,8 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
 .plantiever-gallery-caption p{margin:0;font-size:.9rem}
 .plantiever-gallery-caption span{font:500 .65rem DM Mono,monospace;color:#555}
 .plantiever-gallery-controls{grid-column:3;display:flex;align-items:flex-start;gap:.75rem;padding:1rem}
-.plantiever-gallery-controls button{display:grid;place-items:center;width:3.25rem;height:3.25rem;padding:0;border:1px solid #777;border-radius:50%;background:#fff;color:#000;font:300 2rem/1 Arial,sans-serif;cursor:pointer;transition:background .18s,color .18s,border-color .18s}
-.plantiever-gallery-controls button:hover,.plantiever-gallery-controls button:focus-visible{background:#000;color:#fff;border-color:#000}
+.plantiever-gallery-controls button{display:grid;place-items:center;width:44px;height:44px;padding:0;border:1px solid #fff;border-radius:50%;background:#000;color:#fff;font:300 22px/1 Arial,sans-serif;cursor:pointer;transition:background .18s,color .18s,border-color .18s}
+.plantiever-gallery-controls button:hover,.plantiever-gallery-controls button:focus-visible{background:#fff;color:#000;border-color:#fff}
 
 
 
@@ -421,6 +421,9 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
   line-height:1.45;
 }
 .about-resume dd{padding-bottom:.25rem}
+.about-resume .cv-groups{display:grid;gap:1.5rem}
+.about-resume .cv-group h3{margin:0 0 .75rem;font-size:.82rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.about-resume .cv-group p{margin:0;line-height:1.55}
 
 /* RCA 2026 profile rhythm: bounded hero image, then full-width biography */
 .about-cv{
@@ -1303,7 +1306,7 @@ button:disabled{cursor:wait;opacity:.55}
   .poop-note #case-sections{position:relative;z-index:2;margin-inline:0;background:#000}
   .poop-note.plantiever-note .case-hero{background-image:url('assets/projects/plantievers-illusion/cover/hero-mobile-hd.webp?v=mobile-hd-1')!important}
   .poop-note.value-note .case-hero{background-image:url('assets/projects/value-machine/cover/cover-mobile.webp?v=bb51a916')!important}
-  .poop-note.fetorium-note .case-hero{background-image:url('assets/projects/fetorium/cover/detail-hero-mobile.webp?v=08e5138f')!important}
+  .poop-note.fetorium-note .case-hero{background-image:url('assets/projects/fetorium/cover/detail-hero.webp?v=08e5138f')!important}
   .poop-note:not(.plantiever-note):not(.value-note):not(.fetorium-note) .case-hero{background-position:center!important}
 
   #case-sections{--section-space:52px;--section-gap:22px}
@@ -1321,11 +1324,11 @@ button:disabled{cursor:wait;opacity:.55}
   .case-insights li{grid-template-columns:2rem minmax(0,1fr);gap:8px 10px}.case-insights li::before{position:static}.case-insights strong{padding-left:0}.case-insights .case-cn{grid-column:2}
   .outcome-image,.process-frame img{width:100%;max-width:100%;height:auto;max-height:none;margin-top:24px!important;border:0;object-fit:contain}
 
-  .poop-rca-carousel{min-height:0;padding-bottom:20px}.poop-rca-slide{width:100%;touch-action:pan-y}.poop-rca-slide>img{width:calc(100% + var(--page-edge)*2);max-width:none;margin-inline:calc(var(--page-edge)*-1);aspect-ratio:16/10;object-fit:cover}.poop-rca-slide figcaption{width:100%;min-height:0;padding:18px 0 22px}.poop-rca-slide h4{font-size:25px}.poop-rca-arrow{display:none}.poop-rca-mobile-controls{display:flex;justify-content:space-between;padding-top:12px;border-top:1px solid #555}.poop-rca-mobile-controls button{width:48px;height:48px}
+  .poop-rca-carousel{min-height:0;padding-bottom:20px}.poop-rca-slide{width:100%;touch-action:pan-y}.poop-rca-slide>img{width:calc(100% + var(--page-edge)*2);max-width:none;margin-inline:calc(var(--page-edge)*-1);aspect-ratio:16/10;object-fit:cover}.poop-rca-slide figcaption{width:100%;min-height:0;padding:18px 0 22px}.poop-rca-slide h4{font-size:25px}.poop-rca-arrow{display:none}.poop-rca-mobile-controls{display:flex;justify-content:space-between;padding-top:12px;border-top:1px solid #555}.poop-rca-mobile-controls button{width:42px;height:42px}
   .poop-paper-grid,.poop-honour-grid{grid-template-columns:1fr}.poop-paper-grid article,.plantiever-paper-grid article{grid-template-rows:minmax(300px,62dvh) auto}.poop-paper-copy{padding:16px!important}.poop-honour-grid img{height:auto;max-height:none;object-fit:contain}
 
   .plantiever-gallery{width:calc(100% + var(--page-edge)*2);margin-inline:calc(var(--page-edge)*-1);background-image:none!important;border:0!important}
-  .plantiever-gallery-stage{grid-template-columns:0 minmax(0,1fr) 0;aspect-ratio:16/10}.plantiever-gallery-peek{visibility:hidden}.plantiever-gallery-main{border:0}.plantiever-gallery-footer{grid-template-columns:minmax(0,1fr) auto;min-height:68px;border:0!important;border-top:1px solid var(--quiet-rule)!important}.plantiever-gallery-caption{grid-column:1;padding:12px var(--page-edge)}.plantiever-gallery-controls{grid-column:2;padding:10px 12px}.plantiever-gallery-controls button{width:48px;height:48px}
+  .plantiever-gallery-stage{grid-template-columns:0 minmax(0,1fr) 0;aspect-ratio:16/10}.plantiever-gallery-peek{visibility:hidden}.plantiever-gallery-main{border:0}.plantiever-gallery-footer{grid-template-columns:minmax(0,1fr) auto;min-height:68px;border:0!important;border-top:1px solid var(--quiet-rule)!important}.plantiever-gallery-caption{grid-column:1;padding:12px var(--page-edge)}.plantiever-gallery-controls{grid-column:2;padding:10px 12px}.plantiever-gallery-controls button{width:42px;height:42px}
   .portfolio-series>header>small{display:none}.portfolio-rail{gap:12px;width:calc(100% + var(--page-edge)*2);margin-inline:calc(var(--page-edge)*-1);padding:0 var(--page-edge) 14px!important;scroll-padding-left:var(--page-edge);scrollbar-width:none}.portfolio-rail::-webkit-scrollbar{display:none}.portfolio-rail figure{flex:0 0 calc(100% - var(--page-edge)*2);min-width:0}.portfolio-rail img{width:100%!important;max-width:100%!important;margin:0!important}
 
   .about-cv{grid-template-columns:1fr;margin-inline:calc(var(--page-edge)*-1)}.about-portrait{height:42svh;padding:16px!important}.about-resume{display:block;padding:34px var(--page-edge)!important}.about-resume>header h2{font-size:38px}.about-resume>section{display:block!important;padding-block:28px!important}.about-resume dl{grid-template-columns:62px minmax(0,1fr);gap:18px 14px}.research-copy{grid-template-columns:1fr;gap:18px}

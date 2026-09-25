@@ -1,4 +1,4 @@
-const MEDIA_REVISION = "20260924-vivid";
+const MEDIA_REVISION = "20260925-content";
 const VALUE_MACHINE_COVER_REVISION = "bb51a916";
 const VIVID_PLATFORM_URL = "https://community-memory-prototype.vercel.app/";
 const media = (src) =>
@@ -189,17 +189,17 @@ const projects = [
   },
   {
     title: "Fetorium",
-    role: "A social anatomy of stench.",
-    medium: "installation · facial detection · media art",
+    role: "Perceiving smell without physical odor.",
+    medium: "interactive installation · experimental media art",
     image: "assets/projects/fetorium/cover/cover.webp",
-    copy: "Responsive puppets and facial recognition turn imagined odour into visible feedback, revealing how disgust and social boundaries are produced.",
+    copy: "An odorless interactive installation that turns facial reactions to odor-associated imagery into the expansion and turbulence of a digital Odor Seed.",
   },
   {
     title: "Plated Fantasies",
-    role: "A sensory dining fiction.",
-    medium: "installation · TouchDesigner · perception",
+    role: "Reframing food perception through multisensory interaction.",
+    medium: "sensory interaction · perception · interactive installation",
     image: "assets/projects/plated-fantasies/cover/cover.webp",
-    copy: "An interactive table stages food as a culturally conditioned image, asking when appetite belongs to the body and when it is learned.",
+    copy: "A tactile food interface that uses sound and moving image to make learned cultural and media associations visible again.",
   },
   {
     title: "Closet X",
@@ -231,10 +231,10 @@ const projects = [
   },
   {
     title: "VIVID",
-    role: "Visualising Interwoven Voices through Iterative Documentation.",
-    medium: "platform",
+    role: "An AI-assisted platform for revisiting community memories.",
+    medium: "human–AI interaction · place-based memory · participatory design",
     image: "assets/projects/vivid/cover/cover.webp",
-    copy: "Visualising Interwoven Voices through Iterative Documentation.",
+    copy: "A generative-AI-assisted platform through which residents revisit, correct, and discuss place-based community memories.",
   },
 ];
 const projectThumbnail = (src) =>
@@ -248,26 +248,26 @@ const caseCn = [
   "以动态影像和空间装置重组传统吉祥符号，在熟悉与陌生之间激活文化记忆。",
   "沉浸式交互如何塑造用户对历史真实性、文化身份与叙事权力的理解？",
   "邀请观众参与艺术生产与定价，揭示声誉如何制造价值。",
-  "通过响应式木偶与面部识别，把“臭味”造成的社会边界转化成可见反馈。",
-  "把餐桌变成感知实验，讨论食欲来自身体还是被训练的文化想象。",
+  "一个没有真实气味的交互装置，将观众面对气味关联影像时的面部反应转化为数字 Odor Seed 的膨胀与躁动。",
+  "将食物转化为触觉界面，通过声音与动态影像让习惯性的文化和媒体联想重新变得可见。",
   "连接衣物识别、个人造型、虚拟试穿与可持续管理的智能衣橱。",
   "用增强现实与分层导航连接哈尔滨历史街区、档案故事与当代行走。",
   "研究恐惧如何被环境、制度与社会传播持续喂养的实验影像。",
   "Drown in Algae 探索如何通过生命界面与反馈机制，让不可见的污染、生态修复及其环境价值变得可感知、可理解、可参与。",
-  "",
+  "一个支持居民重新讲述、修正并讨论社区空间记忆的生成式 AI 交互平台。",
 ];
 const projectTags = [
   ["Critical Design", "VR", "Speculative"],
   ["Culture", "Moving Image", "Installation"],
   ["Cultural Heritage", "VR", "Narrative"],
   ["Art & Value", "Installation", "Participation"],
-  ["Social Behaviour", "Interactive Installation", "Technology"],
-  ["Food Culture", "Installation", "Perception"],
+  ["Interactive Installation", "MediaPipe", "Perception"],
+  ["Sensory Interaction", "Arduino", "TouchDesigner"],
   ["Product Design", "AI", "UX"],
   ["Cultural Heritage", "AR", "Architecture"],
   ["Moving Image", "Social Psychology"],
   ["Ecology", "Bio-art", "Installation"],
-  ["Platform"],
+  ["Human–AI Interaction", "Community Memory", "Platform"],
 ];
 const projectVideos = [
   [
@@ -768,7 +768,7 @@ function fillNote() {
     "poop-note",
     ["PoopSlaves", "Plantiever’s Illusion", "Value Machine", "Fetorium", "Plated Fantasies", "Closet X", "Navigating the Past", "VIVID", "Feeding Fear / PEEEP", "Drown in Algae", "The Forbidden Hue"].includes(p.title),
   );
-  note.classList.toggle("single-video-note", videos.length === 1);
+  note.classList.toggle("single-video-note", videos.length === 1 || p.title === "VIVID");
   note.classList.toggle("plantiever-note", p.title === "Plantiever’s Illusion");
   note.classList.toggle("value-note", p.title === "Value Machine");
   note.classList.toggle("fetorium-note", p.title === "Fetorium");
@@ -782,9 +782,7 @@ function fillNote() {
     "The Forbidden Hue": p.image,
   };
   const caseHero = document.querySelector(".case-hero");
-  let detailHeroImage = detailHeroImages[p.title];
-  if (p.title === "Plated Fantasies" && innerWidth <= 1200)
-    detailHeroImage = `assets/projects/plated-fantasies/detail/hero-${innerWidth <= 640 ? "480" : "960"}.jpg`;
+  const detailHeroImage = detailHeroImages[p.title];
   if (detailHeroImage)
     caseHero.style.setProperty("background-image", `url('${media(detailHeroImage)}')`, "important");
   else caseHero.style.removeProperty("background-image");
@@ -809,7 +807,7 @@ function fillNote() {
     return;
   }
   const leadWithDesignSection = ["Closet X", "Navigating the Past"].includes(p.title);
-  const sections = ["Fetorium", "Plated Fantasies", "Drown in Algae", "VIVID"].includes(p.title) || leadWithDesignSection
+  const sections = ["Plantiever’s Illusion", "Fetorium", "Plated Fantasies", "Drown in Algae", "VIVID"].includes(p.title) || leadWithDesignSection
     ? []
     : [["01", "Final outcome", "最终成果", p.copy, caseCn[current]]];
   const detailOutcomeImages = {
@@ -828,19 +826,30 @@ function fillNote() {
   const appendOutcome = () =>
     container.insertAdjacentHTML("beforeend", `<section class="case-section"><div class="case-label"><span>${String(sectionNumber++).padStart(2, "0")}</span><h3>Final outcome<small>最终成果</small></h3></div><div class="case-body"><div class="bilingual-pair"><p lang="en">${p.copy}</p><p class="case-cn" lang="zh-CN">${caseCn[current]}</p></div><img class="outcome-image" data-src="${outcomeImage}" alt="${p.title} final outcome" loading="lazy" decoding="async"></div></section>`);
   if (p.title === "Drown in Algae") {
-    container.insertAdjacentHTML("beforeend", `<section class="case-section case-editorial-section"><div class="case-label"><span>${String(sectionNumber++).padStart(2, "0")}</span><h3>Perceptual gap &amp; environmental value<small>感知落差与环境价值</small></h3></div><div class="case-body case-editorial">
-      <div class="bilingual-pair"><p lang="en">How can people perceive pollution once it no longer appears visibly polluted? Oil spills are initially highly visible, yet as oil disperses, dilutes, and weathers, its visual traces gradually disappear while its ecological impacts may persist.</p><p class="case-cn" lang="zh">当污染不再“看起来像污染”时，人们如何感知它仍然存在？石油泄漏最初往往高度可见，但随着扩散、稀释与风化，视觉痕迹会逐渐消失，而生态影响可能持续存在。</p></div>
-      <div class="bilingual-pair"><p lang="en">The project examines the perceptual gap between environmental conditions and public awareness, reframing algae as a biological interactive interface. It further introduces a carbon-credit mechanism that translates ecological remediation data into traceable environmental-value feedback, exploring the relationships between public participation, corporate incentives, and environmental governance.</p><p class="case-cn" lang="zh">本项目关注环境真实状态与公众感知之间的“感知落差”，并将藻类重新定义为一种生物交互界面。在此基础上，项目进一步引入碳积分机制，将生态修复数据转化为可追踪的环境价值反馈，探索公众参与、企业激励与生态治理之间的互动关系。</p></div>
-      <img class="outcome-image" data-src="${p.image}" alt="Drown in Algae final outcome" loading="lazy" decoding="async">
-    </div></section>`);
+    appendEditorial("Overview", "项目概述", `
+      <div class="bilingual-pair"><p lang="en">Drown in Algae begins with coastal oil pollution in Zhoushan and asks how an environmental process that is difficult for the public to perceive can become visible. The project proposes an eco-art system built around an algal biofilm that participates in oil-pollution remediation and carbon fixation. The installation translates these slow ecological processes into observable information, treating remediation itself as a public interface.</p><p class="case-cn" lang="zh-CN">Drown in Algae 从舟山沿海的石油污染问题出发，探索如何让难以被公众持续感知的海洋污染变得可见。项目提出一套以藻类生物膜为核心的生态艺术系统，设想利用藻类参与石油污染处理与二氧化碳固定，并将缓慢发生的生态过程转化为可观察的信息，让修复本身成为一种公共界面。</p></div>`);
+    appendEditorial("Research Question", "研究问题", `
+      <div class="bilingual-pair poop-question"><p lang="en">How can invisible marine pollution be made perceptible, and how can people see remediation as it happens?</p><p class="case-cn" lang="zh-CN">我们如何让难以直接感知的海洋污染变得可见，并让公众理解修复正在如何发生？</p></div>`);
+    appendEditorial("From Pollution to Perception", "从污染到感知", `
+      <div class="bilingual-pair"><p lang="en">Oil pollution does not always remain visibly black. Once dispersed, diluted, or left as a persistent residue, its ecological damage can become distant from everyday experience. Drown in Algae gives visible form to algal growth, pollutant removal, and carbon capture so that slow environmental change can be perceived.</p><p class="case-cn" lang="zh-CN">石油污染并不总是以黑色油污的形式出现。污染在海洋环境中扩散、稀释或长期残留后，生态损害会与公众的日常经验产生距离。Drown in Algae 将藻类生长、污染物处理和碳吸收转化为可见表达，使缓慢的环境变化能够被感知。</p></div>`);
+    appendEditorial("System Logic", "系统逻辑", `
+      <div class="bilingual-pair"><p class="case-flow" lang="en">Polluted Water → Algae-Based Installation → Pollutant Removal → Algal Growth → Environmental Data → Visual Feedback</p><p class="case-cn case-flow" lang="zh-CN">污染海水 → 藻类生态装置 → 污染物处理 → 藻类生长 → 环境数据记录 → 可视化反馈</p></div>
+      <div class="bilingual-pair"><p lang="en">The algal biofilm performs an ecological role while the visual layer translates water conditions, growth, and remediation progress into public-facing information.</p><p class="case-cn" lang="zh-CN">藻类生物膜承担生态功能，视觉层则把水质、藻类生长与修复进度转化为公众可以理解的信息。</p></div>`);
+    appendEditorial("Prototype & Estimation", "原型与效能估算", `
+      <div class="bilingual-pair"><p lang="en">The prototype contains approximately <strong>1,342.7 cm²</strong> of effective algal biofilm. Using the design assumptions of 0.1 mg/cm²/day oil-removal efficiency and 10 mg/L pollution concentration, its theoretical capacity is approximately <strong>134.27 mg of oil, or 13.4 L of seawater, per day</strong>. These are design-stage estimates, not validated field-performance measurements.</p><p class="case-cn" lang="zh-CN">原型中的藻类生物膜有效面积约为 <strong>1342.7 cm²</strong>。按设计阶段采用的 0.1 mg/cm²/day 净化效率和 10 mg/L 污染浓度估算，理论每日处理量约为 <strong>134.27 mg 石油，即约 13.4 L 海水</strong>。这些数字用于估算装置尺度，并非实际环境部署后的性能验证。</p></div>`);
+    appendEditorial("Beyond Remediation", "从修复到公共参与", `
+      <div class="bilingual-pair"><p lang="en">The project proposes recording algal growth, pollutant removal, and carbon-fixation data and translating them into a public visual interface. If carbon fixation could later be reliably measured and certified, it might connect to carbon-credit mechanisms as a possible source of long-term operational support. This remains a proposed system model rather than an implemented trading system.</p><p class="case-cn" lang="zh-CN">项目设想持续记录藻类生长、污染处理与碳固定数据，并通过公共视觉界面呈现。如果未来碳固定能够被可靠测量、核算和认证，其环境效益可能进一步连接碳积分机制，为生态装置的长期运行提供支持。这是系统构想，并非已经实现的交易系统。</p></div>
+      <div class="bilingual-pair"><p class="case-flow" lang="en">Restore the environment · Reveal ecological change · Support public engagement</p><p class="case-cn case-flow" lang="zh-CN">修复环境 · 呈现变化 · 建立公众参与</p></div>
+      <img class="outcome-image" data-src="${p.image}" alt="Drown in Algae ecological installation" loading="lazy" decoding="async">`);
   }
   if (p.title === "Plated Fantasies") {
-    container.insertAdjacentHTML("beforeend", `<section class="case-section case-editorial-section"><div class="case-label"><span>${String(sectionNumber++).padStart(2, "0")}</span><h3>Research through interaction<small>通过交互开展研究</small></h3></div><div class="case-body case-editorial">
-      <div class="bilingual-pair"><p lang="en">This project explores how repeated cultural and media representations gradually embed themselves in everyday perception, and asks why the same symbol can provoke different feelings across different relationships and social contexts — and how capitalism exploits this fluidity of association.</p><p class="case-cn" lang="zh">这个项目关注文化与媒体中反复出现的表征，如何逐渐渗入并塑造日常感知，并追问：为何同一个符号会在不同的关系与社会情境中引发不同的感受，而资本主义又是如何利用这种联想的流动性。</p></div>
-      <div class="bilingual-pair"><p class="case-flow" lang="en">Media &amp; Culture → Repetition → Sensory Association → Interactive Prototype → Reinterpretation</p><p class="case-cn case-flow" lang="zh">媒体与文化 → 重复 → 感官联想 → 互动原型 → 重新诠释</p></div>
-      <div class="bilingual-pair"><p lang="en">Rather than treating meaning as fixed, I use interactive prototypes to surface associations that usually go unnoticed. Through touch, sound, image, and movement, participants encounter familiar symbols in unfamiliar ways, actively reinterpreting their meanings.</p><p class="case-cn" lang="zh">我不把意义视为固定不变，而是借助互动原型，让通常不被注意的联想浮现。通过触觉、声音、影像与身体动作，参与者以陌生的方式重新遇见熟悉的符号，并主动重新诠释其意义。</p></div>
-      <div class="bilingual-pair"><p lang="en">For me, the prototype is not just a final outcome but a research method — a way to expose hidden perceptions, disrupt habitual interpretations, and observe how meaning shifts through interaction.</p><p class="case-cn" lang="zh">对我而言，原型不仅是最终的设计成果，更是一种研究方法：它能显现隐藏的感知，打断习以为常的理解方式，并观察意义如何在互动中生成变化。</p></div>
-    </div></section>`);
+    appendEditorial("Overview", "项目概述", `
+      <div class="bilingual-pair"><p lang="en">Plated Fantasies explores how our perception of familiar foods is shaped by learned cultural and media associations. The project turns food into a tactile interface: touching or pressing different objects triggers corresponding sounds and moving images, remapping familiar objects through multisensory feedback. It asks how we learn to interpret an object and how interaction can make habitual associations visible again.</p><p class="case-cn" lang="zh-CN">Plated Fantasies 探索我们对熟悉食物的感知如何受到文化经验和媒体影像的影响。项目将食物转化为可触摸的交互界面：参与者触碰或按压不同食物时，装置触发对应的声音与动态影像，通过多感官反馈重新映射熟悉物体。项目关注我们如何学会理解一个物体，以及交互如何让习惯性的联想重新变得可见。</p></div>`);
+    appendEditorial("Research Question", "研究问题", `
+      <div class="bilingual-pair poop-question"><p lang="en">How can sound, touch, and moving image reshape the way we interpret familiar objects?</p><p class="case-cn" lang="zh-CN">交互中的声音、触觉与影像，如何改变我们对熟悉物体的理解？</p></div>`);
+    appendEditorial("Interaction Logic", "交互逻辑", `
+      <div class="bilingual-pair"><p class="case-flow" lang="en">Touch / Press → Sensor Input → Audiovisual Response → Perceptual Remapping</p><p class="case-cn case-flow" lang="zh-CN">触碰 / 按压食物 → 传感器输入 → 声音与影像触发 → 感知重新映射</p></div>
+      <div class="bilingual-pair"><p lang="en">Participants touch or press different food objects. Arduino captures the sensor input and triggers corresponding sound and moving-image responses in TouchDesigner. Connecting tactile input with unexpected audiovisual feedback interrupts automatic interpretations of familiar objects.</p><p class="case-cn" lang="zh-CN">参与者触碰不同的食物装置后，Arduino 读取传感器输入，并触发 TouchDesigner 中对应的声音和动态影像。装置通过连接触觉输入与非预期的视听反馈，打断参与者对熟悉物体的自动判断。</p></div>`);
   }
   if (p.title === "The Forbidden Hue") {
     appendEditorial("Overview", "项目概述", `
@@ -873,21 +882,37 @@ function fillNote() {
     appendOutcome();
   }
   if (p.title === "Fetorium") {
-    container.insertAdjacentHTML("beforeend", `<section class="case-section case-editorial-section"><div class="case-label"><span>${String(sectionNumber++).padStart(2, "0")}</span><h3>Research question &amp; insights<small>研究问题与关键发现</small></h3></div><div class="case-body case-editorial">
-      <h4>Main RQ / 核心研究问题</h4>
-      <div class="bilingual-pair"><p lang="en">How can an interactive system reveal how visual, embodied, and social cues shape people’s anticipation and interpretation of odor in the absence of physical smell?</p><p class="case-cn" lang="zh">互动系统如何揭示在没有真实气味时，视觉、身体与社会线索如何共同影响人们对气味的预期与解释？</p></div>
-      <h4>Key Insights / 关键发现</h4>
-      <ol class="case-insights">
-        <li><strong>Smell can be anticipated before it is detected.</strong><span class="case-cn">视觉、语言与既有经验会使人在真正闻到气味之前，便已产生气味预期。</span></li>
-        <li><strong>“Stench” can become a social label.</strong><span class="case-cn">“臭”这一感官描述，可能延伸为对身体、职业、身份乃至文化的评判。</span></li>
-        <li><strong>Perception is relational.</strong><span class="case-cn">气味感知并非仅仅来自鼻子，也受到身体、空间、记忆与文化的共同影响。</span></li>
-      </ol>
-    </div></section>
-    <section class="case-section case-editorial-section"><div class="case-label"><span>${String(sectionNumber++).padStart(2, "0")}</span><h3>Embodied atmosphere<small>具身的感官氛围</small></h3></div><div class="case-body case-editorial">
-      <div class="bilingual-pair"><p lang="en">Research on atmosphere and sensory ethnography suggests that people do not experience a space through a single stimulus; perception is shaped jointly by bodily movement, spatial conditions, memory, sound, material, and social context.</p><p class="case-cn" lang="zh">关于氛围（atmosphere）与感官民族志（sensory ethnography）的研究指出，人对空间的感受并非由某一单一刺激决定，而是由身体移动、空间条件、记忆、声音、材料与社会经验共同形塑。</p></div>
-      <div class="bilingual-pair"><p lang="en">This informed the design of the white-sock tunnel. Rather than asking participants to simply look at the installation, I wanted them to bend, crawl, and physically enter the space.</p><p class="case-cn" lang="zh">这一思路直接影响了白袜隧道的设计——我不希望观众只是站在外面“看”作品，而是要让他们弯腰、爬行，真正进入这个空间。</p></div>
-      <div class="bilingual-pair"><p lang="en">Before participants even reach the main installation, the tunnel already reshapes their posture, distance, field of view, and sense of comfort. In this way, “stench” is presented not as a single smell but as an atmosphere gradually constructed through the body's encounter with the environment.</p><p class="case-cn" lang="zh">在抵达主装置之前，隧道已经预先改变了他们的身体姿势、观看距离、视野与舒适感。因此，“臭”并不是以单一气味的形式被呈现，而是在身体与环境的互动中逐渐建构出的一种感官氛围。</p></div>
-    </div></section>`);
+    appendEditorial("Overview", "项目概述", `
+      <div class="bilingual-pair"><p lang="en">Fetorium is an interactive installation and experimental media artwork with no physical odor. Participants view odor-associated but odorless visual material while a hidden camera captures changes in their facial expression. MediaPipe reads shifts in facial-landmark positions and sends those changes into TouchDesigner as real-time interaction input.</p><p class="case-cn" lang="zh-CN">Fetorium 是一个没有真实气味的交互装置与实验媒体艺术作品。参与者观看与“臭味”相关、但实际上无气味的视觉内容；隐藏摄像头捕捉他们的面部变化，MediaPipe 读取五官关键点的位置变化，并将表情变化作为实时交互输入发送至 TouchDesigner。</p></div>`);
+    appendEditorial("Core Question", "核心问题", `
+      <div class="bilingual-pair poop-question"><p lang="en">Why do we perceive something as “smelly” even when no odor is physically present?</p><p class="case-cn" lang="zh-CN">当气味并不存在时，我们为什么仍然会觉得某些东西“很臭”？</p></div>`);
+    appendEditorial("Interaction Logic", "交互逻辑", `
+      <div class="bilingual-pair"><p class="case-flow" lang="en">Odor-associated visual stimulus → Facial reaction → Camera → MediaPipe facial landmarks → TouchDesigner → Odor Seed expansion / turbulence</p><p class="case-cn case-flow" lang="zh-CN">气味关联视觉刺激 → 面部反应 → 摄像头 → MediaPipe 面部关键点 → TouchDesigner → Odor Seed 膨胀 / 躁动</p></div>
+      <div class="bilingual-pair"><p lang="en">When participants show visible disgust or discomfort, the Odor Seed expands and moves with greater turbulence. It does not simulate a real smell; it visualizes subjective perception and bodily reaction.</p><p class="case-cn" lang="zh-CN">当参与者出现明显的厌恶或不适表情时，Odor Seed 会膨胀，并产生更剧烈、更躁动的运动状态。它并非模拟真实气味，而是把人的主观感知与身体反应可视化。</p></div>`);
+    appendEditorial("Puppet Logic", "木偶设计逻辑", `
+      <div class="bilingual-pair"><p lang="en">A puppet can move only when manipulated by an external force. In Fetorium, this becomes a model for how judgments of “stench” can be shaped by inherited associations, social labels, and prejudice rather than direct sensory evidence.</p><p class="case-cn" lang="zh-CN">木偶只能在外力操纵下行动。在 Fetorium 中，这一逻辑对应人如何受到关于“臭”的既有联想、社会标签与偏见影响，而不只是依据直接的感官证据作出判断。</p></div>`);
+    appendEditorial("Research Context", "研究背景", `
+      <div class="bilingual-pair"><p lang="en">The project began with a childhood encounter with stink bugs and developed through exploratory interviews. Interviewees reported odor stereotypes and social associations attached to particular bodies, occupations, identities, or cultures. These accounts are treated as evidence of socially learned associations, not as objective descriptions of any group.</p><p class="case-cn" lang="zh-CN">项目源于童年时期对臭虫的经历，并通过探索性访谈继续发展。受访者讲述了与特定身体、职业、身份或文化相关的气味刻板印象与社会联想。项目将这些内容理解为社会习得的联想，而不是对任何群体“客观上很臭”的描述。</p></div>`);
+    appendEditorial("System Prototype", "系统原型", `
+      <div class="poop-system-grid"><article><h4>Camera</h4><p>Captures facial changes without introducing physical odor.</p><p class="case-cn">在没有真实气味的环境中捕捉面部变化。</p></article><article><h4>MediaPipe</h4><p>Reads changes in facial-landmark positions as interaction input.</p><p class="case-cn">读取面部关键点的位置变化并转化为交互输入。</p></article><article><h4>TouchDesigner</h4><p>Transforms facial reactions into Odor Seed expansion and turbulence.</p><p class="case-cn">将面部反应转化为 Odor Seed 的膨胀与躁动。</p></article><article><h4>Projection</h4><p>Returns the changing Odor Seed to the installation space in real time.</p><p class="case-cn">把变化中的 Odor Seed 实时投射回装置空间。</p></article></div>`);
+  }
+  if (p.title === "VIVID") {
+    appendEditorial("Overview", "项目概述", `
+      <div class="bilingual-pair"><p lang="en">Vivid is a generative-AI-assisted community memory prototype developed from interviews with approximately <strong>8–10 first-generation residents of Binjiang New Village</strong>. It combines map-based memory nodes, spoken descriptions, and editable AI-generated images. Generated images are treated as prompts for review rather than reconstructions of the past: residents can identify mismatches, add missing details, and continue narrating memories prompted by what they see.</p><p class="case-cn" lang="zh-CN">Vivid 是一个生成式 AI 辅助的社区记忆交互原型，基于对滨江新村约 <strong>8–10 位第一代居民</strong>的访谈展开。平台结合社区地图、居民口述与可编辑的 AI 生成图像。图像不被视为对过去的复原，而是供居民观看、判断与修正的对象；居民可以指出不符合记忆的地方、补充遗漏细节，并继续讲述由图像唤起的内容。</p></div>`);
+    appendEditorial("Research Question", "研究问题", `
+      <div class="bilingual-pair poop-question"><p lang="en">How can editable AI-generated images support residents in supplementing, correcting, and negotiating place-based memories?</p><p class="case-cn" lang="zh-CN">可编辑的 AI 生成图像如何支持居民补充、修正和协商社区空间记忆？</p></div>`);
+    appendEditorial("Interaction Flow", "交互流程", `
+      <div class="bilingual-pair"><p class="case-flow" lang="en">Map Node → Spoken Memory → AI Image → Review &amp; Correction → Further Recollection → Revised Version</p><p class="case-cn case-flow" lang="zh-CN">地图地点 → 口述记忆 → AI 图像 → 观看与修正 → 补充记忆 → 新版本</p></div>
+      <div class="poop-strategy-grid"><article><h4>1. Locate <small>找到地点</small></h4><p>Residents select a place associated with a memory from the community map.</p><p class="case-cn">居民从社区地图中选择一个与记忆相关的地点。</p></article><article><h4>2. Tell <small>讲述</small></h4><p>They describe remembered spaces, people, activities, and details through speech.</p><p class="case-cn">通过语音描述记忆中的空间、人物、活动和细节。</p></article><article><h4>3. Visualise <small>可视化</small></h4><p>The system turns the account into an image for review and discussion.</p><p class="case-cn">系统根据口述内容生成一张可供讨论的图像。</p></article><article><h4>4. Correct <small>修正</small></h4><p>Residents identify elements that do not match what they remember.</p><p class="case-cn">居民指出图像中不符合自己记忆的内容。</p></article><article><h4>5. Remember Again <small>再次回忆</small></h4><p>Reviewing the image may prompt details omitted from the initial account.</p><p class="case-cn">观看和纠错可能引出此前没有讲出的细节和故事。</p></article><article><h4>6. Revise <small>更新</small></h4><p>Corrections inform a new version while earlier versions remain traceable.</p><p class="case-cn">新的描述与修正进入下一版本，原有版本继续保留。</p></article></div>`);
+    appendEditorial("From Image Generation to Memory Interaction", "从生成图像到记忆交互", `
+      <div class="bilingual-pair"><p lang="en">Vivid does not treat image generation as the end of the interaction. The more important questions begin after the image appears: <strong>What feels wrong? What is missing? What did the image make you remember?</strong> AI acts as a mediating representation that externalises a memory so residents can inspect, question, and revise it.</p><p class="case-cn" lang="zh-CN">Vivid 并不把“生成一张图片”作为交互终点。更重要的交互发生在图像出现之后：<strong>哪里不对？还缺了什么？这张图又让你想起了什么？</strong> AI 主要承担中介作用，把难以完全通过语言表达的空间记忆暂时外化，让居民拥有一个可以观看、判断和修改的对象。</p></div>`);
+    appendEditorial("Multiple Memories", "多人记忆", `
+      <div class="bilingual-pair"><p lang="en">The same place may be remembered differently by different residents. The next stage will examine how residents supplement one another's accounts, identify differences, and negotiate what should be preserved. The aim is not a single “correct” version, but an understanding of how shared memories emerge and where differences remain.</p><p class="case-cn" lang="zh-CN">同一个地点可能被不同居民以不同方式记住。下一阶段将观察多位居民如何补充彼此的记忆、指出差异，并协商哪些内容应该被共同保存。目标不是产生唯一的“正确版本”，而是理解共享记忆如何形成，又在哪里保持差异。</p></div>`);
+    appendEditorial("Current Stage", "当前阶段", `
+      <div class="bilingual-pair"><p lang="en"><strong>Completed:</strong> interviews with approximately 8–10 first-generation residents; initial analysis of place-based memory accounts; a map-based memory interface; voice input; and an editable AI-generated image prototype.</p><p class="case-cn" lang="zh-CN"><strong>已完成：</strong>约 8–10 位第一代居民访谈、社区空间记忆初步分析、地图式记忆界面、语音输入，以及可编辑的 AI 生成图像原型。</p></div>
+      <div class="bilingual-pair"><p lang="en"><strong>Next:</strong> user studies examining how residents supplement memories, correct generated representations, and negotiate shared memories.</p><p class="case-cn" lang="zh-CN"><strong>下一步：</strong>开展用户研究，观察居民如何补充记忆、修正生成表征并协商共享记忆。</p></div>`);
+    appendEditorial("Research Direction", "后续研究方向", `
+      <div class="bilingual-pair"><p lang="en">The next stage asks how tangible or embodied interaction might deepen participation in digital memory experiences without distracting from the memories residents are trying to express.</p><p class="case-cn" lang="zh-CN">下一阶段将研究：当记忆交互从屏幕上的点击和修改扩展到 tangible 或 embodied interaction 时，是否能增强居民的参与和表达，同时避免交互本身分散对记忆内容的注意。</p></div>`);
   }
   if (p.title === "Value Machine") {
     appendEditorial("Core Question", "核心问题", `
@@ -898,63 +923,6 @@ function fillNote() {
       <div class="bilingual-pair"><p class="case-flow" lang="en">Create → Reframe → Exhibit → Bid → Reveal</p><p class="case-cn case-flow" lang="zh-CN">创作 → 重构语境 → 展览 → 竞价 → 揭示</p></div>`);
   }
   if (p.title === "Plantiever’s Illusion") {
-    container.insertAdjacentHTML(
-      "beforeend",
-      `<section class="plantiever-gallery" aria-label="Plantiever’s Illusion final outcome gallery">
-        <div class="plantiever-gallery-stage">
-          <figure class="plantiever-gallery-peek plantiever-gallery-peek--prev"><img alt="Previous Plantiever’s Illusion outcome"></figure>
-          <figure class="plantiever-gallery-main"><img alt="Plantiever’s Illusion final outcome 1 of ${plantieverOutcomeGallery.length}" loading="eager"></figure>
-          <figure class="plantiever-gallery-peek plantiever-gallery-peek--next"><img alt="Next Plantiever’s Illusion outcome"></figure>
-        </div>
-        <footer class="plantiever-gallery-footer">
-          <div class="plantiever-gallery-caption"><p>Plantiever’s Illusion — Final outcome</p><span>Image 01 / ${String(plantieverOutcomeGallery.length).padStart(2, "0")}</span></div>
-          <div class="plantiever-gallery-controls">
-            <button type="button" data-plantiever-direction="-1" aria-label="Previous image">‹</button>
-            <button type="button" data-plantiever-direction="1" aria-label="Next image">›</button>
-          </div>
-        </footer>
-      </section>`,
-    );
-    let galleryIndex = 0;
-    const gallery = container.querySelector(".plantiever-gallery");
-    const galleryMain = gallery.querySelector(".plantiever-gallery-main img");
-    const galleryPrevious = gallery.querySelector(".plantiever-gallery-peek--prev img");
-    const galleryNext = gallery.querySelector(".plantiever-gallery-peek--next img");
-    const galleryCounter = gallery.querySelector(".plantiever-gallery-caption span");
-    const renderGallery = async () => {
-      const previousIndex = (galleryIndex - 1 + plantieverOutcomeGallery.length) % plantieverOutcomeGallery.length;
-      const nextIndex = (galleryIndex + 1) % plantieverOutcomeGallery.length;
-      await Promise.all([
-        swapResponsiveImage(galleryMain, plantieverOutcomeGallery[galleryIndex], "70vw"),
-        swapResponsiveImage(galleryPrevious, plantieverOutcomeGallery[previousIndex], "25vw"),
-        swapResponsiveImage(galleryNext, plantieverOutcomeGallery[nextIndex], "25vw"),
-      ]);
-      galleryMain.alt = `Plantiever’s Illusion final outcome ${galleryIndex + 1} of ${plantieverOutcomeGallery.length}`;
-      galleryPrevious.alt = `Previous outcome ${previousIndex + 1}`;
-      galleryNext.alt = `Next outcome ${nextIndex + 1}`;
-      galleryCounter.textContent = `Image ${String(galleryIndex + 1).padStart(2, "0")} / ${String(plantieverOutcomeGallery.length).padStart(2, "0")}`;
-      preloadResponsiveImage(plantieverOutcomeGallery[nextIndex], "70vw");
-      preloadResponsiveImage(plantieverOutcomeGallery[previousIndex], "70vw");
-    };
-    gallery.querySelectorAll("[data-plantiever-direction]").forEach((button) => {
-      button.onclick = async () => {
-        galleryIndex = (galleryIndex + Number(button.dataset.plantieverDirection) + plantieverOutcomeGallery.length) % plantieverOutcomeGallery.length;
-        gallery.classList.add("is-changing");
-        await renderGallery();
-        gallery.classList.remove("is-changing");
-      };
-    });
-    let galleryPointerStart = null;
-    gallery.querySelector(".plantiever-gallery-stage").addEventListener("pointerdown", (event) => {
-      galleryPointerStart = event.clientX;
-    });
-    gallery.querySelector(".plantiever-gallery-stage").addEventListener("pointerup", (event) => {
-      if (galleryPointerStart === null || Math.abs(event.clientX - galleryPointerStart) < 45) return;
-      const direction = event.clientX < galleryPointerStart ? 1 : -1;
-      gallery.querySelector(`[data-plantiever-direction="${direction}"]`).click();
-      galleryPointerStart = null;
-    });
-    renderGallery();
     container.insertAdjacentHTML(
       "beforeend",
       `<section class="plantiever-storyboard">
