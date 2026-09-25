@@ -433,7 +433,6 @@ const image = document.querySelector("#active-image"),
   list = document.querySelector("#project-list"),
   home = document.querySelector("#home"),
   work = document.querySelector("#work"),
-  homeShortcut = document.querySelector("#home-shortcut"),
   mosaic = document.querySelector("#portrait-mosaic");
 const setLayerState = (element, isActive) => {
   element.inert = !isActive;
@@ -449,7 +448,6 @@ const syncInteractiveState = () => {
     setLayerState(panel, panel === openPanel && !noteOpen),
   );
   if (note) setLayerState(note, noteOpen);
-  if (homeShortcut) homeShortcut.hidden = currentView === "home" || !overlayOpen;
 };
 function enterWork(instant = false) {
   if (currentView === "work") return;
@@ -486,7 +484,6 @@ document.querySelector('[data-home-panel="about"]').onclick = () =>
   document.querySelector('[data-open="about"]').click();
 document.querySelector("#home-work").onclick = openWorkIndex;
 document.querySelector("#back-home").onclick = returnHome;
-homeShortcut.addEventListener("click", returnHome);
 projects.forEach((p, i) => {
   const dot = document.createElement("button");
   dot.setAttribute("aria-label", `Open ${p.title}`);
