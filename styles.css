@@ -464,7 +464,10 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
   background:#000;
 }
 .about-resume>header,.about-resume>.about-summary{
-  align-self:start;
+  align-self:stretch;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
   min-width:0;
   padding:0 0 clamp(2rem,4vw,4rem)!important;
   border-bottom:0!important;
@@ -579,10 +582,10 @@ img.media-switching{opacity:0!important}
 /* About research section: compact hierarchy and true tag chips. */
 .about-resume>header h2{
   margin:0;
-  max-width:12ch;
-  font-size:clamp(44px,4.8vw,76px);
-  line-height:.92;
-  letter-spacing:-.045em;
+  max-width:none;
+  font-size:16px;
+  line-height:1.15;
+  letter-spacing:-.02em;
 }
 .about-resume>header h2 span{
   display:block;
@@ -633,15 +636,10 @@ img.media-switching{opacity:0!important}
   flex:0 0 auto;
   width:auto;
   min-height:0;
-  padding:6px 11px;
-  border:1px solid #777;
-  border-radius:999px;
-  background:#111;
-  color:#fff;
-  font-size:13px;
-  line-height:1.25;
   white-space:nowrap;
 }
+.research-interests a{display:inline-flex;align-items:center;min-height:30px;padding:5px 11px;border:1px solid #777;border-radius:999px;background:#111;color:#fff;font-size:13px;line-height:1.25;text-decoration:none;transition:background-color .18s,color .18s,border-color .18s}
+.research-interests a:hover,.research-interests a:focus-visible{border-color:#fff;background:#fff;color:#000;outline:0}
 .about-resume>.cv-chip-section{display:grid;grid-template-columns:minmax(180px,220px) minmax(0,1fr);column-gap:clamp(24px,4vw,56px);align-items:start}
 .cv-chip-section .cv-groups{gap:18px}
 
@@ -799,7 +797,7 @@ body{font-weight:400;letter-spacing:0}
 
 
 
-.practice-statement strong{display:block;font-size:clamp(18px,1.5vw,22px);font-weight:500;line-height:1.3;letter-spacing:-.015em}
+.practice-statement strong{display:block;font-size:16px;font-weight:500;line-height:1.55;letter-spacing:0}
 .practice-statement>p{margin:0}
 .practice-statement .cv-cn{color:#aaa;font-size:14px;line-height:1.55}
 .research-copy .cv-cn{color:#aaa;font-size:14px!important;line-height:1.55}
@@ -1115,11 +1113,7 @@ button:disabled{cursor:wait;opacity:.55}
     grid-template-columns:minmax(180px,220px) minmax(0,1fr);
     column-gap:clamp(24px,4vw,56px);
   }
-  .practice-statement>p{
-    display:grid;
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    column-gap:clamp(24px,3vw,48px);
-  }
+  .practice-statement>p{display:block}
 .project-note{--pad:clamp(48px,8vw,128px);--reading-width:1200px;padding-inline:var(--pad)}
   .project-note:not(.poop-note) .case-head{margin-inline:calc(var(--pad)*-1)}
   .project-note:not(.poop-note) .case-hero,#case-sections{max-width:var(--reading-width);margin-inline:auto}
@@ -1354,7 +1348,7 @@ button:disabled{cursor:wait;opacity:.55}
   .plantiever-gallery-stage{grid-template-columns:0 minmax(0,1fr) 0;aspect-ratio:16/10}.plantiever-gallery-peek{visibility:hidden}.plantiever-gallery-main{border:0}.plantiever-gallery-footer{grid-template-columns:minmax(0,1fr) auto;min-height:68px;border:0!important;border-top:1px solid var(--quiet-rule)!important}.plantiever-gallery-caption{grid-column:1;padding:12px var(--page-edge)}.plantiever-gallery-controls{grid-column:2;padding:10px 12px}.plantiever-gallery-controls button{width:42px;height:42px}
   .portfolio-series>header>small{display:none}.portfolio-rail{gap:12px;width:calc(100% + var(--page-edge)*2);margin-inline:calc(var(--page-edge)*-1);padding:0 var(--page-edge) 14px!important;scroll-padding-left:var(--page-edge);scrollbar-width:none}.portfolio-rail::-webkit-scrollbar{display:none}.portfolio-rail figure{flex:0 0 calc(100% - var(--page-edge)*2);min-width:0}.portfolio-rail img{width:100%!important;max-width:100%!important;margin:0!important}
 
-  .about-cv{grid-template-columns:1fr;margin-inline:calc(var(--page-edge)*-1)}.about-portrait{height:42svh;padding:16px!important}.about-resume{display:block;padding:34px var(--page-edge)!important;font-size:14px}.about-resume>header h2{font-size:34px}.about-resume>section{display:block!important;padding-block:28px!important}.about-resume dl{grid-template-columns:62px minmax(0,1fr);gap:18px 14px}.research-copy{grid-template-columns:1fr;gap:12px}.research-copy p{width:100%;max-width:none;font-size:15px}.research-copy .cv-cn,.about-resume .cv-cn{color:#aaa;font-size:14px!important}
+  .about-cv{grid-template-columns:1fr;margin-inline:calc(var(--page-edge)*-1)}.about-portrait{height:42svh;padding:16px!important}.about-resume{display:block;padding:34px var(--page-edge)!important;font-size:14px}.about-resume>header h2{font-size:16px}.about-resume>section{display:block!important;padding-block:28px!important}.about-resume dl{grid-template-columns:62px minmax(0,1fr);gap:18px 14px}.research-copy{grid-template-columns:1fr;gap:12px}.research-copy p{width:100%;max-width:none;font-size:15px}.research-copy .cv-cn,.about-resume .cv-cn{color:#aaa;font-size:14px!important}
 }
 @media (max-width:760px) and (max-height:680px){
 .home-screen{grid-template-rows:58px minmax(390px,1fr) auto}
