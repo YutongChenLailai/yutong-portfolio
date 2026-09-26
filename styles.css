@@ -321,6 +321,7 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
 
 /* RCA-inspired editorial gallery — Plantiever’s Illusion */
 .plantiever-gallery{position:relative;margin:0 calc(var(--pad)*-1);overflow:hidden;background-color:#fff;color:#000;border-bottom:1px solid #b8b8b8;background-image:repeating-linear-gradient(90deg,transparent 0,transparent calc(25% - 1px),rgba(0,0,0,.13) calc(25% - 1px),rgba(0,0,0,.13) 25%)}
+#case-sections>:has(+.plantiever-gallery){border-bottom:0!important}
 .plantiever-gallery-header{display:grid;grid-template-columns:25% 50% 25%;min-height:9rem;align-items:end;border-bottom:1px solid #b8b8b8}
 .plantiever-gallery-header>span{grid-column:1;padding:0 1.25rem 1.2rem;font:500 .7rem DM Mono,monospace;color:#555}
 .plantiever-gallery-header>div{grid-column:2;padding:0 0 1.15rem}

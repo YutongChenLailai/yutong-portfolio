@@ -822,6 +822,62 @@ function fillNote() {
     container.insertAdjacentHTML("beforeend", `<section class="case-section case-editorial-section"><div class="case-label"><span>${String(sectionNumber++).padStart(2, "0")}</span><h3>${title}<small>${cnTitle}</small></h3></div><div class="case-body case-editorial">${body}</div></section>`);
   const appendOutcome = () =>
     container.insertAdjacentHTML("beforeend", `<section class="case-section"><div class="case-label"><span>${String(sectionNumber++).padStart(2, "0")}</span><h3>Final outcome<small>最终成果</small></h3></div><div class="case-body"><div class="bilingual-pair"><p lang="en">${p.copy}</p><p class="case-cn" lang="zh-CN">${caseCn[current]}</p></div><img class="outcome-image" data-src="${outcomeImage}" alt="${p.title} final outcome" loading="lazy" decoding="async"></div></section>`);
+  const appendImageGallery = (title, images, className) => {
+    container.insertAdjacentHTML(
+      "beforeend",
+      `<section class="plantiever-gallery ${className}" aria-label="${title} image gallery">
+        <div class="plantiever-gallery-stage">
+          <figure class="plantiever-gallery-peek plantiever-gallery-peek--prev"><img alt="Previous ${title} image"></figure>
+          <figure class="plantiever-gallery-main"><img alt="${title} image 1 of ${images.length}" loading="eager"></figure>
+          <figure class="plantiever-gallery-peek plantiever-gallery-peek--next"><img alt="Next ${title} image"></figure>
+        </div>
+        <footer class="plantiever-gallery-footer">
+          <div class="plantiever-gallery-caption"><p>${title}</p><span>Image 01 / ${String(images.length).padStart(2, "0")}</span></div>
+          <div class="plantiever-gallery-controls">
+            <button type="button" data-gallery-direction="-1" aria-label="Previous image">←</button>
+            <button type="button" data-gallery-direction="1" aria-label="Next image">→</button>
+          </div>
+        </footer>
+      </section>`,
+    );
+    let galleryIndex = 0;
+    const gallery = container.querySelector(`.${className}`);
+    const main = gallery.querySelector(".plantiever-gallery-main img");
+    const previous = gallery.querySelector(".plantiever-gallery-peek--prev img");
+    const next = gallery.querySelector(".plantiever-gallery-peek--next img");
+    const counter = gallery.querySelector(".plantiever-gallery-caption span");
+    const renderGallery = async () => {
+      const previousIndex = (galleryIndex - 1 + images.length) % images.length;
+      const nextIndex = (galleryIndex + 1) % images.length;
+      await Promise.all([
+        swapResponsiveImage(main, images[galleryIndex], "70vw"),
+        swapResponsiveImage(previous, images[previousIndex], "25vw"),
+        swapResponsiveImage(next, images[nextIndex], "25vw"),
+      ]);
+      main.alt = `${title} image ${galleryIndex + 1} of ${images.length}`;
+      counter.textContent = `Image ${String(galleryIndex + 1).padStart(2, "0")} / ${String(images.length).padStart(2, "0")}`;
+      preloadResponsiveImage(images[nextIndex], "70vw");
+      preloadResponsiveImage(images[previousIndex], "70vw");
+    };
+    gallery.querySelectorAll("[data-gallery-direction]").forEach((button) => {
+      button.onclick = async () => {
+        galleryIndex = (galleryIndex + Number(button.dataset.galleryDirection) + images.length) % images.length;
+        gallery.classList.add("is-changing");
+        await renderGallery();
+        gallery.classList.remove("is-changing");
+      };
+    });
+    let pointerStart = null;
+    gallery.querySelector(".plantiever-gallery-stage").addEventListener("pointerdown", (event) => {
+      pointerStart = event.clientX;
+    });
+    gallery.querySelector(".plantiever-gallery-stage").addEventListener("pointerup", (event) => {
+      if (pointerStart === null || Math.abs(event.clientX - pointerStart) < 45) return;
+      gallery.querySelector(`[data-gallery-direction="${event.clientX < pointerStart ? 1 : -1}"]`).click();
+      pointerStart = null;
+    });
+    renderGallery();
+  };
   if (p.title === "Drown in Algae") {
     appendEditorial("Overview", "项目概述", `
       <div class="bilingual-pair"><p lang="en">Drown in Algae begins with coastal oil pollution in Zhoushan and asks how an environmental process that is difficult for the public to perceive can become visible. The project proposes an eco-art system built around an algal biofilm that participates in oil-pollution remediation and carbon fixation. The installation translates these slow ecological processes into observable information, treating remediation itself as a public interface.</p><p class="case-cn" lang="zh-CN">Drown in Algae 从舟山沿海的石油污染问题出发，探索如何让难以被公众持续感知的海洋污染变得可见。项目提出一套以藻类生物膜为核心的生态艺术系统，设想利用藻类参与石油污染处理与二氧化碳固定，并将缓慢发生的生态过程转化为可观察的信息，让修复本身成为一种公共界面。</p></div>`);
@@ -920,6 +976,7 @@ function fillNote() {
       <div class="bilingual-pair"><p class="case-flow" lang="en">Create → Reframe → Exhibit → Bid → Reveal</p><p class="case-cn case-flow" lang="zh-CN">创作 → 重构语境 → 展览 → 竞价 → 揭示</p></div>`);
   }
   if (p.title === "Plantiever’s Illusion") {
+    appendImageGallery("Plantiever’s Illusion — Photography", plantieverOutcomeGallery, "plantiever-outcome-gallery");
     container.insertAdjacentHTML(
       "beforeend",
       `<section class="plantiever-storyboard">
@@ -966,61 +1023,7 @@ function fillNote() {
     sectionNumber += 1;
   }
   if (p.title === "Value Machine") {
-    container.insertAdjacentHTML(
-      "beforeend",
-      `<section class="plantiever-gallery value-machine-gallery" aria-label="Value Machine final outcome gallery">
-        <div class="plantiever-gallery-stage">
-          <figure class="plantiever-gallery-peek plantiever-gallery-peek--prev"><img alt="Previous Value Machine outcome"></figure>
-          <figure class="plantiever-gallery-main"><img alt="Value Machine final outcome 1 of ${valueMachineOutcomeGallery.length}" loading="eager"></figure>
-          <figure class="plantiever-gallery-peek plantiever-gallery-peek--next"><img alt="Next Value Machine outcome"></figure>
-        </div>
-        <footer class="plantiever-gallery-footer">
-          <div class="plantiever-gallery-caption"><p>Value Machine — Final outcome</p><span>Image 01 / ${String(valueMachineOutcomeGallery.length).padStart(2, "0")}</span></div>
-          <div class="plantiever-gallery-controls">
-            <button type="button" data-value-direction="-1" aria-label="Previous image">←</button>
-            <button type="button" data-value-direction="1" aria-label="Next image">→</button>
-          </div>
-        </footer>
-      </section>`,
-    );
-    let valueGalleryIndex = 0;
-    const valueGallery = container.querySelector(".value-machine-gallery");
-    const valueMain = valueGallery.querySelector(".plantiever-gallery-main img");
-    const valuePrevious = valueGallery.querySelector(".plantiever-gallery-peek--prev img");
-    const valueNext = valueGallery.querySelector(".plantiever-gallery-peek--next img");
-    const valueCounter = valueGallery.querySelector(".plantiever-gallery-caption span");
-    const renderValueGallery = async () => {
-      const previousIndex = (valueGalleryIndex - 1 + valueMachineOutcomeGallery.length) % valueMachineOutcomeGallery.length;
-      const nextIndex = (valueGalleryIndex + 1) % valueMachineOutcomeGallery.length;
-      await Promise.all([
-        swapResponsiveImage(valueMain, valueMachineOutcomeGallery[valueGalleryIndex], "70vw"),
-        swapResponsiveImage(valuePrevious, valueMachineOutcomeGallery[previousIndex], "25vw"),
-        swapResponsiveImage(valueNext, valueMachineOutcomeGallery[nextIndex], "25vw"),
-      ]);
-      valueMain.alt = `Value Machine final outcome ${valueGalleryIndex + 1} of ${valueMachineOutcomeGallery.length}`;
-      valueCounter.textContent = `Image ${String(valueGalleryIndex + 1).padStart(2, "0")} / ${String(valueMachineOutcomeGallery.length).padStart(2, "0")}`;
-      preloadResponsiveImage(valueMachineOutcomeGallery[nextIndex], "70vw");
-      preloadResponsiveImage(valueMachineOutcomeGallery[previousIndex], "70vw");
-    };
-    valueGallery.querySelectorAll("[data-value-direction]").forEach((button) => {
-      button.onclick = async () => {
-        valueGalleryIndex = (valueGalleryIndex + Number(button.dataset.valueDirection) + valueMachineOutcomeGallery.length) % valueMachineOutcomeGallery.length;
-        valueGallery.classList.add("is-changing");
-        await renderValueGallery();
-        valueGallery.classList.remove("is-changing");
-      };
-    });
-    let valuePointerStart = null;
-    valueGallery.querySelector(".plantiever-gallery-stage").addEventListener("pointerdown", (event) => {
-      valuePointerStart = event.clientX;
-    });
-    valueGallery.querySelector(".plantiever-gallery-stage").addEventListener("pointerup", (event) => {
-      if (valuePointerStart === null || Math.abs(event.clientX - valuePointerStart) < 45) return;
-      const direction = event.clientX < valuePointerStart ? 1 : -1;
-      valueGallery.querySelector(`[data-value-direction="${direction}"]`).click();
-      valuePointerStart = null;
-    });
-    renderValueGallery();
+    appendImageGallery("Value Machine — Final outcome", valueMachineOutcomeGallery, "value-machine-gallery");
   }
   const selectedPortfolioSeries = portfolioSeries[p.title];
   if (selectedPortfolioSeries) {
