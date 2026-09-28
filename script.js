@@ -1267,11 +1267,11 @@ function enhancePortfolioRails() {
 }
 function openNote(updateRoute = true) {
   if (!note.classList.contains("open")) overlayOpener = document.activeElement;
+  fillNote();
   document.body.classList.add("detail-open");
   note.classList.add("open");
   note.setAttribute("aria-hidden", "false");
   note.scrollTo(0, 0);
-  fillNote();
   enhancePortfolioRails();
   registerMedia(note);
   syncInteractiveState();
