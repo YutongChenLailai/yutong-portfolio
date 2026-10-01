@@ -882,7 +882,7 @@ function fillNote() {
     ? []
     : [["01", "Final outcome", "最终成果", p.copy, caseCn[current]]];
   const detailOutcomeImages = {
-    "Closet X": "assets/projects/closet-x/gallery/outcome-01.jpg",
+    "Closet X": "assets/projects/closet-x/gallery/final-outcome-portfolio.jpg",
     "Navigating the Past": "assets/projects/navigating-the-past/gallery/outcome-01.webp",
     "Feeding Fear / PEEEP": "assets/projects/feeding-fear/gallery/outcome-01.webp",
     "The Forbidden Hue": "assets/projects/forbidden-hue/gallery/outcome-01.webp",
