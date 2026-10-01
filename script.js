@@ -741,20 +741,94 @@ document.querySelectorAll("[data-open]").forEach(
 document
   .querySelectorAll("[data-close]")
   .forEach((b) => (b.onclick = closePanels));
+const chipProjects = {
+  "Human–Computer Interaction (HCI) / 人机交互": ["Closet X", "VIVID", "PoopSlaves", "Navigating the Past"],
+  "Creativity & Cognition / 创造力与认知": ["Plantiever’s Illusion", "Value Machine", "Plated Fantasies"],
+  "Human–AI Interaction / 人与 AI 交互": ["VIVID", "Closet X"],
+  "Human–AI Co-Creation / 人机共创": ["VIVID"],
+  "Feedback-Driven Interaction / 反馈驱动交互": ["PoopSlaves", "Fetorium", "Plated Fantasies"],
+  "Creative Agency / 创造能动性": ["Value Machine", "PoopSlaves"],
+  "Embodied Interaction / 具身交互": ["PoopSlaves", "Fetorium", "Plated Fantasies", "The Forbidden Hue"],
+  "Speculative Interactive Systems / 推想型交互系统": ["PoopSlaves", "Fetorium", "Feeding Fear / PEEEP"],
+  "AI-Assisted Prototyping / AI 辅助原型开发": ["VIVID", "Closet X"],
+  "UX Research": ["Closet X", "Navigating the Past", "VIVID"],
+  "User Studies": ["VIVID", "Closet X"],
+  "Field Interviews": ["VIVID", "Drown in Algae", "The Forbidden Hue"],
+  "Site Observation": ["Navigating the Past", "The Forbidden Hue", "Drown in Algae"],
+  "Accessibility Audits": ["Navigating the Past"],
+  "Interactive Prototyping": ["VIVID", "Closet X", "PoopSlaves", "Plated Fantasies", "Fetorium"],
+  "OpenAI Codex": ["VIVID"],
+  "Figma": ["Closet X", "VIVID", "Navigating the Past"],
+  "Unreal Engine": ["PoopSlaves"],
+  "TouchDesigner": ["PoopSlaves", "Plated Fantasies", "Fetorium"],
+  "Blender": ["PoopSlaves"],
+  "Rhino 3D": ["Closet X"],
+  "Arduino": ["Plated Fantasies"],
+  "Adobe Creative Suite": ["Plantiever’s Illusion", "The Forbidden Hue", "Drown in Algae"],
+  "Procreate": ["The Forbidden Hue", "Navigating the Past"],
+  "Human–Computer Interaction": ["Closet X", "VIVID", "PoopSlaves", "Navigating the Past"],
+  "Creativity & Cognition": ["Plantiever’s Illusion", "Value Machine", "Plated Fantasies"],
+  "Human–AI Interaction": ["VIVID", "Closet X"],
+  "Human–AI Co-Creation": ["VIVID"],
+  "Feedback-Driven Interaction": ["PoopSlaves", "Fetorium", "Plated Fantasies"],
+  "Creative Agency": ["Value Machine", "PoopSlaves"],
+  "Embodied Interaction": ["PoopSlaves", "Fetorium", "Plated Fantasies", "The Forbidden Hue"],
+  "Speculative Interactive Systems": ["PoopSlaves", "Fetorium", "Feeding Fear / PEEEP"],
+  "AI-Assisted Prototyping": ["VIVID", "Closet X"],
+};
+const openProjectFromAbout = (title, source) => {
+  const projectIndex = projects.findIndex((project) => project.title === title);
+  if (projectIndex < 0) return;
+  const originPanel = source.closest("[data-panel]");
+  detailOriginPanel = originPanel
+    ? { name: originPanel.dataset.panel, scrollTop: originPanel.scrollTop }
+    : null;
+  closePanels(false);
+  show(projectIndex, true);
+  openNote();
+};
+const closeProjectReveals = () => {
+  document.querySelectorAll(".cv-project-reveal").forEach((reveal) => reveal.remove());
+  document.querySelectorAll(".is-project-picker-active").forEach((link) => {
+    link.classList.remove("is-project-picker-active");
+    link.setAttribute("aria-expanded", "false");
+  });
+};
+const projectPickerLinks = document.querySelectorAll(".research-interests [data-project-title],.cv-chip-section [data-project-title]");
+projectPickerLinks.forEach((link) => {
+  link.setAttribute("aria-expanded", "false");
+});
+document.querySelector('[data-panel="about"]').addEventListener("click", (event) => {
+  const link = event.target.closest(".research-interests [data-project-title],.cv-chip-section [data-project-title]");
+  if (!link) return;
+  event.preventDefault();
+  const wasOpen = link.classList.contains("is-project-picker-active");
+  closeProjectReveals();
+  if (wasOpen) return;
+  const reveal = document.createElement("div");
+  reveal.className = "cv-project-reveal";
+  reveal.id = `cv-project-reveal-${[...projectPickerLinks].indexOf(link)}`;
+  link.classList.add("is-project-picker-active");
+  link.setAttribute("aria-expanded", "true");
+  link.setAttribute("aria-controls", reveal.id);
+  (chipProjects[link.textContent.trim()] || [link.dataset.projectTitle]).forEach((projectTitle) => {
+    const project = projects.find((item) => item.title === projectTitle);
+    if (!project) return;
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "cv-project-option";
+    button.setAttribute("aria-label", `Open project: ${project.title}`);
+    button.innerHTML = `<img src="${media(projectThumbnail(project.image))}" alt="" loading="lazy"><span>${project.title}</span>`;
+    button.onclick = () => openProjectFromAbout(project.title, link);
+    reveal.append(button);
+  });
+  link.closest("ul").insertAdjacentElement("afterend", reveal);
+});
 document.querySelectorAll("[data-project-title]").forEach((link) => {
+  if (link.closest(".research-interests,.cv-chip-section")) return;
   link.onclick = (event) => {
     event.preventDefault();
-    const projectIndex = projects.findIndex(
-      (project) => project.title === link.dataset.projectTitle,
-    );
-    if (projectIndex < 0) return;
-    const originPanel = link.closest("[data-panel]");
-    detailOriginPanel = originPanel
-      ? { name: originPanel.dataset.panel, scrollTop: originPanel.scrollTop }
-      : null;
-    closePanels(false);
-    show(projectIndex, true);
-    openNote();
+    openProjectFromAbout(link.dataset.projectTitle, link);
   };
 });
 const note = document.querySelector("#project-note");

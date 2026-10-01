@@ -640,7 +640,8 @@ img.media-switching{opacity:0!important}
   white-space:nowrap;
 }
 .research-interests a{display:inline-flex;align-items:center;min-height:30px;padding:5px 11px;border:1px solid #777;border-radius:999px;background:#111;color:#fff;font-size:13px;line-height:1.25;text-decoration:none;transition:background-color .18s,color .18s,border-color .18s}
-.research-interests a:hover,.research-interests a:focus-visible{border-color:#fff;background:#fff;color:#000;outline:0}
+.research-interests a:hover,.research-interests a:focus-visible,.research-interests a.is-project-picker-active,.cv-chip-list a.is-project-picker-active{border-color:#fff;background:#fff;color:#000;outline:0}
+.cv-project-reveal{display:flex;flex-wrap:wrap;gap:10px;width:100%;margin-top:12px;padding-top:12px;border-top:1px solid #333}.research-interests>.cv-project-reveal{grid-column:2}.cv-project-option{width:112px;padding:0;border:0;background:transparent;color:#fff;text-align:left}.cv-project-option img{width:112px;height:76px;object-fit:cover;border:1px solid #555}.cv-project-option span{display:block;margin-top:6px;font-size:11px;line-height:1.25}.cv-project-option:hover img,.cv-project-option:focus-visible img{border-color:#fff}.cv-project-option:focus-visible{outline:0}
 .about-resume>.cv-chip-section{display:grid;grid-template-columns:minmax(180px,220px) minmax(0,1fr);column-gap:clamp(24px,4vw,56px);align-items:start}
 .cv-chip-section .cv-groups{gap:18px}
 
