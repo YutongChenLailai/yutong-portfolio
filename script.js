@@ -575,8 +575,8 @@ function show(index, instant = false) {
     role.textContent = p.role;
     num.textContent = `${String(current + 1).padStart(2, "0")} / ${String(projects.length).padStart(2, "0")}`;
     medium.textContent = p.medium;
-    document.querySelector(".project-link span").textContent = "Selected project";
-    document.querySelector("#read-project").textContent = "View project →";
+    document.querySelector(".project-link span").textContent = p.title === "VIVID" ? "Platform" : "Selected project";
+    document.querySelector("#read-project").textContent = p.title === "VIVID" ? "Open platform ↗" : "View project →";
     tagButtons(current, activeTags);
     document.querySelectorAll(".dots button").forEach((d, i) => {
       d.classList.toggle("active", i === current);
@@ -854,12 +854,7 @@ function fillNote() {
   };
   const caseHero = document.querySelector(".case-hero");
   const detailHeroImage = detailHeroImages[p.title];
-  const vividIntro = document.querySelector("#vivid-intro");
-  const isVivid = p.title === "VIVID";
-  vividIntro.hidden = !isVivid;
-  if (isVivid) vividIntro.style.backgroundImage = `url('${media(p.image)}')`;
-  else vividIntro.style.removeProperty("background-image");
-  if (detailHeroImage && !isVivid)
+  if (detailHeroImage)
     caseHero.style.setProperty("background-image", `url('${media(detailHeroImage)}')`, "important");
   else caseHero.style.removeProperty("background-image");
   document.querySelector("#note-type").textContent = p.medium;
@@ -1389,9 +1384,10 @@ function closeNote(restore = true, updateRoute = true) {
     }
   }
 }
-document.querySelector("#read-project").onclick = openNote;
-document.querySelector("#vivid-enter").onclick = () =>
-  document.querySelector(".case-hero").scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth" });
+document.querySelector("#read-project").onclick = () => {
+  if (projects[current].title === "VIVID") window.open(VIVID_PLATFORM_URL, "_blank", "noopener,noreferrer");
+  else openNote();
+};
 document.querySelector("#close-note").onclick = closeNote;
 let noteSwipeStart = null;
 note.addEventListener("pointerdown", (event) => {
