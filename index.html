@@ -137,13 +137,20 @@
         <div class="panel-head">
           <span id="work-index-title">Selected work / 作品</span>
           <div class="project-view-switcher" role="group" aria-label="Project view">
-            <button type="button" data-project-view="vertical" aria-pressed="false">Vertical</button>
-            <button type="button" data-project-view="horizontal" aria-pressed="false">Horizontal</button>
-            <button type="button" data-project-view="grid" aria-pressed="true">Grid</button>
+            <button type="button" data-project-view="grid" aria-pressed="true">Original</button>
+            <button type="button" data-project-view="horizontal" aria-pressed="false">Vertical</button>
           </div>
           <button data-close>Close</button>
         </div>
         <div class="project-list" id="project-list"></div>
+        <div class="obys-browser" id="obys-browser" aria-hidden="true">
+          <div class="obys-project-menu" id="obys-project-menu" aria-label="Project list"></div>
+          <p class="obys-project-field" id="obys-project-field"></p>
+          <button class="obys-project-arrow obys-project-arrow--prev" id="obys-project-prev" type="button" aria-label="Previous project">(</button>
+          <button class="obys-project-arrow obys-project-arrow--next" id="obys-project-next" type="button" aria-label="Next project">)</button>
+          <p class="obys-project-role" id="obys-project-role"></p>
+          <span class="obys-project-number" id="obys-project-number"></span>
+        </div>
       </aside>
       <aside class="panel about-panel" data-panel="about" role="dialog" aria-modal="true" aria-labelledby="about-title" aria-hidden="true">
         <div class="panel-head">
