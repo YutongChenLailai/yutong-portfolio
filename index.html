@@ -135,7 +135,13 @@
       </section>
       <aside class="panel index-panel" data-panel="index" role="dialog" aria-modal="true" aria-labelledby="work-index-title" aria-hidden="true">
         <div class="panel-head">
-          <span id="work-index-title">Exploration / 作品</span><button data-close>Close</button>
+          <span id="work-index-title">Selected work / 作品</span>
+          <div class="project-view-switcher" role="group" aria-label="Project view">
+            <button type="button" data-project-view="vertical" aria-pressed="false">Vertical</button>
+            <button type="button" data-project-view="horizontal" aria-pressed="false">Horizontal</button>
+            <button type="button" data-project-view="grid" aria-pressed="true">Grid</button>
+          </div>
+          <button data-close>Close</button>
         </div>
         <div class="project-list" id="project-list"></div>
       </aside>

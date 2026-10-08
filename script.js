@@ -500,6 +500,25 @@ projects.forEach((p, i) => {
   };
   list.append(item);
 });
+const projectViewButtons = [...document.querySelectorAll("[data-project-view]")];
+const setProjectView = (view) => {
+  list.dataset.view = view;
+  projectViewButtons.forEach((option) =>
+    option.setAttribute("aria-pressed", String(option.dataset.projectView === view)),
+  );
+};
+projectViewButtons.forEach((button) => {
+  button.onclick = () => setProjectView(button.dataset.projectView);
+});
+const narrowProjectView = matchMedia("(max-width: 760px)");
+narrowProjectView.addEventListener("change", ({ matches }) => {
+  if (matches && list.dataset.view === "horizontal") setProjectView("grid");
+});
+list.addEventListener("wheel", (event) => {
+  if (list.dataset.view !== "horizontal" || Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
+  event.preventDefault();
+  list.scrollLeft += event.deltaY;
+}, { passive: false });
 let returnCategory = null;
 function tagButtons(index, target) {
   target.innerHTML = projectTags[index]
@@ -1404,27 +1423,36 @@ note.addEventListener("pointerup", (event) => {
 });
 note.addEventListener("pointercancel", () => (noteSwipeStart = null));
 const cursor = document.querySelector(".cursor");
-addEventListener("pointermove", (e) => {
-  if (!matchMedia("(hover:hover) and (pointer:fine)").matches) return;
-  cursor.style.left = `${e.clientX}px`;
-  cursor.style.top = `${e.clientY}px`;
-  const px = e.clientX / innerWidth - 0.5,
-    py = e.clientY / innerHeight - 0.5;
-  if (currentView === "home") {
-    mosaic.style.transform = `translate(${px * 15}px,${py * 12}px) rotateY(${px * 3}deg)`;
-  } else
-    image.style.transform = `scale(1.045) translate(${px * -1.1}%,${py * -1.1}%)`;
+const finePointer = matchMedia("(hover:hover) and (pointer:fine)");
+let cursorFrame = 0;
+const cursorPosition = { x: -80, y: -80, targetX: -80, targetY: -80 };
+const paintCursor = () => {
+  cursorPosition.x += (cursorPosition.targetX - cursorPosition.x) * 0.2;
+  cursorPosition.y += (cursorPosition.targetY - cursorPosition.y) * 0.2;
+  cursor.style.transform = `translate3d(${cursorPosition.x}px,${cursorPosition.y}px,0) translate(-50%,-50%)`;
+  if (Math.abs(cursorPosition.targetX - cursorPosition.x) > 0.1 || Math.abs(cursorPosition.targetY - cursorPosition.y) > 0.1)
+    cursorFrame = requestAnimationFrame(paintCursor);
+  else cursorFrame = 0;
+};
+addEventListener("pointermove", (event) => {
+  if (!finePointer.matches || reducedMotion) return;
+  cursorPosition.targetX = event.clientX;
+  cursorPosition.targetY = event.clientY;
+  cursor.classList.remove("is-hidden");
+  if (!cursorFrame) cursorFrame = requestAnimationFrame(paintCursor);
 });
-document.querySelectorAll("button,a").forEach((el) => {
-  el.addEventListener("mouseenter", () => {
-    cursor.style.width = "2.4rem";
-    cursor.style.height = "2.4rem";
-  });
-  el.addEventListener("mouseleave", () => {
-    cursor.style.width = "1.1rem";
-    cursor.style.height = "1.1rem";
-  });
+addEventListener("pointerover", (event) => {
+  if (!finePointer.matches) return;
+  const target = event.target.closest("button,a,[role='button']");
+  cursor.classList.toggle("is-interactive", Boolean(target));
+  cursor.classList.toggle("is-media", Boolean(target?.closest(".project-item,.video-preview,.cv-project-card")));
+  cursor.dataset.label = target?.closest(".video-preview") ? "PLAY" : target?.closest(".project-item,.cv-project-card") ? "VIEW" : "";
 });
+addEventListener("pointerout", (event) => {
+  if (!event.relatedTarget) cursor.classList.add("is-hidden");
+});
+addEventListener("pointerdown", () => cursor.classList.add("is-pressed"));
+addEventListener("pointerup", () => cursor.classList.remove("is-pressed"));
 document.querySelector(".dots button")?.classList.add("active");
 const restoreProjectRoute = () => {
   if (suppressNextRouteRestore) {
