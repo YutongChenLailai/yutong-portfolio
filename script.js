@@ -500,60 +500,6 @@ projects.forEach((p, i) => {
   };
   list.append(item);
 });
-const obysBrowser = document.querySelector("#obys-browser");
-const obysMenu = document.querySelector("#obys-project-menu");
-const obysField = document.querySelector("#obys-project-field");
-const obysRole = document.querySelector("#obys-project-role");
-const obysNumber = document.querySelector("#obys-project-number");
-const projectItems = [...list.querySelectorAll(".project-item")];
-let obysIndex = 0;
-const syncObysProject = (index, scroll = false) => {
-  obysIndex = (index + projects.length) % projects.length;
-  projectItems.forEach((item, itemIndex) => item.classList.toggle("is-active", itemIndex === obysIndex));
-  [...obysMenu.children].forEach((item, itemIndex) => item.classList.toggle("is-active", itemIndex === obysIndex));
-  obysField.textContent = projectTags[obysIndex]?.slice(0, 2).join(", ") || projects[obysIndex].role;
-  obysRole.textContent = projects[obysIndex].role;
-  obysNumber.textContent = String(obysIndex + 1).padStart(2, "0");
-  if (scroll) projectItems[obysIndex].scrollIntoView({ block: "center", behavior: reducedMotion ? "auto" : "smooth" });
-};
-projects.forEach((project, index) => {
-  const button = document.createElement("button");
-  button.type = "button";
-  button.textContent = project.title;
-  button.onclick = () => syncObysProject(index, true);
-  obysMenu.append(button);
-  projectItems[index].addEventListener("pointerenter", () => syncObysProject(index));
-});
-document.querySelector("#obys-project-prev").onclick = () => syncObysProject(obysIndex - 1, true);
-document.querySelector("#obys-project-next").onclick = () => syncObysProject(obysIndex + 1, true);
-syncObysProject(0);
-const projectViewButtons = [...document.querySelectorAll("[data-project-view]")];
-const setProjectView = (view) => {
-  list.dataset.view = view;
-  obysBrowser.setAttribute("aria-hidden", String(view !== "horizontal"));
-  projectViewButtons.forEach((option) =>
-    option.setAttribute("aria-pressed", String(option.dataset.projectView === view)),
-  );
-  if (view === "horizontal") syncObysProject(obysIndex, true);
-};
-projectViewButtons.forEach((button) => {
-  button.onclick = () => setProjectView(button.dataset.projectView);
-});
-const narrowProjectView = matchMedia("(max-width: 760px)");
-narrowProjectView.addEventListener("change", ({ matches }) => {
-  if (matches && list.dataset.view === "horizontal") setProjectView("grid");
-});
-list.addEventListener("wheel", (event) => {
-  if (list.dataset.view !== "horizontal") return;
-  requestAnimationFrame(() => {
-    const center = innerHeight / 2;
-    const nearest = projectItems.reduce((best, item, index) => {
-      const distance = Math.abs(item.getBoundingClientRect().top + item.offsetHeight / 2 - center);
-      return distance < best.distance ? { index, distance } : best;
-    }, { index: obysIndex, distance: Infinity });
-    syncObysProject(nearest.index);
-  });
-}, { passive: false });
 let returnCategory = null;
 function tagButtons(index, target) {
   target.innerHTML = projectTags[index]
