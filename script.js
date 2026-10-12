@@ -434,6 +434,22 @@ const image = document.querySelector("#active-image"),
   home = document.querySelector("#home"),
   work = document.querySelector("#work"),
   mosaic = document.querySelector("#portrait-mosaic");
+const portraitImage = mosaic.querySelector(".portrait-base");
+const portraitSwitch = document.querySelector("#portrait-switch");
+let coastalPortrait = false;
+portraitSwitch.onclick = async () => {
+  coastalPortrait = !coastalPortrait;
+  mosaic.classList.add("is-switching");
+  portraitImage.src = coastalPortrait ? "assets/site/home/portrait-coast.jpg" : "assets/site/home/portrait-bus.webp";
+  portraitImage.srcset = coastalPortrait
+    ? "assets/site/home/portrait-coast-480.jpg 480w, assets/site/home/portrait-coast-960.jpg 960w, assets/site/home/portrait-coast.jpg 2000w"
+    : "assets/site/home/portrait-bus-480.webp 480w, assets/site/home/portrait-bus-960.webp 960w, assets/site/home/portrait-bus.webp 2000w";
+  portraitImage.alt = coastalPortrait ? "Yutong Chen on the coast" : "Yutong Chen sitting by the window on a bus";
+  portraitSwitch.textContent = coastalPortrait ? "02 / 02" : "01 / 02";
+  portraitSwitch.setAttribute("aria-label", coastalPortrait ? "Show bus portrait" : "Show coastal portrait");
+  await portraitImage.decode().catch(() => {});
+  mosaic.classList.remove("is-switching");
+};
 const setLayerState = (element, isActive) => {
   element.inert = !isActive;
   element.setAttribute("aria-hidden", String(!isActive));
