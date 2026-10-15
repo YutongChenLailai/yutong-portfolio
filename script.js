@@ -507,7 +507,7 @@ projects.forEach((p, i) => {
   dots.append(dot);
   const item = document.createElement("button");
   item.className = "project-item";
-  item.innerHTML = `<img data-src="${projectThumbnail(p.image)}" alt="${p.title} project cover" loading="lazy" decoding="async"><span>${String(i + 1).padStart(2, "0")} / ${String(projects.length).padStart(2, "0")}</span><strong>${p.title}</strong>`;
+  item.innerHTML = `<div class="project-preview"><img data-src="${projectThumbnail(p.image)}" alt="${p.title} project cover" loading="lazy" decoding="async"><div class="project-hover-copy" aria-hidden="true"><b>${p.role}</b><p>${p.copy}</p></div></div><span>${String(i + 1).padStart(2, "0")} / ${String(projects.length).padStart(2, "0")}</span><strong>${p.title}</strong>`;
   item.onclick = () => {
     detailOriginPanel = { name: "index", scrollTop: item.closest(".panel").scrollTop };
     show(i, true);
@@ -550,7 +550,7 @@ function openCategory(tag) {
     if (!projectTags[i].includes(tag)) return;
     const item = document.createElement("button");
     item.className = "project-item";
-    item.innerHTML = `<img data-src="${projectThumbnail(p.image)}" alt="${p.title} project cover" loading="lazy" decoding="async"><span>${String(i + 1).padStart(2, "0")} / ${String(projects.length).padStart(2, "0")}</span><strong>${p.title}</strong><em>${projectTags[i].join(" · ")}</em>`;
+    item.innerHTML = `<div class="project-preview"><img data-src="${projectThumbnail(p.image)}" alt="${p.title} project cover" loading="lazy" decoding="async"><div class="project-hover-copy" aria-hidden="true"><b>${p.role}</b><p>${p.copy}</p></div></div><span>${String(i + 1).padStart(2, "0")} / ${String(projects.length).padStart(2, "0")}</span><strong>${p.title}</strong><em>${projectTags[i].join(" · ")}</em>`;
     item.onclick = () => {
       detailOriginPanel = null;
       show(i, true);
@@ -1443,7 +1443,7 @@ addEventListener("pointerover", (event) => {
   const target = event.target.closest("button,a,[role='button']");
   cursor.classList.toggle("is-interactive", Boolean(target));
   cursor.classList.toggle("is-media", Boolean(target?.closest(".project-item,.video-preview,.cv-project-card")));
-  cursor.dataset.label = target?.closest(".video-preview") ? "PLAY" : target?.closest(".project-item,.cv-project-card") ? "VIEW" : "";
+  cursor.dataset.label = target?.closest(".video-preview") ? "PLAY" : target?.closest(".project-item,.cv-project-card") ? "OPEN" : "";
 });
 addEventListener("pointerout", (event) => {
   if (!event.relatedTarget) cursor.classList.add("is-hidden");
