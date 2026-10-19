@@ -1465,6 +1465,7 @@ const restoreProjectRoute = () => {
     (project) => projectSlug(project.title) === routeMatch[1],
   );
   if (routedIndex >= 0) {
+    document.querySelector("#route-status").textContent = "";
     enterWork();
     show(routedIndex, true);
     openNote(false);
