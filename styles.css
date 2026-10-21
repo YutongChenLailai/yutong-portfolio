@@ -831,6 +831,8 @@ body{font-weight:400;letter-spacing:0}
 .case-editorial h4{margin:28px 0 16px;font-size:18px;line-height:1.35}
 .case-editorial h4:first-child{margin-top:0}
 .case-editorial .case-flow{font-size:clamp(16px,1.6vw,21px);font-weight:500;overflow-wrap:break-word}
+.paper-page-image{background:#fff!important}
+.paper-download{display:inline-block;margin-top:8px;padding-bottom:3px;border-bottom:1px solid currentColor;font-size:clamp(16px,1.6vw,21px)}
 .case-insights{margin:0;padding:0;list-style:none;counter-reset:insight}
 .case-insights li{position:relative;display:grid;grid-template-columns:minmax(0,1fr);gap:8px;align-items:start;margin-bottom:22px;counter-increment:insight;line-height:1.55}
 .case-insights li::before{position:absolute;left:0;content:counter(insight,decimal-leading-zero) ".";color:#aaa}

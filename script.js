@@ -414,6 +414,43 @@ displayOrder.forEach((originalIndex, newIndex) => {
   if (originalPublications[originalIndex])
     publications[newIndex] = originalPublications[originalIndex];
 });
+const paperProjects = [
+  {
+    title: "Community Feedback in Vibe Coding",
+    role: "Community feedback in AI-mediated iteration.",
+    medium: "HCI · vibe coding · community feedback",
+    image: "assets/projects/community-feedback-vibe-coding/cover/cover.webp",
+    copy: "CoVibe investigates how community feedback can enter AI-mediated application iteration through bounded selection, revision, and version history.",
+    paperTitle: "How Community Feedback Affects Vibe Coding Creative Processes",
+    paperPdf: "assets/projects/community-feedback-vibe-coding/paper/manuscript.pdf",
+    paperPage: "assets/projects/community-feedback-vibe-coding/paper/page-01.webp",
+    paperMethods: "25-person formative study · N=30 deployment study · approximately 8 days · 260 contributions · 60 version transitions",
+    paperMethodsCn: "25 人形成性研究 · 30 人部署研究 · 约 8 天 · 260 条社区贡献 · 60 次版本转换",
+  },
+  {
+    title: "Sketches as Previews",
+    role: "Storyboard-style visual previews for video.",
+    medium: "HCI · visual representation · video previews",
+    image: "assets/projects/sketches-as-previews/cover/cover.webp",
+    copy: "A study of how people compress moving video into four-panel storyboard previews, and how peer evaluation helps them revise visual representations for clarity, meaning, and distinctiveness.",
+    paperTitle: "Sketches as Previews: How Humans Sketch Visual Representations for Videos",
+    paperPdf: "assets/projects/sketches-as-previews/paper/manuscript.pdf",
+    paperPage: "assets/projects/sketches-as-previews/paper/page-01.webp",
+    paperMethods: "42 participants · three-person draw-and-evaluate task · four-panel storyboard previews",
+    paperMethodsCn: "42 名参与者 · 三人绘制与评估任务 · 四格故事板预览",
+  },
+];
+Object.keys(publications).sort((a, b) => b - a).forEach((key) => {
+  publications[Number(key) + paperProjects.length] = publications[key];
+  delete publications[key];
+});
+projects.unshift(...paperProjects);
+caseCn.unshift(
+  "CoVibe 研究社区反馈如何通过受约束的筛选、AI 辅助修订与版本历史进入应用迭代过程。",
+  "一项研究人们如何把动态视频压缩为四格故事板预览，以及同伴评估如何帮助创作者提升视觉表征的清晰度、意义与辨识度。",
+);
+projectTags.unshift(["Human–AI Interaction", "Vibe Coding", "Community Feedback"], ["HCI", "Video", "Visual Communication"]);
+projectVideos.unshift([], []);
 let current = 0,
   locked = false,
   currentView = "home";
@@ -875,7 +912,9 @@ function fillNote() {
   else caseHero.style.removeProperty("background-image");
   document.querySelector("#note-type").textContent = p.medium;
   document.querySelector("#note-title").textContent = p.title;
-  document.querySelector("#case-video-links").innerHTML = p.title === "VIVID"
+  document.querySelector("#case-video-links").innerHTML = p.paperPdf
+    ? `<a href="${p.paperPdf}" target="_blank" rel="noreferrer">Read full paper / 下载 PDF ↗</a>`
+    : p.title === "VIVID"
     ? `<a href="${VIVID_PLATFORM_URL}" target="_blank" rel="noreferrer">Open platform / 访问平台 ↗</a>`
     : videos.map((v, i) => `<a href="https://youtu.be/${v.id}" target="_blank" rel="noreferrer">${videos.length > 1 ? `Video ${i + 1}` : "Watch video"} · ${v.label} ↗</a>`).join("");
   document.querySelector("#note-copy").textContent = p.copy;
@@ -894,7 +933,7 @@ function fillNote() {
     return;
   }
   const leadWithDesignSection = ["Closet X", "Navigating the Past"].includes(p.title);
-  const sections = ["Plantiever’s Illusion", "Fetorium", "Plated Fantasies", "Drown in Algae", "VIVID"].includes(p.title) || leadWithDesignSection
+  const sections = p.paperPdf || ["Plantiever’s Illusion", "Fetorium", "Plated Fantasies", "Drown in Algae", "VIVID"].includes(p.title) || leadWithDesignSection
     ? []
     : [["01", "Final outcome", "最终成果", p.copy, caseCn[current]]];
   const detailOutcomeImages = {
@@ -912,6 +951,11 @@ function fillNote() {
     container.insertAdjacentHTML("beforeend", `<section class="case-section case-editorial-section"><div class="case-label"><span>${String(sectionNumber++).padStart(2, "0")}</span><h3>${title}<small>${cnTitle}</small></h3></div><div class="case-body case-editorial">${body}</div></section>`);
   const appendOutcome = () =>
     container.insertAdjacentHTML("beforeend", `<section class="case-section"><div class="case-label"><span>${String(sectionNumber++).padStart(2, "0")}</span><h3>Final outcome<small>最终成果</small></h3></div><div class="case-body"><div class="bilingual-pair"><p lang="en">${p.copy}</p><p class="case-cn" lang="zh-CN">${caseCn[current]}</p></div><img class="outcome-image" data-src="${outcomeImage}" alt="${p.title} final outcome" loading="lazy" decoding="async"></div></section>`);
+  if (p.paperPdf) {
+    appendEditorial("Research overview", "研究概述", `<div class="bilingual-pair"><p lang="en">${p.copy}</p><p class="case-cn" lang="zh-CN">${caseCn[current]}</p></div><img class="outcome-image paper-page-image" data-src="${p.paperPage}" alt="First page of ${p.paperTitle}" loading="lazy" decoding="async">`);
+    appendEditorial("Study design", "研究设计", `<div class="bilingual-pair"><p lang="en">${p.paperMethods}</p><p class="case-cn" lang="zh-CN">${p.paperMethodsCn}</p></div><a class="paper-download" href="${p.paperPdf}" target="_blank" rel="noreferrer">Read full paper / 下载 PDF ↗</a>`);
+    return;
+  }
   const appendImageGallery = (title, images, className) => {
     container.insertAdjacentHTML(
       "beforeend",
