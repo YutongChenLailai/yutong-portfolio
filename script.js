@@ -401,7 +401,7 @@ const portfolioSeries = {
   "Plated Fantasies": platedFantasiesPortfolioSeries,
 };
 // Keep every project's parallel content aligned with the curated portfolio order.
-const displayOrder = [0, 3, 1, 4, 5, 6, 7, 10, 8, 9, 2];
+const displayOrder = [10, 0, 3, 9, 1, 4, 5, 6, 7, 8, 2];
 const reorder = (items) => displayOrder.map((index) => items[index]);
 projects.splice(0, projects.length, ...reorder(projects));
 caseCn.splice(0, caseCn.length, ...reorder(caseCn));
@@ -459,6 +459,22 @@ caseCn.unshift(
 );
 projectTags.unshift(["Human–AI Interaction", "Vibe Coding", "Community Feedback"], ["HCI", "Video", "Visual Communication"]);
 projectVideos.unshift([], []);
+const projectYears = {
+  "Community Feedback in Vibe Coding": 2027,
+  "Sketches as Previews": 2027,
+  VIVID: 2026,
+  PoopSlaves: 2025,
+  "Value Machine": 2025,
+  "Drown in Algae": 2025,
+  "Plantiever’s Illusion": 2024,
+  Fetorium: 2024,
+  "Plated Fantasies": 2024,
+  "Closet X": 2024,
+  "Navigating the Past": 2024,
+  "Feeding Fear / PEEEP": 2023,
+  "The Forbidden Hue": 2023,
+};
+projects.forEach((project) => (project.year = projectYears[project.title]));
 let current = 0,
   locked = false,
   currentView = "home";
@@ -552,7 +568,7 @@ projects.forEach((p, i) => {
   dots.append(dot);
   const item = document.createElement("button");
   item.className = "project-item";
-  item.innerHTML = `<div class="project-preview"><img data-src="${projectThumbnail(p.image)}" alt="${p.title} project cover" loading="lazy" decoding="async"><div class="project-hover-copy" aria-hidden="true"><b>${p.role}</b><p>${p.copy}</p></div></div><span>${String(i + 1).padStart(2, "0")} / ${String(projects.length).padStart(2, "0")}</span><strong>${p.title}</strong>`;
+  item.innerHTML = `<div class="project-preview"><img data-src="${projectThumbnail(p.image)}" alt="${p.title} project cover" loading="lazy" decoding="async"><div class="project-hover-copy" aria-hidden="true"><b>${p.role}</b><p>${p.copy}</p></div></div><span>${p.year} · ${String(i + 1).padStart(2, "0")} / ${String(projects.length).padStart(2, "0")}</span><strong>${p.title}</strong>`;
   item.onclick = () => {
     detailOriginPanel = { name: "index", scrollTop: item.closest(".panel").scrollTop };
     show(i, true);
@@ -595,7 +611,7 @@ function openCategory(tag) {
     if (!projectTags[i].includes(tag)) return;
     const item = document.createElement("button");
     item.className = "project-item";
-    item.innerHTML = `<div class="project-preview"><img data-src="${projectThumbnail(p.image)}" alt="${p.title} project cover" loading="lazy" decoding="async"><div class="project-hover-copy" aria-hidden="true"><b>${p.role}</b><p>${p.copy}</p></div></div><span>${String(i + 1).padStart(2, "0")} / ${String(projects.length).padStart(2, "0")}</span><strong>${p.title}</strong><em>${projectTags[i].join(" · ")}</em>`;
+    item.innerHTML = `<div class="project-preview"><img data-src="${projectThumbnail(p.image)}" alt="${p.title} project cover" loading="lazy" decoding="async"><div class="project-hover-copy" aria-hidden="true"><b>${p.role}</b><p>${p.copy}</p></div></div><span>${p.year} · ${String(i + 1).padStart(2, "0")} / ${String(projects.length).padStart(2, "0")}</span><strong>${p.title}</strong><em>${projectTags[i].join(" · ")}</em>`;
     item.onclick = () => {
       detailOriginPanel = null;
       show(i, true);
