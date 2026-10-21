@@ -416,7 +416,7 @@ displayOrder.forEach((originalIndex, newIndex) => {
 });
 const paperProjects = [
   {
-    title: "How Community Feedback Affects Vibe Coding Creative Processes",
+    title: "Community Feedback in Vibe Coding",
     role: "Community feedback in AI-mediated iteration.",
     medium: "HCI · vibe coding · community feedback",
     image: "assets/projects/community-feedback-vibe-coding/cover/cover.webp",
@@ -432,7 +432,7 @@ const paperProjects = [
     paperFindingsCn: "社区意见不仅提供修改建议，也会拓展创作者的选择空间、帮助表达尚未成形的意图、通过同伴案例重新校准可行性，并促使创作者判断何时以及如何回应既有讨论。",
   },
   {
-    title: "Sketches as Previews: How Humans Sketch Visual Representations for Videos",
+    title: "Sketches as Previews",
     role: "Storyboard-style visual previews for video.",
     medium: "HCI · visual representation · video previews",
     image: "assets/projects/sketches-as-previews/cover/cover.webp",
@@ -460,8 +460,8 @@ caseCn.unshift(
 projectTags.unshift(["Human–AI Interaction", "Vibe Coding", "Community Feedback"], ["HCI", "Video", "Visual Communication"]);
 projectVideos.unshift([], []);
 const projectYears = {
-  "How Community Feedback Affects Vibe Coding Creative Processes": 2027,
-  "Sketches as Previews: How Humans Sketch Visual Representations for Videos": 2027,
+  "Community Feedback in Vibe Coding": 2027,
+  "Sketches as Previews": 2027,
   VIVID: 2026,
   PoopSlaves: 2025,
   "Value Machine": 2025,
@@ -914,7 +914,7 @@ function fillNote() {
   const videos = projectVideos[current];
   note.classList.toggle(
     "poop-note",
-    ["PoopSlaves", "Plantiever’s Illusion", "Value Machine", "Fetorium", "Plated Fantasies", "Closet X", "Navigating the Past", "VIVID", "Feeding Fear / PEEEP", "Drown in Algae", "The Forbidden Hue", "How Community Feedback Affects Vibe Coding Creative Processes", "Sketches as Previews: How Humans Sketch Visual Representations for Videos"].includes(p.title),
+    ["PoopSlaves", "Plantiever’s Illusion", "Value Machine", "Fetorium", "Plated Fantasies", "Closet X", "Navigating the Past", "VIVID", "Feeding Fear / PEEEP", "Drown in Algae", "The Forbidden Hue", "Community Feedback in Vibe Coding", "Sketches as Previews"].includes(p.title),
   );
   note.classList.toggle("paper-note", Boolean(p.paperPdf));
   note.classList.toggle("single-video-note", videos.length === 1 || p.title === "VIVID");
@@ -929,8 +929,8 @@ function fillNote() {
     "Feeding Fear / PEEEP": p.image,
     "Drown in Algae": p.image,
     "The Forbidden Hue": p.image,
-    "How Community Feedback Affects Vibe Coding Creative Processes": p.image,
-    "Sketches as Previews: How Humans Sketch Visual Representations for Videos": p.image,
+    "Community Feedback in Vibe Coding": p.image,
+    "Sketches as Previews": p.image,
   };
   const caseHero = document.querySelector(".case-hero");
   const detailHeroImage = detailHeroImages[p.title];
