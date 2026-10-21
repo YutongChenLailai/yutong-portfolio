@@ -422,10 +422,14 @@ const paperProjects = [
     image: "assets/projects/community-feedback-vibe-coding/cover/cover.webp",
     copy: "CoVibe investigates how community feedback can enter AI-mediated application iteration through bounded selection, revision, and version history.",
     paperTitle: "How Community Feedback Affects Vibe Coding Creative Processes",
-    paperPdf: "assets/projects/community-feedback-vibe-coding/paper/manuscript.pdf",
-    paperPage: "assets/projects/community-feedback-vibe-coding/paper/page-01.webp",
+    paperPdf: "assets/projects/community-feedback-vibe-coding/paper/workflow.pdf",
+    paperLabel: "Project workflow PDF / 项目流程图",
     paperMethods: "25-person formative study · N=30 deployment study · approximately 8 days · 260 contributions · 60 version transitions",
     paperMethodsCn: "25 人形成性研究 · 30 人部署研究 · 约 8 天 · 260 条社区贡献 · 60 次版本转换",
+    paperQuestion: "How does community feedback reshape creative direction, intention, perceived feasibility, and a creator’s position within an existing discussion?",
+    paperQuestionCn: "社区反馈如何改变创作方向、潜在意图、对可行性的判断，以及创作者在既有讨论中的位置？",
+    paperFindings: "Community input expands the option space beyond obvious fixes, gives language to latent intentions, makes unfamiliar directions feel feasible through peer examples, and prompts creators to decide when and how feedback should enter their own process.",
+    paperFindingsCn: "社区意见不仅提供修改建议，也会拓展创作者的选择空间、帮助表达尚未成形的意图、通过同伴案例重新校准可行性，并促使创作者判断何时以及如何回应既有讨论。",
   },
   {
     title: "Sketches as Previews",
@@ -435,9 +439,13 @@ const paperProjects = [
     copy: "A study of how people compress moving video into four-panel storyboard previews, and how peer evaluation helps them revise visual representations for clarity, meaning, and distinctiveness.",
     paperTitle: "Sketches as Previews: How Humans Sketch Visual Representations for Videos",
     paperPdf: "assets/projects/sketches-as-previews/paper/manuscript.pdf",
-    paperPage: "assets/projects/sketches-as-previews/paper/page-01.webp",
+    paperLabel: "Research manuscript / 研究手稿",
     paperMethods: "42 participants · three-person draw-and-evaluate task · four-panel storyboard previews",
     paperMethodsCn: "42 名参与者 · 三人绘制与评估任务 · 四格故事板预览",
+    paperQuestion: "How do people select, compress, and visually encode movement, emotion, causality, and camera action when a video must become a short static preview?",
+    paperQuestionCn: "当动态视频被压缩成简短的静态预览时，人们如何选择并编码动作、情绪、因果关系与镜头运动？",
+    paperFindings: "Participants combined colour, salience, mood shading, arrows, motion lines, labels, speech bubbles, designed typography, and deliberate omission. Peer evaluation revealed which visual conventions remained legible and which required revision.",
+    paperFindingsCn: "参与者综合使用色彩、视觉显著性、氛围明暗、箭头、运动线、文字标签、对话框、设计字体与主动省略。同伴评估进一步揭示哪些视觉惯例能够被准确理解，哪些需要重新修订。",
   },
 ];
 Object.keys(publications).sort((a, b) => b - a).forEach((key) => {
@@ -890,8 +898,9 @@ function fillNote() {
   const videos = projectVideos[current];
   note.classList.toggle(
     "poop-note",
-    ["PoopSlaves", "Plantiever’s Illusion", "Value Machine", "Fetorium", "Plated Fantasies", "Closet X", "Navigating the Past", "VIVID", "Feeding Fear / PEEEP", "Drown in Algae", "The Forbidden Hue"].includes(p.title),
+    ["PoopSlaves", "Plantiever’s Illusion", "Value Machine", "Fetorium", "Plated Fantasies", "Closet X", "Navigating the Past", "VIVID", "Feeding Fear / PEEEP", "Drown in Algae", "The Forbidden Hue", "Community Feedback in Vibe Coding", "Sketches as Previews"].includes(p.title),
   );
+  note.classList.toggle("paper-note", Boolean(p.paperPdf));
   note.classList.toggle("single-video-note", videos.length === 1 || p.title === "VIVID");
   note.classList.toggle("plantiever-note", p.title === "Plantiever’s Illusion");
   note.classList.toggle("value-note", p.title === "Value Machine");
@@ -904,6 +913,8 @@ function fillNote() {
     "Feeding Fear / PEEEP": p.image,
     "Drown in Algae": p.image,
     "The Forbidden Hue": p.image,
+    "Community Feedback in Vibe Coding": p.image,
+    "Sketches as Previews": p.image,
   };
   const caseHero = document.querySelector(".case-hero");
   const detailHeroImage = detailHeroImages[p.title];
@@ -912,9 +923,7 @@ function fillNote() {
   else caseHero.style.removeProperty("background-image");
   document.querySelector("#note-type").textContent = p.medium;
   document.querySelector("#note-title").textContent = p.title;
-  document.querySelector("#case-video-links").innerHTML = p.paperPdf
-    ? `<a href="${p.paperPdf}" target="_blank" rel="noreferrer">Read full paper / 下载 PDF ↗</a>`
-    : p.title === "VIVID"
+  document.querySelector("#case-video-links").innerHTML = p.title === "VIVID"
     ? `<a href="${VIVID_PLATFORM_URL}" target="_blank" rel="noreferrer">Open platform / 访问平台 ↗</a>`
     : videos.map((v, i) => `<a href="https://youtu.be/${v.id}" target="_blank" rel="noreferrer">${videos.length > 1 ? `Video ${i + 1}` : "Watch video"} · ${v.label} ↗</a>`).join("");
   document.querySelector("#note-copy").textContent = p.copy;
@@ -952,8 +961,10 @@ function fillNote() {
   const appendOutcome = () =>
     container.insertAdjacentHTML("beforeend", `<section class="case-section"><div class="case-label"><span>${String(sectionNumber++).padStart(2, "0")}</span><h3>Final outcome<small>最终成果</small></h3></div><div class="case-body"><div class="bilingual-pair"><p lang="en">${p.copy}</p><p class="case-cn" lang="zh-CN">${caseCn[current]}</p></div><img class="outcome-image" data-src="${outcomeImage}" alt="${p.title} final outcome" loading="lazy" decoding="async"></div></section>`);
   if (p.paperPdf) {
-    appendEditorial("Research overview", "研究概述", `<div class="bilingual-pair"><p lang="en">${p.copy}</p><p class="case-cn" lang="zh-CN">${caseCn[current]}</p></div><img class="outcome-image paper-page-image" data-src="${p.paperPage}" alt="First page of ${p.paperTitle}" loading="lazy" decoding="async">`);
-    appendEditorial("Study design", "研究设计", `<div class="bilingual-pair"><p lang="en">${p.paperMethods}</p><p class="case-cn" lang="zh-CN">${p.paperMethodsCn}</p></div><a class="paper-download" href="${p.paperPdf}" target="_blank" rel="noreferrer">Read full paper / 下载 PDF ↗</a>`);
+    appendEditorial("Research overview", "研究概述", `<div class="bilingual-pair"><p lang="en">${p.copy}</p><p class="case-cn" lang="zh-CN">${caseCn[current]}</p></div>`);
+    appendEditorial("Research question", "研究问题", `<div class="bilingual-pair"><p lang="en">${p.paperQuestion}</p><p class="case-cn" lang="zh-CN">${p.paperQuestionCn}</p></div>`);
+    appendEditorial("Key findings", "主要发现", `<div class="bilingual-pair"><p lang="en">${p.paperFindings}</p><p class="case-cn" lang="zh-CN">${p.paperFindingsCn}</p></div>`);
+    appendEditorial("Study design", "研究设计", `<div class="bilingual-pair"><p lang="en">${p.paperMethods}</p><p class="case-cn" lang="zh-CN">${p.paperMethodsCn}</p></div><details class="paper-disclosure"><summary><span>${p.paperLabel}</span><span aria-hidden="true">↓</span></summary><div><p>${p.paperTitle}</p><a class="paper-download" href="${p.paperPdf}" target="_blank" rel="noreferrer">Open PDF / 打开 PDF ↗</a></div></details>`);
     return;
   }
   const appendImageGallery = (title, images, className) => {
