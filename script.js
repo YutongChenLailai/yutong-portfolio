@@ -981,12 +981,12 @@ function fillNote() {
     container.insertAdjacentHTML("beforeend", `<section class="case-section"><div class="case-label"><span>${String(sectionNumber++).padStart(2, "0")}</span><h3>Final outcome<small>最终成果</small></h3></div><div class="case-body"><div class="bilingual-pair"><p lang="en">${p.copy}</p><p class="case-cn" lang="zh-CN">${caseCn[current]}</p></div><img class="outcome-image" data-src="${outcomeImage}" alt="${p.title} final outcome" loading="lazy" decoding="async"></div></section>`);
   if (p.paperPdf) {
     appendEditorial("Research overview", "研究概述", `<div class="bilingual-pair"><p lang="en">${p.copy}</p><p class="case-cn" lang="zh-CN">${caseCn[current]}</p></div>`);
+    if (p.paperInlineImage)
+      appendEditorial("Project workflow", "项目流程图", `<img class="paper-inline-image" src="${p.paperInlineImage}" alt="${p.paperTitle}" loading="lazy" decoding="async">`);
     appendEditorial("Research question", "研究问题", `<div class="bilingual-pair"><p lang="en">${p.paperQuestion}</p><p class="case-cn" lang="zh-CN">${p.paperQuestionCn}</p></div>`);
     appendEditorial("Key findings", "主要发现", `<div class="bilingual-pair"><p lang="en">${p.paperFindings}</p><p class="case-cn" lang="zh-CN">${p.paperFindingsCn}</p></div>`);
-    const paperContent = p.paperInlineImage
-      ? `<img class="paper-inline-image" src="${p.paperInlineImage}" alt="${p.paperTitle}" loading="lazy" decoding="async">`
-      : `<div class="paper-scroll-reader" role="region" aria-label="${p.paperTitle}">${Array.from({ length: p.paperPageCount }, (_, index) => `<img src="${p.paperPagePrefix}${String(index + 1).padStart(2, "0")}.jpg" alt="${p.paperTitle}, page ${index + 1} of ${p.paperPageCount}" loading="lazy" decoding="async">`).join("")}</div>`;
-    appendEditorial("Study design", "研究设计", `<div class="bilingual-pair"><p lang="en">${p.paperMethods}</p><p class="case-cn" lang="zh-CN">${p.paperMethodsCn}</p></div><details class="paper-disclosure"><summary><span>${p.paperLabel}</span><span aria-hidden="true">↓</span></summary><div>${paperContent}</div></details>`);
+    const manuscriptDisclosure = p.paperInlineImage ? "" : `<details class="paper-disclosure"><summary><span>${p.paperLabel}</span><span aria-hidden="true">↓</span></summary><div><div class="paper-scroll-reader" role="region" aria-label="${p.paperTitle}">${Array.from({ length: p.paperPageCount }, (_, index) => `<img src="${p.paperPagePrefix}${String(index + 1).padStart(2, "0")}.jpg" alt="${p.paperTitle}, page ${index + 1} of ${p.paperPageCount}" loading="lazy" decoding="async">`).join("")}</div></div></details>`;
+    appendEditorial("Study design", "研究设计", `<div class="bilingual-pair"><p lang="en">${p.paperMethods}</p><p class="case-cn" lang="zh-CN">${p.paperMethodsCn}</p></div>${manuscriptDisclosure}`);
     return;
   }
   const appendImageGallery = (title, images, className) => {
