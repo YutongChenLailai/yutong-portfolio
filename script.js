@@ -424,7 +424,9 @@ const paperProjects = [
     paperTitle: "How Community Feedback Affects Vibe Coding Creative Processes",
     paperPdf: "assets/projects/community-feedback-vibe-coding/paper/workflow.pdf",
     paperInlineImage: "assets/projects/community-feedback-vibe-coding/paper/workflow.png",
-    paperLabel: "Project workflow PDF / 项目流程图",
+    paperPagePrefix: "assets/projects/community-feedback-vibe-coding/paper/pages/page-",
+    paperPageCount: 35,
+    paperLabel: "Research manuscript / 研究手稿",
     paperMethods: "25-person formative study · N=30 deployment study · approximately 8 days · 260 contributions · 60 version transitions",
     paperMethodsCn: "25 人形成性研究 · 30 人部署研究 · 约 8 天 · 260 条社区贡献 · 60 次版本转换",
     paperQuestion: "<strong>RQ1.</strong> How can we understand and design for vibe coders’ collaborative work?<br><strong>RQ2.</strong> How do vibe coders work together creatively in a collaborative platform?",
@@ -985,7 +987,7 @@ function fillNote() {
       appendEditorial("Project workflow", "项目流程图", `<img class="paper-inline-image" src="${p.paperInlineImage}" alt="${p.paperTitle}" loading="lazy" decoding="async">`);
     appendEditorial("Research question", "研究问题", `<div class="bilingual-pair"><p lang="en">${p.paperQuestion}</p><p class="case-cn" lang="zh-CN">${p.paperQuestionCn}</p></div>`);
     appendEditorial("Key findings", "主要发现", `<div class="bilingual-pair"><p lang="en">${p.paperFindings}</p><p class="case-cn" lang="zh-CN">${p.paperFindingsCn}</p></div>`);
-    const manuscriptDisclosure = p.paperInlineImage ? "" : `<details class="paper-disclosure"><summary><span>${p.paperLabel}</span><span aria-hidden="true">↓</span></summary><div><div class="paper-scroll-reader" role="region" aria-label="${p.paperTitle}">${Array.from({ length: p.paperPageCount }, (_, index) => `<img src="${p.paperPagePrefix}${String(index + 1).padStart(2, "0")}.jpg" alt="${p.paperTitle}, page ${index + 1} of ${p.paperPageCount}" loading="lazy" decoding="async">`).join("")}</div></div></details>`;
+    const manuscriptDisclosure = p.paperPagePrefix ? `<details class="paper-disclosure"><summary><span>${p.paperLabel}</span><span aria-hidden="true">↓</span></summary><div><div class="paper-scroll-reader" role="region" aria-label="${p.paperTitle}">${Array.from({ length: p.paperPageCount }, (_, index) => `<img src="${p.paperPagePrefix}${String(index + 1).padStart(2, "0")}.jpg" alt="${p.paperTitle}, page ${index + 1} of ${p.paperPageCount}" loading="lazy" decoding="async">`).join("")}</div></div></details>` : "";
     appendEditorial("Study design", "研究设计", `<div class="bilingual-pair"><p lang="en">${p.paperMethods}</p><p class="case-cn" lang="zh-CN">${p.paperMethodsCn}</p></div>${manuscriptDisclosure}`);
     return;
   }
