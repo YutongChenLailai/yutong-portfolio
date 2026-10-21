@@ -427,8 +427,8 @@ const paperProjects = [
     paperLabel: "Project workflow PDF / 项目流程图",
     paperMethods: "25-person formative study · N=30 deployment study · approximately 8 days · 260 contributions · 60 version transitions",
     paperMethodsCn: "25 人形成性研究 · 30 人部署研究 · 约 8 天 · 260 条社区贡献 · 60 次版本转换",
-    paperQuestion: "How does community feedback reshape creative direction, intention, perceived feasibility, and a creator’s position within an existing discussion?",
-    paperQuestionCn: "社区反馈如何改变创作方向、潜在意图、对可行性的判断，以及创作者在既有讨论中的位置？",
+    paperQuestion: "<strong>RQ1.</strong> How can we understand and design for vibe coders’ collaborative work?<br><strong>RQ2.</strong> How do vibe coders work together creatively in a collaborative platform?",
+    paperQuestionCn: "<strong>RQ1.</strong> 我们如何理解氛围编程者的协作工作，并为此进行设计？<br><strong>RQ2.</strong> 氛围编程者如何在协作平台中共同开展创造性工作？",
     paperFindings: "Community input expands the option space beyond obvious fixes, gives language to latent intentions, makes unfamiliar directions feel feasible through peer examples, and prompts creators to decide when and how feedback should enter their own process.",
     paperFindingsCn: "社区意见不仅提供修改建议，也会拓展创作者的选择空间、帮助表达尚未成形的意图、通过同伴案例重新校准可行性，并促使创作者判断何时以及如何回应既有讨论。",
   },
@@ -440,11 +440,13 @@ const paperProjects = [
     copy: "A study of how people compress moving video into four-panel storyboard previews, and how peer evaluation helps them revise visual representations for clarity, meaning, and distinctiveness.",
     paperTitle: "Sketches as Previews: How Humans Sketch Visual Representations for Videos",
     paperPdf: "assets/projects/sketches-as-previews/paper/manuscript.pdf",
+    paperPagePrefix: "assets/projects/sketches-as-previews/paper/pages/page-",
+    paperPageCount: 30,
     paperLabel: "Research manuscript / 研究手稿",
     paperMethods: "42 participants · three-person draw-and-evaluate task · four-panel storyboard previews",
     paperMethodsCn: "42 名参与者 · 三人绘制与评估任务 · 四格故事板预览",
-    paperQuestion: "How do people select, compress, and visually encode movement, emotion, causality, and camera action when a video must become a short static preview?",
-    paperQuestionCn: "当动态视频被压缩成简短的静态预览时，人们如何选择并编码动作、情绪、因果关系与镜头运动？",
+    paperQuestion: "<strong>RQ1.</strong> How do people create meaningful visual representations of videos for the purposes of captioning?<br><strong>RQ2.</strong> How do people improve these visual representations given peer feedback?",
+    paperQuestionCn: "<strong>RQ1.</strong> 人们如何为视频描述创建有意义的视觉表征？<br><strong>RQ2.</strong> 人们如何在获得同伴反馈后改进这些视觉表征？",
     paperFindings: "Participants combined colour, salience, mood shading, arrows, motion lines, labels, speech bubbles, designed typography, and deliberate omission. Peer evaluation revealed which visual conventions remained legible and which required revision.",
     paperFindingsCn: "参与者综合使用色彩、视觉显著性、氛围明暗、箭头、运动线、文字标签、对话框、设计字体与主动省略。同伴评估进一步揭示哪些视觉惯例能够被准确理解，哪些需要重新修订。",
   },
@@ -983,7 +985,7 @@ function fillNote() {
     appendEditorial("Key findings", "主要发现", `<div class="bilingual-pair"><p lang="en">${p.paperFindings}</p><p class="case-cn" lang="zh-CN">${p.paperFindingsCn}</p></div>`);
     const paperContent = p.paperInlineImage
       ? `<img class="paper-inline-image" src="${p.paperInlineImage}" alt="${p.paperTitle}" loading="lazy" decoding="async">`
-      : `<p>${p.paperTitle}</p><a class="paper-download" href="${p.paperPdf}" target="_blank" rel="noreferrer">Open PDF / 打开 PDF ↗</a>`;
+      : `<div class="paper-scroll-reader" role="region" aria-label="${p.paperTitle}">${Array.from({ length: p.paperPageCount }, (_, index) => `<img src="${p.paperPagePrefix}${String(index + 1).padStart(2, "0")}.jpg" alt="${p.paperTitle}, page ${index + 1} of ${p.paperPageCount}" loading="lazy" decoding="async">`).join("")}</div>`;
     appendEditorial("Study design", "研究设计", `<div class="bilingual-pair"><p lang="en">${p.paperMethods}</p><p class="case-cn" lang="zh-CN">${p.paperMethodsCn}</p></div><details class="paper-disclosure"><summary><span>${p.paperLabel}</span><span aria-hidden="true">↓</span></summary><div>${paperContent}</div></details>`);
     return;
   }
