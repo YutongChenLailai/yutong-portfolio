@@ -841,7 +841,10 @@ body{font-weight:400;letter-spacing:0}
 .paper-disclosure>div{padding:4px 0 20px}
 .paper-disclosure>div>p{margin:0 0 8px;font-size:16px;line-height:1.35}
 .paper-inline-image{display:block;width:100%;height:auto;background:#fff}
-.paper-scroll-reader{width:min(280px,100%);height:min(48vh,390px);overflow-y:auto;overscroll-behavior:contain;background:#777;scrollbar-gutter:stable}
+.paper-scroll-reader{width:min(280px,100%);height:min(48vh,390px);overflow-y:auto;overscroll-behavior:contain;background:#fff;scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.2) transparent}
+.paper-scroll-reader::-webkit-scrollbar{width:4px}
+.paper-scroll-reader::-webkit-scrollbar-track{background:transparent}
+.paper-scroll-reader::-webkit-scrollbar-thumb{border-radius:4px;background:rgba(0,0,0,.2)}
 .paper-scroll-reader img{display:block;width:100%;height:auto;margin:0 0 1px;background:#fff}
 .case-insights{margin:0;padding:0;list-style:none;counter-reset:insight}
 .case-insights li{position:relative;display:grid;grid-template-columns:minmax(0,1fr);gap:8px;align-items:start;margin-bottom:22px;counter-increment:insight;line-height:1.55}
