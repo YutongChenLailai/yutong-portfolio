@@ -840,6 +840,7 @@ body{font-weight:400;letter-spacing:0}
 .paper-disclosure[open] summary span:last-child{transform:rotate(180deg)}
 .paper-disclosure>div{padding:4px 0 20px}
 .paper-disclosure>div>p{margin:0 0 8px;font-size:16px;line-height:1.35}
+.paper-inline-image{display:block;width:100%;height:auto;background:#fff}
 .case-insights{margin:0;padding:0;list-style:none;counter-reset:insight}
 .case-insights li{position:relative;display:grid;grid-template-columns:minmax(0,1fr);gap:8px;align-items:start;margin-bottom:22px;counter-increment:insight;line-height:1.55}
 .case-insights li::before{position:absolute;left:0;content:counter(insight,decimal-leading-zero) ".";color:#aaa}
