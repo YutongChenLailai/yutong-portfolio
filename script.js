@@ -916,7 +916,6 @@ function fillNote() {
     "poop-note",
     ["PoopSlaves", "Plantiever’s Illusion", "Value Machine", "Fetorium", "Plated Fantasies", "Closet X", "Navigating the Past", "VIVID", "Feeding Fear / PEEEP", "Drown in Algae", "The Forbidden Hue", "Community Feedback in Vibe Coding", "Sketches as Previews"].includes(p.title),
   );
-  note.classList.toggle("paper-note", Boolean(p.paperPdf));
   note.classList.toggle("single-video-note", videos.length === 1 || p.title === "VIVID");
   note.classList.toggle("plantiever-note", p.title === "Plantiever’s Illusion");
   note.classList.toggle("value-note", p.title === "Value Machine");
