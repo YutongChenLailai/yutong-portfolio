@@ -841,6 +841,9 @@ body{font-weight:400;letter-spacing:0}
 .paper-disclosure>div{padding:4px 0 20px}
 .paper-disclosure>div>p{margin:0 0 8px;font-size:16px;line-height:1.35}
 .paper-inline-image{display:block;width:100%;height:auto;background:#fff}
+.community-note .case-section,.community-note .case-label{border-bottom:0!important}
+.covibe-research-figures{display:grid;gap:clamp(28px,5vw,64px)}
+.covibe-research-figures img{display:block;width:100%;height:auto;background:#fff;object-fit:contain}
 .paper-scroll-reader{width:min(280px,100%);height:min(48vh,390px);overflow-y:auto;overscroll-behavior:contain;background:#fff;scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.2) transparent}
 .paper-scroll-reader::-webkit-scrollbar{width:4px}
 .paper-scroll-reader::-webkit-scrollbar-track{background:transparent}
@@ -1379,14 +1382,14 @@ button:disabled{cursor:wait;opacity:.55}
   body,button,a,[role="button"]{cursor:none!important}
   .cursor{
     position:fixed;left:0;top:0;z-index:2000;display:grid;place-items:center;
-    width:18px;height:18px;border:1px solid #fff;border-radius:50%;
-    background:#fff;color:#000;pointer-events:none;opacity:1;
-    mix-blend-mode:difference;will-change:transform,width,height;
-    transition:width .45s cubic-bezier(.34,1.56,.64,1),height .45s cubic-bezier(.34,1.56,.64,1),opacity .2s ease,background-color .2s ease;
+    width:10px;height:10px;border:0;border-radius:50%;
+    background:#111;color:#000;pointer-events:none;opacity:1;
+    mix-blend-mode:normal;will-change:transform,width,height,background-color;
+    transition:width .34s cubic-bezier(.22,.61,.36,1),height .34s cubic-bezier(.22,.61,.36,1),opacity .2s ease,background-color .28s ease;
   }
   .cursor::after{content:attr(data-label);font-size:9px;font-weight:700;letter-spacing:.06em;opacity:0;transition:opacity .18s ease}
-  .cursor.is-interactive{width:46px;height:46px;background:#fff}
-  .cursor.is-media{width:72px;height:72px;mix-blend-mode:normal}
+  .cursor.is-interactive{width:46px;height:46px;background:#ffff18}
+  .cursor.is-media{width:72px;height:72px;background:#ffff18;mix-blend-mode:normal}
   .cursor.is-media::after{opacity:1}
   .cursor.is-pressed{width:34px;height:34px;transition-duration:.12s}
   .cursor.is-hidden{opacity:0}

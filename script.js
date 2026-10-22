@@ -1,4 +1,4 @@
-const MEDIA_REVISION = "20260925-content";
+const MEDIA_REVISION = "20261022-covibe";
 const VALUE_MACHINE_COVER_REVISION = "bb51a916";
 const VIVID_PLATFORM_URL = "https://community-memory-prototype.vercel.app/";
 const media = (src) =>
@@ -424,6 +424,10 @@ const paperProjects = [
     paperTitle: "How Community Feedback Affects Vibe Coding Creative Processes",
     paperPdf: "assets/projects/community-feedback-vibe-coding/paper/workflow.pdf",
     paperInlineImage: "assets/projects/community-feedback-vibe-coding/paper/workflow.png",
+    detailImages: [
+      "assets/projects/community-feedback-vibe-coding/gallery/research-finding.webp",
+      "assets/projects/community-feedback-vibe-coding/gallery/comment-synthesis.webp",
+    ],
     paperPagePrefix: "assets/projects/community-feedback-vibe-coding/paper/pages/page-",
     paperPageCount: 35,
     paperLabel: "Research manuscript / 研究手稿",
@@ -922,6 +926,7 @@ function fillNote() {
     ["PoopSlaves", "Plantiever’s Illusion", "Value Machine", "Fetorium", "Plated Fantasies", "Closet X", "Navigating the Past", "VIVID", "Feeding Fear / PEEEP", "Drown in Algae", "The Forbidden Hue", "Community Feedback in Vibe Coding", "Sketches as Previews"].includes(p.title),
   );
   note.classList.toggle("paper-note", Boolean(p.paperPdf));
+  note.classList.toggle("community-note", p.title === "Community Feedback in Vibe Coding");
   note.classList.toggle("single-video-note", videos.length === 1 || p.title === "VIVID");
   note.classList.toggle("plantiever-note", p.title === "Plantiever’s Illusion");
   note.classList.toggle("value-note", p.title === "Value Machine");
@@ -987,6 +992,8 @@ function fillNote() {
       appendEditorial("Project workflow", "项目流程图", `<img class="paper-inline-image" src="${p.paperInlineImage}" alt="${p.paperTitle}" loading="lazy" decoding="async">`);
     appendEditorial("Research question", "研究问题", `<div class="bilingual-pair"><p lang="en">${p.paperQuestion}</p><p class="case-cn" lang="zh-CN">${p.paperQuestionCn}</p></div>`);
     appendEditorial("Key findings", "主要发现", `<div class="bilingual-pair"><p lang="en">${p.paperFindings}</p><p class="case-cn" lang="zh-CN">${p.paperFindingsCn}</p></div>`);
+    if (p.detailImages)
+      appendEditorial("Research findings", "研究发现", `<div class="covibe-research-figures">${p.detailImages.map((src,index) => `<img src="${src}" alt="${p.paperTitle}, research figure ${index + 1}" loading="lazy" decoding="async">`).join("")}</div>`);
     const manuscriptDisclosure = p.paperPagePrefix ? `<details class="paper-disclosure"><summary><span>${p.paperLabel}</span><span aria-hidden="true">↓</span></summary><div><div class="paper-scroll-reader" role="region" aria-label="${p.paperTitle}">${Array.from({ length: p.paperPageCount }, (_, index) => `<img src="${p.paperPagePrefix}${String(index + 1).padStart(2, "0")}.jpg" alt="${p.paperTitle}, page ${index + 1} of ${p.paperPageCount}" loading="lazy" decoding="async">`).join("")}</div></div></details>` : "";
     appendEditorial("Study design", "研究设计", `<div class="bilingual-pair"><p lang="en">${p.paperMethods}</p><p class="case-cn" lang="zh-CN">${p.paperMethodsCn}</p></div>${manuscriptDisclosure}`);
     return;
