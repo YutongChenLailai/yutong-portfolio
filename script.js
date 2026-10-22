@@ -990,12 +990,15 @@ function fillNote() {
   if (p.paperPdf) {
     appendEditorial("Research overview", "研究概述", `<div class="bilingual-pair"><p lang="en">${p.copy}</p><p class="case-cn" lang="zh-CN">${caseCn[current]}</p></div>`);
     appendEditorial("Research question", "研究问题", `<div class="bilingual-pair"><p lang="en">${p.paperQuestion}</p><p class="case-cn" lang="zh-CN">${p.paperQuestionCn}</p></div>`);
-    const findingsFigures = p.detailImages ? `<div class="covibe-research-figures">${p.detailImages.map((src,index) => `<img src="${src}" alt="${p.paperTitle}, research figure ${index + 1}" loading="lazy" decoding="async">`).join("")}</div>` : "";
+    const pairedManuscriptFigure = p.title === "Community Feedback in Vibe Coding" && p.detailImages?.length ? p.detailImages[p.detailImages.length - 1] : "";
+    const findingImages = pairedManuscriptFigure ? p.detailImages.slice(0, -1) : p.detailImages;
+    const findingsFigures = findingImages?.length ? `<div class="covibe-research-figures">${findingImages.map((src,index) => `<img src="${src}" alt="${p.paperTitle}, research figure ${index + 1}" loading="lazy" decoding="async">`).join("")}</div>` : "";
     appendEditorial("Key findings", "主要发现", `<div class="bilingual-pair"><p lang="en">${p.paperFindings}</p><p class="case-cn" lang="zh-CN">${p.paperFindingsCn}</p></div>${findingsFigures}`);
     const studyImage = p.paperInlineImage ? `<img class="paper-inline-image" src="${p.paperInlineImage}" alt="${p.paperTitle} study design" loading="lazy" decoding="async">` : "";
     appendEditorial("Study design", "研究设计", `<div class="${p.paperInlineImage ? "covibe-study-layout" : ""}"><div class="bilingual-pair"><p lang="en">${p.paperMethods}</p><p class="case-cn" lang="zh-CN">${p.paperMethodsCn}</p></div>${studyImage}</div>`);
     const manuscriptReader = p.paperPagePrefix ? `<div class="paper-scroll-reader" role="region" tabindex="0" aria-label="${p.paperTitle}">${Array.from({ length: p.paperPageCount }, (_, index) => `<img src="${p.paperPagePrefix}${String(index + 1).padStart(2, "0")}.jpg" alt="${p.paperTitle}, page ${index + 1} of ${p.paperPageCount}" loading="lazy" decoding="async" fetchpriority="low">`).join("")}</div>` : "";
-    appendEditorial("Research manuscript", "研究手稿", manuscriptReader);
+    const manuscriptBody = pairedManuscriptFigure ? `<div class="covibe-manuscript-row"><img src="${pairedManuscriptFigure}" alt="${p.paperTitle}, comment synthesis" loading="lazy" decoding="async">${manuscriptReader}</div>` : manuscriptReader;
+    appendEditorial("Research manuscript", "研究手稿", manuscriptBody);
     return;
   }
   const appendImageGallery = (title, images, className) => {
