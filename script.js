@@ -999,6 +999,15 @@ function fillNote() {
     const manuscriptReader = p.paperPagePrefix ? `<div class="paper-scroll-reader" role="region" tabindex="0" aria-label="${p.paperTitle}">${Array.from({ length: p.paperPageCount }, (_, index) => `<img src="${p.paperPagePrefix}${String(index + 1).padStart(2, "0")}.jpg" alt="${p.paperTitle}, page ${index + 1} of ${p.paperPageCount}" loading="lazy" decoding="async" fetchpriority="low">`).join("")}</div>` : "";
     const manuscriptBody = pairedManuscriptFigure ? `<div class="covibe-manuscript-row"><img src="${pairedManuscriptFigure}" alt="${p.paperTitle}, comment synthesis" loading="lazy" decoding="async">${manuscriptReader}</div>` : manuscriptReader;
     appendEditorial("Research manuscript", "研究手稿", manuscriptBody);
+    if (p.title === "Sketches as Previews") {
+      const paperSections = container.querySelectorAll(".case-editorial-section");
+      const studySection = paperSections[paperSections.length - 2];
+      const manuscriptSection = paperSections[paperSections.length - 1];
+      const row = document.createElement("div");
+      row.className = "paper-sections-row";
+      container.insertBefore(row, studySection);
+      row.append(studySection, manuscriptSection);
+    }
     return;
   }
   const appendImageGallery = (title, images, className) => {
