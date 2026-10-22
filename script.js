@@ -927,6 +927,7 @@ function fillNote() {
   );
   note.classList.toggle("paper-note", Boolean(p.paperPdf));
   note.classList.toggle("community-note", p.title === "Community Feedback in Vibe Coding");
+  note.classList.toggle("sketches-note", p.title === "Sketches as Previews");
   note.classList.toggle("single-video-note", videos.length === 1 || p.title === "VIVID");
   note.classList.toggle("plantiever-note", p.title === "Plantiever’s Illusion");
   note.classList.toggle("value-note", p.title === "Value Machine");
@@ -988,14 +989,13 @@ function fillNote() {
     container.insertAdjacentHTML("beforeend", `<section class="case-section"><div class="case-label"><span>${String(sectionNumber++).padStart(2, "0")}</span><h3>Final outcome<small>最终成果</small></h3></div><div class="case-body"><div class="bilingual-pair"><p lang="en">${p.copy}</p><p class="case-cn" lang="zh-CN">${caseCn[current]}</p></div><img class="outcome-image" data-src="${outcomeImage}" alt="${p.title} final outcome" loading="lazy" decoding="async"></div></section>`);
   if (p.paperPdf) {
     appendEditorial("Research overview", "研究概述", `<div class="bilingual-pair"><p lang="en">${p.copy}</p><p class="case-cn" lang="zh-CN">${caseCn[current]}</p></div>`);
-    if (p.paperInlineImage)
-      appendEditorial("Project workflow", "项目流程图", `<img class="paper-inline-image" src="${p.paperInlineImage}" alt="${p.paperTitle}" loading="lazy" decoding="async">`);
     appendEditorial("Research question", "研究问题", `<div class="bilingual-pair"><p lang="en">${p.paperQuestion}</p><p class="case-cn" lang="zh-CN">${p.paperQuestionCn}</p></div>`);
-    appendEditorial("Key findings", "主要发现", `<div class="bilingual-pair"><p lang="en">${p.paperFindings}</p><p class="case-cn" lang="zh-CN">${p.paperFindingsCn}</p></div>`);
-    if (p.detailImages)
-      appendEditorial("Research findings", "研究发现", `<div class="covibe-research-figures">${p.detailImages.map((src,index) => `<img src="${src}" alt="${p.paperTitle}, research figure ${index + 1}" loading="lazy" decoding="async">`).join("")}</div>`);
-    const manuscriptDisclosure = p.paperPagePrefix ? `<details class="paper-disclosure"><summary><span>${p.paperLabel}</span><span aria-hidden="true">↓</span></summary><div><div class="paper-scroll-reader" role="region" aria-label="${p.paperTitle}">${Array.from({ length: p.paperPageCount }, (_, index) => `<img src="${p.paperPagePrefix}${String(index + 1).padStart(2, "0")}.jpg" alt="${p.paperTitle}, page ${index + 1} of ${p.paperPageCount}" loading="lazy" decoding="async">`).join("")}</div></div></details>` : "";
-    appendEditorial("Study design", "研究设计", `<div class="bilingual-pair"><p lang="en">${p.paperMethods}</p><p class="case-cn" lang="zh-CN">${p.paperMethodsCn}</p></div>${manuscriptDisclosure}`);
+    const findingsFigures = p.detailImages ? `<div class="covibe-research-figures">${p.detailImages.map((src,index) => `<img src="${src}" alt="${p.paperTitle}, research figure ${index + 1}" loading="lazy" decoding="async">`).join("")}</div>` : "";
+    appendEditorial("Key findings", "主要发现", `<div class="bilingual-pair"><p lang="en">${p.paperFindings}</p><p class="case-cn" lang="zh-CN">${p.paperFindingsCn}</p></div>${findingsFigures}`);
+    const studyImage = p.paperInlineImage ? `<img class="paper-inline-image" src="${p.paperInlineImage}" alt="${p.paperTitle} study design" loading="lazy" decoding="async">` : "";
+    appendEditorial("Study design", "研究设计", `<div class="${p.paperInlineImage ? "covibe-study-layout" : ""}"><div class="bilingual-pair"><p lang="en">${p.paperMethods}</p><p class="case-cn" lang="zh-CN">${p.paperMethodsCn}</p></div>${studyImage}</div>`);
+    const manuscriptReader = p.paperPagePrefix ? `<div class="paper-scroll-reader" role="region" tabindex="0" aria-label="${p.paperTitle}">${Array.from({ length: p.paperPageCount }, (_, index) => `<img src="${p.paperPagePrefix}${String(index + 1).padStart(2, "0")}.jpg" alt="${p.paperTitle}, page ${index + 1} of ${p.paperPageCount}" loading="lazy" decoding="async" fetchpriority="low">`).join("")}</div>` : "";
+    appendEditorial("Research manuscript", "研究手稿", manuscriptReader);
     return;
   }
   const appendImageGallery = (title, images, className) => {
