@@ -849,22 +849,22 @@ body{font-weight:400;letter-spacing:0}
 .covibe-manuscript-row{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(240px,.55fr);gap:clamp(20px,3vw,44px);align-items:start;max-width:none}
 .covibe-manuscript-row>img{display:block;width:100%;height:auto;background:#fff;object-fit:contain}
 .covibe-manuscript-row .paper-scroll-reader{width:100%}
-.paper-sections-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.72fr);gap:clamp(32px,5vw,80px);padding-inline:clamp(24px,7.5vw,150px)}
-.paper-sections-row>.case-section{padding-inline:0!important}
-.paper-sections-row .case-body{width:100%}
+.paper-sections-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,.55fr);gap:clamp(32px,4vw,64px);width:auto;max-width:none;margin-left:var(--detail-left,0);margin-right:var(--detail-right,0);overflow:hidden}
+.paper-sections-row>.case-section{min-width:0;width:100%;margin:0;padding-inline:0!important}
+.paper-sections-row .case-label,.paper-sections-row .case-body,.paper-sections-row .case-editorial{min-width:0;width:100%;max-width:100%}
 .paper-sections-row .paper-scroll-reader{width:min(360px,100%)}
 .paper-scroll-reader{width:min(280px,100%);height:min(48vh,390px);overflow-y:auto;overscroll-behavior:contain;background:#fff;scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.2) transparent}
 .paper-scroll-reader::-webkit-scrollbar{width:4px}
 .paper-scroll-reader::-webkit-scrollbar-track{background:transparent}
 .paper-scroll-reader::-webkit-scrollbar-thumb{border-radius:4px;background:rgba(0,0,0,.2)}
-.paper-scroll-reader img{display:block;width:100%;height:auto;margin:0 0 1px;background:#fff}
+.paper-scroll-reader img{display:block;width:100%;height:auto;aspect-ratio:210/297;object-fit:contain;margin:0 0 1px;background:#fff}
 .paper-note.sketches-note .case-hero{background-color:#fff!important;background-size:min(78vw,1120px) auto!important;background-repeat:no-repeat!important;background-position:center!important}
 .paper-note.sketches-note .case-hero:after{background:rgba(0,0,0,.34)}
 @media(max-width:760px){
   .covibe-study-layout{grid-template-columns:1fr}
   .covibe-manuscript-row{grid-template-columns:1fr}
   .covibe-manuscript-row .paper-scroll-reader{width:min(280px,100%)}
-  .paper-sections-row{grid-template-columns:1fr;padding-inline:var(--page-edge);gap:0}
+  .paper-sections-row{grid-template-columns:1fr;margin-inline:0;padding-inline:var(--page-edge);gap:0}
   .paper-note.sketches-note .case-hero{background-size:88vw auto!important}
 }
 .case-insights{margin:0;padding:0;list-style:none;counter-reset:insight}

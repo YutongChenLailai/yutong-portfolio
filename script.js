@@ -147,6 +147,21 @@ const registerMedia = (root = document) => {
   });
   root.querySelectorAll("img[src]").forEach(configureImage);
 };
+
+const hydratePaperReader = (reader) => {
+  if (!reader || reader.dataset.readerReady) return;
+  reader.dataset.readerReady = "true";
+  const loadNearbyPages = () => {
+    const threshold = reader.scrollTop + reader.clientHeight * 2.5;
+    reader.querySelectorAll("img[data-paper-src]").forEach((img) => {
+      if (img.offsetTop > threshold) return;
+      img.src = img.dataset.paperSrc;
+      img.removeAttribute("data-paper-src");
+    });
+  };
+  reader.addEventListener("scroll", loadNearbyPages, { passive: true });
+  loadNearbyPages();
+};
 new MutationObserver((mutations) => {
   mutations.forEach((mutation) =>
     mutation.addedNodes.forEach((node) => {
@@ -996,7 +1011,11 @@ function fillNote() {
     appendEditorial("Key findings", "主要发现", `<div class="bilingual-pair"><p lang="en">${p.paperFindings}</p><p class="case-cn" lang="zh-CN">${p.paperFindingsCn}</p></div>${findingsFigures}`);
     const studyImage = p.paperInlineImage ? `<img class="paper-inline-image" src="${p.paperInlineImage}" alt="${p.paperTitle} study design" loading="lazy" decoding="async">` : "";
     appendEditorial("Study design", "研究设计", `<div class="${p.paperInlineImage ? "covibe-study-layout" : ""}"><div class="bilingual-pair"><p lang="en">${p.paperMethods}</p><p class="case-cn" lang="zh-CN">${p.paperMethodsCn}</p></div>${studyImage}</div>`);
-    const manuscriptReader = p.paperPagePrefix ? `<div class="paper-scroll-reader" role="region" tabindex="0" aria-label="${p.paperTitle}">${Array.from({ length: p.paperPageCount }, (_, index) => `<img src="${p.paperPagePrefix}${String(index + 1).padStart(2, "0")}.jpg" alt="${p.paperTitle}, page ${index + 1} of ${p.paperPageCount}" loading="lazy" decoding="async" fetchpriority="low">`).join("")}</div>` : "";
+    const manuscriptReader = p.paperPagePrefix ? `<div class="paper-scroll-reader" role="region" tabindex="0" aria-label="${p.paperTitle}">${Array.from({ length: p.paperPageCount }, (_, index) => {
+      const pageSrc = `${p.paperPagePrefix}${String(index + 1).padStart(2, "0")}.jpg`;
+      const source = index < 2 ? `src="${pageSrc}"` : `data-paper-src="${pageSrc}"`;
+      return `<img ${source} alt="${p.paperTitle}, page ${index + 1} of ${p.paperPageCount}" loading="lazy" decoding="async" fetchpriority="low">`;
+    }).join("")}</div>` : "";
     const manuscriptBody = pairedManuscriptFigure ? `<div class="covibe-manuscript-row"><img src="${pairedManuscriptFigure}" alt="${p.paperTitle}, comment synthesis" loading="lazy" decoding="async">${manuscriptReader}</div>` : manuscriptReader;
     appendEditorial("Research manuscript", "研究手稿", manuscriptBody);
     if (p.title === "Sketches as Previews") {
@@ -1008,6 +1027,7 @@ function fillNote() {
       container.insertBefore(row, studySection);
       row.append(studySection, manuscriptSection);
     }
+    container.querySelectorAll(".paper-scroll-reader").forEach(hydratePaperReader);
     return;
   }
   const appendImageGallery = (title, images, className) => {
