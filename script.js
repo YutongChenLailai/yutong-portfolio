@@ -253,7 +253,9 @@ const projects = [
   },
 ];
 const projectThumbnail = (src) =>
-  media(
+  src === "assets/projects/community-feedback-vibe-coding/cover/cover.webp"
+    ? media(src)
+    : media(
     src.includes("/gallery/")
       ? src.replace(/\.(webp|jpe?g)$/i, "-480.$1")
       : src.replace(/\.(webp|jpe?g)$/i, "-thumb.$1"),
