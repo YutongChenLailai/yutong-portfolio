@@ -439,7 +439,7 @@ const paperProjects = [
     image: "assets/projects/community-feedback-vibe-coding/cover/cover.webp",
     copy: "CoVibe investigates how community feedback can enter AI-mediated application iteration through bounded selection, revision, and version history.",
     paperTitle: "How Community Feedback Affects Vibe Coding Creative Processes",
-    paperPdf: "assets/projects/community-feedback-vibe-coding/paper/workflow.pdf",
+    paperPdf: "assets/projects/community-feedback-vibe-coding/paper/manuscript.pdf",
     paperInlineImage: "assets/projects/community-feedback-vibe-coding/paper/workflow.png",
     detailImages: [
       "assets/projects/community-feedback-vibe-coding/gallery/research-finding.webp",
@@ -448,12 +448,18 @@ const paperProjects = [
     paperPagePrefix: "assets/projects/community-feedback-vibe-coding/paper/pages/page-",
     paperPageCount: 35,
     paperLabel: "Research manuscript / 研究手稿",
-    paperMethods: "25-person formative study · N=30 deployment study · approximately 8 days · 260 contributions · 60 version transitions",
-    paperMethodsCn: "25 人形成性研究 · 30 人部署研究 · 约 8 天 · 260 条社区贡献 · 60 次版本转换",
+    paperAuthors: "R. Shi, T. Zhu, Y. Chen, F. Zhang, Q. Wu, H. Li",
+    paperStatus: "Manuscript under review for ACM CHI 2027 / ACM CHI 2027 审稿中",
+    paperContribution: "An empirical and design account of collaborative vibe coding: formative design challenges, the CoVibe feedback-to-revision workflow, and an account of how comments and executable versions shape participation.",
+    paperContributionCn: "协作式氛围编程的经验与设计研究：形成性设计挑战、CoVibe 反馈到修订工作流，以及评论和可执行版本如何组织参与的经验解释。",
+    paperLimitations: "The deployment lasted approximately eight days with two revision rounds. Participation varied, the implementation used a specific AI model, and participants were recruited rather than naturally adopting the platform. The findings describe this bounded setting and do not establish long-term community outcomes.",
+    paperLimitationsCn: "部署约持续 8 天且只有两轮修订；参与程度存在差异，系统使用特定 AI 模型，参与者通过招募加入。结论适用于这一有限研究情境，不能据此确定长期社区效果。",
+    paperMethods: "25 formative interviews informed CoVibe: a platform connecting community comments, bounded feedback selection, AI-mediated revision, and version provenance. An approximately eight-day deployment with 30 participants covered two revision rounds (V0–V1–V2). The analysis combined 253 community contributions, 60 version transitions, platform activity, selection and provenance records, and post-study interviews.",
+    paperMethodsCn: "25 人形成性访谈为 CoVibe 的设计提供依据；平台连接社区评论、有限反馈筛选、AI 辅助修订与版本溯源。随后开展约 8 天、30 人参与的部署研究，覆盖 V0–V1–V2 两轮修订，综合分析 253 条社区贡献、60 次版本转换、平台活动、筛选与溯源记录及研究后访谈。",
     paperQuestion: "<strong>RQ1.</strong> How can we understand and design for vibe coders’ collaborative work?<br><strong>RQ2.</strong> How do vibe coders work together creatively in a collaborative platform?",
     paperQuestionCn: "<strong>RQ1.</strong> 我们如何理解氛围编程者的协作工作，并为此进行设计？<br><strong>RQ2.</strong> 氛围编程者如何在协作平台中共同开展创造性工作？",
-    paperFindings: "Community input expands the option space beyond obvious fixes, gives language to latent intentions, makes unfamiliar directions feel feasible through peer examples, and prompts creators to decide when and how feedback should enter their own process.",
-    paperFindingsCn: "社区意见不仅提供修改建议，也会拓展创作者的选择空间、帮助表达尚未成形的意图、通过同伴案例重新校准可行性，并促使创作者判断何时以及如何回应既有讨论。",
+    paperFindings: "Creators negotiated when an application was ready for participation and what remained open to change. Comments retained social and evaluative meaning even when they became revision sources. Selection bounded which contributions were materialized, but unselected comments could still influence creators. Runnable revisions made one interpretation of feedback inspectable, revealing unexpected consequences and clarifying authorial boundaries.",
+    paperFindingsCn: "创作者协商应用何时适合他人参与，以及哪些部分可以改变；评论即使成为修订来源，仍保留社交与评价意义。筛选限定了哪些贡献会被实现，但未被选中的评论仍可能影响创作者。可运行的新版本使反馈的一种具体诠释可被检验，并揭示意外后果与作者希望保留的边界。",
   },
   {
     title: "Sketches as Previews",
@@ -466,8 +472,14 @@ const paperProjects = [
     paperPagePrefix: "assets/projects/sketches-as-previews/paper/pages/page-",
     paperPageCount: 30,
     paperLabel: "Research manuscript / 研究手稿",
-    paperMethods: "42 participants · three-person draw-and-evaluate task · four-panel storyboard previews",
-    paperMethodsCn: "42 名参与者 · 三人绘制与评估任务 · 四格故事板预览",
+    paperAuthors: "J. Huang, Y. Chen, S. Sun, R. Yu, RAY LC",
+    paperStatus: "Manuscript under review for ACM CHI 2027 / ACM CHI 2027 审稿中",
+    paperContribution: "An account of visual video captioning as strategic compression, showing how people combine visual and textual channels and use peer misreadings to repair representations. The study informs human-feedback-in-the-loop preview design.",
+    paperContributionCn: "将视觉视频描述理解为策略性压缩：解释人们如何组合图像与文字通道，并利用同伴误读修正表征，为人在反馈回路中的视频预览设计提供依据。",
+    paperLimitations: "Findings are relative to four-panel sketches, curated film excerpts, and a four-candidate identification task. Evaluators shared the task context; recognition in an open collection or by unfamiliar viewers may differ. Reported code frequencies describe this corpus rather than a population.",
+    paperLimitationsCn: "结果受四格草图、筛选后的电影片段与四选一识别任务约束；评估者共享任务背景，在开放视频集合或陌生观众中的识别效果可能不同。编码频率仅描述本研究语料，不能视为总体估计。",
+    paperMethods: "42 participants took part in 14 three-person sessions using MovieDraw. Each participant watched a 45-second film clip, marked intended moments on a timeline, and drew a four-panel preview. Peers identified the source from four candidate clips, after which sketchers revised their work. Analysis examined sketches, revisions, and replay-cued interviews, comparing original and revised representations.",
+    paperMethodsCn: "42 名参与者通过 MovieDraw 参加 14 场三人研究。每人观看 45 秒电影片段，在时间轴标注拟表现的时刻，并绘制四格预览；同伴从四个候选片段中识别来源，绘制者再根据评估修订。研究分析草图、修改过程与回放辅助访谈，并比较修改前后的表征。",
     paperQuestion: "<strong>RQ1.</strong> How do people create meaningful visual representations of videos for the purposes of captioning?<br><strong>RQ2.</strong> How do people improve these visual representations given peer feedback?",
     paperQuestionCn: "<strong>RQ1.</strong> 人们如何为视频描述创建有意义的视觉表征？<br><strong>RQ2.</strong> 人们如何在获得同伴反馈后改进这些视觉表征？",
     paperFindings: "Participants combined colour, salience, mood shading, arrows, motion lines, labels, speech bubbles, designed typography, and deliberate omission. Peer evaluation revealed which visual conventions remained legible and which required revision.",
@@ -1005,30 +1017,23 @@ function fillNote() {
   const appendOutcome = () =>
     container.insertAdjacentHTML("beforeend", `<section class="case-section"><div class="case-label"><span>${String(sectionNumber++).padStart(2, "0")}</span><h3>Final outcome<small>最终成果</small></h3></div><div class="case-body"><div class="bilingual-pair"><p lang="en">${p.copy}</p><p class="case-cn" lang="zh-CN">${caseCn[current]}</p></div><img class="outcome-image" data-src="${outcomeImage}" alt="${p.title} final outcome" loading="lazy" decoding="async"></div></section>`);
   if (p.paperPdf) {
-    appendEditorial("Research overview", "研究概述", `<div class="bilingual-pair"><p lang="en">${p.copy}</p><p class="case-cn" lang="zh-CN">${caseCn[current]}</p></div>`);
-    appendEditorial("Research question", "研究问题", `<div class="bilingual-pair"><p lang="en">${p.paperQuestion}</p><p class="case-cn" lang="zh-CN">${p.paperQuestionCn}</p></div>`);
-    const pairedManuscriptFigure = p.title === "Community Feedback in Vibe Coding" && p.detailImages?.length ? p.detailImages[p.detailImages.length - 1] : "";
-    const findingImages = pairedManuscriptFigure ? p.detailImages.slice(0, -1) : p.detailImages;
-    const findingsFigures = findingImages?.length ? `<div class="covibe-research-figures">${findingImages.map((src,index) => `<img src="${src}" alt="${p.paperTitle}, research figure ${index + 1}" loading="lazy" decoding="async">`).join("")}</div>` : "";
-    appendEditorial("Key findings", "主要发现", `<div class="bilingual-pair"><p lang="en">${p.paperFindings}</p><p class="case-cn" lang="zh-CN">${p.paperFindingsCn}</p></div>${findingsFigures}`);
-    const studyImage = p.paperInlineImage ? `<img class="paper-inline-image" src="${p.paperInlineImage}" alt="${p.paperTitle} study design" loading="lazy" decoding="async">` : "";
-    appendEditorial("Study design", "研究设计", `<div class="${p.paperInlineImage ? "covibe-study-layout" : ""}"><div class="bilingual-pair"><p lang="en">${p.paperMethods}</p><p class="case-cn" lang="zh-CN">${p.paperMethodsCn}</p></div>${studyImage}</div>`);
+    const bilingual = (en, cn) => `<div class="bilingual-pair"><p lang="en">${en}</p><p class="case-cn" lang="zh-CN">${cn}</p></div>`;
+    appendEditorial("Paper & people", "论文与作者", `<div class="paper-record"><h4>${p.paperTitle}</h4><p>${p.paperAuthors}</p><p class="paper-status">${p.paperStatus}</p><a class="paper-download" href="${p.paperPdf}" target="_blank" rel="noreferrer">Read full manuscript / 阅读完整手稿 ↗</a></div>`);
+    appendEditorial("Research overview", "研究概述", bilingual(p.copy, caseCn[current]));
+    appendEditorial("Research questions", "研究问题", bilingual(p.paperQuestion, p.paperQuestionCn));
+    const studyImage = p.paperInlineImage ? `<figure class="research-figure"><img class="paper-inline-image" src="${p.paperInlineImage}" alt="CoVibe workflow and study design" loading="lazy" decoding="async"><figcaption>CoVibe workflow and two-stage study / CoVibe 工作流与两阶段研究</figcaption></figure>` : "";
+    appendEditorial("Study design", "研究设计", `<div class="${p.paperInlineImage ? "covibe-study-layout" : ""}">${bilingual(p.paperMethods, p.paperMethodsCn)}${studyImage}</div>`);
+    const findingsFigures = p.detailImages?.length ? `<div class="covibe-research-figures">${p.detailImages.map((src, index) => `<figure class="research-figure"><img src="${src}" alt="${p.paperTitle}, research figure ${index + 1}" loading="lazy" decoding="async"><figcaption>${index === 0 ? "Research findings / 研究发现" : "Community contribution analysis / 社区贡献分析"}</figcaption></figure>`).join("")}</div>` : "";
+    appendEditorial("Key findings", "主要发现", `${bilingual(p.paperFindings, p.paperFindingsCn)}${findingsFigures}`);
+    appendEditorial("Contribution", "研究贡献", bilingual(p.paperContribution, p.paperContributionCn));
+    appendEditorial("Limitations", "研究局限", bilingual(p.paperLimitations, p.paperLimitationsCn));
+    appendEditorial("Citation", "引用信息", `<div class="paper-record"><p>${p.paperAuthors}. ${p.paperTitle}. Manuscript under review for ACM CHI 2027.</p><p class="case-cn">在审手稿；尚非已录用或已发表论文。</p></div>`);
     const manuscriptReader = p.paperPagePrefix ? `<div class="paper-scroll-reader" role="region" tabindex="0" aria-label="${p.paperTitle}">${Array.from({ length: p.paperPageCount }, (_, index) => {
       const pageSrc = `${p.paperPagePrefix}${String(index + 1).padStart(2, "0")}.jpg`;
       const source = index < 2 ? `src="${pageSrc}"` : `data-paper-src="${pageSrc}"`;
       return `<img ${source} alt="${p.paperTitle}, page ${index + 1} of ${p.paperPageCount}" loading="lazy" decoding="async" fetchpriority="low">`;
     }).join("")}</div>` : "";
-    const manuscriptBody = pairedManuscriptFigure ? `<div class="covibe-manuscript-row"><img src="${pairedManuscriptFigure}" alt="${p.paperTitle}, comment synthesis" loading="lazy" decoding="async">${manuscriptReader}</div>` : manuscriptReader;
-    appendEditorial("Research manuscript", "研究手稿", manuscriptBody);
-    if (p.title === "Sketches as Previews") {
-      const paperSections = container.querySelectorAll(".case-editorial-section");
-      const studySection = paperSections[paperSections.length - 2];
-      const manuscriptSection = paperSections[paperSections.length - 1];
-      const row = document.createElement("div");
-      row.className = "paper-sections-row";
-      container.insertBefore(row, studySection);
-      row.append(studySection, manuscriptSection);
-    }
+    appendEditorial("Research manuscript", "研究手稿", `<a class="paper-download" href="${p.paperPdf}" target="_blank" rel="noreferrer">Open readable PDF / 打开全文 PDF ↗</a>${manuscriptReader}`);
     container.querySelectorAll(".paper-scroll-reader").forEach(hydratePaperReader);
     return;
   }
@@ -1115,6 +1120,7 @@ function fillNote() {
       <div class="bilingual-pair"><p lang="en">Participants touch or press different food objects. Arduino captures the sensor input and triggers corresponding sound and moving-image responses in TouchDesigner. Connecting tactile input with unexpected audiovisual feedback interrupts automatic interpretations of familiar objects.</p><p class="case-cn" lang="zh-CN">参与者触碰不同的食物装置后，Arduino 读取传感器输入，并触发 TouchDesigner 中对应的声音和动态影像。装置通过连接触觉输入与非预期的视听反馈，打断参与者对熟悉物体的自动判断。</p></div>`);
   }
   if (p.title === "The Forbidden Hue") {
+    appendEditorial("Design question", "设计问题", `<div class="bilingual-pair"><p lang="en">How does immersive interaction shape users’ understanding of historical authenticity, cultural identity and narrative power?</p><p class="case-cn" lang="zh-CN">沉浸式交互如何影响用户对历史真实性、文化身份与叙事权力的理解？</p></div>`);
     appendEditorial("Overview", "项目概述", `
       <div class="bilingual-pair"><p lang="en">The Forbidden Hue is a cross-media cultural heritage project combining situated mystery play, digital narrative, and VR. Based on field research in Tiegang Village, cultural materials including Yao and Zhuang wedding customs, rituals, clothing, architecture, and traditional practices were translated into characters, clues, and spatial scenes. Players encounter this material through exploration, investigation, and digital interaction rather than through static explanation.</p><p class="case-cn" lang="zh-CN">《五色缚》是一个融合实景推理、数字叙事与 VR 的文化遗产项目。项目基于铁岗村田野调研，将瑶族、壮族村落中的婚俗、祭祀、服饰、建筑与传统技艺转译为角色、线索和空间场景。玩家通过实地探索、搜证与数字交互逐步理解故事，使文化内容不再只是被观看，而是在行动中被发现。</p></div>`);
     appendEditorial("Interaction Design", "交互设计", `
@@ -1130,16 +1136,20 @@ function fillNote() {
     appendEditorial("Overview", "项目概述", `
       <div class="bilingual-pair"><p lang="en">In Chinese visual culture, the pine tree is commonly associated with longevity, endurance, blessing, and moral constancy. Through repetition, these associations can become so familiar that they begin to feel natural and self-evident. Plantiever’s Illusion begins with this familiarity. It places pine imagery alongside human bodies, turtles, braided hair, water, and enclosed spaces, using staged performance, superimposition, repeated framing, slowed pacing, and sound to alter the conditions under which the symbol is encountered. Rather than erasing the pine tree’s inherited meaning, the work keeps it recognizable while making its interpretation less stable.</p><p class="case-cn" lang="zh-CN">在中国视觉文化中，松树常与长寿、坚韧、祝福和品格联系在一起。随着这些象征不断被重复，它们也逐渐变得熟悉而稳定，以至于我们很少再意识到自己是如何理解它们的。Plantiever’s Illusion 从这种“过度熟悉”出发，将松树与人体、乌龟、辫发、水和封闭空间重新并置。通过表演影像、叠化、重复构图、缓慢节奏与声音，作品不试图消除松树原有的文化含义，而是改变它被观看和感知的条件。熟悉的吉祥符号因此仍然可以被辨认，却不再只能指向一个稳定的答案。</p></div>`);
     appendEditorial("Core Question", "核心问题", `
-      <div class="bilingual-pair poop-question"><p lang="en">How can a digitally mediated moving-image installation support viewers in reflecting on and reinterpreting familiar cultural symbols?</p><p class="case-cn" lang="zh-CN">数字媒介化的动态影像装置如何支持观众反思并重新诠释熟悉的文化符号？</p></div>`);
+      <div class="bilingual-pair poop-question"><p lang="en">How can a digitally mediated moving-image installation disrupt the habitual reading of an auspicious symbol and prompt reflective reinterpretation?</p><p class="case-cn" lang="zh-CN">数字媒介化的动态影像装置如何打断人们对吉祥符号的习惯性解读，并促发反思性的重新诠释？</p></div>`);
+    appendEditorial("Study & preliminary findings", "研究与初步发现", `<div class="bilingual-pair"><p lang="en">A pilot study involved 12 Chinese viewers familiar with auspicious imagery. Participants viewed the moving-image work and installation documentation, then provided short written and verbal responses. The conference poster reports slowed recognition, symbolic tension, and environmental pressure: viewers recognized the familiar pine, while bodily juxtaposition, pacing, sound, and spatial arrangement unsettled its usual reading.</p><p class="case-cn" lang="zh-CN">探索性研究邀请 12 位熟悉吉祥图像的中国观众观看动态影像与装置记录，并收集简短书面及口头回应。会议海报报告了延缓识别、符号张力与环境压力三个初步主题：观众仍能认出松树，但身体并置、节奏、声音与空间安排扰动了通常的解读。</p></div>`);
+    appendEditorial("Contribution & scope", "研究贡献与范围", `<div class="bilingual-pair"><p lang="en">The work contributes a practice-based inquiry into how slowed pacing, superimposition, bodily juxtaposition, and spatial staging can reopen inherited meaning. The small pilot provides exploratory accounts of interpretation; it does not establish a general or lasting change in viewers’ beliefs.</p><p class="case-cn" lang="zh-CN">项目通过实践研究，讨论缓慢节奏、叠化、身体并置与空间呈现如何重新打开既有文化含义。小规模试验提供了对观看与解释过程的探索性认识，不能据此确定普遍或持久的观念改变。</p></div>`);
     appendEditorial("Takeaway", "项目反思", `
       <div class="bilingual-pair"><p lang="en">This project led me to think about design not only as a way of creating new symbols, but also as a way of changing how existing ones are encountered. Reinterpretation does not always require supplying a new meaning. Sometimes it begins by <strong>slowing down a meaning that has become too automatic.</strong></p><p class="case-cn" lang="zh-CN">这个项目让我开始关注：设计不一定需要创造新的符号，也可以改变我们与既有符号相遇的方式。有时，重新解释并不来自提供一个新的答案，而来自<strong>延缓一个原本过于迅速的答案</strong>。</p></div>`);
   }
   if (p.title === "Closet X") {
+    appendEditorial("Design question", "设计问题", `<div class="bilingual-pair"><p lang="en">How can a wardrobe interface support clothing selection and virtual dressing while allowing people to remain at a natural viewing distance from the mirror?</p><p class="case-cn" lang="zh-CN">衣橱界面如何支持服装选择与虚拟试衣，同时让用户保持自然的观看距离？</p></div>`);
     appendEditorial("Key Design Decision", "关键交互决策", `
       <div class="bilingual-pair"><p lang="en">The initial smart-mirror concept relied on touchscreen controls, but this created several problems in use: people would need to repeatedly move toward and away from the mirror, controls placed too high or low could be difficult to reach, and frequent touching would leave fingerprints on the reflective surface. We therefore moved the core interaction to <strong>gesture control</strong>. Users can browse and make selections while remaining at a natural viewing distance, allowing the interface to adapt to the body's position in front of the mirror rather than requiring the body to continually adapt to the screen.</p><p class="case-cn" lang="zh-CN">最初的方案考虑使用触摸屏控制智能试衣镜，但真实使用场景暴露出了明显的问题：用户需要反复靠近和远离镜面，较高或较低的按钮不容易触及，同时触摸也容易在镜面留下指纹。因此，我们最终将核心操作改为<strong>手势交互</strong>。用户可以保持正常试衣距离完成浏览与选择，让交互方式适应镜子前的身体位置，而不是要求身体不断适应屏幕。</p></div>`);
     appendOutcome();
   }
   if (p.title === "Navigating the Past") {
+    appendEditorial("Design question", "设计问题", `<div class="bilingual-pair"><p lang="en">How can navigation, spatial installations, and AR connect visitors’ movement through a historic district with its archival stories and place-based memories?</p><p class="case-cn" lang="zh-CN">导航、空间装置与 AR 如何将游客在历史街区中的移动，与档案故事和地方记忆连接起来？</p></div>`);
     appendEditorial("Interaction System", "交互系统", `
       <div class="bilingual-pair"><p lang="en">The project organizes the digital experience of the historic district through three connected spatial interfaces: <strong>path guidance, light-based boundary installations, and AR landmark interaction</strong>. A WeChat Mini Program supports navigation and information access, while real-time visual recognition identifies historic landmarks and location-based triggers connect digital content with the user's position. The interface therefore extends beyond the phone screen, operating together with streets, buildings, and the visitor's physical movement through the district.</p><p class="case-cn" lang="zh-CN">项目将历史街区的数字体验拆分为三个相互连接的空间界面：<strong>路径引导、边界光影装置与地标 AR 交互</strong>。微信小程序负责导航与信息组织，实时视觉识别用于识别历史地标，位置联动则根据用户所在位置触发对应内容。数字界面因此不只存在于手机屏幕中，而是与街道、建筑和人的实际移动共同构成导览过程。</p></div>`);
     appendOutcome();
@@ -1177,6 +1187,10 @@ function fillNote() {
     appendEditorial("Research Direction", "后续研究方向", `
       <div class="bilingual-pair"><p lang="en">The next stage asks how tangible or embodied interaction might deepen participation in digital memory experiences without distracting from the memories residents are trying to express.</p><p class="case-cn" lang="zh-CN">下一阶段将研究：当记忆交互从屏幕上的点击和修改扩展到 tangible 或 embodied interaction 时，是否能增强居民的参与和表达，同时避免交互本身分散对记忆内容的注意。</p></div>`);
   }
+  if (p.title === "Feeding Fear / PEEEP") {
+    appendEditorial("Design question", "创作问题", `<div class="bilingual-pair"><p lang="en">How is fear sustained through institutions, environments, and the social circulation of suspicion?</p><p class="case-cn" lang="zh-CN">恐惧如何通过制度、环境，以及怀疑在社会中的传播而被持续强化？</p></div>`);
+    appendEditorial("Approach", "创作路径", `<div class="bilingual-pair"><p lang="en">Feeding Fear / PEEEP approaches this question through experimental moving image. The film is the project’s primary outcome and presents fear as something shaped by its social surroundings. It is presented here as an artistic investigation.</p><p class="case-cn" lang="zh-CN">Feeding Fear / PEEEP 以实验影像回应这一问题。影片是项目的主要成果，将恐惧放回其社会环境中展开观看与思考；本页将其作为艺术创作研究呈现。</p></div>`);
+  }
   if (p.title === "Value Machine") {
     appendEditorial("Core Question", "核心问题", `
       <div class="bilingual-pair poop-question"><p lang="en">When does our judgment of an artwork become a judgment of the name attached to it?</p><p class="case-cn" lang="zh-CN">我们是在评价一件作品，还是在评价附着在作品上的名字？</p></div>`);
@@ -1207,7 +1221,7 @@ function fillNote() {
               <span class="poop-paper-count">01 / 02</span>
               <button class="poop-paper-arrow" type="button" aria-label="Show C&amp;C presentation documentation"><span>→</span></button>
             </div>
-            <div class="poop-paper-copy"><h4>ACM Creativity &amp; Cognition 2026</h4><p>Unsettling the Auspicious Pine: A Digitally Mediated Moving-Image Installation for Reflective Reinterpretation</p><a href="https://scholar.google.com/citations?view_op=view_citation&amp;hl=en&amp;user=yYgrzP8AAAAJ&amp;citation_for_view=yYgrzP8AAAAJ:u5HHmVD_uO8C" target="_blank" rel="noreferrer">Google Scholar / 查看论文 ↗</a></div>
+            <div class="poop-paper-copy"><h4>ACM Creativity &amp; Cognition 2026 · Poster</h4><p>Yutong Chen · Mengyao Guo</p><p>Unsettling the Auspicious Pine: A Digitally Mediated Moving-Image Installation for Reflective Reinterpretation</p><a href="https://scholar.google.com/citations?view_op=view_citation&amp;hl=en&amp;user=yYgrzP8AAAAJ&amp;citation_for_view=yYgrzP8AAAAJ:u5HHmVD_uO8C" target="_blank" rel="noreferrer">Google Scholar / 论文索引 ↗</a><a class="paper-download" href="https://doi.org/10.1145/3803784.3816864" target="_blank" rel="noreferrer">Publisher / 出版社页面 ↗</a><p class="paper-citation">Yutong Chen and Mengyao Guo. 2026. Unsettling the Auspicious Pine: A Digitally Mediated Moving-Image Installation for Reflective Reinterpretation. C&amp;C ’26, 1616–1621. DOI: 10.1145/3803784.3816864.</p></div>
           </article>
         </div>
       </section>`,
@@ -1319,7 +1333,7 @@ function renderPoopSlaves() {
     </section>
     <section class="poop-project-section">
       <header><span>03</span><div><h3>Research Question</h3><p>研究问题</p></div></header>
-      <div class="bilingual-pair poop-question"><p lang="en">What happens when participants can act within a system but cannot control the outcomes of their actions?</p><p class="case-cn" lang="zh-CN">当参与者能够行动，却无法控制行动的结果时，会发生什么？</p></div>
+      <div class="poop-project-copy"><h4>C&amp;C 2026 · Excremental Economy</h4><p lang="en">How can a speculative interactive system make bodily commodification and unequal value extraction experientially legible?</p><p class="case-cn" lang="zh-CN">推测性交互系统如何让身体商品化与不平等价值抽取成为可被体验和理解的过程？</p><h4>HCII 2026 · Visceral Interaction</h4><p lang="en">How can rule-based VR interaction use embodied cognitive friction to support reflection on labor alienation, value extraction, and constrained agency?</p><p class="case-cn" lang="zh-CN">基于规则的 VR 交互如何利用具身认知摩擦，支持对劳动异化、价值抽取与受限能动性的反思？</p></div>
     </section>
     <section class="poop-project-section">
       <header><span>04</span><div><h3>Interaction Logic</h3><p>交互逻辑</p></div></header>
@@ -1364,7 +1378,8 @@ function renderPoopSlaves() {
       <header><span>08</span><div><h3>Research & Conference Presentations</h3><p>论文与会议展示</p></div></header>
       <div class="bilingual-pair"><p class="poop-method" lang="en">Successive VR prototypes tested how unequal rules, delayed feedback and constrained movement could make bodily commodification felt rather than merely described.</p><p class="case-cn" lang="zh">通过多轮 VR 原型，测试不平等规则、延迟反馈与受限行动如何让身体商品化成为可感的体验，而不只是文字描述。</p></div>
       <div class="poop-paper-grid">
-        <article><img data-src="assets/projects/poopslaves/research/hcii-poster.webp" alt="HCII poster for Visceral Interaction" loading="lazy"><div class="poop-paper-copy"><h4>HCII 2026 · Late Breaking Work</h4><p>Visceral Interaction: Operationalizing Cognitive Friction through Rule-Based VR Economic Simulation</p><a href="https://scholar.google.com/scholar?q=Visceral+Interaction+Operationalizing+Cognitive+Friction+through+Rule-Based+VR+Economic+Simulation" target="_blank" rel="noreferrer">Paper record / 论文链接 ↗</a></div></article>
+        <article><div class="poop-paper-copy"><h4>AIVRID 2026 · Accepted</h4><p>Experiencing Cognitive Friction through Embodied Interaction in Virtual Reality</p><p>Yutong Chen · First author / 第一作者</p><a href="https://scholar.google.com/scholar?q=Experiencing+Cognitive+Friction+through+Embodied+Interaction+in+Virtual+Reality" target="_blank" rel="noreferrer">Find publication / 检索论文 ↗</a></div></article>
+        <article><img data-src="assets/projects/poopslaves/research/hcii-poster.webp" alt="HCII poster for Visceral Interaction" loading="lazy"><div class="poop-paper-copy"><h4>HCII 2026 · Late Breaking Work · Accepted</h4><p>Yutong Chen · Ruijie Du</p><p>Visceral Interaction: Operationalizing Cognitive Friction through Rule-Based VR Economic Simulation</p><a href="https://scholar.google.com/scholar?q=Visceral+Interaction+Operationalizing+Cognitive+Friction+through+Rule-Based+VR+Economic+Simulation" target="_blank" rel="noreferrer">Find publication / 检索论文 ↗</a></div></article>
         <article class="poop-paper-card--cc">
           <div class="poop-paper-media">
             <img class="poop-paper-media-image is-active" data-src="assets/projects/poopslaves/research/creativity-cognition-poster.webp" alt="Creativity and Cognition poster for Excremental Economy" loading="lazy" decoding="async">
@@ -1372,12 +1387,16 @@ function renderPoopSlaves() {
             <span class="poop-paper-count">01 / 02</span>
             <button class="poop-paper-arrow" type="button" aria-label="Show C&amp;C presentation documentation"><span>→</span></button>
           </div>
-          <div class="poop-paper-copy"><h4>ACM Creativity & Cognition 2026</h4><p>Excremental Economy: A Rule-Based Speculative System for Staging Bodily Commodification and Unequal Value Extraction</p><a href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=yYgrzP8AAAAJ&citation_for_view=yYgrzP8AAAAJ:u-x6o8ySG0sC" target="_blank" rel="noreferrer">Google Scholar / 查看论文 ↗</a></div>
+          <div class="poop-paper-copy"><h4>ACM Creativity &amp; Cognition 2026 · Poster</h4><p>Yutong Chen · Ruijie Du · Guanyou Li</p><p>Excremental Economy: A Rule-Based Speculative System for Staging Bodily Commodification and Unequal Value Extraction</p><a href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=yYgrzP8AAAAJ&citation_for_view=yYgrzP8AAAAJ:u-x6o8ySG0sC" target="_blank" rel="noreferrer">Google Scholar / 论文索引 ↗</a><a class="paper-download" href="https://doi.org/10.1145/3803784.3816865" target="_blank" rel="noreferrer">Publisher / 出版社页面 ↗</a><p class="paper-citation">Yutong Chen, Ruijie Du, and Guanyou Li. 2026. Excremental Economy: A Rule-Based Speculative System for Staging Bodily Commodification and Unequal Value Extraction. C&amp;C ’26, 1622–1626. DOI: 10.1145/3803784.3816865.</p></div>
         </article>
       </div>
     </section>
+    <section class="poop-project-section">
+      <header><span>09</span><div><h3>Study, contribution &amp; limits</h3><p>研究、贡献与范围</p></div></header>
+      <div class="poop-project-copy"><h4>HCII · Exploratory study / 探索性研究</h4><p lang="en">The HCII conference poster reports 12 participants, unguided VR interaction, behavioral observation, semi-structured interviews, and open coding with thematic analysis. Participants moved from trying to optimize the system toward questioning its rules; feedback mismatch, bodily effort, and spatial accumulation made constrained control and unequal extraction perceptible.</p><p class="case-cn" lang="zh-CN">HCII 会议海报报告了 12 人探索性研究，包括无引导 VR 交互、行为观察、半结构访谈及开放编码与主题分析。参与者从尝试优化操作转向质疑规则；反馈错位、身体付出与空间累积使受限控制和不平等抽取变得可感。</p><h4>C&amp;C · Work in progress / 进行中的研究</h4><p lang="en">The C&amp;C poster contributes a work-in-progress model combining rule-based worldbuilding, decoupled feedback, and constrained agency. Its preliminary demonstration observations are distinct from the HCII study. Further observation and interviews are proposed to examine interpretation.</p><p class="case-cn" lang="zh-CN">C&amp;C 海报提出一个结合规则世界构建、反馈解耦与受限能动性的进行中设计模型；其初步展示观察与 HCII 研究分别呈现。后续拟通过进一步观察与访谈考察参与者的解释过程。</p><p lang="en">These exploratory accounts support design reflection, rather than a claim that the prototype produces lasting attitude change.</p><p class="case-cn" lang="zh-CN">这些探索性材料支持设计反思，不能据此断言原型能够带来持久态度改变。</p></div>
+    </section>
     <section class="poop-graduation">
-      <header><span>09</span><div><h3>HIT Outstanding Graduation Project</h3><p>哈尔滨工业大学优秀毕业设计</p></div></header>
+      <header><span>10</span><div><h3>HIT Outstanding Graduation Project</h3><p>哈尔滨工业大学优秀毕业设计</p></div></header>
       <div class="bilingual-pair"><p class="poop-graduation-lead" lang="en">PoopSlaves was presented as Yutong Chen's undergraduate graduation project at Harbin Institute of Technology and received recognition as an Outstanding Graduation Project.</p><p class="case-cn" lang="zh">PoopSlaves 作为陈宇同在哈尔滨工业大学的本科毕业设计进行展出，并获评优秀毕业设计。</p></div>
       <div class="poop-honour-grid">
         <figure><img data-src="assets/projects/poopslaves/research/graduation-display.webp" alt="PoopSlaves undergraduate graduation exhibition display" loading="lazy"><figcaption>Graduation exhibition / 本科毕业设计陈列</figcaption></figure>
