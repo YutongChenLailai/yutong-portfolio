@@ -1443,3 +1443,5 @@ button:disabled{cursor:wait;opacity:.55}
 .research-figure{margin:0;min-width:0}
 .research-figure figcaption{margin-top:10px;font-size:13px;line-height:1.5;color:#aaa}
 .paper-record .paper-download{margin-bottom:1rem}
+
+.education-proof{margin-top:1rem;padding-top:.75rem;border-top:1px solid #555}.education-proof summary{color:#fff!important;font-weight:600}.education-proof-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin-top:1rem}.education-proof-grid figure{margin:0;min-width:0}.education-proof-grid figure>a{display:block}.education-proof-grid img{display:block;width:100%!important;max-width:none!important;height:auto;margin:0!important;background:#111}.education-proof-grid figcaption{margin-top:.4rem;color:#aaa;font-size:.86rem}.education-proof-grid a:focus-visible{outline:2px solid #fff;outline-offset:3px}@media(max-width:600px){.education-proof-grid{grid-template-columns:1fr}}
