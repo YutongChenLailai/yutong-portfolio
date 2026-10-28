@@ -1,4 +1,4 @@
-const MEDIA_REVISION = "20261022-covibe";
+const MEDIA_REVISION = "20261027-white-covers";
 const VALUE_MACHINE_COVER_REVISION = "bb51a916";
 const VIVID_PLATFORM_URL = "https://community-memory-prototype.vercel.app/";
 const media = (src) =>

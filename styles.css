@@ -1451,3 +1451,6 @@ button:disabled{cursor:wait;opacity:.55}
 .education-documents a{display:block;max-width:100%;width:280px}
 .education-evidence .education-documents img{display:block;width:100%;height:auto;margin:0}
 .education-entry{min-width:0}.education-entry>p{margin:0}
+
+/* Preserve the complete research figures inside a pure-white canvas. */
+img[src*="community-feedback-vibe-coding/"][src*="cover"],img[src*="sketches-as-previews/"][src*="cover"]{object-fit:contain!important;background:#fff!important}
