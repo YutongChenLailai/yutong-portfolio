@@ -1454,3 +1454,21 @@ button:disabled{cursor:wait;opacity:.55}
 
 /* Preserve the complete research figures inside a pure-white canvas. */
 img[src*="community-feedback-vibe-coding/"][src*="cover"],img[src*="sketches-as-previews/"][src*="cover"]{object-fit:contain!important;background:#fff!important}
+
+/* Use the header icon weight and a visible target for every certificate disclosure. */
+.award-certificate summary{display:block;min-height:36px;width:fit-content;max-width:100%;box-sizing:border-box;padding:6px 42px 6px 8px;cursor:pointer;border-radius:3px;transition:background-color 160ms ease,color 160ms ease}
+.award-certificate summary::after{content:none}
+.disclosure-arrow{position:absolute;right:8px;top:6px;display:block;width:24px;height:24px;transition:transform 160ms ease;pointer-events:none}
+.award-certificate[open] .disclosure-arrow{transform:rotate(180deg)}
+.award-certificate summary:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+.profile-photo{display:block;width:100px!important;height:125px!important;object-fit:contain;background:#fff;flex:none}
+@media(prefers-reduced-motion:reduce){.award-certificate summary,.disclosure-arrow{transition:none}}
+
+.award-certificate summary:hover,.award-certificate summary:focus-visible{background:#fff;color:#000}
+.award-certificate summary:hover .cv-cn,.award-certificate summary:focus-visible .cv-cn{color:inherit!important}
+.about-resume>header{grid-column:1/-1;display:flex;flex-direction:row;align-items:flex-start;justify-content:flex-start;gap:24px}
+.profile-name-copy{min-width:0}
+.contact-emails{display:grid!important;grid-template-columns:1fr!important;gap:16px!important}
+.contact-emails>div{display:grid;grid-template-columns:minmax(190px,40%) minmax(0,1fr);gap:16px}
+.contact-emails dt{font-size:14px}.contact-emails dd{overflow-wrap:anywhere}
+@media(max-width:760px){.contact-emails>div{grid-template-columns:1fr;gap:4px}.about-resume>header{gap:18px}.profile-photo{width:80px!important;height:100px!important}}
