@@ -1454,3 +1454,11 @@ button:disabled{cursor:wait;opacity:.55}
 
 /* Preserve the complete research figures inside a pure-white canvas. */
 img[src*="community-feedback-vibe-coding/"][src*="cover"],img[src*="sketches-as-previews/"][src*="cover"]{object-fit:contain!important;background:#fff!important}
+/* Top-align button contents so wrapped project titles cannot shift image rows. */
+@media(min-width:761px){
+ .project-list{align-items:stretch}
+ .project-item{display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;min-width:0;align-content:start}
+ .project-preview{flex:none;width:100%;aspect-ratio:4/3}
+ .project-preview>img{display:block;width:100%;height:100%;aspect-ratio:auto}
+}
+@media(max-width:760px){.project-preview{grid-row:1/3;width:104px;height:84px}.project-preview>img{display:block}}
