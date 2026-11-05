@@ -1094,6 +1094,7 @@ function fillNote() {
     renderGallery();
   };
   if (p.title === "Drown in Algae") {
+    appendEditorial("HKUST InnoBay 2025", "港科大科创营", `<a class="paper-link" href="https://ais.hkust.edu.hk/whats-happening/news/innobay-summer-camp-2025-turning-marine-innovation-action-greater-bay-area" target="_blank" rel="noopener noreferrer">HKUST InnoBay 2025 · Official camp report / 港科大官方报道</a>`);
     appendEditorial("Overview", "项目概述", `
       <div class="bilingual-pair"><p lang="en">Drown in Algae begins with coastal oil pollution in Zhoushan and asks how an environmental process that is difficult for the public to perceive can become visible. The project proposes an eco-art system built around an algal biofilm that participates in oil-pollution remediation and carbon fixation. The installation translates these slow ecological processes into observable information, treating remediation itself as a public interface.</p><p class="case-cn" lang="zh-CN">Drown in Algae 从舟山沿海的石油污染问题出发，探索如何让难以被公众持续感知的海洋污染变得可见。项目提出一套以藻类生物膜为核心的生态艺术系统，设想利用藻类参与石油污染处理与二氧化碳固定，并将缓慢发生的生态过程转化为可观察的信息，让修复本身成为一种公共界面。</p></div>`);
     appendEditorial("Research Question", "研究问题", `
