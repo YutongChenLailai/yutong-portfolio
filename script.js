@@ -248,7 +248,7 @@ const projects = [
     title: "VIVID",
     role: "An AI-assisted platform for revisiting community memories.",
     medium: "human–AI interaction · place-based memory · participatory design",
-    image: "assets/projects/vivid/cover/cover.webp",
+    image: "assets/projects/vivid-cover-20261105.png",
     copy: "A generative-AI-assisted platform through which residents revisit, correct, and discuss place-based community memories.",
   },
 ];
