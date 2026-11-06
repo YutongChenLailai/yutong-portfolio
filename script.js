@@ -449,7 +449,7 @@ const paperProjects = [
     paperPageCount: 35,
     paperLabel: "Research manuscript / 研究手稿",
     paperAuthors: "R. Shi, T. Zhu, Y. Chen, F. Zhang, Q. Wu, H. Li",
-    paperStatus: "Manuscript under review for ACM CHI 2027 / ACM CHI 2027 审稿中",
+    paperStatus: "Research manuscript / 研究手稿",
     paperContribution: "An empirical and design account of collaborative vibe coding: formative design challenges, the CoVibe feedback-to-revision workflow, and an account of how comments and executable versions shape participation.",
     paperContributionCn: "协作式氛围编程的经验与设计研究：形成性设计挑战、CoVibe 反馈到修订工作流，以及评论和可执行版本如何组织参与的经验解释。",
     paperLimitations: "The deployment lasted approximately eight days with two revision rounds. Participation varied, the implementation used a specific AI model, and participants were recruited rather than naturally adopting the platform. The findings describe this bounded setting and do not establish long-term community outcomes.",
@@ -473,7 +473,7 @@ const paperProjects = [
     paperPageCount: 30,
     paperLabel: "Research manuscript / 研究手稿",
     paperAuthors: "J. Huang, Y. Chen, S. Sun, R. Yu, RAY LC",
-    paperStatus: "Manuscript under review for ACM CHI 2027 / ACM CHI 2027 审稿中",
+    paperStatus: "Research manuscript / 研究手稿",
     paperContribution: "An account of visual video captioning as strategic compression, showing how people combine visual and textual channels and use peer misreadings to repair representations. The study informs human-feedback-in-the-loop preview design.",
     paperContributionCn: "将视觉视频描述理解为策略性压缩：解释人们如何组合图像与文字通道，并利用同伴误读修正表征，为人在反馈回路中的视频预览设计提供依据。",
     paperLimitations: "Findings are relative to four-panel sketches, curated film excerpts, and a four-candidate identification task. Evaluators shared the task context; recognition in an open collection or by unfamiliar viewers may differ. Reported code frequencies describe this corpus rather than a population.",
@@ -486,17 +486,17 @@ const paperProjects = [
     paperFindingsCn: "参与者综合使用色彩、视觉显著性、氛围明暗、箭头、运动线、文字标签、对话框、设计字体与主动省略。同伴评估进一步揭示哪些视觉惯例能够被准确理解，哪些需要重新修订。",
   },
 ];
-Object.keys(publications).sort((a, b) => b - a).forEach((key) => {
+Object.keys(publications).filter(key => Number(key) >= 1).sort((a, b) => b - a).forEach((key) => {
   publications[Number(key) + paperProjects.length] = publications[key];
   delete publications[key];
 });
-projects.unshift(...paperProjects);
-caseCn.unshift(
+projects.splice(1, 0, ...paperProjects);
+caseCn.splice(1, 0,
   "CoVibe 研究社区反馈如何通过受约束的筛选、AI 辅助修订与版本历史进入应用迭代过程。",
   "一项研究人们如何把动态视频压缩为四格故事板预览，以及同伴评估如何帮助创作者提升视觉表征的清晰度、意义与辨识度。",
 );
-projectTags.unshift(["Human–AI Interaction", "Vibe Coding", "Community Feedback"], ["HCI", "Video", "Visual Communication"]);
-projectVideos.unshift([], []);
+projectTags.splice(1, 0,["Human–AI Interaction", "Vibe Coding", "Community Feedback"], ["HCI", "Video", "Visual Communication"]);
+projectVideos.splice(1, 0, [], []);
 const projectYears = {
   "Community Feedback in Vibe Coding": 2027,
   "Sketches as Previews": 2027,
@@ -692,6 +692,7 @@ function show(index, instant = false) {
     medium.textContent = p.medium;
     document.querySelector(".project-link span").textContent = p.title === "VIVID" ? "Platform" : "Selected project";
     document.querySelector("#read-project").textContent = p.title === "VIVID" ? "Open platform ↗" : "View project →";
+    document.querySelector("#read-project").href = p.title === "VIVID" ? VIVID_PLATFORM_URL : "#project";
     tagButtons(current, activeTags);
     document.querySelectorAll(".dots button").forEach((d, i) => {
       d.classList.toggle("active", i === current);
@@ -1027,7 +1028,7 @@ function fillNote() {
     appendEditorial("Key findings", "主要发现", `${bilingual(p.paperFindings, p.paperFindingsCn)}${findingsFigures}`);
     appendEditorial("Contribution", "研究贡献", bilingual(p.paperContribution, p.paperContributionCn));
     appendEditorial("Limitations", "研究局限", bilingual(p.paperLimitations, p.paperLimitationsCn));
-    appendEditorial("Citation", "引用信息", `<div class="paper-record"><p>${p.paperAuthors}. ${p.paperTitle}. Manuscript under review for ACM CHI 2027.</p><p class="case-cn">在审手稿；尚非已录用或已发表论文。</p></div>`);
+    appendEditorial("Citation", "引用信息", `<div class="paper-record"><p>${p.paperAuthors}. ${p.paperTitle}. Research manuscript.</p><p class="case-cn">研究手稿；尚非已录用或已发表论文。</p></div>`);
     const manuscriptReader = p.paperPagePrefix ? `<div class="paper-scroll-reader" role="region" tabindex="0" aria-label="${p.paperTitle}">${Array.from({ length: p.paperPageCount }, (_, index) => {
       const pageSrc = `${p.paperPagePrefix}${String(index + 1).padStart(2, "0")}.jpg`;
       const source = index < 2 ? `src="${pageSrc}"` : `data-paper-src="${pageSrc}"`;
@@ -1540,9 +1541,8 @@ function closeNote(restore = true, updateRoute = true) {
     }
   }
 }
-document.querySelector("#read-project").onclick = () => {
-  if (projects[current].title === "VIVID") window.open(VIVID_PLATFORM_URL, "_blank", "noopener,noreferrer");
-  else openNote();
+document.querySelector("#read-project").onclick = (event) => {
+  if (projects[current].title !== "VIVID") { event.preventDefault(); openNote(); }
 };
 document.querySelector("#close-note").onclick = closeNote;
 let noteSwipeStart = null;
