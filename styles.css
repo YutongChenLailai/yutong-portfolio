@@ -279,8 +279,8 @@ html,body,button,a,.eyebrow,.intro-cn,.home-foot,.home-index,.kicker,.tag-button
 .poop-paper-grid article>img{width:100%;height:100%;object-fit:contain;background:#111}
 .poop-paper-grid article>.poop-paper-copy{padding:1.5rem}.poop-paper-grid h4{margin:0 0 .65rem;font-size:1.25rem}.poop-paper-grid p{color:#aaa}
 .poop-paper-grid a{display:inline-block;margin-top:1rem;padding:.75rem 1rem;border:1px solid #fff;color:#fff;text-decoration:none}.poop-paper-grid a:hover{background:#fff;color:#000}
-.poop-paper-media{position:relative;min-height:0;overflow:hidden;background:#111}
-.poop-paper-media-image{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .28s ease;will-change:opacity}
+.poop-paper-media{position:relative;min-height:0;overflow:hidden;background:#000}
+.poop-paper-media-image{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:contain;background:#000;opacity:0;transition:opacity .28s ease;will-change:opacity}
 .poop-paper-media-image.is-active{opacity:1}
 .poop-paper-count{position:absolute;left:1rem;bottom:1rem;padding:.45rem .65rem;background:rgba(0,0,0,.72);color:#fff;font-size:12px;letter-spacing:.08em}
 .poop-paper-arrow{position:absolute;right:1.2rem;top:50%;display:grid;place-items:center;width:44px;height:44px;padding:0;transform:translateY(-50%);border:1px solid #fff;border-radius:50%;background:#000;color:#fff;opacity:.35;z-index:2;transition:opacity .18s,background .18s,color .18s}
